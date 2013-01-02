@@ -131,19 +131,6 @@ set nomodeline                  " disable mode lines (security measure)
 set cursorline                  " underline the current line, for quick orientation
 set cursorcolumn                " have a vertical line marking the cursor column
 
-" Tame the quickfix window (open/close using ,f)
-"nnoremap <silent> <leader>f :QFix<CR>
-"
-"command! -bang -nargs=? QFix call QFixToggle(<bang>0)
-"function! QFixToggle(forced)
-"  if exists("g:qfix_win") && a:forced == 0
-"    cclose
-"    unlet g:qfix_win
-"  else
-"    copen 10
-"    let g:qfix_win = bufnr("$")
-"  endif
-"endfunction
 " }}}
 
 " Highlighting {{{
@@ -206,6 +193,8 @@ nnoremap <leader>w <C-w>v<C-w>l
 " Complete whole filenames/lines with a quicker shortcut key in insert mode
 inoremap <C-f> <C-x><C-f>
 inoremap <C-l> <C-x><C-l>
+" for omnicompletion
+inoremap <C-space> <C-x><C-o>
 
 " Use ,d (or ,dd or ,dj or 20,dd) to delete a line without adding it to the
 " yanked stack (also, in visual mode)
@@ -235,11 +224,6 @@ nnoremap <silent> <leader>/ :nohlsearch<CR>
 " Pull word under cursor into LHS of a substitute (for quick search and
 " replace)
 nnoremap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
-
-" Keep search matches in the middle of the window and pulse the line when moving
-" to them.
-nnoremap n n:call PulseCursorLine()<cr>
-nnoremap N N:call PulseCursorLine()<cr>
 
 " Quickly get out of insert mode without your fingers having to leave the
 " home row (either use 'jj' or 'jk')
@@ -279,10 +263,10 @@ nnoremap <F5> :GundoToggle<CR>
 "Zencoding.vim
 
 " CtrlP.vim settings {{{
-    
+
     let g:ctrlp_mruf_exclude = '.*py\|.*pyc'
     let g:ctrlp_by_filename = 1                 "Set this to 1 to set searching by filename (as opposed to full path)
-    
+
 " }}}
 
 " TagList.vim settings {{{
@@ -334,17 +318,21 @@ let Tlist_Use_Right_Window=1
  let g:pymode_lint_ignore = "W806,E501,W901,E126,E122,E123"
 " }}}
 
-" Conflict markers {{{
-" highlight conflict markers
-"match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-
-" shortcut to jump to next conflict marker
-"nnoremap <silent> <leader>c /^\(<\\|=\\|>\)\{7\}\([^=].\+\)\?$<CR>
-" }}}
-
 " Filetype specific handling {{{
 " only do this part when compiled with support for autocommands
 if has("autocmd")
+    augroup omni_functions"{{{
+        au!
+        " use <C-x><C-o> to trigger
+        autocmd FileType python set omnifunc=pythoncomplete#Complete
+        autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+        autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+        autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+        autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+        autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+        autocmd FileType c set omnifunc=ccomplete#Complete
+    augroup end "}}}
+
     augroup invisible_chars "{{{
         au!
 
@@ -421,22 +409,6 @@ if has("autocmd")
         " But disable autowrapping as it is super annoying
         autocmd filetype python setlocal formatoptions-=t
 
-        " Folding for Python (uses syntax/python.vim for fold definitions)
-        "autocmd filetype python,rst setlocal nofoldenable
-        "autocmd filetype python setlocal foldmethod=expr
-
-        " Python runners
-        "autocmd filetype python noremap <buffer> <F5> :w<CR>:!python %<CR>
-        "autocmd filetype python inoremap <buffer> <F5> <Esc>:w<CR>:!python %<CR>
-        "autocmd filetype python noremap <buffer> <S-F5> :w<CR>:!ipython %<CR>
-        "autocmd filetype python inoremap <buffer> <S-F5> <Esc>:w<CR>:!ipython %<CR>
-
-        " Automatic insertion of breakpoints
-        "autocmd filetype python nnoremap <buffer> <leader>bp :normal Oimport pdb; pdb.set_trace()<Esc>
-
-        " Toggling True/False
-        "autocmd filetype python nnoremap <silent> <C-t> mmviw:s/True\\|False/\={'True':'False','False':'True'}[submatch(0)]/<CR>`m:nohlsearch<CR>
-
     augroup end " }}}
 
     augroup markdown_files "{{{
@@ -494,11 +466,4 @@ autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
-" }}}
-
-" Powerline configuration ------------------------------------------------- {{{
-
-"let g:Powerline_symbols = 'compatible'
-let g:Powerline_symbols = 'fancy'
-
 " }}}
