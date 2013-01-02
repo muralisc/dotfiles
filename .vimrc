@@ -1,16 +1,19 @@
-"Courtsey Vincent Driessen <vincent@datafox.nl> and me
+"Courtsey Vincent Driessen <vincent@datafox.nl>
+"Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
+"and me
 
-set nocompatible
 " Use pathogen to easily modify the runtime path to include all
 " plugins under the ~/.vim/bundle directory
 call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
 
-filetype plugin indent on       " enable filetype detection, plugins and indenting in one step
-syntax on                       " syntax highlightting
+set nocompatible                " not compatible with the old-fashion vi mode
+filetype off                    " necessary to make ftdetect work on Linux
+syntax on                       " syntax highlight
+filetype on                     " Enable filetype detection
+filetype indent on              " Enable filetype-specific indenting
+filetype plugin on              " Enable filetype-specific plugins
 colorscheme desert
-
-let g:pydiction_location = '~/.vim/after/ftplugin/complete-dict'
 
 " Change the mapleader from \ to ,
 let mapleader=","
@@ -40,7 +43,6 @@ set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
 set gdefault                    " search/replace "globally" (on a line) by default
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
-
 set nolist                      " don't show invisible characters by default, muru
                                 " but it is enabled for some file types (see later)
 set pastetoggle=<F2>            " when in insert mode, press <F2> to go to
@@ -60,6 +62,7 @@ set nrformats=                  " make <C-a> and <C-x> play well with
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
 vnoremap / /\v
+"}}}
 
 " Folding rules {{{
 set foldenable                  " enable folding
@@ -132,6 +135,28 @@ set cursorline                  " underline the current line, for quick orientat
 set cursorcolumn                " have a vertical line marking the cursor column
 
 " }}}
+
+" status line {{{
+set laststatus=2
+set statusline=\ %{HasPaste()}%<%-15.25(%f%)%m%r%h\ %w\ \ 
+set statusline+=\ \ \ [%{&ff}/%Y] 
+set statusline+=\ \ \ %<%20.30(%{hostname()}:%{CurDir()}%)\ 
+set statusline+=%=%-10.(%l,%c%V%)\ %p%%/%L
+
+function! CurDir()
+    let curdir = substitute(getcwd(), $HOME, "~", "")
+    return curdir
+endfunction
+
+function! HasPaste()
+    if &paste
+        return '[PASTE]'
+    else
+        return ''
+    endif
+endfunction
+
+"}}}
 
 " Highlighting {{{
 if &t_Co > 2 || has("gui_running")
@@ -332,6 +357,14 @@ if has("autocmd")
         autocmd FileType php set omnifunc=phpcomplete#CompletePHP
         autocmd FileType c set omnifunc=ccomplete#Complete
     augroup end "}}}
+
+    " use syntax complete if nothing else available
+    if has("autocmd") && exists("+omnifunc")
+    autocmd Filetype *
+                \ if &omnifunc == "" |
+                \     setlocal omnifunc=syntaxcomplete#Complete |
+                \ endif
+    endif
 
     augroup invisible_chars "{{{
         au!
