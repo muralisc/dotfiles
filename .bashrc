@@ -18,8 +18,8 @@ if [ "$TERM" != "dumb" ]; then
     alias vdir='ls --color=auto --format=long'
 fi
 
-alias cddrop='cd /home/murali/xpdbox/'
-alias cdpro='cd /home/murali/projects/rappname/wsgi/projectname/'
+alias cddrop='cd ~/xpdbox/'
+alias cdpro='cd ~/projects/rappname/wsgi/projectname/'
 
 function play()
 {
