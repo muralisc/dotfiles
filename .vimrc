@@ -8,7 +8,6 @@ call pathogen#helptags()
 call pathogen#infect()
 
 set nocompatible                " not compatible with the old-fashion vi mode
-filetype off                    " necessary to make ftdetect work on Linux
 syntax on                       " syntax highlight
 filetype on                     " Enable filetype detection
 filetype indent on              " Enable filetype-specific indenting
@@ -48,7 +47,7 @@ set nolist                      " don't show invisible characters by default, mu
 set pastetoggle=<F2>            " when in insert mode, press <F2> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
-set mouse=a                     " enable using the mouse if terminal emulator
+"set mouse=a                     " enable using the mouse if terminal emulator
                                 "    supports it (xterm does)
 set fileformats="unix,dos,mac"
 set formatoptions+=1            " When wrapping paragraphs, don't end lines
@@ -112,15 +111,15 @@ if v:version >= 730
     set undofile                " keep a persistent backup file
     set undodir=~/.vim/.undo,~/tmp,/tmp
 endif
-set nobackup                    " do not keep backup files, it's 70's style cluttering
+set nobackup                    " do not keep backup files, it's 70's style 
 set noswapfile                  " do not write annoying intermediate swap files,
-                                "    who did ever restore from swap files anyway?
+                                "   who did ever restore from swap files anyway?
 set directory=~/.vim/.tmp,~/tmp,/tmp
                                 " store swap files in one of these directories
                                 "    (in case swapfile is ever turned on)
 set viminfo='20,\"80            " read/write a .viminfo file, don't store more
                                 "    than 80 lines of registers
-set wildmenu                    " make tab completion for files/buffers act like bash
+set wildmenu                    " tab completion for files/buffers like bash
 set wildmode=list:full          " show a list when pressing tab and complete
                                 "    first full match
 set wildignore=*.swp,*.bak,*.pyc,*.class
@@ -136,59 +135,12 @@ set cursorcolumn                " have a vertical line marking the cursor column
 
 " }}}
 
-" status line {{{
-set laststatus=2
-set statusline=\ %{HasPaste()}%<%-15.25(%f%)%m%r%h\ %w\ \ 
-set statusline+=\ \ \ [%{&ff}/%Y] 
-set statusline+=\ \ \ %<%20.30(%{hostname()}:%{CurDir()}%)\ 
-set statusline+=%=%-10.(%l,%c%V%)\ %p%%/%L
-
-function! CurDir()
-    let curdir = substitute(getcwd(), $HOME, "~", "")
-    return curdir
-endfunction
-
-function! HasPaste()
-    if &paste
-        return '[PASTE]'
-    else
-        return ''
-    endif
-endfunction
-
-"}}}
-
-" Highlighting {{{
-if &t_Co > 2 || has("gui_running")
-   syntax on                    " switch syntax highlighting on, when the terminal has colors
-endif
-" }}}
-
 " Shortcut mappings {{{
 " Since I never use the ; key anyway, this is a real optimization for almost
 " all Vim commands, as I don't have to press the Shift key to form chords to
 " enter ex mode.
 nnoremap ; :
 nnoremap <leader>; ;
-
-" Quickly close the current window
-nnoremap <leader>q :q<CR>
-
-" Use Q for formatting the current paragraph (or visual selection)
-vnoremap Q gq
-nnoremap Q gqap
-
-" make p in Visual mode replace the selected text with the yank register
-vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
-
-" Shortcut to make
-nnoremap mk :make<CR>
-
-" Swap implementations of ` and ' jump to markers
-" By default, ' jumps to the marked line, ` jumps to the marked line and
-" column, so swap them
-nnoremap ' `
-nnoremap ` '
 
 " Use the damn hjkl keys
  noremap <up> <nop>
@@ -200,33 +152,6 @@ nnoremap ` '
  inoremap <down> <nop>
  inoremap <left> <nop>
  inoremap <right> <nop>
-
-" Remap j and k to act as expected when used on long, wrapped, lines
-nnoremap j gj
-nnoremap k gk
-
-" Easy window navigation
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-nnoremap <leader>w <C-w>v<C-w>l
-
-" Complete whole filenames/lines with a quicker shortcut key in insert mode
-inoremap <C-f> <C-x><C-f>
-inoremap <C-l> <C-x><C-l>
-" for omnicompletion
-inoremap <C-space> <C-x><C-o>
-
-" Yank/paste to the OS clipboard with ,y and ,p
-nnoremap <leader>y "+y
-nnoremap <leader>Y "+yy
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-
-" Edit the vimrc file
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
-nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Clears the search register
 nnoremap <silent> <leader>/ :nohlsearch<CR>
@@ -241,11 +166,8 @@ inoremap jj <Esc>
 
 " Strip all trailing whitespace from a file, using ,w
 nnoremap <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
+" }}}
 
-" Creating folds for tags in HTML
-nnoremap <leader>ft Vatzf
-
-inoremap jj <Esc>
 " Restore cursor position upon reopening files {{{
 autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -253,77 +175,11 @@ autocmd BufReadPost *
     \ endif
 " }}}
 
-" Gundo.vim {{{
-nnoremap <F5> :GundoToggle<CR>
-"}}}
+" Gundo.vim
+" cyclecolor.vim is good pluggin
+" Zencoding.vim
+" CtrlP.vim settings
 
-"cyclecolor.vim is good pluggin
-"Zencoding.vim
-
-" CtrlP.vim settings {{{
-
-    let g:ctrlp_mruf_exclude = '.*py\|.*pyc'
-    let g:ctrlp_by_filename = 1                 "Set this to 1 to set searching by filename (as opposed to full path)
-
-" }}}
-
-" Python-Mode.vim settings {{{
- let g:pymode_lint_ignore = "W806,E501,W901,E126,E122,E123"
-" }}}
-
-" Filetype specific handling {{{
-" only do this part when compiled with support for autocommands
-if has("autocmd")
-    augroup omni_functions"{{{
-        au!
-        " use <C-x><C-o> to trigger
-        autocmd FileType python set omnifunc=pythoncomplete#Complete
-        autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-        autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-        autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-        autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-        autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-        autocmd FileType c set omnifunc=ccomplete#Complete
-    augroup end "}}}
-
-    " use syntax complete if nothing else available
-    if has("autocmd") && exists("+omnifunc")
-    autocmd Filetype *
-                \ if &omnifunc == "" |
-                \     setlocal omnifunc=syntaxcomplete#Complete |
-                \ endif
-    endif
-
-    augroup invisible_chars "{{{
-        au!
-
-        " Show invisible characters in all of these files
-        autocmd filetype vim setlocal list
-        autocmd filetype python,rst setlocal list
-        autocmd filetype ruby setlocal list
-        autocmd filetype javascript,css setlocal list
-    augroup end "}}}
-
-    augroup vim_files "{{{
-        au!
-
-        " Bind <F1> to show the keyword under cursor
-        " general help can still be entered manually, with :h
-        autocmd filetype vim noremap <buffer> <F1> <Esc>:help <C-r><C-w><CR>
-        autocmd filetype vim noremap! <buffer> <F1> <Esc>:help <C-r><C-w><CR>
-    augroup end "}}}
-
-    augroup html_files "{{{
-        au!
-
-        " Auto-closing of HTML/XML tags
-        let g:closetag_default_xml=1
-        autocmd filetype html,htmldjango let b:closetag_html_style=1
-        autocmd filetype html,xhtml,xml source ~/.vim/scripts/closetag.vim
-    augroup end " }}}
-
-endif
-" }}}
 "Highlight lines over 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
