@@ -5,7 +5,7 @@
 " Use pathogen to easily modify the runtime path to include all
 " plugins under the ~/.vim/bundle directory
 call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 
 set nocompatible                " not compatible with the old-fashion vi mode
 filetype off                    " necessary to make ftdetect work on Linux
@@ -171,9 +171,6 @@ endif
 nnoremap ; :
 nnoremap <leader>; ;
 
-" Avoid accidental hits of <F1> while aiming for <Esc>
-noremap! <F1> <Esc>
-
 " Quickly close the current window
 nnoremap <leader>q :q<CR>
 
@@ -221,23 +218,11 @@ inoremap <C-l> <C-x><C-l>
 " for omnicompletion
 inoremap <C-space> <C-x><C-o>
 
-" Use ,d (or ,dd or ,dj or 20,dd) to delete a line without adding it to the
-" yanked stack (also, in visual mode)
-nnoremap <silent> <leader>d "_d
-vnoremap <silent> <leader>d "_d
-
-" Quick yanking to the end of the line
-nnoremap Y y$
-
 " Yank/paste to the OS clipboard with ,y and ,p
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+yy
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
-
-" YankRing stuff
-let g:yankring_history_dir = '$HOME/.vim/.tmp'
-nnoremap <leader>r :YRShow<CR>
 
 " Edit the vimrc file
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -254,30 +239,18 @@ nnoremap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 " home row (either use 'jj' or 'jk')
 inoremap jj <Esc>
 
-" Quick alignment of text
-nnoremap <leader>al :left<CR>
-nnoremap <leader>ar :right<CR>
-nnoremap <leader>ac :center<CR>
-
-" Sudo to write
-cnoremap w!! w !sudo tee % >/dev/null
-
-" Jump to matching pairs easily, with Tab
-nnoremap <Tab> %
-vnoremap <Tab> %
-
-" Folding
-nnoremap <Space> za
-vnoremap <Space> za
-
 " Strip all trailing whitespace from a file, using ,w
 nnoremap <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
 
 " Creating folds for tags in HTML
 nnoremap <leader>ft Vatzf
 
-" Reselect text that was just pasted with ,v
-nnoremap <leader>v V`]
+inoremap jj <Esc>
+" Restore cursor position upon reopening files {{{
+autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
 " }}}
 
 " Gundo.vim {{{
@@ -291,51 +264,6 @@ nnoremap <F5> :GundoToggle<CR>
 
     let g:ctrlp_mruf_exclude = '.*py\|.*pyc'
     let g:ctrlp_by_filename = 1                 "Set this to 1 to set searching by filename (as opposed to full path)
-
-" }}}
-
-" TagList.vim settings {{{
-nnoremap <leader>l :TlistClose<CR>:TlistToggle<CR>
-nnoremap <leader>L :TlistClose<CR>
-
-" quit Vim when the TagList window is the last open window
-let Tlist_Exit_OnlyWindow=1         " quit when TagList is the last open window
-let Tlist_GainFocus_On_ToggleOpen=1 " put focus on the TagList window when it opens
-"let Tlist_Process_File_Always=1     " process files in the background, even when the TagList window isn't open
-"let Tlist_Show_One_File=1           " only show tags from the current buffer, not all open buffers
-let Tlist_WinWidth=40               " set the width
-let Tlist_Inc_Winwidth=1            " increase window by 1 when growing
-
-" shorten the time it takes to highlight the current tag (default is 4 secs)
-" note that this setting influences Vim's behaviour when saving swap files,
-" but we have already turned off swap files (earlier)
-"set updatetime=1000
-
-" the default ctags in /usr/bin on the Mac is GNU ctags, so change it to the
-" exuberant ctags version in /usr/local/bin
-let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
-
-" show function/method prototypes in the list
-let Tlist_Display_Prototype=1
-
-" don't show scope info
-let Tlist_Display_Tag_Scope=0
-
-" show TagList window on the right
-let Tlist_Use_Right_Window=1
-
-" }}}
-
-" Surround.vim mappings {{{
-
-    let b:surround_{char2nr("v")} = "{{ \r }}"
-    let b:surround_{char2nr("{")} = "{{ \r }}"
-    let b:surround_{char2nr("%")} = "{% \r %}"
-    let b:surround_{char2nr("b")} = "{% block \1block name: \1 %}\r{% endblock \1\1 %}"
-    let b:surround_{char2nr("i")} = "{% if \1condition: \1 %}\r{% endif %}"
-    let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
-    let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
-    let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 
 " }}}
 
@@ -388,115 +316,14 @@ if has("autocmd")
     augroup html_files "{{{
         au!
 
-        " This function detects, based on HTML content, whether this is a
-        " Django template, or a plain HTML file, and sets filetype accordingly
-        fun! s:DetectHTMLVariant()
-            let n = 1
-            while n < 50 && n < line("$")
-                " check for django
-                if getline(n) =~ '{%\s*\(extends\|load\|block\|if\|for\|include\|trans\)\>'
-                    set ft=htmldjango.html
-                    return
-                endif
-                let n = n + 1
-            endwhile
-            " go with html
-            set ft=html
-        endfun
-
-        autocmd BufNewFile,BufRead *.html,*.htm call s:DetectHTMLVariant()
-
         " Auto-closing of HTML/XML tags
         let g:closetag_default_xml=1
         autocmd filetype html,htmldjango let b:closetag_html_style=1
         autocmd filetype html,xhtml,xml source ~/.vim/scripts/closetag.vim
     augroup end " }}}
 
-    augroup python_files "{{{
-        au!
-
-        " This function detects, based on Python content, whether this is a
-        " Django file, which may enabling snippet completion for it
-        fun! s:DetectPythonVariant()
-            let n = 1
-            while n < 50 && n < line("$")
-                " check for django
-                if getline(n) =~ 'import\s\+\<django\>' || getline(n) =~ 'from\s\+\<django\>\s\+import'
-                    set ft=python.django
-                    "set syntax=python
-                    return
-                endif
-                let n = n + 1
-            endwhile
-            " go with html
-            set ft=python
-        endfun
-        autocmd BufNewFile,BufRead *.py call s:DetectPythonVariant()
-
-        " PEP8 compliance (set 1 tab = 4 chars explicitly, even if set
-        " earlier, as it is important)
-        autocmd filetype python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-        autocmd filetype python setlocal textwidth=125
-        autocmd filetype python match ErrorMsg '\%>125v.\+'
-
-        " But disable autowrapping as it is super annoying
-        autocmd filetype python setlocal formatoptions-=t
-
-    augroup end " }}}
-
-    augroup markdown_files "{{{
-        au!
-
-        autocmd filetype markdown noremap <buffer> <leader>p :w<CR>:!open -a Marked %<CR><CR>
-    augroup end " }}}
-
-    augroup ruby_files "{{{
-        au!
-
-        autocmd filetype ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-    augroup end " }}}
-
-    augroup rst_files "{{{
-        au!
-
-        " Auto-wrap text around 74 chars
-        autocmd filetype rst setlocal textwidth=125
-        autocmd filetype rst setlocal formatoptions+=nqt
-        autocmd filetype rst match ErrorMsg '\%>74v.\+'
-    augroup end " }}}
-
-    augroup css_files "{{{
-        au!
-
-        autocmd filetype css,less setlocal foldmethod=marker foldmarker={,}
-    augroup end "}}}
-
-    augroup javascript_files "{{{
-        au!
-
-        autocmd filetype javascript setlocal expandtab
-        autocmd filetype javascript setlocal listchars=trail:·,extends:#,nbsp:·
-        autocmd filetype javascript setlocal foldmethod=marker foldmarker={,}
-
-        " Toggling True/False
-        autocmd filetype javascript nnoremap <silent> <C-t> mmviw:s/true\\|false/\={'true':'false','false':'true'}[submatch(0)]/<CR>`m:nohlsearch<CR>
-    augroup end "}}}
-
-    augroup textile_files "{{{
-        au!
-
-        autocmd filetype textile set tw=78 wrap
-
-        " Render YAML front matter inside Textile documents as comments
-        autocmd filetype textile syntax region frontmatter start=/\%^---$/ end=/^---$/
-        autocmd filetype textile highlight link frontmatter Comment
-    augroup end "}}}
 endif
 " }}}
-
-" Restore cursor position upon reopening files {{{
-autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-" }}}
+"Highlight lines over 80 chars
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/

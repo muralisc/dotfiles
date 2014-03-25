@@ -1,8 +1,8 @@
 dotfiles
 ========
 
-ln -s ~/projects/dotfiles/.vimrc ~/.vimrc
+ln -s ~/myfiles/playground/dotfiles/.vimrc ~/.vimrc
 
-ln -s ~/projects/dotfiles/.inputrc ~/.inputrc
+ln -s ~/myfiles/playground/dotfiles/.inputrc ~/.inputrc
 
-ln -s ~/projects/dotfiles/.bashrc ~/.bashrc
+ln -s ~/myfiles/playground/dotfiles/.bashrc ~/.bashrc
