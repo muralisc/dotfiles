@@ -15,13 +15,13 @@ filetype plugin on              " Enable filetype-specific plugins
 colorscheme desert
 
 " Change the mapleader from \ to ,
-let mapleader=","
+"let mapleader=","
 
 " Editing behaviour {{{
 set showmode                    " always show what mode we're currently editing in
 set nowrap                      " don't wrap lines
 set tabstop=4                   " a tab is four spaces
-set softtabstop=4               " when hitting <BS>, pretend like a tab is removed, even if spaces
+set softtabstop=4               " when hitting <BS>, delete 4 spaces insted of 1
 set expandtab                   " expand tabs by default (overloadable per file type later)
 set shiftwidth=4                " number of spaces to use for autoindenting
 set shiftround                  " use multiple of shiftwidth when indenting with '<' and '>'
@@ -42,8 +42,9 @@ set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
 set gdefault                    " search/replace "globally" (on a line) by default
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
-set nolist                      " don't show invisible characters by default, muru
+" set nolist                      " don't show invisible characters by default, muru
                                 " but it is enabled for some file types (see later)
+set list                        " show invisible charecters
 set pastetoggle=<F2>            " when in insert mode, press <F2> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
@@ -139,8 +140,6 @@ set cursorcolumn                " have a vertical line marking the cursor column
 " Since I never use the ; key anyway, this is a real optimization for almost
 " all Vim commands, as I don't have to press the Shift key to form chords to
 " enter ex mode.
-nnoremap ; :
-nnoremap <leader>; ;
 
 " Use the damn hjkl keys
  noremap <up> <nop>
@@ -154,7 +153,7 @@ nnoremap <leader>; ;
  inoremap <right> <nop>
 
 " Clears the search register
-nnoremap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader>\ :nohlsearch<CR>
 
 " Pull word under cursor into LHS of a substitute (for quick search and
 " replace)
@@ -177,9 +176,21 @@ autocmd BufReadPost *
 
 " Gundo.vim
 " cyclecolor.vim is good pluggin
-" Zencoding.vim
+" emmet.vim
 " CtrlP.vim settings
+" YouCompleteMe
 
 "Highlight lines over 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+
+augroup javascript_files "{{{
+        au!
+
+        autocmd filetype javascript setlocal expandtab
+        autocmd filetype javascript setlocal listchars=trail:·,extends:#,nbsp:·
+        autocmd filetype javascript setlocal shiftwidth=2
+        autocmd filetype javascript setlocal softtabstop=2
+        autocmd filetype javascript setlocal tabstop=2
+
+    augroup end "}}}
