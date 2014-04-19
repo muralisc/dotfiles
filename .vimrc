@@ -174,11 +174,19 @@ autocmd BufReadPost *
     \ endif
 " }}}
 
-" Gundo.vim
-" cyclecolor.vim is good pluggin
-" emmet.vim
-" CtrlP.vim settings
-" YouCompleteMe
+
+" AWESOME PLUGGINS 
+" ================
+" NeoComplete
+" delimitMate
+" jedi-vim
+" CtrlP
+let g:ycm_filetype_whitelist = {
+      \ 'c' : 1,
+      \ 'cpp' : 1,
+      \}
+let g:ctrlp_cmd = 'CtrlPBuffer'
+" ================
 
 "Highlight lines over 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -193,4 +201,4 @@ augroup javascript_files "{{{
         autocmd filetype javascript setlocal softtabstop=2
         autocmd filetype javascript setlocal tabstop=2
 
-    augroup end "}}}
+augroup end "}}}
