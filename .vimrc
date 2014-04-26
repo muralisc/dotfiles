@@ -48,7 +48,7 @@ set list                        " show invisible charecters
 set pastetoggle=<F2>            " when in insert mode, press <F2> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
-"set mouse=a                     " enable using the mouse if terminal emulator
+set mouse=a                     " enable using the mouse if terminal emulator
                                 "    supports it (xterm does)
 set fileformats="unix,dos,mac"
 set formatoptions+=1            " When wrapping paragraphs, don't end lines
@@ -112,7 +112,7 @@ if v:version >= 730
     set undofile                " keep a persistent backup file
     set undodir=~/.vim/.undo,~/tmp,/tmp
 endif
-set nobackup                    " do not keep backup files, it's 70's style 
+set nobackup                    " do not keep backup files, it's 70's style
 set noswapfile                  " do not write annoying intermediate swap files,
                                 "   who did ever restore from swap files anyway?
 set directory=~/.vim/.tmp,~/tmp,/tmp
@@ -175,7 +175,7 @@ autocmd BufReadPost *
 " }}}
 
 
-" AWESOME PLUGGINS 
+" AWESOME PLUGGINS
 " ================
 " NeoComplete
 " delimitMate
@@ -200,5 +200,11 @@ augroup javascript_files "{{{
         autocmd filetype javascript setlocal shiftwidth=2
         autocmd filetype javascript setlocal softtabstop=2
         autocmd filetype javascript setlocal tabstop=2
+
+augroup end "}}}
+augroup cpp_files "{{{
+        au!
+
+        autocmd filetype cpp setlocal foldmethod=syntax
 
 augroup end "}}}
