@@ -4,17 +4,13 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-# avoid duplicates..
-HISTCONTROL=ignoredups:erasedups
-# append to the history file, don't overwrite it
+export HISTCONTROL=ignoredups:erasedups
+export HISTSIZE=10000
+export HISTFILESIZE=10000
 shopt -s histappend
-# After each command, save and reload history
-PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+# to share history among multiple open terminals
+#export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
+
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -77,7 +73,7 @@ filepath="$bldylw\w"
 histnumb="$bldcyn\!"
 cmdnumbr="$bldpur\#"
 if [ "$color_prompt" = yes ]; then
-    PS1="$username $hostname $filepath $histnumb $cmdnumbr \n\$$txtrst $PWD"
+    PS1="$username $hostname $filepath $histnumb $cmdnumbr \$$txtrst\n"
 else
     PS1='\u@\h:\w\$ '
 fi
