@@ -16,3 +16,6 @@ setopt hist_find_no_dups # When searching history don't display results already 
 setopt hist_reduce_blanks # Remove extra blanks from each command line being added to history
 setopt hist_verify # don't execute, just expand history
 setopt share_history # imports new commands and appends typed commands to history
+
+
+alias ls='ls --color'
