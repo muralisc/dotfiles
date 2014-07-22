@@ -133,6 +133,7 @@ set nomodeline                  " disable mode lines (security measure)
 "set ttyfast                    " always use a fast terminal
 set cursorline                  " underline the current line, for quick orientation
 set cursorcolumn                " have a vertical line marking the cursor column
+set spell spelllang=en_us
 
 " }}}
 
@@ -178,6 +179,7 @@ autocmd BufReadPost *
 " AWESOME PLUGGINS
 " ================
 " NeoComplete
+" emmet vim aka zencoding
 " delimitMate
 " jedi-vim
 " CtrlP

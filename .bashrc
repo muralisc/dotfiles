@@ -70,10 +70,9 @@ txtrst='\e[0m'    # Text Reset
 username="$bldgrn\u"
 hostname="$txtblu\h"
 filepath="$bldylw\w"
-histnumb="$bldcyn\!"
-cmdnumbr="$bldpur\#"
+datecolr="$bldpur\D{%F %T}"
 if [ "$color_prompt" = yes ]; then
-    PS1="$username $hostname $filepath $histnumb $cmdnumbr \$$txtrst\n"
+    PS1="$username $hostname $filepath $datecolr \$$txtrst\n"
 else
     PS1='\u@\h:\w\$ '
 fi
@@ -112,3 +111,5 @@ fi
 alias rm='rm -i'
 #show hidden files alone
 alias lsh='ls -ld .??*'
+
+alias dev='cd ~/myfiles/carefull/playground/devaccount/'
