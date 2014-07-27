@@ -108,8 +108,22 @@ if ! shopt -oq posix; then
 fi
 
 #safe delete
-alias rm='rm -i'
+alias rm='rm -ir'
 #show hidden files alone
 alias lsh='ls -ld .??*'
+#show long listing
+alias ll='ls -l'
 
 alias dev='cd ~/myfiles/carefull/playground/devaccount/'
+alias iitb='cd ~/myfiles/carefull/Dropbox/IITB/'
+alias cheat='cd ~/myfiles/carefull/Dropbox/Notes/frequent/cheatsheets/'
+
+#usage : time_till tomorrow5am
+function time_till {
+    seconds=$((`date -d $1 +'%s'` - `date +'%s'`))
+    minutes=$(($seconds / 60))
+    hours=$(($minutes / 60))
+    days=$(($hours / 24))
+
+    echo "$days days $(($hours%24)) hours and $(($minutes%60)) minutes and $(($seconds % 60)) seconds elapsed."
+}
