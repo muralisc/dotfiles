@@ -134,6 +134,7 @@ set nomodeline                  " disable mode lines (security measure)
 set cursorline                  " underline the current line, for quick orientation
 set cursorcolumn                " have a vertical line marking the cursor column
 set spell spelllang=en_us
+set nospell
 
 " }}}
 
@@ -166,6 +167,10 @@ inoremap jj <Esc>
 
 " Strip all trailing whitespace from a file, using ,w
 nnoremap <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
+" Remap c-x c-o to <c-space> [ @ is used for space in vim ]
+" <C-p> is added at the end to prevent it selecting the 
+" first option by default
+inoremap <C-@> <C-x><C-o><C-p>
 " }}}
 
 " Restore cursor position upon reopening files {{{
@@ -178,16 +183,12 @@ autocmd BufReadPost *
 
 " AWESOME PLUGGINS
 " ================
-" NeoComplete
 " emmet vim aka zencoding
-" delimitMate
 " jedi-vim
 " CtrlP
-let g:ycm_filetype_whitelist = {
-      \ 'c' : 1,
-      \ 'cpp' : 1,
-      \}
+" clang_complete_best for c++ completiong and opengl
 let g:ctrlp_cmd = 'CtrlPBuffer'
+let g:clang_library_path = '/usr/lib/llvm-3.5/lib/'
 " ================
 
 "Highlight lines over 80 chars
