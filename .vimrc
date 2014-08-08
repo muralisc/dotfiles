@@ -135,6 +135,7 @@ set cursorline                  " underline the current line, for quick orientat
 set cursorcolumn                " have a vertical line marking the cursor column
 set spell spelllang=en_us
 set nospell
+set colorcolumn=81              " show a marker at 81 so you have a visual cue
 
 " }}}
 
@@ -187,7 +188,7 @@ autocmd BufReadPost *
 " jedi-vim
 " CtrlP
 " clang_complete_best for c++ completiong and opengl
-let g:ctrlp_cmd = 'CtrlPBuffer'
+"let g:ctrlp_cmd = 'CtrlPBuffer'
 let g:clang_library_path = '/usr/lib/llvm-3.5/lib/'
 " ================
 

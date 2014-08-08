@@ -120,10 +120,11 @@ alias cheat='cd ~/myfiles/carefull/Dropbox/Notes/frequent/cheatsheets/'
 
 #usage : time_till tomorrow5am
 function time_till {
+    printf "printing time till `date -d $1`  \n\n"
     seconds=$((`date -d $1 +'%s'` - `date +'%s'`))
     minutes=$(($seconds / 60))
     hours=$(($minutes / 60))
     days=$(($hours / 24))
 
-    echo "$days days $(($hours%24)) hours and $(($minutes%60)) minutes and $(($seconds % 60)) seconds elapsed."
+    echo "$days days $(($hours%24)) hours and $(($minutes%60)) minutes and $(($seconds % 60)) seconds remaining."
 }
