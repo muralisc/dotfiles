@@ -2,16 +2,27 @@
 "Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
 "and me
 
-" Use pathogen to easily modify the runtime path to include all
-" plugins under the ~/.vim/bundle directory
-call pathogen#helptags()
-call pathogen#infect()
-
 set nocompatible                " not compatible with the old-fashion vi mode
-syntax on                       " syntax highlight
+filetype off                    " Required Vundle setup
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+Plugin 'coot/atp_vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-surround'
+" clang-complete
+
+" All of your Plugins must be added before the following line
+call vundle#end()               " required
+filetype plugin indent on       " required
+                                " Vundle setup done
 filetype on                     " Enable filetype detection
 filetype indent on              " Enable filetype-specific indenting
 filetype plugin on              " Enable filetype-specific plugins
+syntax on                       " syntax highlight
 colorscheme desert
 
 " Change the mapleader from \ to ,
@@ -36,7 +47,7 @@ set smartcase                   " ignore case if search pattern is all lowercase
                                 "    case-sensitive otherwise
 set smarttab                    " insert tabs on the start of a line according to
                                 "    shiftwidth, not tabstop
-set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
+"set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
 "set virtualedit=all             " allow the cursor to go in to "invalid" places
 set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
@@ -124,6 +135,7 @@ set wildmenu                    " tab completion for files/buffers like bash
 set wildmode=list:full          " show a list when pressing tab and complete
                                 "    first full match
 set wildignore=*.swp,*.bak,*.pyc,*.class
+set wildignorecase              " ignore case while filename complete
 set title                       " change the terminal's title
 set visualbell                  " don't beep
 set noerrorbells                " don't beep
@@ -181,17 +193,18 @@ autocmd BufReadPost *
     \ endif
 " }}}
 
-
-" AWESOME PLUGGINS
 " ================
-" emmet vim aka zencoding
-" jedi-vim
-" CtrlP
-" clang_complete_best for c++ completiong and opengl
-"let g:ctrlp_cmd = 'CtrlPBuffer'
+" pluggin specific settings
+
+let g:clang_complete_auto = 0 
+let g:clang_use_library = 1
+let g:clang_periodic_quickfix = 0
+let g:clang_close_preview = 1
 let g:clang_library_path = '/usr/lib/llvm-3.5/lib/'
-" ================
 
+" ================
+" let g:ctrlp_cmd = 'CtrlPBuffer'
+" ================
 "Highlight lines over 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/

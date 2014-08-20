@@ -106,18 +106,24 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-#safe delete
-alias rm='rm -ir'
-#show hidden files alone
-alias lsh='ls -ld .??*'
-#show long listing
-alias ll='ls -l'
-
-alias dev='cd ~/myfiles/carefull/playground/devaccount/'
-alias iitb='cd ~/myfiles/carefull/Dropbox/IITB/'
-alias cheat='cd ~/myfiles/carefull/Dropbox/Notes/frequent/cheatsheets/'
-
+START=`date +%s`
+function elapsed_time_since_bash_start {
+    END=`date +%s`
+    seconds=$(( ($END - $START) ))
+    minutes=$(($seconds / 60))
+    hours=$(($minutes / 60))
+    days=$(($hours / 24))
+    if [[ "$days" -ne 0 ]]; then
+        echo "$days days "
+    fi
+    if [[ "$hours" -ne 0 ]]; then
+        echo "$(($hours%24)) hours and "
+    fi
+    if [[ "$minutes" -ne 0 ]]; then
+        echo "$(($minutes%60)) minutes and "
+    fi
+    echo "$(($seconds % 60)) seconds elapsed"
+}
 #usage : time_till tomorrow5am
 function time_till {
     printf "printing time till `date -d $1`  \n\n"
@@ -125,6 +131,29 @@ function time_till {
     minutes=$(($seconds / 60))
     hours=$(($minutes / 60))
     days=$(($hours / 24))
-
-    echo "$days days $(($hours%24)) hours and $(($minutes%60)) minutes and $(($seconds % 60)) seconds remaining."
+    if [[ "$days" -ne 0 ]]; then
+        echo "$days days "
+    fi
+    if [[ "$hours" -ne 0 ]]; then
+        echo "$(($hours%24)) hours and "
+    fi
+    if [[ "$minutes" -ne 0 ]]; then
+        echo "$(($minutes%60)) minutes and "
+    fi
+    echo "$(($seconds % 60)) seconds elapsed"
 }
+
+#safe delete
+alias rm='rm -ir'
+#show hidden files alone
+alias lsh='ls -ld .??*'
+#show long listing
+alias ll='ls -l'
+alias xdo='xdg-open'
+
+alias dev='cd ~/myfiles/carefull/PersonalData_max26gb/Videos/notForKids/dd'
+alias iitb='cd ~/myfiles/carefull/Dropbox/IITB/'
+alias cheat='cd ~/myfiles/carefull/Dropbox/Notes/frequent/cheatsheets/'
+alias bundle='cd ~/.vim/bundle/'
+alias vrc='vim ~/.vimrc'
+
