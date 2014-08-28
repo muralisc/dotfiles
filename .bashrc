@@ -9,7 +9,7 @@ export HISTSIZE=10000
 export HISTFILESIZE=10000
 shopt -s histappend
 # to share history among multiple open terminals
-#export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
 
 # check the window size after each command and, if necessary,
@@ -143,17 +143,26 @@ function time_till {
     echo "$(($seconds % 60)) seconds elapsed"
 }
 
-#safe delete
-alias rm='rm -ir'
 #show hidden files alone
 alias lsh='ls -ld .??*'
 #show long listing
-alias ll='ls -l'
+alias ll='ls -lht'
 alias xdo='xdg-open'
+alias du='du -h'
+alias install='sudo apt-get install'
+alias aptsrh='sudo apt-cache search'
 
 alias dev='cd ~/myfiles/carefull/PersonalData_max26gb/Videos/notForKids/dd'
-alias iitb='cd ~/myfiles/carefull/Dropbox/IITB/'
+alias dbms='cd /home/mur/myfiles/carefull/Dropbox/IITB/dbms_cs631'
+alias gfx='cd /home/mur/myfiles/carefull/Dropbox/IITB/gfx__cs675'
+alias lab='cd /home/mur/myfiles/carefull/Dropbox/IITB/lab__cs699'
+alias nlp='cd /home/mur/myfiles/carefull/Dropbox/IITB/NLP__cs626'
+alias nwks='cd /home/mur/myfiles/carefull/Dropbox/IITB/nwks_cs641/assignments/pa2/ns-allinone-3.20/ns-3.20'
 alias cheat='cd ~/myfiles/carefull/Dropbox/Notes/frequent/cheatsheets/'
-alias bundle='cd ~/.vim/bundle/'
+alias bundle='cd cd ~/.vim/bundle/'
 alias vrc='vim ~/.vimrc'
+alias brc='vim ~/.bashrc'
+alias gl="git log --pretty=format:'%C(yellow)%h%C(red)%d %C(cyan)%an%Creset %s %Cgreen(%cr)' --graph --all"
+alias gs='git status -uall'
 
+source ~/.fzf.bash

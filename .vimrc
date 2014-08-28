@@ -11,8 +11,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'coot/atp_vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
-Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-commentary'
 " clang-complete
 
 " All of your Plugins must be added before the following line
@@ -40,7 +40,7 @@ set backspace=indent,eol,start  " allow backspacing over everything in insert mo
 set autoindent                  " always set autoindenting on
 set copyindent                  " copy the previous indentation on autoindenting
 set number                      " always show line numbers
-"set rnu                        " relative number
+set rnu                        " relative number
 set showmatch                   " set show matching parenthesis
 set ignorecase                  " ignore case when searching
 set smartcase                   " ignore case if search pattern is all lowercase,
@@ -193,21 +193,22 @@ autocmd BufReadPost *
     \ endif
 " }}}
 
-" ================
+" ==============================================================================
 " pluggin specific settings
-
 let g:clang_complete_auto = 0 
 let g:clang_use_library = 1
 let g:clang_periodic_quickfix = 0
 let g:clang_close_preview = 1
 let g:clang_library_path = '/usr/lib/llvm-3.5/lib/'
-
-" ================
+" If you prefer the Omni-Completion tip window to close when a selection is
+" made, these lines close it on movement in insert mode or when leaving
+" insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" ==============================================================================
 " let g:ctrlp_cmd = 'CtrlPBuffer'
+" ==============================================================================
 " ================
-"Highlight lines over 80 chars
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
 
 augroup javascript_files "{{{
         au!
