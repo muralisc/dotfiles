@@ -1,10 +1,7 @@
 dotfiles
 ========
 
-ln -s ~/myfiles/playground/dotfiles/.vimrc ~/.vimrc
-
-ln -s ~/myfiles/playground/dotfiles/.inputrc ~/.inputrc
-
-ln -s ~/myfiles/playground/dotfiles/.bashrc ~/.bashrc
-
-ln -s ~/myfiles/playground/dotfiles/.zshrc ~/.zshrc
+ln -s `pwd`.vimrc ~/.vimrc
+ln -s `pwd`.inputrc ~/.inputrc
+ln -s `pwd`.bashrc ~/.bashrc
+ln -s `pwd`.zshrc ~/.zshrc

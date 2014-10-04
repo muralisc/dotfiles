@@ -13,6 +13,11 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'xolox/vim-colorscheme-switcher'
+Plugin 'xolox/vim-misc'
+Plugin 'klen/python-mode'
 " clang-complete
 
 " All of your Plugins must be added before the following line
@@ -23,7 +28,9 @@ filetype on                     " Enable filetype detection
 filetype indent on              " Enable filetype-specific indenting
 filetype plugin on              " Enable filetype-specific plugins
 syntax on                       " syntax highlight
-colorscheme desert
+set t_Co=256
+"colorscheme 256-jungle
+colorscheme calmar256-light
 
 " Change the mapleader from \ to ,
 "let mapleader=","
@@ -68,6 +75,7 @@ set formatoptions+=1            " When wrapping paragraphs, don't end lines
 set nrformats=                  " make <C-a> and <C-x> play well with
                                 "    zero-padded numbers (i.e. don't consider
                                 "    them octal or hex)
+set ve+=block                   " enable virtual edit,helps in visual block mode
 
 " Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
@@ -177,9 +185,9 @@ nnoremap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 " Quickly get out of insert mode without your fingers having to leave the
 " home row (either use 'jj' or 'jk')
 inoremap jj <Esc>
-
+nnoremap <F4> :e $MYVIMRC<CR>
 " Strip all trailing whitespace from a file, using ,w
-nnoremap <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
+nnoremap <leader>w :%s/\s\+$//<CR>:let @/=''<CR>
 " Remap c-x c-o to <c-space> [ @ is used for space in vim ]
 " <C-p> is added at the end to prevent it selecting the 
 " first option by default
@@ -195,6 +203,8 @@ autocmd BufReadPost *
 
 " ==============================================================================
 " pluggin specific settings
+set tags=/home/mur/.vim/tagsForCtags
+" CLANG COMPLETE SETTINGS
 let g:clang_complete_auto = 0 
 let g:clang_use_library = 1
 let g:clang_periodic_quickfix = 0
@@ -205,6 +215,12 @@ let g:clang_library_path = '/usr/lib/llvm-3.5/lib/'
 " insert mode
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" PYTHON MODE SETTINGS
+let g:pymode_rope = 1
+nnoremap <F3> :NextColorScheme<CR>
+nnoremap <silent> <F2> :PrevColorScheme<CR>
+"color scheme switcher 
+let g:colorscheme_switcher_define_mappings = 0
 " ==============================================================================
 " let g:ctrlp_cmd = 'CtrlPBuffer'
 " ==============================================================================
@@ -223,6 +239,7 @@ augroup end "}}}
 augroup cpp_files "{{{
         au!
 
-        autocmd filetype cpp setlocal foldmethod=syntax
+        autocmd filetype cpp setlocal foldmethod=marker
+        autocmd filetype c setlocal foldmethod=marker
 
 augroup end "}}}
