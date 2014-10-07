@@ -81,6 +81,7 @@ alias cheat='cd ~/myfiles/carefull/Dropbox/Notes/frequent/cheatsheets/'
 alias bundle='cd cd ~/.vim/bundle/'
 alias vrc='vim ~/.vimrc'
 alias brc='vim ~/.bashrc'
+alias zrc='vim ~/.zshrc'
 alias gl="git log --pretty=format:'%C(yellow)%h%C(red)%d %C(cyan)%an%Creset %s %Cgreen(%cr)' --graph --all"
 alias gs='git status -uall'
 alias rm='rm -f'

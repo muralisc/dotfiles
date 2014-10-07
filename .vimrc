@@ -8,17 +8,18 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
-Plugin 'coot/atp_vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'davidhalter/jedi-vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
-Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'kien/ctrlp.vim'
+Plugin 'coot/atp_vim'                           " latex
+Plugin 'davidhalter/jedi-vim'                   " python
+Plugin 'klen/python-mode'                       " python
+Plugin 'octol/vim-cpp-enhanced-highlight'       " highlighting for STL
 Plugin 'flazz/vim-colorschemes'
 Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'xolox/vim-misc'
-Plugin 'klen/python-mode'
-" clang-complete
+" clang-complete                    " semantic c completion
+" pyclewn                           " python/c debugger
 
 " All of your Plugins must be added before the following line
 call vundle#end()               " required
@@ -30,7 +31,7 @@ filetype plugin on              " Enable filetype-specific plugins
 syntax on                       " syntax highlight
 set t_Co=256
 "colorscheme 256-jungle
-colorscheme calmar256-light
+colorscheme pf_earth
 
 " Change the mapleader from \ to ,
 "let mapleader=","
@@ -177,6 +178,8 @@ set colorcolumn=81              " show a marker at 81 so you have a visual cue
 
 " Clears the search register
 nnoremap <silent> <leader>\ :nohlsearch<CR>
+" executes the last !command in vim (usually compile and run)
+nnoremap <silent> <leader>c :w<CR>:!<Up><CR>
 
 " Pull word under cursor into LHS of a substitute (for quick search and
 " replace)
