@@ -1,0 +1,11 @@
+alias xdo='xdg-open'
+alias install='sudo apt-get install'
+alias acs='apt-cache search'
+alias vrc='vim ~/.vimrc'
+alias vch='vim ~/myfiles/carefull/Dropbox/Notes/frequent/cheatsheets/vim'
+alias tlc='vim ~/myfiles/carefull/Dropbox/Notes/frequent/cheatsheets/theLinuxCommandline'
+alias brc='vim ~/.bashrc'
+alias zrc='vim ~/.zshrc'
+alias gl="git log --pretty=format:'%C(yellow)%h%C(red)%d %C(cyan)%an%Creset %s %Cgreen(%cr)' --graph --all"
+alias gs='git status -uall'
+alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'
