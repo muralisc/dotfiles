@@ -35,6 +35,7 @@ colorscheme pf_earth
 
 " Change the mapleader from \ to ,
 "let mapleader=","
+let g:pymode_lint_ignore = "E"
 
 " Editing behaviour {{{
 set showmode                    " always show what mode we're currently editing in
