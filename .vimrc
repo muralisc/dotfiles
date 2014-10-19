@@ -12,12 +12,14 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'kien/ctrlp.vim'
 Plugin 'coot/atp_vim'                           " latex
+"Plugin 'jcf/vim-latex'                           " latex
 Plugin 'davidhalter/jedi-vim'                   " python
 Plugin 'klen/python-mode'                       " python
 Plugin 'octol/vim-cpp-enhanced-highlight'       " highlighting for STL
 Plugin 'flazz/vim-colorschemes'
 Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'xolox/vim-misc'
+Plugin 'chazy/cscope_maps'
 " clang-complete                    " semantic c completion
 " pyclewn                           " python/c debugger
 
@@ -30,8 +32,7 @@ filetype indent on              " Enable filetype-specific indenting
 filetype plugin on              " Enable filetype-specific plugins
 syntax on                       " syntax highlight
 set t_Co=256
-"colorscheme 256-jungle
-colorscheme pf_earth
+colorscheme hybrid
 
 " Change the mapleader from \ to ,
 "let mapleader=","
