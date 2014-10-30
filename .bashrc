@@ -61,7 +61,7 @@ elif [ -f /etc/bash_completion ]; then
 fi
 
 # load aliases
-. ~/.aliases
+source ~/.aliases
 
 START=`date +%s`
 function elapsed_time_since_bash_start {

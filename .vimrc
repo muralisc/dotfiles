@@ -11,8 +11,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'kien/ctrlp.vim'
-Plugin 'coot/atp_vim'                           " latex
-"Plugin 'jcf/vim-latex'                           " latex
+"Plugin 'coot/atp_vim'                           " latex
+Plugin 'jcf/vim-latex'                           " latex
 Plugin 'davidhalter/jedi-vim'                   " python
 Plugin 'klen/python-mode'                       " python
 Plugin 'octol/vim-cpp-enhanced-highlight'       " highlighting for STL
@@ -32,11 +32,11 @@ filetype indent on              " Enable filetype-specific indenting
 filetype plugin on              " Enable filetype-specific plugins
 syntax on                       " syntax highlight
 set t_Co=256
-colorscheme hybrid
+colorscheme pf_earth
 
 " Change the mapleader from \ to ,
 "let mapleader=","
-let g:pymode_lint_ignore = "E"
+let g:pymode_lint_ignore = "E702,E501,E225,E221,E203,E231,E201,E202,E261,E262"
 
 " Editing behaviour {{{
 set showmode                    " always show what mode we're currently editing in
@@ -84,6 +84,8 @@ set ve+=block                   " enable virtual edit,helps in visual block mode
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
 vnoremap / /\v
+" never go into Ex mode
+nnoremap Q <nop>
 "}}}
 
 " Folding rules {{{
@@ -185,7 +187,7 @@ nnoremap <silent> <leader>c :w<CR>:!<Up><CR>
 
 " Pull word under cursor into LHS of a substitute (for quick search and
 " replace)
-nnoremap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
+nnoremap <leader>z :%s#<C-r>=expand("<cword>")<CR>#
 
 " Quickly get out of insert mode without your fingers having to leave the
 " home row (either use 'jj' or 'jk')
@@ -194,7 +196,7 @@ nnoremap <F4> :e $MYVIMRC<CR>
 " Strip all trailing whitespace from a file, using ,w
 nnoremap <leader>w :%s/\s\+$//<CR>:let @/=''<CR>
 " Remap c-x c-o to <c-space> [ @ is used for space in vim ]
-" <C-p> is added at the end to prevent it selecting the 
+" <C-p> is added at the end to prevent it selecting the
 " first option by default
 inoremap <C-@> <C-x><C-o><C-p>
 " }}}
@@ -210,7 +212,7 @@ autocmd BufReadPost *
 " pluggin specific settings
 set tags=/home/mur/.vim/tagsForCtags
 " CLANG COMPLETE SETTINGS
-let g:clang_complete_auto = 0 
+let g:clang_complete_auto = 0
 let g:clang_use_library = 1
 let g:clang_periodic_quickfix = 0
 let g:clang_close_preview = 1
@@ -224,7 +226,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 let g:pymode_rope = 1
 nnoremap <F3> :NextColorScheme<CR>
 nnoremap <silent> <F2> :PrevColorScheme<CR>
-"color scheme switcher 
+"color scheme switcher
 let g:colorscheme_switcher_define_mappings = 0
 " ==============================================================================
 " let g:ctrlp_cmd = 'CtrlPBuffer'
