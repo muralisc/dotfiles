@@ -83,9 +83,3 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 
 # custom imported from my zshrc
 . ~/.aliases
-export BC_ENV_ARGS=~/.bcrc
-# streamer -o `date +%Y%m%d%H%M%S`.jpeg -s 800x600 -j 100
-
-function apt-list-packages {
-  dpkg-query -W --showformat='${Installed-Size} ${Package} ${Status}\n' | grep -v deinstall | sort -n | awk '{print $1" "$2}'
-  }
