@@ -215,6 +215,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioRaiseVolume" , function () awful.util.spawn("amixer -D pulse sset Master 10%+")    end),
     awful.key({}, "XF86AudioLowerVolume" , function () awful.util.spawn("amixer -D pulse sset Master 10%-")    end),
     awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse sset 'Master',0 toggle")    end),
+    awful.key({}, "XF86AudioPlay", function () awful.util.spawn("nyxmms2 toggle") end),
 
     awful.key({}, "XF86Calculator" , function () awful.util.spawn("xbacklight +10")    end),
     awful.key({}, "XF86Sleep" , function () awful.util.spawn("xbacklight -10")    end),
@@ -406,3 +407,4 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 awful.util.spawn_with_shell('exec ~/myfiles/carefull/playground/dotfiles/startup.sh')
+

@@ -14,3 +14,15 @@ alias rm='rm -rfv'
 alias ft='find . | sed -e "s/[^-][^\/]*\//  |/g"'                                                                  # file tree    --most unfiltered
 alias ngt='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git tree  --more fileterd
 alias nft='find . -ipath "*.git" -prune -o -type d -print| sed -e "s/[^-][^\/]*\//  |/g"'                          # no file tree --most filtered
+
+function msearch {
+   xmms2 search "*$1*"
+}
+
+function mplay {
+xmms2 clear ;
+xmms2 add -t "*$1*"
+xmms2 stop ;
+xmms2 play ;
+}
+
