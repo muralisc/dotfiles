@@ -73,7 +73,7 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = { "main", "www", "skype", "gimp", "office", "6mail", 7, 8, "code+full" },
+    names  = { "main", "www", "skype", "gimp", "office", "6mail", 7, "8music", "code+full" },
     layout = { layouts[1], layouts[2], layouts[1], layouts[5], layouts[6],
                 layouts[12], layouts[9], layouts[3], layouts[11] }
         }
@@ -214,7 +214,7 @@ globalkeys = awful.util.table.join(
 
     awful.key({}, "XF86AudioRaiseVolume" , function () awful.util.spawn("amixer -D pulse sset Master 10%+")    end),
     awful.key({}, "XF86AudioLowerVolume" , function () awful.util.spawn("amixer -D pulse sset Master 10%-")    end),
-    awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer sset 'Master',0 toggle")    end),
+    awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse sset 'Master',0 toggle")    end),
 
     awful.key({}, "XF86Calculator" , function () awful.util.spawn("xbacklight +10")    end),
     awful.key({}, "XF86Sleep" , function () awful.util.spawn("xbacklight -10")    end),
@@ -222,6 +222,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86Mail" , function () awful.util.spawn("thunderbird")    end),
 
     awful.key({}, "Print" , function () awful.util.spawn_with_shell("sleep 0.5 && scrot -s")    end),
+    awful.key({}, "Scroll_Lock" , function () awful.util.spawn_with_shell("exec ~/myfiles/carefull/playground/dotfiles/lockScript.sh")    end),
 
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
@@ -404,3 +405,4 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+awful.util.spawn_with_shell('exec ~/myfiles/carefull/playground/dotfiles/startup.sh')
