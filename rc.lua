@@ -73,9 +73,20 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = { "main", "www", "skype", "gimp", "office", "6mail", 7, "8music", "code+full" },
-    layout = { layouts[1], layouts[2], layouts[1], layouts[5], layouts[6],
-                layouts[12], layouts[9], layouts[3], layouts[11] }
+    names  = { "main", "www", "3", "4", "office", "6mail", 7, "8music", "code+full" },
+    layout = {  layouts[1],    --floating,
+                layouts[2],    --tile,
+                layouts[3],    --tile.left,
+                layouts[4],    --tile.bottom,
+                layouts[5],    --tile.top,
+                -- 6           --fair,
+                layouts[7],    --fair.horizontal,
+                layouts[8],    --spiral,
+                layouts[9],    --spiral.dwindle,
+                --10           --max,
+                layouts[11]    --max.fullscreen,
+                -- 12          --magnifier
+            }
         }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
