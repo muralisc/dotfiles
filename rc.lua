@@ -84,30 +84,31 @@ end
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = { 
-                "main", 
-                "2" .. 
-                "www", 
-                "3code-full", 
-                "4", 
-                "office", 
-                "6mail", 
-                7, 
-                "8music", 
-                "9" 
+    names  = {
+                "main",
+                "2" .. "webBrowsers",
+                "3" .. "terminals",
+                "4" .. "pdfs",
+                "5" .. "",
+                "6" .. "mail",
+                7,
+                "8music",
+                "9" .."code-full",
             },
-    layout = {  layouts[1],    --floating,
+    layout = {  
+                layouts[1],    --floating,
                 layouts[2],    --tile,
-                layouts[11],   --max.fullscreen,
+                layouts[1],    --floating,
                 layouts[4],    --tile.bottom,
-                layouts[5],    --tile.top,
-                -- 6           --fair,
                 layouts[7],    --fair.horizontal,
                 layouts[8],    --spiral,
                 layouts[9],    --spiral.dwindle,
-                --10           --max,
                 layouts[3],    --tile.left,
-                -- 12          --magnifier
+                layouts[11],   --max.fullscreen,
+                -- layouts[6],    --fair,
+                -- layouts[5],    --tile.top,
+                -- layouts[10],   --max,
+                -- layouts[12],   --magnifier
             }
         }
 for s = 1, screen.count() do
@@ -194,7 +195,7 @@ mytasklist.buttons = awful.util.table.join(
                                           end))
   local vicious = require("vicious")
   -- Top widgets:
-				  
+
   cpu_graph = blingbling.line_graph({ height = 18,
                                       width = 80,
                                       show_text = true,
@@ -440,8 +441,8 @@ awful.rules.rules = {
     -- Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Firefox" },
       properties = { tag = tags[1][2] } },
-    { rule = { class = "Google-chrome" },
-      properties = { tag = tags[1][2] } },
+    { rule = { class = "X-terminal-emulator" },
+    callback = function(c) c:tags({awful.tag.selected(1), tags[1][3]}) end},
 }
 -- }}}
 
