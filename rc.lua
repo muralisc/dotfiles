@@ -142,6 +142,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 
+local blingbling = require("blingbling")
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -191,6 +192,22 @@ mytasklist.buttons = awful.util.table.join(
                                               awful.client.focus.byidx(-1)
                                               if client.focus then client.focus:raise() end
                                           end))
+  local vicious = require("vicious")
+  -- Top widgets:
+				  
+  cpu_graph = blingbling.line_graph({ height = 18,
+                                      width = 80,
+                                      show_text = true,
+                                      label = "Cpu: $percent %",
+                                     })
+  vicious.register(cpu_graph, vicious.widgets.cpu,'$1',2)
+local battery = require("battery")
+batterywidget = wibox.widget.textbox()
+batterywidget_timer = timer({timeout = 60})
+  batterywidget_timer:connect_signal("timeout", function()
+    batterywidget:set_text(batteryInfo("BAT0"))
+  end)
+  batterywidget_timer:start()
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
@@ -217,10 +234,11 @@ for s = 1, screen.count() do
     left_layout:add(mylauncher)
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
-
+        left_layout:add(cpu_graph)
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+right_layout:add(batterywidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
@@ -254,6 +272,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86Sleep" , function () awful.util.spawn("xbacklight -10")    end),
 
     awful.key({}, "XF86Mail" , function () awful.util.spawn("thunderbird")    end),
+    awful.key({}, "XF86HomePage" , function () awful.util.spawn("google-chrome")    end),
 
     awful.key({}, "Print" , function () awful.util.spawn_with_shell("sleep 0.5 && scrot -s")    end),
     awful.key({}, "Scroll_Lock" , function () awful.util.spawn_with_shell("exec ~/myfiles/carefull/playground/dotfiles/lockScript.sh")    end),
@@ -419,8 +438,10 @@ awful.rules.rules = {
     { rule = { class = "Thunderbird" },
       properties = { tag = tags[1][6] } },
     -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    { rule = { class = "Firefox" },
+      properties = { tag = tags[1][2] } },
+    { rule = { class = "Google-chrome" },
+      properties = { tag = tags[1][2] } },
 }
 -- }}}
 
