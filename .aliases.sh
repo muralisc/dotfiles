@@ -1,4 +1,4 @@
-alias xdo='xdg-open'
+alias go='gnome-open'
 alias install='sudo apt-get install'
 alias acs='apt-cache search'
 alias vrc='vim ~/.vimrc'
@@ -18,11 +18,12 @@ alias nft='find . -ipath "*.git" -prune -o -type d -print| sed -e "s/[^-][^\/]*\
 export BC_ENV_ARGS=~/.bcrc
 # streamer -o `date +%Y%m%d%H%M%S`.jpeg -s 800x600 -j 100
 
-function msearch {
-   xmms2 search "*$1*"
-}
 
-function mplay {
+function ms {
+xmms2 search "*$1*"
+}
+function mp {
+xmms2 search "*$1*"
 xmms2 clear ;
 xmms2 add -t "*$1*"
 xmms2 stop ;
@@ -31,30 +32,12 @@ xmms2 play ;
 
 function apt-list-packages {
   dpkg-query -W --showformat='${Installed-Size} ${Package} ${Status}\n' | grep -v deinstall | sort -n | awk '{print $1" "$2}'
-  }
-
-
-
-START=`date +%s`
-function elapsed_time_since_bash_start {
-    END=`date +%s`
-    seconds=$(( ($END - $START) ))
-    minutes=$(($seconds / 60))
-    hours=$(($minutes / 60))
-    days=$(($hours / 24))
-    if [[ "$days" -ne 0 ]]; then
-        echo "$days days "
-    fi
-    if [[ "$hours" -ne 0 ]]; then
-        echo "$(($hours%24)) hours and "
-    fi
-    if [[ "$minutes" -ne 0 ]]; then
-        echo "$(($minutes%60)) minutes and "
-    fi
-    echo "$(($seconds % 60)) seconds elapsed"
 }
-#usage : time_till tomorrow5am
-function time_till {
+
+
+#usage : tt tomorrow5am
+# time till
+function tt {
     printf "printing time till `date -d $1`  \n\n"
     seconds=$((`date -d $1 +'%s'` - `date +'%s'`))
     minutes=$(($seconds / 60))
