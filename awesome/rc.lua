@@ -212,10 +212,10 @@ cpuwidget_t = awful.tooltip({ objects = { cpuwidget },})
 vicious.register(cpuwidget, vicious.widgets.cpu, 
                     function (widget, args)
                         cpuwidget_t:set_text(""
-                        .. " Cpu 1 " .. args[2] .. " \n"
-                        .. " Cpu 2 " .. args[3] .. " \n"
-                        .. " Cpu 3 " .. args[4] .. " \n"
-                        .. " Cpu 4 " .. args[5] .. " "
+                        .. string.format(" %03d Cpu 1 \n",args[2])
+                        .. string.format(" %03d Cpu 2 \n",args[3])
+                        .. string.format(" %03d Cpu 3 \n",args[4])
+                        .. string.format(" %03d Cpu 4 \n",args[5])
                         )
                         return args[1]
                     end)
@@ -223,23 +223,50 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
 hddwidget = wibox.widget.textbox()
 vicious.register(hddwidget, vicious.widgets.thermal, "Temp: <span color='#FFFFFF'>$1°С</span>",37,"thermal_zone0")
 
+-- Initialize widget
+memwidget = awful.widget.progressbar()
+-- Progressbar properties
+memwidget:set_width(8)
+memwidget:set_height(10)
+memwidget:set_vertical(true)
+memwidget:set_background_color("#494B4F")
+memwidget:set_border_color(nil)
+memwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = { {0, "#AECF96"}, {0.5, "#88A175"}, 
+                    {1, "#FF5656"}}})
+memwidget_t = awful.tooltip({ objects = { memwidget },})
+-- Register widget
+vicious.register(memwidget, vicious.widgets.mem, 
+                    function (widget, args)
+                        memwidget_t:set_text(
+                        "\nUsed: " .. args[2] ..
+                        "\nTotal: " .. args[3] ..
+                        "\nSwap: " .. args[4] ..
+                        "\nTotal: " .. args[5] ..
+                        "\nTotal: " .. args[6] ..
+                        "")
+                        return args[1]
+                    end
+                                                , 13)
+
 wifiwidget = wibox.widget.textbox()
 vicious.register(wifiwidget, vicious.widgets.wifi, 
-" ${ssid} ${linp}%", 3, "wlan0")
+"| Wifi ${ssid} ${linp}%", 3, "wlan0")
 
 netgraph = awful.widget.graph()
 netgraph:set_width(50)
 netgraph:set_background_color("#494B4F")
 netgraph:set_color("#FF5656")
+netgraph:set_max_value(10)   -- 1000kbps
 netgraph_t = awful.tooltip({ objects = { netgraph },})
 vicious.cache(vicious.widgets.net)
 vicious.register(netgraph, vicious.widgets.net,
                     function (widget, args)
                         netgraph_t:set_text(""..
-                        " " ..args["{wlan0 rx_gb}"].." GB RX,\n" ..
-                        " " ..args["{wlan0 tx_gb}"] .."GB,\n"  ..
-                        " down " ..args["{wlan0 down_kb}"] .. "kb\n" .. 
-                        " up: " .. args["{wlan0 up_kb}"] .. "kb "
+                        string.format(" %03d GB RX,\n"    ,args["{wlan0 rx_gb}"])..
+                        string.format(" %03d GB TX,\n"    ,args["{wlan0 tx_gb}"])..
+                        string.format(" %03d KB down,\n"  ,args["{wlan0 down_kb}"])..
+                        string.format(" %03d KB up,\n"    ,args["{wlan0 up_kb}"])..
+                        ""
                         )
                         return args["{wlan0 down_kb}"]
                     end)
@@ -279,6 +306,7 @@ for s = 1, screen.count() do
     left_layout:add(mypromptbox[s])
     left_layout:add(cpuwidget)
     left_layout:add(hddwidget)
+    left_layout:add(memwidget)
     left_layout:add(wifiwidget)
     left_layout:add(netgraph)
     -- Widgets that are aligned to the right
@@ -326,7 +354,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "Scroll_Lock" , function () awful.util.spawn_with_shell("exec ~/myfiles/carefull/playground/dotfiles/lockScript.sh")    end),
 
 
-    awful.key({ "Mod1" }, "Tab", function () awful.menu.clients( { theme = { font="zekton bold 18"; width = 550; height=50 } }) end),  --ESCAPE to close
+    awful.key({ "Mod1" }, "Tab", function () awful.menu.clients( { theme = { font="zekton bold 14"; width = 800; height=30 } }) end),  --ESCAPE to close
 
     -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
