@@ -1,23 +1,23 @@
-alias go='gnome-open'
+alias xo='xdg-open'
 alias install='sudo apt-get install'
 alias acs='apt-cache search'
 alias vrc='vim ~/.vimrc'
 alias arc='vim ~/.config/awesome/rc.lua'
-alias vch='vim ~/myfiles/carefull/Dropbox/IITB/cheatsheets/vim'
-alias tlc='vim ~/myfiles/carefull/Dropbox/IITB/cheatsheets/theLinuxCommandline'
+alias vch='vim ~/Dropbox/IITB/cheatsheets/vim'
+alias tlc='vim ~/Dropbox/IITB/cheatsheets/theLinuxCommandline'
 alias brc='vim ~/.bashrc'
 alias zrc='vim ~/.zshrc'
 alias gl="git log --pretty=format:'%C(yellow)%h%C(red)%d %C(cyan)%an%Creset %s %Cgreen(%cr)' --graph --all"
 alias gs='git status -uall'
 alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'
 alias rm='rm -rfv'
-alias ft='find . | sed -e "s/[^-][^\/]*\//  |/g"'                                                                  # file tree    --most unfiltered
-alias ngt='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git tree  --more fileterd
-alias nft='find . -ipath "*.git" -prune -o -type d -print| sed -e "s/[^-][^\/]*\//  |/g"'                          # no file tree --most filtered
+alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
+alias dt='find . -ipath "*.git" -prune -o -type d -print| sed -e "s/[^-][^\/]*\//  |/g"'                          # no file (Dir) tree --most filtered
+alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
+
+EDITOR=/usr/bin/vim
  
 export BC_ENV_ARGS=~/.bcrc
-# streamer -o `date +%Y%m%d%H%M%S`.jpeg -s 800x600 -j 100
-
 
 function ms {
 xmms2 search "*$1*"
@@ -29,7 +29,6 @@ xmms2 add -t "*$1*"
 xmms2 stop ;
 xmms2 play ;
 }
-
 function apt-list-packages {
   dpkg-query -W --showformat='${Installed-Size} ${Package} ${Status}\n' | grep -v deinstall | sort -n | awk '{print $1" "$2}'
 }

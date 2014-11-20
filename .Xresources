@@ -16,7 +16,65 @@ URxvt*foreground: White
 ! Use the specified colour for the colour value n, where 0-7
 ! URxvt*colorn: colour
 
-! 
+! Solarized color scheme for the X Window System
+!
+! http://ethanschoonover.com/solarized
+! Common
+#define S_yellow #b58900
+#define S_orange #cb4b16
+#define S_red #dc322f
+#define S_magenta #d33682
+#define S_violet #6c71c4
+#define S_blue #268bd2
+#define S_cyan #2aa198
+#define S_green #859900
+! Dark
+#define S_base03 #002b36
+#define S_base02 #073642
+#define S_base01 #586e75
+#define S_base00 #657b83
+#define S_base0 #839496
+#define S_base1 #93a1a1
+#define S_base2 #eee8d5
+#define S_base3 #fdf6e3
+! Light
+! #define S_base03 #fdf6e3
+! #define S_base02 #eee8d5
+! #define S_base01 #93a1a1
+! #define S_base00 #839496
+! #define S_base0 #657b83
+! #define S_base1 #586e75
+! #define S_base2 #073642
+! #define S_base3 #002b36
+! To only apply colors to your terminal, for example, prefix
+! the color assignment statement with its name. Example:
+!
+! URxvt*background: S_base03
+*background: S_base03
+*foreground: S_base0
+*fading: 40
+*fadeColor: S_base03
+*cursorColor: S_base1
+*pointerColorBackground: S_base01
+*pointerColorForeground: S_base1
+*color0: S_base02
+*color1: S_red
+*color2: S_green
+*color3: S_yellow
+*color4: S_blue
+*color5: S_magenta
+*color6: S_cyan
+*color7: S_base2
+*color8: S_base03
+*color9: S_orange
+*color10: S_base01
+*color11: S_base00
+*color12: S_base0
+*color13: S_violet
+*color14: S_base1
+*color15: S_base3
+
+!
 ! URxvt*colorBD: colour
 
 ! Use the specified colour to display bold or italic characters when
@@ -72,14 +130,14 @@ URxvt*font: xft:Ubuntu Mono:regular:size=14
 
 ! URxvt*boldFont: fontlist
 
-! 
+!
 ! URxvt*italicFont: fontlist
 
 ! The font list to use for displaying bold, italic or bold italic
 ! URxvt*boldItalicFont: fontlist
 
-! When font styles are not enabled, or this option is enabled (True,
-! URxvt*intensityStyles: boolean
+! For solarized colors
+URxvt*intensityStyles: false
 
 ! Set window title string, the default title is the command-line
 ! URxvt*title: string
@@ -106,19 +164,19 @@ URxvt*font: xft:Ubuntu Mono:regular:size=14
 ! URxvt*print-pipe: string
 
 ! Set scrollbar style to rxvt, plain, next or xterm. plain is the
-! URxvt*scrollstyle: mode
+URxvt*scrollstyle: plain
 
 ! Set the scrollbar width in pixels.
 ! URxvt*thickness: number
 
 ! True: enable the scrollbar [default]; option -sb. False: disable
-URxvt*scrollBar: False
+URxvt*scrollBar: True
 
 ! True: place the scrollbar on the right of the window; option -sr.
-! URxvt*scrollBar_right: boolean
+URxvt*scrollBar_right: 1
 
 ! True: display an rxvt scrollbar without a trough; option -st.
-! URxvt*scrollBar_floating: boolean
+URxvt*scrollBar_floating: 0
 
 ! Align the top, bottom or centre [default] of the scrollbar thumb
 ! URxvt*scrollBar_align: mode
@@ -133,7 +191,7 @@ URxvt*scrollBar: False
 ! URxvt*scrollTtyKeypress: boolean
 
 ! Save number lines in the scrollback buffer [default 64]. This
-! URxvt*saveLines: number
+URxvt*saveLines: 65000
 
 ! Internal border of number pixels. This resource is limited to 100;
 ! URxvt*internalBorder: number
@@ -157,7 +215,7 @@ URxvt*scrollBar: False
 ! URxvt*meta8: boolean
 
 ! True: the mouse wheel scrolls a page full. False: the mouse wheel
-URxvt*mouseWheelScrollPage: 1
+URxvt*mouseWheelScrollPage: 0
 
 ! True: store tabs as wide characters. False: interpret tabs as
 ! URxvt*pastableTabs: boolean
@@ -189,7 +247,7 @@ URxvt*mouseWheelScrollPage: 1
 ! The characters used as delimiters for double-click word selection
 ! URxvt*cutchars: string
 
-! 
+!
 ! URxvt*{|}
 
 ! OverTheSpot, OffTheSpot, Root; option -pt.
@@ -231,8 +289,24 @@ URxvt*secondaryScroll: 0
 ! Compile frills: Associate string with keysym sym. The intervening
 ! URxvt*keysym.sym: string
 
-URxvt*perl-ext-common: string,keyboard-select
-URxvt*keysym.M-s: perl:keyboard-select:search
+URxvt*perl-ext-common: font-size,default,keyboard-select,clipboard,url-select,matcher,vtwheel
+URxvt.url-select.launcher: /usr/bin/firefox
+URxvt*matcher.button: 1
+URxvt*colorUL: #4682B4
+URxvt*keysym.M-Escape: perl:keyboard-select:activate
+URxvt*keysym.M-s:      perl:keyboard-select:search
+URxvt*keysym.M-u:      perl:url-select:select_next
+URxvt*keysym.M-c:      perl:clipboard:copy
+URxvt*keysym.M-v:      perl:clipboard:paste
+URxvt*keysym.M-C-v:    perl:clipboard:paste_escaped
+URxvt*clipboard.autocopy:   true
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+URxvt*keysym.C-Up:     perl:font-size:increase
+URxvt*keysym.C-Down:   perl:font-size:decrease
+URxvt*keysym.C-S-Up:   perl:font-size:incglobal
+URxvt*keysym.C-S-Down: perl:font-size:decglobal
+
 
 ! Comma-separated list(s) of perl extension scripts (default:
 ! URxvt*perl-ext: string

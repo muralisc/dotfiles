@@ -9,7 +9,7 @@
 # 1920x1080
 
 # Lock screen displaying this image.
-i3lock -i ~/Downloads/wallpaperLock.png
+i3lock -i ~/Downloads/1634796\(1\).png
 
 # Turn the screen off after a delay.
 sleep 60; pgrep i3lock && xset dpms force off

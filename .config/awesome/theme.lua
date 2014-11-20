@@ -4,7 +4,9 @@
 
 theme = {}
 
-theme.font          = "zekton bold 8"
+-- theme.font          = "cantarell 10"
+theme.font          = "DejaVu sans mono 10"
+-- theme.font          = "Tamsyn 12"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#5882FA"
@@ -29,6 +31,7 @@ theme.border_marked = "#91231c"
 -- tasklist_[bg|fg]_[focus|urgent]
 -- titlebar_[bg|fg]_[normal|focus]
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
+theme.tooltip_font = "ubuntu mono 14"
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
@@ -73,7 +76,7 @@ theme.titlebar_maximized_button_focus_inactive  = "/usr/share/awesome/themes/def
 theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper="/home/murali/Downloads/wallpaperLock.png"
+theme.wallpaper="/home/murali/Downloads/1634796(1).png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"
