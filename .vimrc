@@ -16,7 +16,7 @@ Plugin 'jcf/vim-latex'                           " latex
 Plugin 'davidhalter/jedi-vim'                   " python
 Plugin 'klen/python-mode'                       " python
 Plugin 'octol/vim-cpp-enhanced-highlight'       " highlighting for STL
-Plugin 'flazz/vim-colorschemes'
+Plugin 'muralisc/vim-colorschemes'
 Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'xolox/vim-misc'
 Plugin 'chazy/cscope_maps'

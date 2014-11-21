@@ -4,7 +4,7 @@ alias acs='apt-cache search'
 alias vrc='vim ~/.vimrc'
 alias arc='vim ~/.config/awesome/rc.lua'
 alias vch='vim ~/Dropbox/IITB/cheatsheets/vim'
-alias tlc='vim ~/Dropbox/IITB/cheatsheets/theLinuxCommandline'
+alias tlc='vim ~/Dropbox/IITB/cheatsheets/theLinuxCommandline.txt'
 alias brc='vim ~/.bashrc'
 alias zrc='vim ~/.zshrc'
 alias gl="git log --pretty=format:'%C(yellow)%h%C(red)%d %C(cyan)%an%Creset %s %Cgreen(%cr)' --graph --all"
@@ -14,6 +14,7 @@ alias rm='rm -rfv'
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
 alias dt='find . -ipath "*.git" -prune -o -type d -print| sed -e "s/[^-][^\/]*\//  |/g"'                          # no file (Dir) tree --most filtered
 alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
+alias n='urxvt &; disown'
 
 EDITOR=/usr/bin/vim
  

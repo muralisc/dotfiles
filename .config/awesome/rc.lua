@@ -124,6 +124,8 @@ end
 -- }}}
 
 -- {{{ Menu
+require('freedesktop.menu')
+menu_items = freedesktop.menu.new()
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
@@ -133,8 +135,10 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
-                                  }
+                                    { "open terminal", terminal },
+                                    { "free-desktop",  menu_items}
+                                  },
+                          theme = { width = 150,}
                         })
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
@@ -308,7 +312,7 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
-    left_layout:add(mylauncher)
+    -- left_layout:add(mylauncher)
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
     -- Widgets that are aligned to the right
