@@ -365,6 +365,10 @@ globalkeys = awful.util.table.join(
         function ()
             awful.util.spawn("xmms2 toggle")
         end),
+    awful.key({ "Control", "Mod1" }, "Left",
+        function ()
+            awful.util.spawn("xmms2 prev")
+        end),
     awful.key({ "Control", "Mod1" }, "Right",
         function ()
             awful.util.spawn("xmms2 next")

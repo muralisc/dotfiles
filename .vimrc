@@ -11,8 +11,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'kien/ctrlp.vim'
-"Plugin 'coot/atp_vim'                           " latex
-Plugin 'jcf/vim-latex'                           " latex
+" yaourt -S vim-latexsuite-git
 Plugin 'davidhalter/jedi-vim'                   " python
 Plugin 'klen/python-mode'                       " python
 Plugin 'octol/vim-cpp-enhanced-highlight'       " highlighting for STL
