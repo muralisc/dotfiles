@@ -31,7 +31,7 @@ filetype indent on              " Enable filetype-specific indenting
 filetype plugin on              " Enable filetype-specific plugins
 syntax on                       " syntax highlight
 set t_Co=256
-colorscheme pf_earth
+colorscheme slate
 
 " Change the mapleader from \ to ,
 "let mapleader=","

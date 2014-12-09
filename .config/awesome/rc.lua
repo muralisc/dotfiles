@@ -207,6 +207,7 @@ mytasklist.buttons = awful.util.table.join(
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(50)
 cpuwidget:set_background_color("#494B4F")
+cpuwidget:set_border_color("#000000")
 cpuwidget:set_color({ type = "linear",
                         from = { 0, 0 },
                         to = { 10,0 },
@@ -265,6 +266,7 @@ vicious.register(wifiwidget, vicious.widgets.wifi,
 
 netgraph = awful.widget.graph()
 netgraph:set_width(50)
+netgraph:set_border_color("#000000")
 netgraph:set_background_color("#494B4F")
 netgraph:set_color("#FF5656")
 netgraph:set_max_value(10)   -- 1000kbps
@@ -284,9 +286,9 @@ vicious.register(netgraph, vicious.widgets.net,
 
 local battery = require("battery")
 batterywidget = wibox.widget.textbox()
-batterywidget_timer = timer({timeout = 60})
+batterywidget_timer = timer({timeout = 10})
 batterywidget_timer:connect_signal("timeout", function()
-    batterywidget:set_text(batteryInfo("BAT0"))
+    batterywidget:set_text(batteryInfo("BAT0").."|")
 end)
 batterywidget_timer:start()
 
@@ -374,6 +376,14 @@ globalkeys = awful.util.table.join(
             awful.util.spawn("xmms2 next")
         end),
 
+    awful.key({}, "XF86MonBrightnessUp" ,
+        function ()
+            awful.util.spawn("xbacklight +10")
+        end),
+    awful.key({}, "XF86MonBrightnessDown" ,
+        function ()
+            awful.util.spawn("xbacklight -10")
+        end),
     awful.key({}, "XF86Calculator" ,
         function ()
             awful.util.spawn("xbacklight +10")
@@ -546,7 +556,7 @@ globalkeys = awful.util.table.join(
         end),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
-    awful.key({ modkey }, "b", 
+    awful.key({ modkey }, "b",              -- wibox visibility toggle
         function () 
             mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible 
         end)

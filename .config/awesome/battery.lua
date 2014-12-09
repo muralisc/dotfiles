@@ -4,10 +4,12 @@
 
 local naughty = require("naughty")
 local beautiful = require("beautiful")
+local old = 0
 
 function batteryInfo(adapter)
   percent = ""
   icon = ""
+  seconds = 0
   local fh = io.open("/sys/class/power_supply/"..adapter.."/present", "r")
   if fh == nil then
     battery = "A/C"
@@ -24,13 +26,16 @@ function batteryInfo(adapter)
     fcap:close()
     fsta:close()
     battery = math.floor(cur * 100 / cap)
+
   
     if sta:match("Charging") then
       icon = "⚡"
       percent = "%"
     elseif sta:match("Discharging") then
+      seconds = cur*10/(old - cur)
+      old = cur
       icon = ""
-      percent = "%"
+      percent = "% "..seconds/(60*60).." hrz rem"
       if tonumber(battery) < 15 then
         naughty.notify({ title    = "Battery Warning"
                , text     = "Battery low!".."  "..battery..percent.."  ".."left!"

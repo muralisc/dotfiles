@@ -11,7 +11,7 @@ function update_volume(widget)
 
    -- local volume = tonumber(string.match(status, "(%d?%d?%d)%%")) / 100
    local volume = string.match(status, "(%d?%d?%d)%%")
-   volume = string.format("%4d♫ ", volume)
+   volume = string.format("%3d♫ ", volume)
 
    status = string.match(status, "%[(o[^%]]*)%]")
 
@@ -21,9 +21,9 @@ function update_volume(widget)
    else
        -- For the mute button
        -- volume = volume .. "M"
-       volume = "MUTE♫ "
+       volume = "---♫ "
    end
-   widget:set_markup(volume)
+   widget:set_markup("|"..volume)
 end
 volume_widget:buttons(awful.util.table.join(
      awful.button({ }, 1,

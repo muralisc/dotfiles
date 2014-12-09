@@ -10,5 +10,5 @@ ln -s `pwd`/.bashrc ~/.bashrc
 ln -s `pwd`/.zshrc ~/.zshrc
 ln -s `pwd`/.aliases.sh ~/.aliases.sh
 ln -s `pwd`/awesome ~/.config/awesome
-ln -s `pwd`/terminator ~/.config/terminator
+ln -s `pwd`/.Xresources ~/.Xresources       #urvxt settings
 ```

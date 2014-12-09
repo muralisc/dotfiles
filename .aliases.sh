@@ -14,6 +14,7 @@ alias gs='git status -uall'
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
 alias dt='find . -ipath "*.git" -prune -o -type d -print| sed -e "s/[^-][^\/]*\//  |/g"'                          # no file (Dir) tree --most filtered
 alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
+alias feh='feh -r --keep-zoom-vp --info "exiv2 %f"'
 
 
 

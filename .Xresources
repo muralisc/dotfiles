@@ -8,7 +8,7 @@ URxvt*depth: 32
 ! URxvt*geometry: geom
 
 ! Use the specified colour as the windows background colour [default
-URxvt*background: [80]#000000
+URxvt*background: [50]#000000
 
 ! Use the specified colour as the windows foreground colour [default
 URxvt*foreground: White
@@ -182,13 +182,13 @@ URxvt*scrollBar_floating: 0
 ! URxvt*scrollBar_align: mode
 
 ! True: scroll to bottom when tty receives output; option -si.
-! URxvt*scrollTtyOutput: boolean
+URxvt*scrollTtyOutput: false
 
 ! True: scroll with scrollback buffer when tty receives new lines
-! URxvt*scrollWithBuffer: boolean
+URxvt*scrollWithBuffer: true
 
 ! True: scroll to bottom when a non-special key is pressed. Special
-! URxvt*scrollTtyKeypress: boolean
+URxvt*scrollTtyKeypress: true
 
 ! Save number lines in the scrollback buffer [default 64]. This
 URxvt*saveLines: 65000
