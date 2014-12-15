@@ -136,6 +136,7 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "open terminal", terminal },
+                                    { "shutdown", 'poweroff' },
                                     { "free-desktop",  menu_items}
                                   },
                           theme = { width = 150,}

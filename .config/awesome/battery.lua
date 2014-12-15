@@ -35,7 +35,7 @@ function batteryInfo(adapter)
       seconds = cur*10/(old - cur)
       old = cur
       icon = ""
-      percent = "% "..seconds/(60*60).." hrz rem"
+      percent = string.format("%% %2.2f hrz rem", seconds/(60*60))
       if tonumber(battery) < 15 then
         naughty.notify({ title    = "Battery Warning"
                , text     = "Battery low!".."  "..battery..percent.."  ".."left!"

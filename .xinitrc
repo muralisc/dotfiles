@@ -16,9 +16,10 @@ fi
 # exec startxfce4
 # ...or the Window Manager of your choice
 
+# x0vncserver -PasswordFile=/home/jaleel/.vnc/passwd &
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 xcompmgr &
 # udiskie &
-dropboxd
-/usr/bin/start-pulseaudio-x11
+dropboxd &
+/usr/bin/start-pulseaudio-x11 &
 exec awesome

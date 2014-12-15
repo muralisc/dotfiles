@@ -15,7 +15,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'                   " python
 Plugin 'klen/python-mode'                       " python
 Plugin 'octol/vim-cpp-enhanced-highlight'       " highlighting for STL
-Plugin 'muralisc/vim-colorschemes'
+Plugin 'flazz/vim-colorschemes'
 Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'xolox/vim-misc'
 Plugin 'chazy/cscope_maps'
@@ -31,7 +31,7 @@ filetype indent on              " Enable filetype-specific indenting
 filetype plugin on              " Enable filetype-specific plugins
 syntax on                       " syntax highlight
 set t_Co=256
-colorscheme slate
+colorscheme apprentice
 
 " Change the mapleader from \ to ,
 "let mapleader=","
