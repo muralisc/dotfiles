@@ -59,3 +59,8 @@ function tt {
     fi
     echo "$(($seconds % 60)) seconds"
 }
+# simple calculator
+function = {
+    python -c "print($1)"
+    awk "BEGIN { print $* }"
+}
