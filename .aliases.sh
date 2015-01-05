@@ -35,10 +35,15 @@ xmms2 add -t "*$1*"
 xmms2 stop ;
 xmms2 play ;
 }
+function mc {
+xmms2 clear
+xmms2 add in:'notPlayedRecently'
+xmms2 playlist shuffle
+xmms2 play
+}
 function apt-list-packages {
   dpkg-query -W --showformat='${Installed-Size} ${Package} ${Status}\n' | grep -v deinstall | sort -n | awk '{print $1" "$2}'
 }
-
 
 #usage : tt tomorrow5am
 # time till
