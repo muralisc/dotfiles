@@ -103,17 +103,24 @@ tags = {
             },
     layout = {
                 layouts[1],    --floating,
-                layouts[4],    --tile.bottom,
-                layouts[3],    --tile.left
                 layouts[2],    --tile,
-                layouts[5],    --tile.top,
-                layouts[6],    --fair,              --RESIZE dont work
-                layouts[6],    --fair,              --RESIZE dont work
+                layouts[2],    --tile,
+                layouts[2],    --tile,
+                layouts[2],    --tile,
+                layouts[2],    --tile,
+                layouts[2],    --tile,
+                layouts[2],    --tile,
+                layouts[2],    --tile,
+                -- layouts[2],    --tile,
+                -- layouts[3],    --tile.left
+                -- layouts[4],    --tile.bottom,
+                -- layouts[5],    --tile.top,
+                -- layouts[6],    --fair,              --RESIZE dont work
+                -- layouts[7],    --fair.horizontal,   --RESIZE dont work
                 -- layouts[8],    --spiral,
                 -- layouts[9],    --spiral.dwindle,
-                layouts[10],   --max,
-                layouts[11]   --max.fullscreen,
-                -- layouts[7],    --fair.horizontal,   --RESIZE dont work
+                -- layouts[10],   --max,
+                -- layouts[11]   --max.fullscreen,
                 -- layouts[12],   --magnifier
             }
         }

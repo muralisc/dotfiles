@@ -1,10 +1,11 @@
 alias vrc='vim ~/.vimrc'
 alias arc='vim ~/.config/awesome/rc.lua'
 alias vch='vim ~/Dropbox/IITB/cheatsheets/vim'
-alias tlc='vim ~/Dropbox/IITB/cheatsheets/theLinuxCommandline.txt'
+alias tlc='vim ~/Dropbox/IITB/public_html/htaccess/cheatsheets/theLinuxCommandline.txt'
 alias brc='vim ~/.bashrc'
 alias zrc='vim ~/.zshrc'
 
+alias rml='rm *.{aux,log,nav,out,snm,toc}'
 alias n='urxvt &; disown'
 alias l='ls -lFh'       # long, classify , human readable
 alias r='ranger'
@@ -14,12 +15,11 @@ alias gs='git status -uall'
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
 alias dt='find . -ipath "*.git" -prune -o -type d -print| sed -e "s/[^-][^\/]*\//  |/g"'                          # no file (Dir) tree --most filtered
 alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
-alias feh='feh -r --keep-zoom-vp --info "exiv2 %f"'
-
+alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1024x728'
 
 
 alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'
-alias rm='rm -rfv'
+alias rm='rm -v'
 
 EDITOR=/usr/bin/vim
  
@@ -66,6 +66,6 @@ function tt {
 }
 # simple calculator
 function = {
-    python -c "print($1)"
     awk "BEGIN { print $* }"
 }
+

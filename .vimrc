@@ -19,7 +19,7 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'xolox/vim-misc'
 Plugin 'chazy/cscope_maps'
-" clang-complete                    " semantic c completion
+" clang-complete                    " semantic c completion IS NOW INSTALLED
 " pyclewn                           " python/c debugger
 
 " All of your Plugins must be added before the following line
