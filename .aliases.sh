@@ -1,6 +1,6 @@
 alias vrc='vim ~/.vimrc'
 alias arc='vim ~/.config/awesome/rc.lua'
-alias vch='vim ~/Dropbox/IITB/cheatsheets/vim'
+alias vch='vim ~/Dropbox/IITB/public_html/htaccess/cheatsheets/vim.txt'
 alias tlc='vim ~/Dropbox/IITB/public_html/htaccess/cheatsheets/theLinuxCommandline.txt'
 alias brc='vim ~/.bashrc'
 alias zrc='vim ~/.zshrc'

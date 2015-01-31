@@ -20,6 +20,7 @@ fi
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 xcompmgr &
 # udiskie &
+urxvtd -q -o -f &
 dropboxd &
 /usr/bin/start-pulseaudio-x11 &
 exec awesome

@@ -41,7 +41,7 @@ end
 beautiful.init("~/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "urxvtc"
 editor = os.getenv("EDITOR") or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -667,8 +667,6 @@ awful.rules.rules = {
     callback = function(c) c:tags({awful.tag.selected(1), tags[1][2]}) end},
     { rule = { class = "Firefox" },
     callback = function(c) c:tags({awful.tag.selected(1), tags[1][2]}) end},
-    { rule = { class = "X-terminal-emulator" },
-    callback = function(c) c:tags({awful.tag.selected(1), tags[1][3]}) end},
 }
 -- }}}
 
