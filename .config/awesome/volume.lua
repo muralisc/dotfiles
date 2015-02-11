@@ -41,6 +41,6 @@ volume_widget:buttons(awful.util.table.join(
             ))
 update_volume(volume_widget)
 
-mytimer = timer({ timeout = 1 })
+mytimer = timer({ timeout = 60 })
 mytimer:connect_signal("timeout", function () update_volume(volume_widget) end)
 mytimer:start()

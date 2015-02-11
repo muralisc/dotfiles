@@ -16,9 +16,10 @@ Plugin 'davidhalter/jedi-vim'                   " python
 Plugin 'klen/python-mode'                       " python
 Plugin 'octol/vim-cpp-enhanced-highlight'       " highlighting for STL
 Plugin 'flazz/vim-colorschemes'
-Plugin 'xolox/vim-colorscheme-switcher'
-Plugin 'xolox/vim-misc'
+Plugin 'biskark/vim-ultimate-colorscheme-utility'
 Plugin 'chazy/cscope_maps'
+Plugin 'junegunn/vim-peekaboo'
+Plugin 'junegunn/vim-easy-align'
 " clang-complete                    " semantic c completion IS NOW INSTALLED
 " pyclewn                           " python/c debugger
 
@@ -38,6 +39,8 @@ colorscheme apprentice
 let g:pymode_lint_ignore = "E702,E501,E225,E221,E203,E231,E201,E202,E261,E262"
 
 " Editing behaviour {{{
+set undofile
+set undodir=/var/tmp/vimundo
 set showmode                    " always show what mode we're currently editing in
 set nowrap                      " don't wrap lines
 set tabstop=4                   " a tab is four spaces
@@ -180,7 +183,7 @@ set colorcolumn=81              " show a marker at 81 so you have a visual cue
  inoremap <right> <nop>
 
 " Clears the search register
-nnoremap <silent> <leader>\ :nohlsearch<CR>
+nnoremap <silent> <leader>\c :nohlsearch<CR>
 " executes the last !command in vim (usually compile and run)
 nnoremap <silent> <leader>c :w<CR>:!<Up><CR>
 
@@ -208,7 +211,7 @@ autocmd BufReadPost *
 " }}}
 
 " ==============================================================================
-" pluggin specific settings
+" plugin specific settings
 set tags=/home/mur/.vim/tagsForCtags
 " CLANG COMPLETE SETTINGS
 let g:clang_complete_auto = 0
@@ -223,10 +226,11 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " PYTHON MODE SETTINGS
 let g:pymode_rope = 1
-nnoremap <F3> :NextColorScheme<CR>
-nnoremap <silent> <F2> :PrevColorScheme<CR>
-"color scheme switcher
-let g:colorscheme_switcher_define_mappings = 0
+" vim-align
+    " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+    " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 " ==============================================================================
 " let g:ctrlp_cmd = 'CtrlPBuffer'
 " ==============================================================================

@@ -170,7 +170,7 @@ URxvt*scrollstyle: plain
 ! URxvt*thickness: number
 
 ! True: enable the scrollbar [default]; option -sb. False: disable
-URxvt*scrollBar: True
+URxvt*scrollBar: False
 
 ! True: place the scrollbar on the right of the window; option -sr.
 URxvt*scrollBar_right: 1

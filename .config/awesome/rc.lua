@@ -212,6 +212,7 @@ mytasklist.buttons = awful.util.table.join(
   local vicious = require("vicious")
   -- Top widgets:
   require("volume")
+  require("brightness")
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(50)
 cpuwidget:set_background_color("#494B4F")
@@ -336,6 +337,7 @@ for s = 1, screen.count() do
     right_layout:add(batterywidget)
     right_layout:add(mytextclock)
     right_layout:add(volume_widget)
+    right_layout:add(brightness_widget)
     right_layout:add(mylayoutbox[s])
 
     -- Now bring it all together (with the tasklist in the middle)
@@ -662,11 +664,12 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "Thunderbird" },
       properties = { tag = tags[1][5] } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
+    -- Set Google Chrome to always map on tags number 2 of screen 1.and
+    -- current tag
     { rule = { class = "Google-chrome" },
     callback = function(c) c:tags({awful.tag.selected(1), tags[1][2]}) end},
     { rule = { class = "Firefox" },
-    callback = function(c) c:tags({awful.tag.selected(1), tags[1][2]}) end},
+      properties = { tag = tags[1][2] } },
 }
 -- }}}
 
