@@ -364,14 +364,17 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioRaiseVolume" ,
         function ()
             awful.util.spawn("amixer sset Master 10%+")
+            update_volume(volume_widget)
         end),
     awful.key({}, "XF86AudioLowerVolume" ,
         function ()
             awful.util.spawn("amixer sset Master 10%-")
+            update_volume(volume_widget)
         end),
     awful.key({}, "XF86AudioMute",
         function ()
             awful.util.spawn("amixer sset 'Master',0 toggle")
+            update_volume(volume_widget)
         end),
     awful.key({}, "XF86AudioPlay",
         function ()
@@ -389,18 +392,22 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86MonBrightnessUp" ,
         function ()
             awful.util.spawn("xbacklight +10")
+            update_brightness(brightness_widget)
         end),
     awful.key({}, "XF86MonBrightnessDown" ,
         function ()
             awful.util.spawn("xbacklight -10")
+            update_brightness(brightness_widget)
         end),
     awful.key({}, "XF86Calculator" ,
         function ()
             awful.util.spawn("xbacklight +10")
+            update_brightness(brightness_widget)
         end),
     awful.key({}, "XF86Sleep" ,
         function ()
             awful.util.spawn("xbacklight -10")
+            update_brightness(brightness_widget)
         end),
 
     awful.key({}, "XF86Mail" ,
@@ -428,7 +435,7 @@ globalkeys = awful.util.table.join(
 
     awful.key({ "Mod1" }, "Tab",
         function ()
-            awful.menu.clients( { theme = { font="zekton bold 14"; width = 800; height=30 } }) 
+            awful.menu.clients( { theme = { font="zekton bold 14"; width = 800; height=30 } })
         end),  --ESCAPE to close
 
     awful.key({ modkey }, "Next",
@@ -492,8 +499,8 @@ globalkeys = awful.util.table.join(
         function ()
             awful.screen.focus_relative(-1)
         end), -- what??
-    awful.key({ "Control", "Mod1" }, "h",   awful.tag.viewprev       ),
-    awful.key({ "Control", "Mod1" }, "l",  awful.tag.viewnext       ),
+    awful.key({ modkey, "Mod1" }, "h",  awful.tag.viewprev       ),
+    awful.key({ modkey, "Mod1" }, "l",  awful.tag.viewnext       ),
 
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "w",
@@ -532,14 +539,14 @@ globalkeys = awful.util.table.join(
         function ()
             awful.tag.incncol(-1)
         end),
-    awful.key({ modkey,           }, "h",
+    awful.key({ modkey,           }, "h", --resize split
         function ()
             awful.tag.incmwfact(-0.05)
-        end), -- RESIZE
+        end),
     awful.key({ modkey, "Shift"   }, "h",
         function ()
             awful.client.incwfact( 0.05)
-        end), -- RESISE
+        end),
     -- awful.key({ modkey, "Shift"   }, "h",
     --  function ()
     --  awful.tag.incnmaster( 1)
@@ -560,15 +567,15 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     
-        function () 
-            mypromptbox[mouse.screen]:run() 
+    awful.key({ modkey },            "r",
+        function ()
+            mypromptbox[mouse.screen]:run()
         end),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
     awful.key({ modkey }, "b",              -- wibox visibility toggle
-        function () 
-            mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible 
+        function ()
+            mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
         end)
 )
 
@@ -578,9 +585,9 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
-    awful.key({ modkey,           }, "t",      
-        function (c) 
-            c.ontop = not c.ontop            
+    awful.key({ modkey,           }, "t",
+        function (c)
+            c.ontop = not c.ontop
         end),
     awful.key({ modkey,           }, "n",
         function (c)
@@ -660,7 +667,7 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "gimp" },
+    { rule = { class = "feh" },
       properties = { floating = true } },
     { rule = { class = "Thunderbird" },
       properties = { tag = tags[1][5] } },

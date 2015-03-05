@@ -23,4 +23,5 @@ xcompmgr &
 urxvtd -q -o -f &
 dropboxd &
 /usr/bin/start-pulseaudio-x11 &
+setxkbmap -option caps:none
 exec awesome

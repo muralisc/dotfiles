@@ -2,20 +2,15 @@
 -- can be used to populate a text widget in the awesome window manager. Based
 -- on the "Gigamo Battery Widget" found in the wiki at awesome.naquadah.org
 
+local awful = require("awful")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
 local old = 0
 
 function batteryInfo(adapter)
-  percent = ""
-  icon = ""
-  seconds = 0
-  local fh = io.open("/sys/class/power_supply/"..adapter.."/present", "r")
-  if fh == nil then
-    battery = "A/C"
-    icon = ""
     percent = ""
-  else
+    icon = ""
+    seconds = 0
     local fcur = io.open("/sys/class/power_supply/"..adapter.."/charge_now")  
     local fcap = io.open("/sys/class/power_supply/"..adapter.."/charge_full")
     local fsta = io.open("/sys/class/power_supply/"..adapter.."/status")
@@ -25,27 +20,36 @@ function batteryInfo(adapter)
     fcur:close()
     fcap:close()
     fsta:close()
-    battery = math.floor(cur * 100 / cap)
-
-  
-    if sta:match("Charging") then
-      icon = "⚡"
-      percent = "%"
+    if sta == "Full" then
+        battery = "A/C"
+        icon = ""
+        percent = ""
+    elseif sta:match("Charging") then
+        battery = math.floor(cur * 100 / cap)
+        icon = "⚡"
+        percent = "%"
     elseif sta:match("Discharging") then
-      seconds = cur*10/(old - cur)
-      old = cur
-      icon = ""
-      percent = string.format("%% %2.2f hrz rem", seconds/(60*60))
-      if tonumber(battery) < 15 then
-        naughty.notify({ title    = "Battery Warning"
-               , text     = "Battery low!".."  "..battery..percent.."  ".."left!"
-               , timeout  = 5
-               , position = "top_right"
-               , fg       = beautiful.fg_focus
-               , bg       = beautiful.bg_focus
+        battery = math.floor(cur * 100 / cap)
+        icon = ""
+        seconds = cur*10/(old - cur)
+        percent = string.format("%% %2.2f hrz rem", seconds/(60*60))
+        old = cur
+--{{{   Low battery if condition
+        if tonumber(battery) < 30 then
+            naughty.notify({ title    = "Battery Warning"
+            , text     = "Battery low!".."  "..battery..percent.."  ".."left!"
+            , timeout  = 5
+            , position = "top_right"
+            , fg       = beautiful.fg_focus
+            , bg       = beautiful.bg_focus
         })
-      end
+        end
+--}}}
+--{{{   Critical Battery suspend if condition
+        if tonumber(battery) < 15 then
+            awful.util.spawn_with_shell("systemctl suspend") 
+        end
+--}}}
     end
-  end
-  return " "..icon..battery..percent.." "
+    return " "..icon..battery..percent.." "
 end

@@ -4,6 +4,10 @@ alias vch='vim ~/Dropbox/IITB/public_html/htaccess/cheatsheets/vim.txt'
 alias tlc='vim ~/Dropbox/IITB/public_html/htaccess/cheatsheets/theLinuxCommandline.txt'
 alias brc='vim ~/.bashrc'
 alias zrc='vim ~/.zshrc'
+alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars; cd -"
+alias stanly="ssh stanly@10.16.35.25"
+alias nandu="ssh nandu@10.16.35.67"
+
 
 alias rml='rm *.{aux,log,nav,out,snm,toc}'
 alias n='urxvt &; disown'
@@ -15,7 +19,7 @@ alias gs='git status -uall'
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
 alias dt='find . -ipath "*.git" -prune -o -type d -print| sed -e "s/[^-][^\/]*\//  |/g"'                          # no file (Dir) tree --most filtered
 alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
-alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1024x728'
+alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1400x1050'
 
 
 alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'

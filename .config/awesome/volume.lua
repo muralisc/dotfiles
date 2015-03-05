@@ -11,7 +11,7 @@ function update_volume(widget)
 
    -- local volume = tonumber(string.match(status, "(%d?%d?%d)%%")) / 100
    local volume = string.match(status, "(%d?%d?%d)%%")
-   volume = string.format("%3d♫☼ ", volume)
+   volume = string.format("%3d♫ ", volume)
 
    status = string.match(status, "%[(o[^%]]*)%]")
 
@@ -27,7 +27,10 @@ function update_volume(widget)
 end
 volume_widget:buttons(awful.util.table.join(
      awful.button({ }, 1,
-     function() awful.util.spawn_with_shell("amixer sset Master toggle") end),
+     function() 
+         awful.util.spawn_with_shell("amixer sset Master toggle") 
+         update_volume(volume_widget)
+     end),
      awful.button({ }, 4,                            
      function() 
          awful.util.spawn_with_shell("amixer sset Master 3%+") 
@@ -41,6 +44,6 @@ volume_widget:buttons(awful.util.table.join(
             ))
 update_volume(volume_widget)
 
-mytimer = timer({ timeout = 60 })
-mytimer:connect_signal("timeout", function () update_volume(volume_widget) end)
-mytimer:start()
+-- mytimer = timer({ timeout = 60 })
+-- mytimer:connect_signal("timeout", function () update_volume(volume_widget) end)
+-- mytimer:start()

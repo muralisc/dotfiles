@@ -17,7 +17,10 @@ function update_brightness(widget)
 end
 brightness_widget:buttons(awful.util.table.join(
      awful.button({ }, 1,
-     function() awful.util.spawn_with_shell("amixer sset Master toggle") end),
+     function() 
+         awful.util.spawn_with_shell("amixer sset Master toggle") 
+         update_brightness(brightness_widget)
+     end),
      awful.button({ }, 4,                            
      function() 
          awful.util.spawn_with_shell("xbacklight +5") 
@@ -31,6 +34,6 @@ brightness_widget:buttons(awful.util.table.join(
             ))
 update_brightness(brightness_widget)
 
-mytimer = timer({ timeout = 1 })
-mytimer:connect_signal("timeout", function () update_brightness(brightness_widget) end)
-mytimer:start()
+-- mytimer = timer({ timeout = 1 })
+-- mytimer:connect_signal("timeout", function () update_brightness(brightness_widget) end)
+-- mytimer:start()

@@ -1,38 +1,44 @@
 "Courtsey Vincent Driessen <vincent@datafox.nl>
 "Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
 "and me
-
 set nocompatible                " not compatible with the old-fashion vi mode
+
 filetype off                    " Required Vundle setup
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
+" in the order of most important 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
-Plugin 'kien/ctrlp.vim'
-" yaourt -S vim-latexsuite-git
-Plugin 'davidhalter/jedi-vim'                   " python
-Plugin 'klen/python-mode'                       " python
-Plugin 'octol/vim-cpp-enhanced-highlight'       " highlighting for STL
-Plugin 'flazz/vim-colorschemes'
+Plugin 'tpope/vim-fugitive'
+Plugin 'edsono/vim-matchit'
+Plugin 'gregsexton/gitv'
 Plugin 'biskark/vim-ultimate-colorscheme-utility'
+Plugin 'flazz/vim-colorschemes'
+" Plugin 'junegunn/vim-easy-align'
+Plugin 'kien/ctrlp.vim'
+" ================================================LATEX
+" yaourt -S vim-latexsuite-git
+" ================================================Python
+Plugin 'davidhalter/jedi-vim'
+Plugin 'klen/python-mode'
+" ================================================CPP
+"  yaourt -S vim-youcompleteme-git
+Plugin 'octol/vim-cpp-enhanced-highlight'       " highlighting for STL
 Plugin 'chazy/cscope_maps'
-Plugin 'junegunn/vim-peekaboo'
-Plugin 'junegunn/vim-easy-align'
-" clang-complete                    " semantic c completion IS NOW INSTALLED
-" pyclewn                           " python/c debugger
+call vundle#end()
+filetype plugin indent on
+" ================================================Vundle setup done
 
-" All of your Plugins must be added before the following line
-call vundle#end()               " required
-filetype plugin indent on       " required
-                                " Vundle setup done
+
 filetype on                     " Enable filetype detection
 filetype indent on              " Enable filetype-specific indenting
 filetype plugin on              " Enable filetype-specific plugins
 syntax on                       " syntax highlight
 set t_Co=256
-colorscheme apprentice
+colorscheme lettuce
+" autumn summerfruit256 calmar256-light khakhi
+" BlackSea apprentice candyman lettuce
 
 " Change the mapleader from \ to ,
 "let mapleader=","
@@ -43,7 +49,7 @@ set undofile
 set undodir=/var/tmp/vimundo
 set showmode                    " always show what mode we're currently editing in
 set nowrap                      " don't wrap lines
-set tabstop=4                   " a tab is four spaces
+" set tabstop=4                   " a tab is four spaces
 set softtabstop=4               " when hitting <BS>, delete 4 spaces insted of 1
 set expandtab                   " expand tabs by default (overloadable per file type later)
 set shiftwidth=4                " number of spaces to use for autoindenting
@@ -51,8 +57,14 @@ set shiftround                  " use multiple of shiftwidth when indenting with
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set autoindent                  " always set autoindenting on
 set copyindent                  " copy the previous indentation on autoindenting
+
 set number                      " always show line numbers
 set rnu                        " relative number
+autocmd InsertEnter * :set norelativenumber
+autocmd InsertLeave * :set relativenumber
+au FocusLost * :set norelativenumber
+au FocusGained * :set relativenumber
+
 set showmatch                   " set show matching parenthesis
 set ignorecase                  " ignore case when searching
 set smartcase                   " ignore case if search pattern is all lowercase,
@@ -218,7 +230,9 @@ let g:clang_complete_auto = 0
 let g:clang_use_library = 1
 let g:clang_periodic_quickfix = 0
 let g:clang_close_preview = 1
-let g:clang_library_path = '/usr/lib/llvm-3.5/lib/'
+let g:clang_library_path = '/usr/lib/'
+" you complete me
+let g:ycm_confirm_extra_conf = 0
 " If you prefer the Omni-Completion tip window to close when a selection is
 " made, these lines close it on movement in insert mode or when leaving
 " insert mode
@@ -226,16 +240,15 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " PYTHON MODE SETTINGS
 let g:pymode_rope = 1
-" vim-align
-    " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
-    " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+"vim-figitive
+autocmd BufReadPost fugitive://* set bufhidden=delete
 " ==============================================================================
-" let g:ctrlp_cmd = 'CtrlPBuffer'
+let g:ctrlp_cmd = 'CtrlPBuffer'
+nnoremap <leader><c-p> :CtrlP<CR>
 " ==============================================================================
 " ================
 
+autocmd FileType java set tags=~/.tags
 augroup javascript_files "{{{
         au!
 
@@ -253,3 +266,4 @@ augroup cpp_files "{{{
         autocmd filetype c setlocal foldmethod=marker
 
 augroup end "}}}
+

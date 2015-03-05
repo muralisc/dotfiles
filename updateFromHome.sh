@@ -7,6 +7,8 @@ cp ~/.vimrc ./
 cp ~/.Xresources ./
 cp ~/.zshrc ./
 cp ~/.xinitrc ./
+cp ~/.muttrc ./
+cp ~/.fehbg ./
 
 mkdir -p .config/awesome
 cp -r ~/.config/awesome ./.config/
