@@ -13,3 +13,4 @@ cp ~/.fehbg ./
 mkdir -p .config/awesome
 cp -r ~/.config/awesome ./.config/
 cp -r ~/.config/zathura ./.config/
+cp -r ~/.mutt ./

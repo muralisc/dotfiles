@@ -1,24 +1,24 @@
-set from="143050071 <143050071@iitb.ac.in>"
-set hostname="imaps://imap.iitb.ac.in"
-set folder="imaps://imap.iitb.ac.in/"
-set record="+INBOX.Sent"
-set imap_user="143050071"
-set imap_pass="!larum"
-set postponed="=Drafts"
-set spoolfile="imaps://imap.iitb.ac.in/INBOX"
 # set signature="sign.txt"
-set smtp_url="smtp://143050071@smtp-auth.iitb.ac.in" #smtp_pass=
-set realname="Murali S"
-
-
-set sidebar_width=38
-set sidebar_visible=yes
-set imap_check_subscribed
-set imap_list_subscribed
-
+#
+source "gpg2 -dq $HOME/.my_pass.gpg |"
 
 
 color hdrdefault white black  # headers white on black
 color header brightgreen black ^From:  # sender's name in green
 color quoted cyan black  # quoted text in blue
 color signature red black   # signature in red
+
+set sidebar_width=38
+set sidebar_visible=yes
+set imap_check_subscribed
+set imap_list_subscribed
+
+# ACCOUNT 1
+source "~/.mutt/cse_mail"
+folder-hook $folder 'source ~/.mutt/cse_mail'
+
+# ACCOUNT 2
+source "~/.mutt/iitb_mail"
+folder-hook $folder 'source ~/.mutt/iitb_mail'
+
+

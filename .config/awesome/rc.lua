@@ -677,6 +677,8 @@ awful.rules.rules = {
     callback = function(c) c:tags({awful.tag.selected(1), tags[1][2]}) end},
     { rule = { class = "Firefox" },
       properties = { tag = tags[1][2] } },
+    { rule = { name = "vim" },
+      properties = { tag = tags[1][4] } },
 }
 -- }}}
 
@@ -703,7 +705,7 @@ client.connect_signal("manage", function (c, startup)
         end
     end
 
-    local titlebars_enabled = false
+    local titlebars_enabled = false      -- toggle to Enable/Disable titlebars
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- buttons for the titlebar
         local buttons = awful.util.table.join(

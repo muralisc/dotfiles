@@ -1,0 +1,16 @@
+# Recieve options
+set imap_user="143050071"
+set imap_pass=$iitb_pass
+set folder="imaps://imap.iitb.ac.in/"
+set spoolfile="imaps://imap.iitb.ac.in/INBOX"
+set postponed="=Drafts"
+set record="+INBOX.Sent"
+
+# sent options
+set smtp_url="smtp://143050071@smtp-auth.iitb.ac.in" #smtp_pass=
+set realname="Murali S"
+set from="143050071 <143050071@iitb.ac.in>"
+set hostname="imaps://imap.iitb.ac.in"
+
+# hook 
+account-hook $folder "set imap_user=143050071 imap_pass=!larum"

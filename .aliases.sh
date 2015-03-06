@@ -5,8 +5,6 @@ alias tlc='vim ~/Dropbox/IITB/public_html/htaccess/cheatsheets/theLinuxCommandli
 alias brc='vim ~/.bashrc'
 alias zrc='vim ~/.zshrc'
 alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars; cd -"
-alias stanly="ssh stanly@10.16.35.25"
-alias nandu="ssh nandu@10.16.35.67"
 
 
 alias rml='rm *.{aux,log,nav,out,snm,toc}'
