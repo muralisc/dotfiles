@@ -7,10 +7,12 @@ set postponed="=Drafts"
 set record="+INBOX.Sent"
 
 # sent options
-set smtp_url="smtp://143050071@smtp-auth.iitb.ac.in" #smtp_pass=
+set smtp_url="smtp://143050071@smtp-auth.iitb.ac.in"
 set realname="Murali S"
-set from="143050071 <143050071@iitb.ac.in>"
+set from="143050071@iitb.ac.in"
 set hostname="imaps://imap.iitb.ac.in"
+
+set use_from=yes
 
 # hook 
 account-hook $folder "set imap_user=143050071 imap_pass=!larum"

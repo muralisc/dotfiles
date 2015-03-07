@@ -17,7 +17,7 @@ Plugin 'biskark/vim-ultimate-colorscheme-utility'
 Plugin 'flazz/vim-colorschemes'
 " Plugin 'junegunn/vim-easy-align'
 Plugin 'kien/ctrlp.vim'
-Plugin 'powerman/vim-plugin-viewdoc'
+" Plugin 'powerman/vim-plugin-viewdoc'
 " ================================================LATEX
 " yaourt -S vim-latexsuite-git
 " ================================================Python
@@ -29,7 +29,6 @@ Plugin 'octol/vim-cpp-enhanced-highlight'       " highlighting for STL
 Plugin 'chazy/cscope_maps'
 call vundle#end()
 "}}} ================================================Vundle setup done
-
 " Basic Settings{{{
 filetype on                     " Enable filetype detection
 filetype indent on              " Enable filetype-specific indenting
@@ -116,7 +115,6 @@ set spell spelllang=en_us
 set nospell
 set colorcolumn=81              " show a marker at 81 so you have a visual cue
 "}}}
-
 " Folding rules {{{
 set foldenable                  " enable folding
 set foldcolumn=2                " add a fold column
@@ -125,16 +123,14 @@ set foldlevelstart=99           " start out with everything folded
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
                                 " which commands trigger auto-unfold
 " }}}
-
 " Editor layout {{{
 set termencoding=utf-8
 set encoding=utf-8
 set lazyredraw                  " don't update the display while executing macros
-set laststatus=2                " tell VIM to always put a status line in, even
-                                "    if there is only one window
+set laststatus=2                " always put a status line even if one window
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%y%*%=%-14.(%l,%c%V%)\ %P
 set cmdheight=2                 " use a status bar that is 2 rows high
 " }}}
-
 " Shortcut mappings {{{
 
 " Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
@@ -174,14 +170,12 @@ cnoremap w!! w !sudo tee % >/dev/null
 " open another file in same dir as current file
 nnoremap <leader>e :e %:h/<C-d>
 " }}}
-
 " Restore cursor position upon reopening files {{{
 autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
 " }}}
-
 " {{{               plugin specific settings
 set tags=/home/mur/.vim/tagsForCtags
 " CLANG COMPLETE SETTINGS
@@ -208,7 +202,6 @@ let g:ctrlp_cmd = 'CtrlPBuffer'
 " remap regular ctrlP 
 nnoremap <leader><c-p> :CtrlP<CR>
 " ==}}}
-
 "{{{ Filetype specific settings
 autocmd FileType java set tags=~/.tags
 

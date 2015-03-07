@@ -3,6 +3,7 @@ set imap_user="muralis"
 set imap_pass=$cse_pass
 set folder="imaps://imap.cse.iitb.ac.in/"
 set spoolfile="imaps://imap.cse.iitb.ac.in/INBOX"
+
 set postponed="=Drafts"
 set record="+INBOX.Sent"
 

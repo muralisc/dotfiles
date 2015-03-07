@@ -22,6 +22,7 @@ alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1400x1050'
 
 alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'
 alias rm='rm -v'
+PATH="$HOME/bin:$PATH"
 
 EDITOR=/usr/bin/vim
  

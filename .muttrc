@@ -1,6 +1,7 @@
 # set signature="sign.txt"
 #
 source "gpg2 -dq $HOME/.my_pass.gpg |"
+set editor= "vim"
 
 
 color hdrdefault white black  # headers white on black
@@ -8,10 +9,32 @@ color header brightgreen black ^From:  # sender's name in green
 color quoted cyan black  # quoted text in blue
 color signature red black   # signature in red
 
-set sidebar_width=38
-set sidebar_visible=yes
 set imap_check_subscribed
 set imap_list_subscribed
+
+# activate TLS if available on the server
+set ssl_starttls=yes
+# always use SSL when connecting to a server
+set ssl_force_tls=yes
+# Don't wait to enter mailbox manually
+unset imap_passive
+# Automatically poll subscribed mailboxes for new mail (new in 1.5.11)
+set imap_check_subscribed
+# Reduce polling frequency to a sane level
+set mail_check=60
+# And poll the current mailbox more often (not needed with IDLE in post 1.5.11)
+set timeout=10
+
+# Sidebar Patch --------------------------------------
+set sidebar_delim   = '  │'
+set sidebar_visible = yes
+set sidebar_width   = 50 
+color sidebar_new color221 color233
+
+# Sidebar Navigation ---------------------------------
+bind index,pager <down>   sidebar-next
+bind index,pager <up>     sidebar-prev
+bind index,pager <right>  sidebar-open
 
 # ACCOUNT 1
 source "~/.mutt/cse_mail"

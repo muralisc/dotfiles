@@ -336,8 +336,8 @@ for s = 1, screen.count() do
     right_layout:add(wifiwidget)
     right_layout:add(batterywidget)
     right_layout:add(mytextclock)
-    right_layout:add(volume_widget)
     right_layout:add(brightness_widget)
+    right_layout:add(volume_widget)
     right_layout:add(mylayoutbox[s])
 
     -- Now bring it all together (with the tasklist in the middle)
@@ -363,17 +363,17 @@ globalkeys = awful.util.table.join(
 
     awful.key({}, "XF86AudioRaiseVolume" ,
         function ()
-            awful.util.spawn("amixer sset Master 10%+")
+            awful.util.spawn_with_shell("~/bin/vol-control.sh louder")
             update_volume(volume_widget)
         end),
     awful.key({}, "XF86AudioLowerVolume" ,
         function ()
-            awful.util.spawn("amixer sset Master 10%-")
+            awful.util.spawn_with_shell("~/bin/vol-control.sh softer")
             update_volume(volume_widget)
         end),
     awful.key({}, "XF86AudioMute",
         function ()
-            awful.util.spawn("amixer sset 'Master',0 toggle")
+            awful.util.spawn_with_shell("~/bin/vol-control.sh toggle")
             update_volume(volume_widget)
         end),
     awful.key({}, "XF86AudioPlay",
