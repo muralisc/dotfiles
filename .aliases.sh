@@ -7,6 +7,7 @@ alias zrc='vim ~/.zshrc'
 alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars; cd -"
 
 
+alias find='find . -path "*.git*" -prune -o'        #exclude all git folders
 alias rml='rm *.{aux,log,nav,out,snm,toc}'
 alias n='urxvt &; disown'
 alias l='ls -lFh'       # long, classify , human readable
@@ -22,7 +23,6 @@ alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1400x1050'
 
 alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'
 alias rm='rm -v'
-PATH="$HOME/bin:$PATH"
 
 EDITOR=/usr/bin/vim
  

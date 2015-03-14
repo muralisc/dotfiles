@@ -22,3 +22,13 @@ ln -s `pwd`/.zshrc      ~/.zshrc
 ln -s `pwd`/.xinitrc    ~/.xinitrc
 ln -s `pwd`/.muttrc     ~/.muttrc
 ln -s `pwd`/.fehbg      ~/.fehbg
+
+
+git clone https://github.com/muennich/urxvt-perls
+sudo mv urxvt-perl/* /usr/lib/urxvt/perl/
+git clone https://github.com/majutsushi/urxvt-font-size
+sudo mv urxvt-font-size/* /usr/lib/urxvt/perl/
+rm -rf urxvt-perls
+rm -rf urxvt-font-size
+
+yaourt -S urxvt-vtwheel

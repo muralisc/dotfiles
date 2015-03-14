@@ -23,12 +23,12 @@ brightness_widget:buttons(awful.util.table.join(
      end),
      awful.button({ }, 4,                            
      function() 
-         awful.util.spawn_with_shell("xbacklight +5") 
+         awful.util.spawn_with_shell("xbacklight +1") 
          update_brightness(brightness_widget)
      end),
      awful.button({ }, 5,                                   
      function() 
-         awful.util.spawn_with_shell("xbacklight -5") 
+         awful.util.spawn_with_shell("xbacklight -1") 
          update_brightness(brightness_widget)
      end)
             ))

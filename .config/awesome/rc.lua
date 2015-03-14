@@ -679,6 +679,8 @@ awful.rules.rules = {
       properties = { tag = tags[1][2] } },
     { rule = { name = "vim" },
       properties = { tag = tags[1][4] } },
+    { rule = { instance = "plugin-container" }, -- for youtube
+         properties = { floating = true } },
 }
 -- }}}
 
