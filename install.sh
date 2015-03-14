@@ -31,4 +31,7 @@ sudo mv urxvt-font-size/* /usr/lib/urxvt/perl/
 rm -rf urxvt-perls
 rm -rf urxvt-font-size
 
-yaourt -S urxvt-vtwheel
+if [ grep -qi 'Arch' /etc/lsb-release ] ;
+then
+    yaourt -S urxvt-vtwheel
+fi
