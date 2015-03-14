@@ -25,13 +25,13 @@ ln -s `pwd`/.fehbg      ~/.fehbg
 
 
 git clone https://github.com/muennich/urxvt-perls
-sudo mv urxvt-perl/* /usr/lib/urxvt/perl/
+sudo mv urxvt-perls/* /usr/lib/urxvt/perl/
 git clone https://github.com/majutsushi/urxvt-font-size
 sudo mv urxvt-font-size/* /usr/lib/urxvt/perl/
 rm -rf urxvt-perls
 rm -rf urxvt-font-size
 
-if [ grep -qi 'Arch' /etc/lsb-release ] ;
+if  grep -qi 'Arch' /etc/lsb-release ;
 then
     yaourt -S urxvt-vtwheel
 fi
