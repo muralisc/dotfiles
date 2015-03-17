@@ -61,7 +61,8 @@ case $1 in
             pactl list sinks | awk '
             /State: [^R]/ {running=0}
             /State: R/ {running=1}
-            /Volume: f/   { if ( running == 1) { print $5" "$12} }
+            /Volume: f/   { if ( running == 1) { print $5" "$12; exit} }
+            /Volume: f/   { if ( running == 0) { print $5" "$12;} }
             '
         else
             echo "----"

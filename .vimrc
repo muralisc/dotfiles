@@ -10,21 +10,26 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
-Plugin 'edsono/vim-matchit'
-Plugin 'gregsexton/gitv'
-Plugin 'biskark/vim-ultimate-colorscheme-utility'
-Plugin 'flazz/vim-colorschemes'
+" Plugin 'edsono/vim-matchit'
+Plugin 'vim-scripts/matchit.zip'
 Plugin 'takac/vim-hardtime'
-Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-unimpaired'               " toggles
 Plugin 'junegunn/vim-easy-align'
 Plugin 'kien/ctrlp.vim'
+Plugin 'junegunn/vim-peekaboo'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'biskark/vim-ultimate-colorscheme-utility'
+Plugin 'powerman/vim-plugin-viewdoc'
+" ================================================GIT
+Plugin 'tpope/vim-fugitive'
+Plugin 'gregsexton/gitv'
 " ================================================LATEX
 " yaourt -S vim-latexsuite-git
 " ================================================Python
 Plugin 'davidhalter/jedi-vim'
 Plugin 'klen/python-mode'
 " ================================================CPP
+Plugin 'vim-scripts/Conque-GDB'
 "  yaourt -S vim-youcompleteme-git
 Plugin 'octol/vim-cpp-enhanced-highlight'       " highlighting for STL
 Plugin 'chazy/cscope_maps'
@@ -36,7 +41,8 @@ filetype indent on              " Enable filetype-specific indenting
 filetype plugin on              " Enable filetype-specific plugins
 syntax on                       " syntax highlight
 set t_Co=256                    " set 256 colors in vim
-colorscheme lettuce
+set background=dark
+colorscheme mustang "molokai lettuce
 "let mapleader=","              " Change the mapleader from \ to ,
 set showmode                    " always show what mode we're currently editing in
 set nowrap                      " don't wrap lines
@@ -45,8 +51,7 @@ set softtabstop=4               " when hitting <BS>, delete 4 spaces insted of 1
 set expandtab                   " expand tabs by default (overloadable per file type later)
 set shiftwidth=4                " number of spaces to use for autoindenting
 set shiftround                  " use multiple of shiftwidth when indenting with '<' and '>'
-" set backspace=indent,eol,start  " allow backspacing over everything in insert mode
-set backspace=0                 " for hard mode
+set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set autoindent                  " always set autoindenting on
 set copyindent                  " copy the previous indentation on autoindenting
 set number                      " always show line numbers
@@ -164,10 +169,15 @@ nnoremap <F4> :e $MYVIMRC<CR>
 " first option by default
 inoremap <C-@> <C-x><C-o><C-p>
 " Sudo to write
-cnoremap <leader>w w !sudo tee % >/dev/null
+cnoremap <leader>w! w !sudo tee % >/dev/null
 " open another file in same dir as current file
 nnoremap <leader>e :e %:h/<C-d>
-" }}}
+" Compile
+map <F6> :!g++ -g %:p -o %:r -std=c++11<CR> 
+" map <F9> :Dispatch<CR>
+" Debug
+map <F5> :ConqueGdbVSplit %:r<CR>
+" ============================================================================}}}
 " Restore cursor position upon reopening files {{{
 autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -175,6 +185,9 @@ autocmd BufReadPost *
     \ endif
 " }}}
 " {{{               plugin specific settings
+" Conque GDB
+let g:ConqueGdb_Leader = ','
+let g:ConqueTerm_CloseOnEnd = 1
 set tags=/home/mur/.vim/tagsForCtags
 " CLANG COMPLETE SETTINGS
 let g:clang_complete_auto = 0
@@ -196,7 +209,8 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 " PYMODE ignore errors list
 let g:pymode_lint_ignore = "E702,E501,E225,E221,E203,E231,E201,E202,E261,E262"
 " CTRLP
-nnoremap <leader>b :CtrlPBuffer<CR>
+" had to use t cause b is used by Coniq GDB
+nnoremap <leader>b :CtrlPBuffer<CR>             
 nnoremap <leader>m :CtrlPMRUFiles<CR>
 " HARD Time
 let g:hardtime_default_on = 1

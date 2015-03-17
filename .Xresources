@@ -126,7 +126,10 @@ URxvt*foreground: White
 ! URxvt*borderColor: colour
 
 ! Select the fonts to be used. This is a comma separated list of font
-URxvt*font: xft:Ubuntu Mono:regular:size=14
+! FREE SERIF CONTAIN MALAYALAM FONTS and other 
+URxvt*font: xft:Ubuntu Mono:regular:size=14,\
+            xft:Free Serif:size=14,\
+            xft:Free Sans:size=14,
 
 ! URxvt*boldFont: fontlist
 

@@ -3,4 +3,4 @@ set default-fg "#93A1A1"
 
 set recolor-darkcolor "#93A1A1"
 set recolor-lightcolor "#002B36"
-set recolor true
+# set recolor true

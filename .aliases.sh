@@ -7,7 +7,7 @@ alias zrc='vim ~/.zshrc'
 alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars; cd -"
 
 
-alias find='find . -path "*.git*" -prune -o'        #exclude all git folders
+# alias find='find . -path "*.git*" -prune -o'        #exclude all git folders
 alias rml='rm *.{aux,log,nav,out,snm,toc}'
 alias n='urxvt &; disown'
 alias l='ls -lFh'       # long, classify , human readable
@@ -51,11 +51,13 @@ function apt-list-packages {
 #usage : tt tomorrow5am
 # time till
 function tt {
-    printf "printing time till `date -d $1`  \n\n"
     seconds=$((`date -d $1 +'%s'` - `date +'%s'`))
     minutes=$(($seconds / 60))
     hours=$(($minutes / 60))
     days=$(($hours / 24))
+
+    echo "$days:$(($hours%24)):$(($minutes%60)):$(($seconds%60))"
+    printf "printing time till `date -d $1`  \n\n"
     if [[ "$days" -ne 0 ]]; then
         echo "$days days "
     fi

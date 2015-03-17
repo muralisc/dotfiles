@@ -45,7 +45,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(themes z)
+plugins=(themes z common-aliases)
 
 # User configuration
 
@@ -79,3 +79,23 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.aliases.sh
+
+
+# ssh, scp, ping, host
+zstyle ':completion:*:scp:*' tag-order \
+      'hosts:-host hosts:-domain:domain hosts:-ipaddr:IP\ address *'
+zstyle ':completion:*:scp:*' group-order \
+      users files all-files hosts-domain hosts-host hosts-ipaddr
+zstyle ':completion:*:ssh:*' tag-order \
+      users 'hosts:-host hosts:-domain:domain hosts:-ipaddr:IP\ address *'
+zstyle ':completion:*:ssh:*' group-order \
+      hosts-domain hosts-host users hosts-ipaddr
+
+zstyle ':completion:*:(ssh|scp):*:hosts-host' ignored-patterns \
+      '*.*' loopback localhost
+zstyle ':completion:*:(ssh|scp):*:hosts-domain' ignored-patterns \
+      '<->.<->.<->.<->' '^*.*' '*@*'
+zstyle ':completion:*:(ssh|scp):*:hosts-ipaddr' ignored-patterns \
+      '^<->.<->.<->.<->' '127.0.0.<->'
+zstyle ':completion:*:(ssh|scp):*:users' ignored-patterns \
+      adm bin daemon halt lp named shutdown sync
