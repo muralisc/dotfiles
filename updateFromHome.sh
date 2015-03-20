@@ -9,6 +9,7 @@ cp ~/.zshrc ./
 cp ~/.xinitrc ./
 cp ~/.muttrc ./
 cp ~/.fehbg ./
+cp ~/.gdbinit ./
 
 cp -r ~/.config/awesome ./.config/
 cp -r ~/.config/zathura ./.config/
