@@ -42,7 +42,7 @@ filetype plugin on              " Enable filetype-specific plugins
 syntax on                       " syntax highlight
 set t_Co=256                    " set 256 colors in vim
 set background=dark
-colorscheme mustang "molokai lettuce
+colorscheme molokai "mustang lettuce
 "let mapleader=","              " Change the mapleader from \ to ,
 set showmode                    " always show what mode we're currently editing in
 set nowrap                      " don't wrap lines
@@ -173,7 +173,7 @@ cnoremap <leader>w! w !sudo tee % >/dev/null
 " open another file in same dir as current file
 nnoremap <leader>e :e %:h/<C-d>
 " Compile
-map <F6> :!g++ -g %:p -o %:r -std=c++11<CR> 
+map <F6> :make<CR> 
 " map <F9> :Dispatch<CR>
 " Debug
 map <F5> :ConqueGdbVSplit %:r<CR>
@@ -230,6 +230,7 @@ augroup cpp_files
     au!
     autocmd filetype cpp setlocal foldmethod=marker
     autocmd filetype c setlocal foldmethod=marker
+    autocmd filetype cpp setlocal makeprg=g++\ -g\ %:p\ -o\ %:r\ -std=c++11
 augroup end
 augroup vim_files
     au!

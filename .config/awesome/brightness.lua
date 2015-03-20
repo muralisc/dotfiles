@@ -11,7 +11,7 @@ function update_brightness(widget)
 
    -- local brightness = tonumber(string.match(status, "(%d?%d?%d)%%")) / 100
    local brightness = string.match(status, "%d?%d?%d")
-   brightness = string.format("%3d☼ ", brightness)
+   brightness = string.format("<span color='#00FF00'>%3d☼</span>", brightness)
 
    widget:set_markup("|"..brightness)
 end

@@ -13,26 +13,30 @@ function batteryInfo(adapter)
     seconds = 0
     local fcur = io.open("/sys/class/power_supply/"..adapter.."/charge_now")  
     local fcap = io.open("/sys/class/power_supply/"..adapter.."/charge_full")
+    local fdes = io.open("/sys/class/power_supply/"..adapter.."/charge_full_design")
     local fsta = io.open("/sys/class/power_supply/"..adapter.."/status")
     local cur = fcur:read()
     local cap = fcap:read()
+    local des = fdes:read()
     local sta = fsta:read()
     fcur:close()
     fcap:close()
+    fdes:close()
     fsta:close()
+    health = string.format( "<span color='#00B000'> H: %2.0f%% </span>" , math.floor( cap * 100 / des ) )
     if sta == "Full" then
         battery = "A/C"
         icon = ""
-        percent = ""
+        percent = " "
     elseif sta:match("Charging") then
         battery = math.floor(cur * 100 / cap)
         icon = "⚡"
-        percent = "%"
+        percent = "% "
     elseif sta:match("Discharging") then
         battery = math.floor(cur * 100 / cap)
         icon = ""
         seconds = cur*10/(old - cur)
-        percent = string.format("%% %2.2f hrz rem", seconds/(60*60))
+        percent = string.format("%% %2.2f hrz rem ", seconds/(60*60))
         old = cur
 --{{{   Low battery if condition
         if tonumber(battery) < 30 then
@@ -51,5 +55,5 @@ function batteryInfo(adapter)
         end
 --}}}
     end
-    return " "..icon..battery..percent.." "
+    return " "..icon..battery..percent..health.." "
 end
