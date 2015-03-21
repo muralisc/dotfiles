@@ -10,7 +10,6 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
-" Plugin 'edsono/vim-matchit'
 Plugin 'vim-scripts/matchit.zip'
 Plugin 'takac/vim-hardtime'
 Plugin 'tpope/vim-unimpaired'               " toggles
@@ -56,6 +55,8 @@ set autoindent                  " always set autoindenting on
 set copyindent                  " copy the previous indentation on autoindenting
 set number                      " always show line numbers
 set rnu                         " relative number
+autocmd InsertEnter * :windo set norelativenumber " helps with ConqueGDB
+autocmd InsertLeave * :windo set relativenumber
 set showmatch                   " set show matching parenthesis
 set ignorecase                  " ignore case when searching
 set smartcase                   " ignore case if search pattern is all lowercase,
