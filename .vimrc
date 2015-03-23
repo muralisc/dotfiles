@@ -72,7 +72,7 @@ set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
 set list                                                                        " show invisible charecters
 set pastetoggle=<F2>                                                            " press <F2> to go to 'paste' mode,( prevent auto indenting )
 set mouse=a                                                                     " enable using the mouse if terminal emulator supports it (xterm does)
-set fileformats="unix,dos,mac                                                   "
+set fileformats="unix,dos,mac"
 set formatoptions+=1                                                            " When wrapping paragraphs, don't end lines with 1-letter words (looks stupid)
 set nrformats=                                                                  " dont consided zero padded numbers as octal or hex (<C-a> and <C-x> works well !! )
 set hidden                                                                      " hide buffers instead of closing them with unwritten changes
@@ -136,7 +136,7 @@ nnoremap Q <nop>
                                                                                 " toggle HARDMODE
 nnoremap <leader>h <Esc>:HardTimeToggle<CR>
                                                                                 " Clears the search register
-nnoremap <silent> <leader>c :nohlsearch<CR>
+nnoremap <leader>c :nohlsearch<CR>
                                                                                 " Pull word under cursor into substitute (for quick search and replace)
 nnoremap <leader>z :%s#<C-r>=expand("<cword>")<CR>#
                                                                                 " Strip all trailing whitespace from a file, using ,w
@@ -163,12 +163,6 @@ map <F5> :ConqueGdbVSplit %:r<CR>
 let g:ConqueGdb_Leader = ','
 let g:ConqueTerm_CloseOnEnd = 1
 set tags=/home/mur/.vim/tagsForCtags
-                                                                                " CLANG COMPLETE SETTINGS
-let g:clang_complete_auto = 0
-let g:clang_use_library = 1
-let g:clang_periodic_quickfix = 0
-let g:clang_close_preview = 1
-let g:clang_library_path = '/usr/lib/'
                                                                                 " YOU COMPLETE ME
 let g:ycm_confirm_extra_conf = 0
                                                                                 " PYTHON MODE SETTINGS
@@ -190,7 +184,6 @@ autocmd BufReadPost *
     \   exe "normal! g`\"" |
     \ endif
 
-autocmd FileType java set tags=~/.tags
 augroup javascript_files
     au!
     autocmd filetype javascript setlocal expandtab
