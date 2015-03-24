@@ -56,8 +56,6 @@ set autoindent                                                                  
 set copyindent                                                                  " copy the previous indentation on autoindenting
 set number                                                                      " always show line numbers
 set rnu                                                                         " relative number
-autocmd InsertEnter * :windo set norelativenumber
-autocmd InsertLeave * :windo set relativenumber                                 " automatically switch numbering -> relative ( helps with ConqueGDB )
 set showmatch                                                                   " set show matching parenthesis
 set ignorecase                                                                  " ignore case when searching
 set smartcase                                                                   " ignore case if search pattern is all lowercase, case-sensitive otherwise
@@ -197,6 +195,10 @@ augroup cpp_files
     autocmd filetype cpp setlocal foldmethod=marker
     autocmd filetype c setlocal foldmethod=marker
     autocmd filetype cpp setlocal makeprg=g++\ -g\ %:p\ -o\ %:r\ -std=c++11
+                                                                                " automatically switch numbering -> relative ( helps with ConqueGDB )
+    autocmd FileType cpp :autocmd InsertEnter * :windo set norelativenumber
+    autocmd FileType cpp :autocmd InsertLeave * :windo set relativenumber
+
 augroup end
 augroup vim_files
     au!
@@ -205,6 +207,10 @@ augroup end
 augroup sh_files
     au!
     autocmd filetype sh setlocal keywordprg=man
+augroup end
+augroup tex_files
+    au!
+    autocmd FileType tex setlocal makeprg=pdflatex\ %
 augroup end
 augroup txt_files
     au!
