@@ -26,7 +26,7 @@ Plugin 'gregsexton/gitv'
 " yaourt -S vim-latexsuite-git
 " =========================================================================Python
 Plugin 'davidhalter/jedi-vim'
-Plugin 'klen/python-mode'
+" Plugin 'klen/python-mode'
 " ============================================================================CPP
 Plugin 'vim-scripts/Conque-GDB'
 "  yaourt -S vim-youcompleteme-git
@@ -131,6 +131,8 @@ nnoremap Q <nop>
  inoremap <down> <nop>
  inoremap <left> <nop>
  inoremap <right> <nop>
+                                                                                " make the current file executable
+nnoremap <leader>x :!chmod +x %<CR>
                                                                                 " toggle HARDMODE
 nnoremap <leader>h <Esc>:HardTimeToggle<CR>
                                                                                 " Clears the search register
@@ -198,7 +200,6 @@ augroup cpp_files
                                                                                 " automatically switch numbering -> relative ( helps with ConqueGDB )
     autocmd FileType cpp :autocmd InsertEnter * :windo set norelativenumber
     autocmd FileType cpp :autocmd InsertLeave * :windo set relativenumber
-
 augroup end
 augroup vim_files
     au!
@@ -215,5 +216,9 @@ augroup end
 augroup txt_files
     au!
     autocmd FileType text setlocal textwidth=78
+augroup end
+augroup python_files
+    au!
+    autocmd FileType python setlocal makeprg=python\ %
 augroup end
 "}}}
