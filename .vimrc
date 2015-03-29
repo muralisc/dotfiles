@@ -1,7 +1,9 @@
-"Courtsey Vincent Driessen <vincent@datafox.nl>
-"http://nvie.com/posts/how-i-boosted-my-vim/
+"Courtsey 
+"Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
 "Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
-"and me
+"and Vim User Manual
+"The commands are arranged in the order encountered in vim user manual
+
 set nocompatible                                                                " not compatible with the old-fashion vi mode
 "{{{ Vundle setup
 filetype off                                                                    " Required Vundle setup
@@ -17,7 +19,8 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'kien/ctrlp.vim'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'biskark/vim-ultimate-colorscheme-utility'
+Plugin 'xolox/vim-colorscheme-switcher'
+Plugin 'xolox/vim-misc'
 Plugin 'powerman/vim-plugin-viewdoc'
 " ============================================================================GIT
 Plugin 'tpope/vim-fugitive'
@@ -132,7 +135,7 @@ nnoremap Q <nop>
  inoremap <left> <nop>
  inoremap <right> <nop>
                                                                                 " make the current file executable
-nnoremap <leader>x :!chmod +x %<CR>
+nnoremap <silent><leader>x :!chmod +x %<CR>
                                                                                 " toggle HARDMODE
 nnoremap <leader>h <Esc>:HardTimeToggle<CR>
                                                                                 " Clears the search register
