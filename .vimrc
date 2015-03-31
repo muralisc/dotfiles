@@ -13,14 +13,13 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'vim-scripts/matchit.zip'
-Plugin 'takac/vim-hardtime'
 Plugin 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
 Plugin 'junegunn/vim-easy-align'
 Plugin 'kien/ctrlp.vim'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'powerman/vim-plugin-viewdoc'
 " ============================================================================GIT
 Plugin 'tpope/vim-fugitive'
@@ -44,7 +43,6 @@ filetype plugin on                                                              
 syntax on                                                                       " syntax highlight
 set t_Co=256                                                                    " set 256 colors in vim
 set background=dark
-colorscheme molokai                                                             " mustang lettuce
 "let mapleader=","                                                              " Change the mapleader from \ to ,
 set autoread
 set showmode                                                                    " always show what mode we're currently editing in
@@ -136,8 +134,6 @@ nnoremap Q <nop>
  inoremap <right> <nop>
                                                                                 " make the current file executable
 nnoremap <silent><leader>x :!chmod +x %<CR>
-                                                                                " toggle HARDMODE
-nnoremap <leader>h <Esc>:HardTimeToggle<CR>
                                                                                 " Clears the search register
 nnoremap <leader>c :nohlsearch<CR>
                                                                                 " Pull word under cursor into substitute (for quick search and replace)
@@ -177,8 +173,6 @@ let g:pymode_lint_ignore = "E702,E501,E225,E221,E203,E231,E201,E202,E261,E262"
                                                                                 " CTRLP
 nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>m :CtrlPMRUFiles<CR>
-                                                                                " HARD Time
-let g:hardtime_default_on = 1
 " ==}}}
 "{{{ Filetype specific settings
                                                                                 " Restore cursor position upon reopening files
@@ -215,6 +209,7 @@ augroup end
 augroup tex_files
     au!
     autocmd FileType tex setlocal makeprg=pdflatex\ %
+    autocmd FileType tex setlocal textwidth=78
 augroup end
 augroup txt_files
     au!
@@ -225,3 +220,7 @@ augroup python_files
     autocmd FileType python setlocal makeprg=python\ %
 augroup end
 "}}}
+noremap <F3> :NextColorScheme<CR>
+noremap <F2> :PrevColorScheme<CR>
+
+colorscheme mustang

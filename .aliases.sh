@@ -8,7 +8,6 @@ alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars; cd -"
 
 
 alias find='find -ipath "*.git*" -prune -o'        #exclude all git folders
-alias rml='rm *.{aux,log,nav,out,snm,toc}'
 alias n='urxvt &; disown'
 alias l='ls -lFh'       # long, classify , human readable
 alias r='ranger'
