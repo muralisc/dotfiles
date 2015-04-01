@@ -1,13 +1,10 @@
 # set signature="sign.txt"
 #
-source "gpg2 -dq $HOME/.my_pass.gpg |"
 set editor= "vim"
 
+source "~/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc"
 
-color hdrdefault white black  # headers white on black
-color header brightgreen black ^From:  # sender's name in green
-color quoted cyan black  # quoted text in blue
-color signature red black   # signature in red
+set index_format="%3C %Z %{%b %d} %-20.20L %s"
 
 set imap_check_subscribed
 set imap_list_subscribed
@@ -29,19 +26,22 @@ set timeout=10
 set sidebar_delim   = '  │'
 set sidebar_visible = yes
 set sidebar_width   = 30 
-color sidebar_new color221 color233
 
 # Sidebar Navigation ---------------------------------
 bind index,pager <down>   sidebar-next
 bind index,pager <up>     sidebar-prev
 bind index,pager <right>  sidebar-open
 
+
+# map A to archive mails
+# macro index,pager A ":set confirmappend=no delete=yes\n<save-message>=Archives.2015\n<sync-mailbox>:set confirmappend=yes delete=ask-yes\n"
+macro index,pager A ":set confirmappend=no delete=yes\n<save-message>=Archives.2015\n:set confirmappend=yes delete=ask-yes\n"
+# change the mailbox
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/cse_mail<enter><change-folder>!<enter>'
+macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/iitb_mail<enter><change-folder>!<enter>'
+
 # ACCOUNT 1
 source "~/.mutt/cse_mail"
-folder-hook $folder 'source ~/.mutt/cse_mail'
 
 # ACCOUNT 2
 # source "~/.mutt/iitb_mail"
-# folder-hook $folder 'source ~/.mutt/iitb_mail'
-
-
