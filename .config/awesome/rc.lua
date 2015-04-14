@@ -62,11 +62,11 @@ local layouts =
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,             --RESIZE dont work
     awful.layout.suit.fair.horizontal,  --RESIZE dont work
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+    -- awful.layout.suit.magnifier
 }
 -- }}}
 
@@ -83,33 +83,33 @@ end
 tags = {
     names  = {
                         -- "1"
-                 " MA1N",
-                      -- 2
-                 " B2OWSE",
-                      -- 3
-                 " T3RMINALS",
-                      -- 4
-                 " re4dings",
-                      -- 5
-                 " Mail5",
-                      -- 6
-                 " 6heats",
-                      -- 7
-                 " 7he rcs",
-                      -- 8
-                 " M8Ns",
-                      -- 9
-                 " CODIN9",
+                 " 1",
+                     -- 2
+                 " 2",
+                     -- 3
+                 " 3",
+                     -- 4
+                 " 4",
+                     -- 5
+                 " 5",
+                     -- 6
+                 " 6",
+                     -- 7
+                 " 7",
+                     -- 8
+                 " 8",
+                     -- 9
+                 " 9",
             },
     layout = {
                 layouts[1],    --floating,
                 layouts[2],    --tile,
                 layouts[2],    --tile,
                 layouts[2],    --tile,
-                layouts[2],    --tile,
-                layouts[2],    --tile,
-                layouts[2],    --tile,
-                layouts[2],    --tile,
+                layouts[6],    --tile,
+                layouts[6],    --tile,
+                layouts[7],    --tile,
+                layouts[7],    --tile,
                 layouts[2],    --tile,
                 -- layouts[2],    --tile,
                 -- layouts[3],    --tile.left
@@ -229,6 +229,19 @@ cpuwidget_t = awful.tooltip({ objects = { cpuwidget },theme = { font="Ubuntu Mon
 -- Register widget
 vicious.register(cpuwidget, vicious.widgets.cpu,
                     function (widget, args)
+                        if( args[1] > 50 ) then
+                            naughty.notify({
+                                  title    = "HIGH CPU"
+                                , text     = "Burning at " ..args[1]
+                                , timeout  = 5
+                                , position = "bottom_right"
+                                , fg       = beautiful.fg_focus
+                                , bg       = beautiful.bg_focus
+                                -- , height   = 50
+                                -- , width    = 1000
+                                , font     = "Ubuntu Mono 20"
+                            })
+                        end
                         cpuwidget_t:set_text(""
                         .. string.format("%3d%% Cpu 1\n",args[2])
                         .. string.format("%3d%% Cpu 2\n",args[3])
@@ -253,18 +266,19 @@ memwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = {
                     {1, "#FF5656"}}})
 memwidget_t = awful.tooltip({ objects = { memwidget },})
 -- Register widget
-vicious.register(memwidget, vicious.widgets.mem,
-                    function (widget, args)
-                        memwidget_t:set_text(
-                        string.format(" %4d %-5s \n" ,args[3],"total"    )..
-                        string.format(" %4d %-5s \n" ,args[2],"Used"     )..
-                        string.format(" %4d %-5s \n" ,args[4],"free"     )..
-                        string.format(" %4d %-5s \n" ,args[6],"swap%"    )..
-                        string.format(" %4d %-5s"    ,args[7],"swap "    )
-                        )
-                        return args[1]
-                    end
-                                                , 13)
+vicious.register(       memwidget
+                    ,   vicious.widgets.mem
+                    ,   function (widget, args)
+                            memwidget_t:set_text(
+                            string.format(" %4d %-5s \n" ,args[3],"total"    )..
+                            string.format(" %4d %-5s \n" ,args[2],"Used"     )..
+                            string.format(" %4d %-5s \n" ,args[4],"free"     )..
+                            string.format(" %4d %-5s \n" ,args[6],"swap%"    )..
+                            string.format(" %4d %-5s"    ,args[7],"swap "    )
+                            )
+                            return args[1]
+                        end
+                    ,   13)
 
 wifiwidget = wibox.widget.textbox()
 vicious.register(wifiwidget, vicious.widgets.wifi,
@@ -319,7 +333,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top",screen = s })
+    mywibox[s] = awful.wibox({ position = "top", screen = s })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
