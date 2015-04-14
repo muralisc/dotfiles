@@ -10,7 +10,7 @@ alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars; cd -"
 alias find='find -ipath "*.git*" -prune -o'        #exclude all git folders
 alias n='urxvt &; disown'
 alias l='ls -lFh'       # long, classify , human readable
-alias r='ranger'
+alias y='yaourt'
 alias xo='xdg-open'
 alias gl="git log --pretty=format:'%C(yellow)%h%C(red)%d %C(cyan)%an%Creset %s %Cgreen(%cr)' --graph --all"
 alias gs='git status -uall'
@@ -73,3 +73,4 @@ function = {
     awk "BEGIN { print $* }"
 }
 
+export PATH="/home/murali/scripts:/home/murali/bin:$PATH"
