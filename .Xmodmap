@@ -1,0 +1,5 @@
+! For key bords with not Super key on right side
+! map CapsLock Key to Menu ( i dont use the Capslock key anyway )
+keycode 66 = Menu
+! map menu key to Super
+keycode 135 = Super_R
