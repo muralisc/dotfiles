@@ -10,6 +10,7 @@ cp ~/.xinitrc ./
 cp ~/.muttrc ./
 cp ~/.fehbg ./
 cp ~/.gdbinit ./
+cp ~/.Xmodmap ./
 
 cp -r ~/.config/awesome ./.config/
 cp -r ~/.config/zathura ./.config/
