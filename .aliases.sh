@@ -73,4 +73,3 @@ function = {
     awk "BEGIN { print $* }"
 }
 
-export PATH="/home/murali/scripts:/home/murali/bin:$PATH"

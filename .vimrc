@@ -14,9 +14,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'vim-scripts/matchit.zip'
 Plugin 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
-Plugin 'junegunn/vim-easy-align'
 Plugin 'kien/ctrlp.vim'
-Plugin 'junegunn/vim-peekaboo'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-colorscheme-switcher'
@@ -99,6 +97,8 @@ set cursorcolumn                                                                
 set spell spelllang=en_us
 set nospell
 set colorcolumn=81                                                              " show a marker at 81 so you have a visual cue
+set complete+=k                                                                 " add dictionary too
+set dictionary=/usr/share/dict/cracklib-small
 "}}}
 " Folding rules {{{
 set foldenable                                                                  " enable folding

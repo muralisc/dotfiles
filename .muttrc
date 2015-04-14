@@ -1,8 +1,11 @@
 # set signature="sign.txt"
 #
 set editor= "vim"
+set ssl_verify_host = no
 
-source "~/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc"
+source "~/.mutt/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc"
+
+# set pager_index_lines=10
 
 set index_format="%3C %Z %{%b %d} %-20.20L %s"
 

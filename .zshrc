@@ -49,6 +49,7 @@ plugins=(themes z)
 
 # User configuration
 
+export PATH="/home/murali/scripts:/home/murali/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
