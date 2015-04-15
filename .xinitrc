@@ -23,6 +23,8 @@ xcompmgr &
 urxvtd -q -o -f &
 dropboxd &
 /usr/bin/start-pulseaudio-x11 &
-setxkbmap -option caps:none
+# caps remapped more comprehensively in Xmodmap
+# setxkbmap -option caps:none
+xmodmap ~/.Xmodmap
 # feh --bg-fill Downloads/wallp_custom_gimp_svg/vim-shortcuts2560x1600_black.png
 exec awesome
