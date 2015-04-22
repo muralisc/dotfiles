@@ -51,6 +51,7 @@ editor_cmd = terminal .. " -e " .. editor
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
+altkey = "Mod1"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
@@ -102,7 +103,7 @@ tags = {
                  " 9",
             },
     layout = {
-                layouts[1],    --floating,
+                layouts[2],    --tile,
                 layouts[2],    --tile,
                 layouts[2],    --tile,
                 layouts[2],    --tile,
@@ -111,6 +112,7 @@ tags = {
                 layouts[7],    --tile,
                 layouts[7],    --tile,
                 layouts[2],    --tile,
+                -- layouts[1],    --floating,
                 -- layouts[2],    --tile,
                 -- layouts[3],    --tile.left
                 -- layouts[4],    --tile.bottom,
@@ -146,7 +148,11 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "shutdown", 'poweroff' },
                                     { "free-desktop",  menu_items}
                                   },
-                          theme = { width = 150,}
+                          theme = { 
+                                font="zekton bold 14";
+                                width = 190;
+                                height = 30;
+                                }
                         })
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
@@ -394,11 +400,11 @@ globalkeys = awful.util.table.join(
         function ()
             awful.util.spawn("xmms2 toggle")
         end),
-    awful.key({ "Control", "Mod1" }, "Left",
+    awful.key({ "Control", altkey }, "Left",    -- prev song
         function ()
             awful.util.spawn("xmms2 prev")
         end),
-    awful.key({ "Control", "Mod1" }, "Right",
+    awful.key({ "Control", altkey }, "Right",   -- next song
         function ()
             awful.util.spawn("xmms2 next")
         end),
@@ -433,46 +439,63 @@ globalkeys = awful.util.table.join(
             awful.util.spawn("firefox")
         end),
 
-    awful.key({}, "Print" ,
+    awful.key({}, "Print" ,     -- Print Screen : take screenshot
         function ()
             awful.util.spawn_with_shell("sleep 0.5 && scrot -s")
         end),
-    awful.key({}, "Scroll_Lock" ,
+    awful.key({}, "Scroll_Lock" ,   -- Lock screen
         function ()
             awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh")
         end),
-    awful.key({}, "Pause" ,
+    awful.key({}, "Pause" ,         -- launch fileexplorer
         function ()
             awful.util.spawn("pcmanfm")
         end),
 
 
-    awful.key({ "Mod1" }, "Tab",
+    awful.key({ altkey }, "Tab",    -- Alt TAB
         function ()
             awful.menu.clients( { theme = { font="zekton bold 14"; width = 800; height=30 } })
         end),  --ESCAPE to close
 
-    awful.key({ modkey }, "Next",
+    awful.key({ modkey }, "d",
+        function (c)
+            naughty.notify({
+                  title    = "Screen Details"
+                , text     = ""
+                        .. string.format("Master width factor: %.3f \n", awful.tag.getmwfact())
+                        .. string.format("No of Master window: %.3f \n", awful.tag.getnmaster())
+                        .. string.format("No of Column window: %.3f \n", awful.tag.getncol())
+                , timeout  = 5
+                , position = "bottom_right"
+                , fg       = beautiful.fg_focus
+                , bg       = beautiful.bg_focus
+                -- , height   = 50
+                -- , width    = 1000
+                , font     = "Ubuntu Mono 20"
+            })
+        end),
+    awful.key({ modkey }, "Prior",   -- Super PageUp: increase window width
         function ()
             awful.client.moveresize( 0,  0, 40, 0)
         end),
-    awful.key({ modkey, "Shift" }, "Next",
+    awful.key({ modkey, "Shift" }, "Prior", -- Super Shift PageUp
         function ()
             awful.client.moveresize( 0,  0,  -40, 0)
         end),
-    awful.key({ modkey }, "Prior",
+    awful.key({ modkey }, "Next",   -- Super PageDown: increase window height
         function ()
             awful.client.moveresize( 0, 0, 0,  40)
         end),
-    awful.key({ modkey, "Shift" }, "Prior",
+    awful.key({ modkey, "Shift" }, "Next",
         function ()
             awful.client.moveresize( 0, 0, 0,  -40)
         end),
-    awful.key({ modkey }, "Down",
+    awful.key({ modkey }, "Down",   -- Super DownArrow: move window
         function ()
             awful.client.moveresize(  0,  20,   0,   0)
         end),
-    awful.key({ modkey }, "Up",
+    awful.key({ modkey }, "Up",     -- Super UpArrow
         function ()
             awful.client.moveresize(  0, -20,   0,   0)
         end),
@@ -486,70 +509,62 @@ globalkeys = awful.util.table.join(
         end),
 
     awful.key({ modkey,}, "Escape", awful.tag.history.restore),
-
-    awful.key({ modkey,           }, "j",
+    awful.key({ modkey,           }, "j",   -- focus the next client
         function ()
             awful.client.focus.byidx( 1)
             if client.focus then client.focus:raise() end
-        end), -- focus the next client
-    awful.key({ modkey, "Shift"   }, "j",
+        end),
+    awful.key({ modkey, "Shift"   }, "j",   --move clinet clockwise
         function ()
             awful.client.swap.byidx(  1)
-        end), --move clinet clockwise
-    awful.key({ modkey, "Control" }, "j",
+        end),
+    awful.key({ modkey, "Control" }, "j",   -- for multiple screen setup
         function ()
             awful.screen.focus_relative( 1)
         end), -- what??
-    awful.key({ modkey,           }, "k",
+    awful.key({ modkey,           }, "k",   -- focus previous client
         function ()
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey, "Shift"   }, "k",
+    awful.key({ modkey, "Shift"   }, "k",   --move clinet anticlockwise
         function ()
             awful.client.swap.byidx( -1)
         end),
-    awful.key({ modkey, "Control" }, "k",
+    awful.key({ modkey, "Control" }, "k",   -- for multiple screen setup
         function ()
             awful.screen.focus_relative(-1)
         end), -- what??
-    awful.key({ modkey, "Mod1" }, "h",  awful.tag.viewprev       ),
-    awful.key({ modkey, "Mod1" }, "l",  awful.tag.viewnext       ),
-
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
-    awful.key({ modkey,           }, "w",
+    awful.key({ modkey, altkey }, "h",  awful.tag.viewprev       ),
+    awful.key({ modkey, altkey }, "l",  awful.tag.viewnext       ),
+    awful.key({ modkey,        }, "u",  awful.client.urgent.jumpto),
+    awful.key({ modkey,        }, "w", --show context menu( free desktop)
         function ()
             mymainmenu:show()
         end),
-    -- Layout manipulation
-    awful.key({ modkey,           }, "Tab",
+    awful.key({ modkey,        }, "Tab", -- focus previous window
         function ()
             awful.client.focus.history.previous()
             if client.focus then
                 client.focus:raise()
             end
         end),
-    -- Standard program
-    awful.key({ modkey,           }, "Return",
+    awful.key({ modkey,           }, "Return",  -- Standard program
         function ()
             awful.util.spawn(terminal)
         end),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
 
-    awful.key({ modkey,           }, "l",
+    awful.key({ modkey,           }, "l", -- increse Master width factor
         function ()
             awful.tag.incmwfact( 0.05)
         end), -- RESIZE
-    awful.key({ modkey, "Shift"   }, "l",
+    awful.key({ modkey, "Shift"   }, "l",   -- decrease number of Master window
         function ()
-            awful.client.incwfact(-0.05)
-        end), -- RESIZE
-    -- awful.key({ modkey, "Shift"   }, "l",
-    --  function ()
-    --  awful.tag.incnmaster(-1)
-    --  end),
-    awful.key({ modkey, "Control" }, "l",
+            awful.tag.incnmaster(-1)
+        end),
+    awful.key({ modkey, "Control" }, "l",   -- decrease number of Column window
         function ()
             awful.tag.incncol(-1)
         end),
@@ -557,15 +572,11 @@ globalkeys = awful.util.table.join(
         function ()
             awful.tag.incmwfact(-0.05)
         end),
-    awful.key({ modkey, "Shift"   }, "h",
+    awful.key({ modkey, "Shift"   }, "h",   -- increase number of Master window
         function ()
-            awful.client.incwfact( 0.05)
+            awful.tag.incnmaster( 1)
         end),
-    -- awful.key({ modkey, "Shift"   }, "h",
-    --  function ()
-    --  awful.tag.incnmaster( 1)
-    --  end),
-    awful.key({ modkey, "Control" }, "h",
+    awful.key({ modkey, "Control" }, "h",   -- increase number of Column window
         function ()
             awful.tag.incncol( 1)
         end),
@@ -577,11 +588,8 @@ globalkeys = awful.util.table.join(
         function ()
             awful.layout.inc(layouts, -1)
         end),
-
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
-
-    -- Prompt
-    awful.key({ modkey },            "r",
+    awful.key({ modkey },            "r",   -- Prompt
         function ()
             mypromptbox[mouse.screen]:run()
         end),
@@ -599,17 +607,31 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
-    awful.key({ modkey,           }, "t",
+    awful.key({ modkey,           }, "t",       -- on top
         function (c)
             c.ontop = not c.ontop
+            naughty.notify({
+                  title    = "clinet Details"
+                , text     = ""
+                        .. string.format("Ontop status: %s \n", tostring(c.ontop))
+                        .. string.format("floating status: %s \n", tostring(awful.client.floating.get()))
+                        .. string.format("border_width: %s \n", tostring(c.border_width))
+                , timeout  = 5
+                , position = "bottom_right"
+                , fg       = beautiful.fg_focus
+                , bg       = beautiful.bg_focus
+                -- , height   = 50
+                -- , width    = 1000
+                , font     = "Ubuntu Mono 20"
+            })
         end),
-    awful.key({ modkey,           }, "n",
+    awful.key({ modkey,           }, "n",       -- minimize
         function (c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
         end),
-    awful.key({ modkey,           }, "m",
+    awful.key({ modkey,           }, "m",       -- maximize
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
@@ -621,8 +643,7 @@ clientkeys = awful.util.table.join(
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, 9 do
     globalkeys = awful.util.table.join(globalkeys,
-        -- View tag only.
-        awful.key({ modkey }, "#" .. i + 9,
+        awful.key({ modkey }, "#" .. i + 9,         -- View tag only.
                   function ()
                         local screen = mouse.screen
                         local tag = awful.tag.gettags(screen)[i]
@@ -630,8 +651,7 @@ for i = 1, 9 do
                            awful.tag.viewonly(tag)
                         end
                   end),
-        -- Toggle tag.
-        awful.key({ modkey, "Control" }, "#" .. i + 9,
+        awful.key({ modkey, "Control" }, "#" .. i + 9, -- Toggle tag.
                   function ()
                       local screen = mouse.screen
                       local tag = awful.tag.gettags(screen)[i]
@@ -649,7 +669,7 @@ for i = 1, 9 do
                           end
                      end
                   end),
-        -- Toggle tag.
+        -- Put client in multiple tags.
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
@@ -681,6 +701,8 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
+    { rule = { class = "URxvt" },
+      properties = { border_width = 0 } },
     { rule = { class = "feh" },
       properties = { floating = true } },
     { rule = { class = "Thunderbird" },
@@ -691,8 +713,8 @@ awful.rules.rules = {
     callback = function(c) c:tags({awful.tag.selected(1), tags[1][2]}) end},
     { rule = { class = "Firefox" },
       properties = { tag = tags[1][2] } },
-    { rule = { name = "vim" },
-      properties = { tag = tags[1][4] } },
+    -- { rule = { name = "vim" },
+    --   properties = { tag = tags[1][4] } },
     -- { rule = { instance = "plugin-container" }, -- for youtube
     --      properties = { floating = true } },
 }
