@@ -171,13 +171,18 @@ mywibox = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
+mouseLeft = 1
+mouseMiddle = 2
+mouseRight = 3
+mouseRollDown =4
+mouseRollUp = 5
 mytaglist.buttons = awful.util.table.join(
-                    awful.button({ }, 1, awful.tag.viewonly),
-                    awful.button({ modkey }, 1, awful.client.movetotag),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
+                    awful.button({ }        , mouseLeft, awful.tag.viewonly),
+                    awful.button({ modkey } , mouseLeft, awful.client.movetotag),
+                    awful.button({ }        , mouseRight, awful.tag.viewtoggle),
+                    awful.button({ modkey } , mouseRight, awful.client.toggletag),
+                    awful.button({ }        , mouseRollDown, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
+                    awful.button({ }        , mouseRollUp, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
                     )
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
@@ -258,10 +263,12 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
                     end)
 
 hddwidget = wibox.widget.textbox()
-vicious.register(hddwidget, vicious.widgets.thermal, " <span color='#FFFF00'>$1°С </span>",37,"thermal_zone0")
+hddwidgetTimeout = 37
+vicious.register(hddwidget, vicious.widgets.thermal, " <span color='#FFFF00'>$1°С </span>", hddwidgetTimeout ,"thermal_zone0")
 
 -- Initialize widget
 memwidget = awful.widget.progressbar()
+memwidgetTimeout = 13
 -- Progressbar properties
 memwidget:set_width(8)
 memwidget:set_height(10)
@@ -284,14 +291,15 @@ vicious.register(       memwidget
                             )
                             return args[1]
                         end
-                    ,   13)
+                    ,   memwidgetTimeout)
 
 wifiwidget = wibox.widget.textbox()
+wifiwidgetTimeout = 3
 vicious.register(wifiwidget, vicious.widgets.wifi,
         function (widget, args)
             return string.format("<span color='#5882FA'>| %s %3s%% |</span>",args["{ssid}"], args["{linp}"])
         end
-        , 3, "wlp2s0")
+        , wifiwidgetTimeout, "wlp2s0")
 
 netgraph = awful.widget.graph()
 netgraph:set_width(50)
@@ -315,9 +323,11 @@ vicious.register(netgraph, vicious.widgets.net,
 
 local battery = require("battery")
 batterywidget = wibox.widget.textbox()
-batterywidget_timer = timer({timeout = 10})
+batterywidgetTimeout = 10
+batterywidget_timer = timer({timeout = batterywidgetTimeout})
 batterywidget_timer:connect_signal("timeout", function()
     batterywidget:set_markup(batteryInfo("BAT0").."|")
+    mywibox[mouse.screen].visible = false
 end)
 batterywidget_timer:start()
 
@@ -592,6 +602,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey },            "r",   -- Prompt
         function ()
             mypromptbox[mouse.screen]:run()
+            mywibox[mouse.screen].visible = true
         end),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
