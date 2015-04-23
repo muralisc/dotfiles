@@ -8,6 +8,7 @@ alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars; cd -"
 
 
 alias find='find -ipath "*.git*" -prune -o'        #exclude all git folders
+alias vim='vim -w ~/.vimlog "$@"'
 alias n='urxvt &; disown'
 alias l='ls -lFh'       # long, classify , human readable
 alias y='yaourt'
@@ -73,3 +74,12 @@ function = {
     awk "BEGIN { print $* }"
 }
 
+# # vim mode extra settings
+bindkey '^r' history-incremental-search-backward
+bindkey "jj" vi-cmd-mode
+# # Insert and go through the "last words" of previous commands with Meta-.
+# # (or Escape-. for that matter).
+bindkey '^[.' insert-last-word  # M-.
+bindkey '/' undo              # M-/
+bindkey '^a' beginning-of-line  # C-a
+# export KEYTIMEOUT=1 #default 4

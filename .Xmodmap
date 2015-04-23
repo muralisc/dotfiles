@@ -1,4 +1,5 @@
 ! For key bords with not Super key on right side
+remove Lock = Caps_Lock
 ! map CapsLock Key to Menu ( i dont use the Capslock key anyway )
 keycode 66 = Menu
 ! map menu key to Super
