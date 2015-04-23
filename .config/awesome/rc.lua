@@ -58,6 +58,7 @@ mouseMiddle = 2
 mouseRight = 3
 mouseRollDown =4
 mouseRollUp = 5
+wiboxAutoHide = false;
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
@@ -347,7 +348,9 @@ batterywidgetTimeout = 10
 batterywidget_timer = timer({timeout = batterywidgetTimeout})
 batterywidget_timer:connect_signal("timeout", function()
     batterywidget:set_markup(batteryInfo("BAT0").."|")
-    mywibox[mouse.screen].visible = false   -- hide wibox after 10 sec
+    if wiboxAutoHide == true then
+        mywibox[mouse.screen].visible = false   -- hide wibox after 10 sec
+    end
 end)
 batterywidget_timer:start()
 
@@ -488,24 +491,6 @@ globalkeys = awful.util.table.join(
             awful.menu.clients( { theme = { font="zekton bold 14"; width = 800; height=30 } })
         end),  --ESCAPE to close
 
-    awful.key({ modkey }, "d",
-        function (c)
-            mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
-            naughty.notify({
-                  title    = "Screen Details"
-                , text     = ""
-                        .. string.format("Master width factor: %.3f \n", awful.tag.getmwfact())
-                        .. string.format("No of Master window: %.3f \n", awful.tag.getnmaster())
-                        .. string.format("No of Column window: %.3f \n", awful.tag.getncol())
-                , timeout  = 5
-                , position = "bottom_right"
-                , fg       = beautiful.fg_focus
-                , bg       = beautiful.bg_focus
-                -- , height   = 50
-                -- , width    = 1000
-                , font     = "Ubuntu Mono 20"
-            })
-        end),
     awful.key({ modkey }, "Prior",   -- Super PageUp: increase window width
         function ()
             awful.client.moveresize( 0,  0, 40, 0)
@@ -630,6 +615,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "b",              -- wibox visibility toggle
         function ()
             mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+            wiboxAutoHide = not wiboxAutoHide
         end)
 )
 
@@ -639,23 +625,28 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
-    awful.key({ modkey,           }, "t",       -- on top
+    awful.key({ modkey }, "d",                          -- show details
         function (c)
-            c.ontop = not c.ontop
+            mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
             naughty.notify({
-                  title    = "clinet Details"
+                  title    = "Screen Details"
                 , text     = ""
+                        .. string.format("Master width factor: %.3f \n", awful.tag.getmwfact())
+                        .. string.format("No of Master window: %.3f \n", awful.tag.getnmaster())
+                        .. string.format("No of Column window: %.3f \n", awful.tag.getncol())
+                        .. string.format("Wibox AutoHide: %s \n", tostring(wiboxAutoHide))
+                        .. string.format("CLIENT name : %s \n", tostring(c.name))
                         .. string.format("Ontop status: %s \n", tostring(c.ontop))
                         .. string.format("floating status: %s \n", tostring(awful.client.floating.get()))
                         .. string.format("border_width: %s \n", tostring(c.border_width))
-                , timeout  = 5
+                , timeout  = 10
                 , position = "bottom_right"
-                , fg       = beautiful.fg_focus
-                , bg       = beautiful.bg_focus
-                -- , height   = 50
-                -- , width    = 1000
                 , font     = "Ubuntu Mono 20"
             })
+        end),
+    awful.key({ modkey,           }, "t",       -- on top
+        function (c)
+            c.ontop = not c.ontop
         end),
     awful.key({ modkey,           }, "n",       -- minimize
         function (c)
