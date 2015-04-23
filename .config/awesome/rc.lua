@@ -23,16 +23,17 @@ end
 -- Handle runtime errors after startup
 do
     local in_error = false
-    awesome.connect_signal("debug::error", function (err)
-        -- Make sure we don't go into an endless error loop
-        if in_error then return end
-        in_error = true
+    awesome.connect_signal("debug::error", 
+            function (err)
+                -- Make sure we don't go into an endless error loop
+                if in_error then return end
+                in_error = true
 
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = err })
-        in_error = false
-    end)
+                naughty.notify({ preset = naughty.config.presets.critical,
+                                title = "Oops, an error happened!",
+                                text = err })
+                in_error = false
+            end)
 end
 -- }}}
 
@@ -225,7 +226,7 @@ mytasklist.buttons = awful.util.table.join(
                                               awful.client.focus.byidx(-1)
                                               if client.focus then client.focus:raise() end
                                           end)
-                                          )
+                    )
 --}}}
   local vicious = require("vicious")
   -- Top widgets:
@@ -637,6 +638,8 @@ clientkeys = awful.util.table.join(
                         .. string.format("Wibox AutoHide: %s \n", tostring(wiboxAutoHide))
                         .. string.format("CLIENT name : %s \n", tostring(c.name))
                         .. string.format("Ontop status: %s \n", tostring(c.ontop))
+                        .. string.format("Fullscreen: %s \n", tostring(c.fullscreen))
+                        .. string.format("Maximised: %s \n", tostring(c.maximized))
                         .. string.format("floating status: %s \n", tostring(awful.client.floating.get()))
                         .. string.format("border_width: %s \n", tostring(c.border_width))
                 , timeout  = 10
@@ -737,7 +740,7 @@ awful.rules.rules = {
     -- Set Google Chrome to always map on tags number 2 of screen 1.and
     -- current tag
     { rule = { class = "Google-chrome" },
-    callback = function(c) c:tags({awful.tag.selected(1), tags[1][2]}) end},
+        callback = function(c) c:tags({awful.tag.selected(1), tags[1][2]}) end},
     { rule = { class = "Firefox" },
       properties = { tag = tags[1][2] } },
     -- { rule = { name = "vim" },
@@ -749,72 +752,74 @@ awful.rules.rules = {
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
-client.connect_signal("manage", function (c, startup)
-    -- Enable sloppy focus
-    c:connect_signal("mouse::enter", function(c)
-        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-            and awful.client.focus.filter(c) then
-            client.focus = c
+client.connect_signal("manage", 
+    function (c, startup)
+        -- Enable sloppy focus
+        c:connect_signal("mouse::enter", function(c)
+            if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+                and awful.client.focus.filter(c) then
+                client.focus = c
+            end
+        end)
+
+        if not startup then
+            -- Set the windows at the slave,
+            -- i.e. put it at the end of others instead of setting it master.
+            -- awful.client.setslave(c)
+
+            -- Put windows in a smart way, only if they does not set an initial position.
+            if not c.size_hints.user_position and not c.size_hints.program_position then
+                awful.placement.no_overlap(c)
+                awful.placement.no_offscreen(c)
+            end
         end
-    end)
 
-    if not startup then
-        -- Set the windows at the slave,
-        -- i.e. put it at the end of others instead of setting it master.
-        -- awful.client.setslave(c)
+        local titlebars_enabled = false      -- toggle to Enable/Disable titlebars
+        if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
+            -- buttons for the titlebar
+            local buttons = awful.util.table.join(
+                    awful.button({ }, 1, function()
+                        client.focus = c
+                        c:raise()
+                        awful.mouse.client.move(c)
+                    end),
+                    awful.button({ }, 3, function()
+                        client.focus = c
+                        c:raise()
+                        awful.mouse.client.resize(c)
+                    end)
+                    )
 
-        -- Put windows in a smart way, only if they does not set an initial position.
-        if not c.size_hints.user_position and not c.size_hints.program_position then
-            awful.placement.no_overlap(c)
-            awful.placement.no_offscreen(c)
+            -- Widgets that are aligned to the left
+            local left_layout = wibox.layout.fixed.horizontal()
+            left_layout:add(awful.titlebar.widget.iconwidget(c))
+            left_layout:buttons(buttons)
+
+            -- Widgets that are aligned to the right
+            local right_layout = wibox.layout.fixed.horizontal()
+            right_layout:add(awful.titlebar.widget.floatingbutton(c))
+            right_layout:add(awful.titlebar.widget.maximizedbutton(c))
+            right_layout:add(awful.titlebar.widget.stickybutton(c))
+            right_layout:add(awful.titlebar.widget.ontopbutton(c))
+            right_layout:add(awful.titlebar.widget.closebutton(c))
+
+            -- The title goes in the middle
+            local middle_layout = wibox.layout.flex.horizontal()
+            local title = awful.titlebar.widget.titlewidget(c)
+            title:set_align("center")
+            middle_layout:add(title)
+            middle_layout:buttons(buttons)
+
+            -- Now bring it all together
+            local layout = wibox.layout.align.horizontal()
+            layout:set_left(left_layout)
+            layout:set_right(right_layout)
+            layout:set_middle(middle_layout)
+
+            awful.titlebar(c):set_widget(layout)
         end
     end
-
-    local titlebars_enabled = false      -- toggle to Enable/Disable titlebars
-    if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
-        -- buttons for the titlebar
-        local buttons = awful.util.table.join(
-                awful.button({ }, 1, function()
-                    client.focus = c
-                    c:raise()
-                    awful.mouse.client.move(c)
-                end),
-                awful.button({ }, 3, function()
-                    client.focus = c
-                    c:raise()
-                    awful.mouse.client.resize(c)
-                end)
-                )
-
-        -- Widgets that are aligned to the left
-        local left_layout = wibox.layout.fixed.horizontal()
-        left_layout:add(awful.titlebar.widget.iconwidget(c))
-        left_layout:buttons(buttons)
-
-        -- Widgets that are aligned to the right
-        local right_layout = wibox.layout.fixed.horizontal()
-        right_layout:add(awful.titlebar.widget.floatingbutton(c))
-        right_layout:add(awful.titlebar.widget.maximizedbutton(c))
-        right_layout:add(awful.titlebar.widget.stickybutton(c))
-        right_layout:add(awful.titlebar.widget.ontopbutton(c))
-        right_layout:add(awful.titlebar.widget.closebutton(c))
-
-        -- The title goes in the middle
-        local middle_layout = wibox.layout.flex.horizontal()
-        local title = awful.titlebar.widget.titlewidget(c)
-        title:set_align("center")
-        middle_layout:add(title)
-        middle_layout:buttons(buttons)
-
-        -- Now bring it all together
-        local layout = wibox.layout.align.horizontal()
-        layout:set_left(left_layout)
-        layout:set_right(right_layout)
-        layout:set_middle(middle_layout)
-
-        awful.titlebar(c):set_widget(layout)
-    end
-end)
+)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
