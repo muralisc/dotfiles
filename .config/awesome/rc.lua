@@ -53,6 +53,12 @@ editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4"
 altkey = "Mod1"
 
+mouseLeft = 1
+mouseMiddle = 2
+mouseRight = 3
+mouseRollDown =4
+mouseRollUp = 5
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
 {
@@ -132,7 +138,7 @@ for s = 1, screen.count() do
 end
 -- }}}
 
--- {{{ Menu
+-- {{{ Desktop Menu
 require('freedesktop.menu')
 menu_items = freedesktop.menu.new()
 -- Create a laucher widget and a main menu
@@ -148,7 +154,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "shutdown", 'poweroff' },
                                     { "free-desktop",  menu_items}
                                   },
-                          theme = { 
+                          theme = {
                                 font="zekton bold 14";
                                 width = 190;
                                 height = 30;
@@ -170,12 +176,8 @@ mytextclock = awful.widget.textclock()
 mywibox = {}
 mypromptbox = {}
 mylayoutbox = {}
+-- {{{ taglist  1 2 3 4
 mytaglist = {}
-mouseLeft = 1
-mouseMiddle = 2
-mouseRight = 3
-mouseRollDown =4
-mouseRollUp = 5
 mytaglist.buttons = awful.util.table.join(
                     awful.button({ }        , mouseLeft, awful.tag.viewonly),
                     awful.button({ modkey } , mouseLeft, awful.client.movetotag),
@@ -184,6 +186,8 @@ mytaglist.buttons = awful.util.table.join(
                     awful.button({ }        , mouseRollDown, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
                     awful.button({ }        , mouseRollUp, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
                     )
+-- }}}
+-- {{{ Tasklist
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
                      awful.button({ }, 1, function (c)
@@ -219,11 +223,14 @@ mytasklist.buttons = awful.util.table.join(
                      awful.button({ }, 5, function ()
                                               awful.client.focus.byidx(-1)
                                               if client.focus then client.focus:raise() end
-                                          end))
+                                          end)
+                                          )
+--}}}
   local vicious = require("vicious")
   -- Top widgets:
   require("volume")
   require("brightness")
+--{{{ CPU widget
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(50)
 cpuwidget:set_background_color("#494B4F")
@@ -261,11 +268,13 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
                         )
                         return args[1]
                     end)
+--}}}
 
 hddwidget = wibox.widget.textbox()
 hddwidgetTimeout = 37
 vicious.register(hddwidget, vicious.widgets.thermal, " <span color='#FFFF00'>$1°С </span>", hddwidgetTimeout ,"thermal_zone0")
 
+--{{{ Memory widget
 -- Initialize widget
 memwidget = awful.widget.progressbar()
 memwidgetTimeout = 13
@@ -275,8 +284,17 @@ memwidget:set_height(10)
 memwidget:set_vertical(true)
 memwidget:set_background_color("#494B4F")
 memwidget:set_border_color(nil)
-memwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = { {0, "#AECF96"}, {0.5, "#88A175"},
-                    {1, "#FF5656"}}})
+memwidget:set_color(
+                        {
+                            type = "linear",
+                            from = { 0, 0 },
+                            to = { 10,0 },
+                            stops = { 
+                                {0, "#AECF96"}, 
+                                {0.5, "#88A175"},
+                                {1, "#FF5656"}
+                            }
+                        })
 memwidget_t = awful.tooltip({ objects = { memwidget },})
 -- Register widget
 vicious.register(       memwidget
@@ -292,6 +310,8 @@ vicious.register(       memwidget
                             return args[1]
                         end
                     ,   memwidgetTimeout)
+
+--}}}
 
 wifiwidget = wibox.widget.textbox()
 wifiwidgetTimeout = 3
