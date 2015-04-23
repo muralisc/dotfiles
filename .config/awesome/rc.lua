@@ -327,7 +327,7 @@ batterywidgetTimeout = 10
 batterywidget_timer = timer({timeout = batterywidgetTimeout})
 batterywidget_timer:connect_signal("timeout", function()
     batterywidget:set_markup(batteryInfo("BAT0").."|")
-    mywibox[mouse.screen].visible = false
+    mywibox[mouse.screen].visible = false   -- hide wibox after 10 sec
 end)
 batterywidget_timer:start()
 
@@ -470,6 +470,7 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey }, "d",
         function (c)
+            mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
             naughty.notify({
                   title    = "Screen Details"
                 , text     = ""
@@ -602,7 +603,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey },            "r",   -- Prompt
         function ()
             mypromptbox[mouse.screen]:run()
-            mywibox[mouse.screen].visible = true
+            mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
         end),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
@@ -656,6 +657,7 @@ for i = 1, 9 do
     globalkeys = awful.util.table.join(globalkeys,
         awful.key({ modkey }, "#" .. i + 9,         -- View tag only.
                   function ()
+                        mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
                         local screen = mouse.screen
                         local tag = awful.tag.gettags(screen)[i]
                         if tag then
@@ -664,6 +666,7 @@ for i = 1, 9 do
                   end),
         awful.key({ modkey, "Control" }, "#" .. i + 9, -- Toggle tag.
                   function ()
+                      mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
                       local screen = mouse.screen
                       local tag = awful.tag.gettags(screen)[i]
                       if tag then
@@ -673,6 +676,7 @@ for i = 1, 9 do
         -- Move client to tag.
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
+                      mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
                       if client.focus then
                           local tag = awful.tag.gettags(client.focus.screen)[i]
                           if tag then
@@ -683,6 +687,7 @@ for i = 1, 9 do
         -- Put client in multiple tags.
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
                   function ()
+                      mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
                       if client.focus then
                           local tag = awful.tag.gettags(client.focus.screen)[i]
                           if tag then
