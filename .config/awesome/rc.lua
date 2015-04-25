@@ -232,6 +232,7 @@ mytasklist.buttons = awful.util.table.join(
   -- Top widgets:
   require("volume")
   require("brightness")
+  require("keymon")
 --{{{ CPU widget
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(50)
@@ -382,6 +383,7 @@ for s = 1, screen.count() do
     left_layout:add(mypromptbox[s])
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
+    right_layout:add(keymon_widget)
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(cpuwidget)
     right_layout:add(memwidget)
