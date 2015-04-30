@@ -69,8 +69,8 @@ local layouts =
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
-    awful.layout.suit.fair,             --RESIZE dont work
-    awful.layout.suit.fair.horizontal,  --RESIZE dont work
+    -- awful.layout.suit.fair,             --RESIZE dont work use mod+shift+h/l
+    -- awful.layout.suit.fair.horizontal,  --RESIZE dont work
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
@@ -115,10 +115,10 @@ tags = {
                 layouts[2],    --tile,
                 layouts[2],    --tile,
                 layouts[2],    --tile,
-                layouts[6],    --tile,
-                layouts[6],    --tile,
-                layouts[7],    --tile,
-                layouts[7],    --tile,
+                layouts[2],    --tile,
+                layouts[2],    --tile,
+                layouts[2],    --tile,
+                layouts[2],    --tile,
                 layouts[2],    --tile,
                 -- layouts[1],    --floating,
                 -- layouts[2],    --tile,
@@ -232,7 +232,7 @@ mytasklist.buttons = awful.util.table.join(
   -- Top widgets:
   require("volume")
   require("brightness")
-  require("keymon")
+  -- require("keymon")
 --{{{ CPU widget
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(50)
@@ -275,7 +275,11 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
 
 hddwidget = wibox.widget.textbox()
 hddwidgetTimeout = 37
-vicious.register(hddwidget, vicious.widgets.thermal, " <span color='#FFFF00'>$1°С </span>", hddwidgetTimeout ,"thermal_zone0")
+vicious.register(hddwidget, 
+                 vicious.widgets.thermal, 
+                 " <span color='#FFFF00'>$1°С </span>", 
+                 hddwidgetTimeout ,
+                 "thermal_zone0")
 
 --{{{ Memory widget
 -- Initialize widget
@@ -317,7 +321,7 @@ vicious.register(       memwidget
 --}}}
 
 wifiwidget = wibox.widget.textbox()
-wifiwidgetTimeout = 3
+wifiwidgetTimeout = 10
 vicious.register(wifiwidget, vicious.widgets.wifi,
         function (widget, args)
             return string.format("<span color='#5882FA'>| %s %3s%% |</span>",args["{ssid}"], args["{linp}"])
@@ -383,7 +387,7 @@ for s = 1, screen.count() do
     left_layout:add(mypromptbox[s])
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-    right_layout:add(keymon_widget)
+    -- right_layout:add(keymon_widget)
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(cpuwidget)
     right_layout:add(memwidget)
