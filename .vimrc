@@ -1,4 +1,4 @@
-"Courtsey 
+"Courtsey
 "Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
 "Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
 "and Vim User Manual
@@ -19,6 +19,9 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'powerman/vim-plugin-viewdoc'
+Plugin 'junegunn/vim-peekaboo'
+Plugin 'mbbill/undotree'
+Plugin 'vim-scripts/lua.vim--Ko'
 " ============================================================================GIT
 Plugin 'tpope/vim-fugitive'
 Plugin 'gregsexton/gitv'
@@ -28,8 +31,8 @@ Plugin 'gregsexton/gitv'
 Plugin 'davidhalter/jedi-vim'
 " Plugin 'klen/python-mode'
 " ============================================================================CPP
-Plugin 'vim-scripts/Conque-GDB'
-"  yaourt -S vim-youcompleteme-git
+" Plugin 'vim-scripts/Conque-GDB'
+" yaourt -S vim-youcompleteme-git
 Plugin 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
 Plugin 'chazy/cscope_maps'
 call vundle#end()
@@ -132,6 +135,16 @@ nnoremap Q <nop>
  inoremap <down> <nop>
  inoremap <left> <nop>
  inoremap <right> <nop>
+
+" for command line editing or use CTRL-f
+" cnoremap <C-a> <Home>
+" cnoremap <C-e> <End>
+" cnoremap <C-p> <Up>
+" cnoremap <C-n> <Down>
+" cnoremap <C-b> <Left>
+" cnoremap <C-f> <Right>
+" cnoremap <M-b> <S-Left>
+" cnoremap <M-f> <S-Right>
                                                                                 " make the current file executable
 nnoremap <silent><leader>x :!chmod +x %<CR>
                                                                                 " Clears the search register
@@ -141,7 +154,7 @@ nnoremap <leader>z :%s#<C-r>=expand("<cword>")<CR>#
                                                                                 " Strip all trailing whitespace from a file, using ,w
 nnoremap <leader>w :%s/\s\+$//<CR>:let @/=''<CR>
                                                                                 " Dont move your fingers from the home row (either use 'jj' or 'jk') OR use ctrl-[ instead
-inoremap jk <Esc>
+inoremap jj <Esc>
                                                                                 " load vimrc
 nnoremap <F4> :e $MYVIMRC<CR>
                                                                                 " Remap c-x c-o to <c-space> [ @ is used for space in vim ]
@@ -152,10 +165,6 @@ inoremap <C-@> <C-x><C-o><C-p>
 cnoremap <leader>w! w !sudo tee % >/dev/null
                                                                                 " open another file in same dir as current file
 nnoremap <leader>e :e %:h/<C-d>
-                                                                                " Compile
-map <F6> :make<CR>
-                                                                                " Debug
-map <F5> :ConqueGdbVSplit %:r<CR>
 " ============================================================================}}}
 " {{{               plugin specific settings
                                                                                 " Conque GDB
@@ -194,9 +203,12 @@ augroup cpp_files
     autocmd filetype cpp setlocal foldmethod=marker
     autocmd filetype c setlocal foldmethod=marker
     autocmd filetype cpp setlocal makeprg=g++\ -g\ %:p\ -o\ %:r\ -std=c++11
-                                                                                " automatically switch numbering -> relative ( helps with ConqueGDB )
-    autocmd FileType cpp :autocmd InsertEnter * :windo set norelativenumber
-    autocmd FileType cpp :autocmd InsertLeave * :windo set relativenumber
+                                                                                " Debug
+    autocmd filetype cpp noremap <F5> :Pyclewn <CR> :Cmapkeys <CR> :Cfile test <CR> :Cbreak main <CR>
+                                                                                " Compile
+    autocmd filetype cpp noremap <F6> :make<CR>
+                                                                                " Stop Debug
+    autocmd filetype cpp noremap <F7> :Cexitclewn <CR> :Cunmapkeys <CR>
 augroup end
 augroup vim_files
     au!
@@ -209,11 +221,13 @@ augroup end
 augroup tex_files
     au!
     autocmd FileType tex setlocal makeprg=pdflatex\ %
-    autocmd FileType tex setlocal textwidth=78
+    autocmd FileType tex setlocal foldmethod=marker
+    autocmd FileType tex setlocal spell
 augroup end
 augroup txt_files
     au!
     autocmd FileType text setlocal textwidth=78
+    autocmd FileType tex setlocal spell
 augroup end
 augroup python_files
     au!
@@ -224,3 +238,4 @@ noremap <F3> :NextColorScheme<CR>
 noremap <F2> :PrevColorScheme<CR>
 
 colorscheme mustang
+let g:pyclewn_args="--gdb=async"
