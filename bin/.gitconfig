@@ -1,0 +1,9 @@
+[user]
+	email = muralis@cse.iitb.ac.in
+	name = murali suresh
+[core]
+	editor = vim
+[credential]
+	helper = cache --timeout=86400
+[diff]
+	tool = vimdiff

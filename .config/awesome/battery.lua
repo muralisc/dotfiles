@@ -11,10 +11,19 @@ function batteryInfo(adapter)
     percent = ""
     icon = ""
     seconds = 0
-    local fcur = io.open("/sys/class/power_supply/"..adapter.."/charge_now")  
+    local fcur = io.open("/sys/class/power_supply/"..adapter.."/charge_now")
     local fcap = io.open("/sys/class/power_supply/"..adapter.."/charge_full")
     local fdes = io.open("/sys/class/power_supply/"..adapter.."/charge_full_design")
     local fsta = io.open("/sys/class/power_supply/"..adapter.."/status")
+    -- if battery doesnt exist; return {{{
+    if( fcur == nil ) then
+        icon = "⚡"
+        battery = "A/C"
+        percent = ""
+        health = "";
+        return "| "..icon..battery..percent..health.." "
+    end
+    -- }}}
     local cur = fcur:read()
     local cap = fcap:read()
     local des = fdes:read()
@@ -51,9 +60,9 @@ function batteryInfo(adapter)
 --}}}
 --{{{   Critical Battery suspend if condition
         if tonumber(battery) < 15 then
-            awful.util.spawn_with_shell("systemctl suspend") 
+            awful.util.spawn_with_shell("systemctl suspend")
         end
 --}}}
     end
-    return " "..icon..battery..percent..health.." "
+    return "| "..icon..battery..percent..health.." "
 end

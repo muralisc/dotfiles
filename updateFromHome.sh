@@ -1,21 +1,38 @@
 #!/bin/bash
-cp ~/.aliases.sh ./
-cp ~/.bashrc ./
-cp ~/.bcrc ./
-cp ~/.inputrc ./
-cp ~/.vimrc ./
-cp ~/.Xresources ./
-cp ~/.zshrc ./
-cp ~/.xinitrc ./
-cp ~/.muttrc ./
-cp ~/.fehbg ./
-cp ~/.gdbinit ./
-cp ~/.Xmodmap ./
+
+# copy files|dir in home directory
+for i in    \
+.aliases.sh \
+.bashrc     \
+.bcrc       \
+.inputrc    \
+.vimrc      \
+.Xresources \
+.zshrc      \
+.xinitrc    \
+.muttrc     \
+.fehbg      \
+.gdbinit    \
+.Xmodmap    \
+.tmux.conf  \
+.ssh/config \
+.config/inkscape/keys/default.xml   \
+.config/user-dirs.dirs              \
+;
+do
+    cp ~/$i ./$i
+done
+
+# copy directories
+for i in    \
+.mutt       \
+bin         \
+;
+do
+    cp -r ~/$i ./
+done
+
 
 cp -r ~/.config/awesome ./.config/
 cp -r ~/.config/zathura ./.config/
-cp -r ~/.config/user-dirs.dirs ./.config/
-cp -r ~/.ssh/config ./.ssh/
-
-cp -r ~/.mutt ./
-cp -r ~/bin ./
+cp -r ~/.config/ranger ./.config/

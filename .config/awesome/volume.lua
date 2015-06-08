@@ -15,7 +15,7 @@ function update_volume(widget)
    -- status = string.match(status, "%[(o[^%]]*)%]")
    -- if string.find(status, "on", 1, true) then
    -- end
-   widget:set_markup("|"..volume)
+   widget:set_markup("| "..volume)
 end
 volume_widget:buttons(awful.util.table.join(
      awful.button({ }, 1,

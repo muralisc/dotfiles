@@ -1,0 +1,21 @@
+[Default Applications]
+image/png=feh.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-MJKEPX.desktop
+message/rfc822=userapp-Thunderbird-MJKEPX.desktop
+application/x-extension-eml=userapp-Thunderbird-MJKEPX.desktop
+image/jpeg=feh.desktop
+image/gif=feh.desktop
+image/svg+xml=inkscape.desktop
+image/gif=userapp-feh_browser.sh-IWNIPX.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+text/html=google-chrome.desktop
+text/x-c=gvim.desktop
+application/pdf=zathura.desktop
+application/zip=gvim.desktop
+inode/directory=ranger.desktop
+
+[Added Associations]
+x-scheme-handler/mailto=userapp-Thunderbird-MJKEPX.desktop;thunderbird.desktop;
+image/svg+xml=inkscape.desktop;
+application/octet-stream=gvim.desktop;

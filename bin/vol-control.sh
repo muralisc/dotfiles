@@ -28,7 +28,7 @@ case $1 in
         for sink in `pactl list short sinks|cut -f 1`; do
         pactl -- set-sink-volume $sink +5%
         done || amixer set Master 5%+
-        hard_limit_100          # funciton call volume should not go above 100
+        # hard_limit_100          # funciton call volume should not go above 100
         exit 0
         ;;
     toggle)
@@ -63,7 +63,7 @@ case $1 in
             /State: R/ {running=1}
             /Volume: f/   { if ( running == 1) { print $5" "$12; exit} }
             /Volume: f/   { if ( running == 0) { print $5" "$12;} }
-            '
+            ' | awk '{print $1}'
         else
             echo "----"
         fi

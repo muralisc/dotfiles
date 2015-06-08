@@ -17,12 +17,14 @@ fi
 # ...or the Window Manager of your choice
 
 # x0vncserver -PasswordFile=/home/jaleel/.vnc/passwd &
-[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
-xcompmgr &
-# udiskie &
-urxvtd -q -o -f &
-dropboxd &
-/usr/bin/start-pulseaudio-x11 &
+# [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+export EDITOR=vim
+udiskie &
+#mpd &
+#mpdscribble &
+dropbox &
+#~/thing/syncthing -no-browser &
+pulseaudio --start &
 # caps remapped more comprehensively in Xmodmap
 # setxkbmap -option caps:none
 xmodmap ~/.Xmodmap

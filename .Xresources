@@ -8,7 +8,7 @@ URxvt*depth: 32
 ! URxvt*geometry: geom
 
 ! Use the specified colour as the windows background colour [default
-URxvt*background: [30]#000000
+URxvt*background: [80]#000000
 
 ! Use the specified colour as the windows foreground colour [default
 URxvt*foreground: White
@@ -78,7 +78,7 @@ URxvt*foreground: White
 ! URxvt*colorBD: colour
 
 ! Use the specified colour to display bold or italic characters when
-! URxvt*colorIT: colour
+URxvt*colorIT: #ff0000
 
 ! Use the specified colour to display underlined characters when the
 ! URxvt*colorUL: colour
@@ -127,9 +127,9 @@ URxvt*foreground: White
 
 ! Select the fonts to be used. This is a comma separated list of font
 ! FREE SERIF CONTAIN MALAYALAM FONTS and other 
-URxvt*font: xft:Ubuntu Mono:regular:size=20,\
-            xft:Free Serif:size=20,\
-            xft:Free Sans:size=20,
+URxvt*font: xft:Ubuntu Mono:regular:size=16,\
+            xft:Free Serif:size=16,\
+            xft:Free Sans:size=16,
 
 ! URxvt*boldFont: fontlist
 

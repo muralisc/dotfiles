@@ -61,6 +61,7 @@ elif [ -f /etc/bash_completion ]; then
 fi
 
 # load aliases
-source ~/.aliases
+source ~/.aliases.sh
 
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
