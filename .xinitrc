@@ -19,7 +19,7 @@ fi
 # x0vncserver -PasswordFile=/home/jaleel/.vnc/passwd &
 # [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 export EDITOR=vim
-udiskie &
+devmon --exec-on-drive "notify-send --icon=block-device --urgency=low \"Volume %l has been mounted\"" &
 #mpd &
 #mpdscribble &
 dropbox &

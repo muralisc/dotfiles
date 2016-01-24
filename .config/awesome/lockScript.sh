@@ -7,6 +7,7 @@
 # convert -resize 1920 bb9a5897307ea096bd66dd658dfa1d75.jpg wallpaperLock.png
 ######## 1920x1080
 Wallpaper_folder=~/PersonalData_max26gb/Jpegs/Wallpapers/misc
+touch ~/Downloads/wallpaper_list
 if [ `wc -l ~/Downloads/wallpaper_list | cut -d " " -f1` -eq 0 ];
 then
     # execution here means no lines in file

@@ -41,23 +41,20 @@ if [[ $1 = "arch" ]] ; then
     systemctl enable NetworkManager.service
     timedatectl set-timezone Asia/Kolkatta
     echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf
+# zathura zathura-pdf-mupdf  // use browser instead
 echo "
-ntfs-3g alsa-utils bbswitch bluez bluez-utils bumblebee dropbox faenza-icon-theme
-feh gawk gcc gdb git gnuplot google-chrome grep groff gvim gzip htop
-i3lock inkscape iw leafpad lib32-mesa-libgl lib32-nvidia-utils
-libreoffice-still light linuxdcpp lxappearance nvidia openssh
-package-query pavucontrol pcmanfm perl-rename pulseaudio pulseaudio-alsa
-xsel pulseaudio-bluetooth ranger rofi-git rsync scrot sed sudo tar
+ntfs-3g alsa-utils bbswitch bluez bluez-utils bumblebee dropbox
+faenza-icon-theme feh gawk gcc gdb git gnuplot google-chrome grep groff gvim
+gzip htop i3lock inkscape iw leafpad lib32-mesa-libgl lib32-nvidia-utils
+libreoffice-still light linuxdcpp lxappearance nvidia openssh package-query
+pavucontrol perl-rename pulseaudio pulseaudio-alsa jmtpfs imagemagick
+puddletag xsel pulseaudio-bluetooth ranger rofi-git rsync scrot sed sudo tar
 texlive-core thunderbird tigervnc tmux ttf-freefont ttf-ubuntu-font-family vlc
-wget xf86-input-synaptics xf86-video-intel xorg-server
-xorg-server-utils xorg-xinit yaourt youtube-dl zathura zathura-pdf-mupdf zsh
-zukwito-themes
-yajl
-ttf-inconsolata-g
-perl-rename
-unzip
-xorg-xprop
-compton-git
+wget xf86-input-synaptics xf86-video-intel xorg-server xorg-server-utils
+xorg-xinit yaourt youtube-dl 
+zsh zukwito-themes xclip
+yajl ttf-inconsolata-g perl-rename unzip xorg-xprop compton-git
+
 "
 git config --global user.email "muralisc@gmail.com"
 git config --global user.name "Murali S"

@@ -11,7 +11,7 @@ fi
 mkdir -p ~/.config/inkscape/keys
 mkdir -p ~/.ssh
 mkdir -p ~/.vim
-touch ~/.vim/vimundo
+mkdir ~/.vim/vimundo
 mkdir -p ~/.local/share/applications
 
 

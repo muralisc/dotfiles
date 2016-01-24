@@ -15,12 +15,10 @@ Plugin 'chazy/cscope_maps'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'gmarik/Vundle.vim'                                                      " pluging shortcuts
-Plugin 'gregsexton/gitv'
 Plugin 'kien/ctrlp.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
 Plugin 'powerman/vim-plugin-viewdoc'
-Plugin 'Raimondi/delimitMate'                                                   " autoclose quotes and brackets
-Plugin 'Shougo/unite.vim'                                                       " have to map
+" Plugin 'Raimondi/delimitMate'                                                   " autoclose quotes and brackets
 Plugin 'tpope/vim-commentary'                                                   " map: gcc
 Plugin 'tpope/vim-fugitive'                                                     " GIT
 Plugin 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
@@ -121,7 +119,8 @@ set foldcolumn=0                                                                
 set foldmethod=syntax                                                           " detect triple-{ style fold markers [marker indent]
 set foldlevel=0              " start out with everything folded
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
-" Foldingtext http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/ {{{ 
+" Foldingtext {{{ 
+" http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/ 
  fu! CustomFoldText()
      "get first non-blank line
      let fs = v:foldstart
@@ -193,15 +192,12 @@ nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>so :colorscheme solarized<cr>
 nnoremap <Leader>dd :Gdiff<CR>
 nnoremap <Leader>du :diffupdate<CR>
-nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gl :Gitv --all<CR>
 " ge is used after n_CTRL-e
 nnoremap <Leader>ge :GitGutterNextHunk<CR>
 " ge is used after n_CTRL-y
 nnoremap <Leader>gy :GitGutterPrevHunk<CR>
-nnoremap <Leader>gp :Gpush origin master<CR>
-" make file
-nnoremap <leader>m :w<CR>:make<CR>
+" make file ( use quick fix window to see errors )
+nnoremap <leader>m :!clear<CR>:w<CR>:make<CR>
 " open another file in same dir as current file
 nnoremap <leader>o :e %:h/<C-d>
 " clipboard madness {{{
@@ -236,7 +232,7 @@ nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 " }}} leader maping end
 " }}} Shortcut Mappings 
 " Plugin Specific Settings {{{
-set tags=/home/mur/.vim/tagsForCtags
+set tags=./tags;~/Projects
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
 " YOU COMPLETE ME
 let g:ycm_confirm_extra_conf = 0
@@ -251,9 +247,6 @@ let g:ctrlp_cmd = 'CtrlPMRUFiles'
 " delimitMate settings
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 1
-" easy motion
-hi link EasyMotionTarget ErrorMsg
-hi link EasyMotionShade  Comment
 " ULTISNIPS
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -279,9 +272,6 @@ augroup FTOptions
     autocmd filetype c,cpp,java setlocal foldmethod=syntax foldlevel=99
     autocmd FileType c,cpp,java setlocal complete-=k                                                                 " add dictionary too
     autocmd FileType liquid,markdown,text,txt setlocal complete+=k
-    " semicolon madness {{{
-    autocmd filetype c,cpp inoremap kk          <end>;<ESC>
-    " }}}
     autocmd filetype vim setlocal keywordprg=:help
     autocmd filetype sh setlocal keywordprg=man
     autocmd filetype xml,sh,vim,tex,html,lua setlocal foldmethod=marker
@@ -290,5 +280,41 @@ augroup FTOptions
     autocmd FileType liquid,markdown,text,txt setlocal tw=78 linebreak nolist
 augroup end
 "}}} Filetype Specific Settings 
-colorscheme random
+
+"{{{ load colorscheme depending on the day of month
+fu! s:LoadRandomColorScheme() 
+
+    let s:color_file_list = globpath(&runtimepath, 'colors/*.vim'     )
+    let s:color_file_list = substitute(s:color_file_list, '\'            , '/', 'g')
+    let s:color_file_list = substitute(s:color_file_list, "\n"           , ',', 'g')
+    let s:color_file_list = substitute(s:color_file_list, '\(/[^,]\+/\)' , '', 'g')
+    let s:color_file_list = substitute(s:color_file_list, '\.vim' , '', 'g')
+    " echo s:color_file_list
+
+    if strlen(s:color_file_list)
+        if s:color_file_list =~ ','
+            let s:rnd  = (strftime( "%d" ) + 0)%10
+            let s:loop = 0
+
+            while s:loop < s:rnd
+                let s:color_file_list = substitute(s:color_file_list, '^\([^,]\+\),', '', '')
+                let s:loop            = s:loop + 1
+            endwhile
+            " echo s:color_file_list
+
+            let s:color_file = matchstr(s:color_file_list, '^[^,]\+')
+            " echo s:color_file
+            execute "colorscheme" s:color_file
+            unlet! s:color_file
+
+            unlet! s:loop 
+            unlet! s:rnd 
+        endif
+    endif
+
+    unlet! s:color_file_list 
+    unlet! s:self_file
+endf "}}}
+call s:LoadRandomColorScheme()
+
 nnoremap <leader>l :!google-chrome-stable <C-R><C-A><CR>

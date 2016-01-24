@@ -327,10 +327,7 @@ vicious.register(       memwidget
 
 --}}}
 --the link obtained below may not be wifi
-active_interface=io.popen("ip route get 8.8.8.8 |awk '{print $5}'"):read()
-if active_interface == nil then
-    active_interface='not connected'
-end
+active_interface='lo'
 -- {{{ wifi widget
 wifiwidget = wibox.widget.textbox()
 wifiwidgetTimeout = 10
@@ -338,6 +335,9 @@ wifiwidget_timer = timer({timeout = wifiwidgetTimeout})
 wifiwidget_timer:connect_signal("timeout",
     function()
         active_interface=io.popen("ip route get 8.8.8.8 |awk '{print $5}'"):read()
+        if active_interface == nil then
+            active_interface='lo'
+        end
         SSID=io.popen("iw dev " .. active_interface .. " link |awk -F: '/SSID/ {print $2}'"):read()
         signal = io.popen("iw dev " .. active_interface .. " link |awk -F: '/signal/ {print $2}'"):read()
         wifiwidget:set_markup(
@@ -674,7 +674,7 @@ clientkeys = awful.util.table.join(
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, 9 do
     globalkeys = awful.util.table.join(globalkeys,
-        awful.key({ modkey }, tagnames[i],              -- View tag only.--{{{
+        awful.key({ modkey }, "#" .. i + 9,              -- View tag only.--{{{
                   function ()
                         mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
                         local screen = mouse.screen
@@ -734,27 +734,14 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "URxvt" },
-      properties = { border_width = 0 } },
-    { rule = { class = "feh" },
-      properties = { floating = true } },
-    { rule = { class = "Thunderbird" },
-      properties = { tag = tags[1][5] } },
+    { rule = { class = "URxvt" }, properties = { border_width = 0 } },
+    { rule = { class = "feh" }, properties = { floating = true } },
+    { rule = { class = "Thunderbird" }, properties = { tag = tags[1][5] } },
     -- Set Google Chrome to always map on tags number 2 of screen 1.and
-    -- current tag
-    { rule = { class = "Google-chrome-stable" },
-        -- callback = function(c) c:tags({awful.tag.selected(1), tags[1][3]}) end},
-        callback = function(c) c:tags({tags[1][1]}) end},
-    { rule = { class = "Firefox" },
-      properties = { tag = tags[1][1] } },
-    { rule = { class = "Gvim" },
-      properties = { tag = tags[1][3] } },
-    { rule = { class = "Eiskaltdcpp-qt" },
-      properties = { tag = tags[1][4] } },
-    { rule = { class = "Tor Browser" },
-      properties = { tag = tags[1][4] } },
-    { rule = { class = "Vlc" },
-      properties = { tag = tags[1][5] } },
+    { rule = { class = "Google-chrome-stable" }, properties = { tag = tags[1][1] } },
+    { rule = { class = "Firefox" }, properties = { tag = tags[1][1] } },
+    { rule = { class = "Tor Browser" }, properties = { tag = tags[1][3] } },
+    { rule = { class = "Vlc" }, properties = { tag = tags[1][4] } },
     -- { rule = { instance = "plugin-container" }, -- for youtube
     --      properties = { floating = true } },
 }

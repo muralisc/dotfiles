@@ -292,7 +292,7 @@ URxvt*secondaryScroll: 0
 ! Compile frills: Associate string with keysym sym. The intervening
 ! URxvt*keysym.sym: string
 
-URxvt*perl-ext-common: font-size,default,keyboard-select,clipboard,url-select,matcher,vtwheel
+URxvt*perl-ext-common: font-size,default,keyboard-select,clipboard,url-select,matcher,vtwheel,resize-font
 URxvt.url-select.launcher: /usr/bin/firefox
 URxvt*matcher.button: 1
 URxvt*colorUL: #4682B4
@@ -305,10 +305,10 @@ URxvt*keysym.M-C-v:    perl:clipboard:paste_escaped
 URxvt*clipboard.autocopy:   true
 URxvt.iso14755: false
 URxvt.iso14755_52: false
-URxvt*keysym.C-Up:     perl:font-size:increase
-URxvt*keysym.C-Down:   perl:font-size:decrease
-URxvt*keysym.C-S-Up:   perl:font-size:incglobal
-URxvt*keysym.C-S-Down: perl:font-size:decglobal
+URxvt.resize-font.smaller: C-Down
+URxvt.resize-font.bigger:  C-Up
+URxvt.resize-font.reset:   C-equal
+URxvt.resize-font.show:    C-question
 
 
 ! Comma-separated list(s) of perl extension scripts (default:
