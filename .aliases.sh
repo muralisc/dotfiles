@@ -10,7 +10,7 @@ alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars; cd -"
 alias acs='apt-cache search'
 alias agi='sudo apt-get install'
 alias c='noglob c'
-alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1400x1050'
+alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1400x1050 -C /usr/share/fonts/TTF -e Ubuntu-R/35'
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
 # git aliases  {{{
 alias ga='git add'
@@ -45,6 +45,7 @@ alias y='yaourt'
 
 alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'
 alias rm='rm -v'
+alias rf='rm -rf'
 
 VISUAL=/usr/bin/vim
 EDITOR=/usr/bin/vim

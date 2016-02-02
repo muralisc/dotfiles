@@ -159,7 +159,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "free-desktop",  menu_items}
                                   },
                           theme = {
-                                font="zekton bold 14";
+                                font="Ubuntu 14";
                                 width = 190;
                                 height = 30;
                                 }
@@ -545,7 +545,7 @@ globalkeys = awful.util.table.join(
     -- disbled in favor of rofi!!
     -- awful.key({ altkey         }, "Tab",    -- Alt TAB   
     --     function ()
-    --         awful.menu.clients( { theme = { font="zekton bold 14"; width = 800; height=30 } })
+    --         awful.menu.clients( { theme = { font="Ubuntu Mono 14"; width = 800; height=30 } })
     --     end),  --ESCAPE to close
     awful.key({ modkey,           }, "Tab" ,   function () awful.util.spawn("rofi -show window") end),-- window switcher
     awful.key({ altkey,           }, "Tab", -- focus previous window
@@ -598,28 +598,7 @@ globalkeys = awful.util.table.join(
         function() 
             awful.util.spawn_with_shell( "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')") 
         end),
-    awful.key({ modkey, "Shift" }, "s",                -- stop stopwatch!!--{{{
-        function (c)
-            local status = awful.util.pread("eval ~/bin/stopwatch.sh ")
-            naughty.notify({
-                  title    = "stopwatch stop"
-                , text     = "" .. status
-                , timeout  = 1
-                , position = "bottom_right"
-                , font     = "Ubuntu Mono 20"
-            })
-        end),--}}}
-    awful.key({ modkey }, "s",                          -- peak stopwatch!!--{{{
-        function (c)
-            local status = awful.util.pread("eval ~/bin/stopwatch.sh peak")
-            naughty.notify({
-                  title    = "stopwatch start"
-                , text     = "" .. status
-                , timeout  = 1
-                , position = "bottom_right"
-                , font     = "Ubuntu Mono 20"
-            })
-        end),--}}}
+    awful.key({ modkey }, "q", function () awful.util.spawn_with_shell("exec ~/Downloads/lockScript_mod.sh") end), -- show a quote
     awful.key({ modkey }, "p", function() menubar.show() end),  -- Menubar
     awful.key({ modkey }, "b",              -- wibox visibility toggle--{{{
         function ()

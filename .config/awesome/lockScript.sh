@@ -6,19 +6,43 @@
 # mogrify -scale 10% -scale 1000% ~/Downloads/wallpaperLock.png
 # convert -resize 1920 bb9a5897307ea096bd66dd658dfa1d75.jpg wallpaperLock.png
 ######## 1920x1080
-Wallpaper_folder=~/PersonalData_max26gb/Jpegs/Wallpapers/misc
+Wallpaper_folder=~/PersonalData_max26gb/Jpegs/Quotataions/
 touch ~/Downloads/wallpaper_list
 if [ `wc -l ~/Downloads/wallpaper_list | cut -d " " -f1` -eq 0 ];
 then
     # execution here means no lines in file
 
     # get the files and shuffle them into the wallpaper list
-    \find $Wallpaper_folder -iname "*.jpg" -o -iname "*.png" |shuf > ~/Downloads/wallpaper_list
+    # \find $Wallpaper_folder -iname "*.jpg" -o -iname "*.png" |shuf > ~/Downloads/wallpaper_list
+    \find $Wallpaper_folder -iregex ".*\(txt\|png\|jpg\|svg\)" |shuf > ~/Downloads/wallpaper_list
 fi
 # Lock screen displaying this image.
 FILE=`head -1 ~/Downloads/wallpaper_list`
 sed -i "1d" ~/Downloads/wallpaper_list
 echo "$FILE" > ~/Downloads/lastLock
+
+# check if file is not JPG or PNG make png.
+
+# get Extension
+filename=$(basename "$FILE")
+extension="${filename##*.}"
+# if svg
+if [ "$extension" == "svg" ];
+then
+    inkscape $FILE -e ~/Downloads/wallpaperLock-convert.png
+    FILE=~/Downloads/wallpaperLock-convert.png
+    echo "convert svg"
+fi
+# if txt
+if [ "$extension" == "txt" ];
+then
+    pushd $Wallpaper_folder
+    ./printSvgFromFile.py $FILE > ~/Downloads/wallp-convert.svg
+    inkscape ~/Downloads/wallp-convert.svg -e ~/Downloads/wallpaperLock-convert.png
+    popd
+    FILE=~/Downloads/wallpaperLock-convert.png
+    echo "convert txt"
+fi
 
 # resolution management. 
 res=`identify $FILE | awk '{print $3}'`
