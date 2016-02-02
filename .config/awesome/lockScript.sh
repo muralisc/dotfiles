@@ -1,25 +1,25 @@
 #!/bin/sh -e
 
 ######## Take a screenshot
-# scrot ~/Downloads/wallpaperLock.png
+# scrot /tmp/wallpaperLock.png
 ######## Pixellate it 10x
-# mogrify -scale 10% -scale 1000% ~/Downloads/wallpaperLock.png
+# mogrify -scale 10% -scale 1000% /tmp/wallpaperLock.png
 # convert -resize 1920 bb9a5897307ea096bd66dd658dfa1d75.jpg wallpaperLock.png
 ######## 1920x1080
 Wallpaper_folder=~/PersonalData_max26gb/Jpegs/Quotataions/
-touch ~/Downloads/wallpaper_list
-if [ `wc -l ~/Downloads/wallpaper_list | cut -d " " -f1` -eq 0 ];
+touch /var/tmp/wallpaper_list
+if [ `wc -l /var/tmp/wallpaper_list | cut -d " " -f1` -eq 0 ];
 then
     # execution here means no lines in file
 
     # get the files and shuffle them into the wallpaper list
-    # \find $Wallpaper_folder -iname "*.jpg" -o -iname "*.png" |shuf > ~/Downloads/wallpaper_list
-    \find $Wallpaper_folder -iregex ".*\(txt\|png\|jpg\|svg\)" |shuf > ~/Downloads/wallpaper_list
+    # \find $Wallpaper_folder -iname "*.jpg" -o -iname "*.png" |shuf > /var/tmp/wallpaper_list
+    \find $Wallpaper_folder -iregex ".*\(txt\|png\|jpg\|svg\)" |shuf > /var/tmp/wallpaper_list
 fi
 # Lock screen displaying this image.
-FILE=`head -1 ~/Downloads/wallpaper_list`
-sed -i "1d" ~/Downloads/wallpaper_list
-echo "$FILE" > ~/Downloads/lastLock
+FILE=`head -1 /var/tmp/wallpaper_list`
+sed -i "1d" /var/tmp/wallpaper_list
+echo "$FILE" > /tmp/lastLock
 
 # check if file is not JPG or PNG make png.
 
@@ -29,18 +29,18 @@ extension="${filename##*.}"
 # if svg
 if [ "$extension" == "svg" ];
 then
-    inkscape $FILE -e ~/Downloads/wallpaperLock-convert.png
-    FILE=~/Downloads/wallpaperLock-convert.png
+    inkscape $FILE -e /tmp/wallpaperLock.png
+    FILE=/tmp/wallpaperLock.png
     echo "convert svg"
 fi
 # if txt
 if [ "$extension" == "txt" ];
 then
     pushd $Wallpaper_folder
-    ./printSvgFromFile.py $FILE > ~/Downloads/wallp-convert.svg
-    inkscape ~/Downloads/wallp-convert.svg -e ~/Downloads/wallpaperLock-convert.png
+    ./printSvgFromFile.py $FILE > /tmp/wallpconvert.svg
+    inkscape /tmp/wallpconvert.svg -e /tmp/wallpaperLock.png
     popd
-    FILE=~/Downloads/wallpaperLock-convert.png
+    FILE=/tmp/wallpaperLock.png
     echo "convert txt"
 fi
 
@@ -54,18 +54,18 @@ y=`echo $res | grep -Po "(?<=x)[0-9]+"`
 # resize to x
 if (( "$y" > "$x" )) 
 then
-    convert -resize 1920  $FILE ~/Downloads/wallpaperLock.png
-    echo "resized to x 1920" >> ~/Downloads/lastLock
+    convert -resize 1920  $FILE /tmp/wallpaperLock.png
+    echo "resized to x 1920" >> /tmp/lastLock
 else
     # else rezize to y
-    echo "resized to y 1080" >> ~/Downloads/lastLock
-    convert -resize x1080  $FILE ~/Downloads/wallpaperLock.png
-    color=`convert -resize 1x1 ~/Downloads/wallpaperLock.png txt:-| grep -Po '#[0-9A-F]+'`
+    echo "resized to y 1080" >> /tmp/lastLock
+    convert -resize x1080  $FILE /tmp/wallpaperLock.png
+    color=`convert -resize 1x1 /tmp/wallpaperLock.png txt:-| grep -Po '#[0-9A-F]+'`
     convert -size 1920x1080 xc:"$color" background.png
-    composite -gravity Center ~/Downloads/wallpaperLock.png background.png ~/Downloads/wallpaperLock.png
+    composite -gravity Center /tmp/wallpaperLock.png background.png /tmp/wallpaperLock.png
 fi
 # use the file
-i3lock -i ~/Downloads/wallpaperLock.png
+i3lock -i /tmp/wallpaperLock.png
 
 # Turn the screen off after a delay.
 sleep 60; pgrep i3lock && xset dpms force off
