@@ -57,21 +57,29 @@ URxvt*foreground: White
 *cursorColor: S_base1
 *pointerColorBackground: S_base01
 *pointerColorForeground: S_base1
+!Black
 *color0: S_base02
-*color1: S_red
-*color2: S_green
-*color3: S_yellow
-*color4: S_blue
-*color5: S_magenta
-*color6: S_cyan
-*color7: S_base2
 *color8: S_base03
+!Red
+*color1: S_red
 *color9: S_orange
+!Green
+*color2: S_green
 *color10: S_base01
+!Yellow
+*color3: S_yellow
 *color11: S_base00
+!Blue
+*color4: S_blue
 *color12: S_base0
+!Magneta
+*color5: S_magenta
 *color13: S_violet
+!Cyan
+*color6: S_cyan
 *color14: S_base1
+!White
+*color7: S_base2
 *color15: S_base3
 
 !

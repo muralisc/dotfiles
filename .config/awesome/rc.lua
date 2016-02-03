@@ -67,15 +67,15 @@ local layouts =
 {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    -- awful.layout.suit.fair,             --RESIZE dont work use mod+shift+h/l
+    -- awful.layout.suit.tile.top,
+    awful.layout.suit.fair,             --RESIZE dont work use mod+shift+h/l
     -- awful.layout.suit.fair.horizontal,  --RESIZE dont work
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.max.fullscreen,
     -- awful.layout.suit.magnifier
 }
 -- }}}
@@ -92,23 +92,14 @@ end
 -- Define a tag table which hold all screen tags.
 tags = {
     names  = {
-                        -- "1"
                  "1",
-                     -- 2
                  "2",
-                     -- 3
                  "3",
-                     -- 4
                  "4",
-                     -- 5
                  "5",
-                     -- 6
                  "6",
-                     -- 7
                  "7",
-                     -- 8
                  "8",
-                     -- 9
                  "9",
             },
     layout = {
@@ -131,14 +122,14 @@ tags = {
                 -- layouts[8],    --spiral,
                 -- layouts[9],    --spiral.dwindle,
                 -- layouts[10],   --max,
-                -- layouts[11]   --max.fullscreen,
+                -- layouts[11]    --max.fullscreen,
                 -- layouts[12],   --magnifier
             }
         }
 tagnames = tags.names;
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag(tags.names, s, tags.layout)
+    tags[s] = awful.tag(tags.names, s, tags.layout )
 end
 -- }}}
 
@@ -201,40 +192,44 @@ mytaglist.buttons = awful.util.table.join(
 -- {{{ Tasklist
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  -- Without this, the following
-                                                  -- :isvisible() makes no sense
-                                                  c.minimized = false
-                                                  if not c:isvisible() then
-                                                      awful.tag.viewonly(c:tags()[1])
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
-                                              end
-                                          end),
-                     awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({
-                                                      theme = { width = 250 }
-                                                  })
-                                              end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
-                                          end)
+                    awful.button({ }, 1, 
+                        function (c)
+                            if c == client.focus then
+                                c.minimized = true
+                            else
+                                -- Without this, the following
+                                -- :isvisible() makes no sense
+                                c.minimized = false
+                                if not c:isvisible() then
+                                    awful.tag.viewonly(c:tags()[1])
+                                end
+                                -- This will also un-minimize
+                                -- the client, if needed
+                                client.focus = c
+                                c:raise()
+                            end
+                        end),
+                     awful.button({ }, 3, 
+                        function ()
+                            if instance then
+                                instance:hide()
+                                instance = nil
+                            else
+                                instance = awful.menu.clients({
+                                    theme = { width = 250 }
+                                })
+                            end
+                        end),
+                     awful.button({ }, 4, 
+                        function ()
+                            awful.client.focus.byidx(1)
+                            if client.focus then client.focus:raise() end
+                        end),
+                     awful.button({ }, 5, 
+                        function ()
+                            awful.client.focus.byidx(-1)
+                            if client.focus then client.focus:raise() end
+                        end)
                     )
 --}}}
 --{{{ CPU widget
@@ -533,7 +528,7 @@ globalkeys = awful.util.table.join(
     -- }}}
     awful.key({}, "XF86Mail" ,      function () awful.util.spawn("thunderbird") end),
     awful.key({}, "XF86HomePage" ,  function () awful.util.spawn("firefox") end),
-    awful.key({}, "Print" ,         function () awful.util.spawn_with_shell("sleep 0.5 && scrot -s") end),-- Print Screen : take screenshot
+    awful.key({}, "Print" ,         function () awful.util.spawn_with_shell('import $HOME/selection-`date +%Y-%m-%d_%H-%M-%S`.png') end),-- Print Screen : take screenshot
     awful.key({}, "Scroll_Lock" ,   function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh") end), -- Lock screen
     awful.key({}, "Pause" ,         function () awful.util.spawn("urxvtc -e ranger") end),      -- launch fileexplorer
     --{{{ TAB bindings & similar

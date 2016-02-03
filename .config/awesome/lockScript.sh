@@ -45,24 +45,29 @@ then
 fi
 
 # resolution management. 
+XRES=1920
+YRES=1080
 res=`identify $FILE | awk '{print $3}'`
 x=`echo $res | grep -Po "[0-9]+(?=x)"`
 y=`echo $res | grep -Po "(?<=x)[0-9]+"`
-# 1920x1080 means 1920 in width and 1080 height
-# x = 1920 y = 1080; x > y
-# as long as img has similar charecteristics ie x1 > y1
-# resize to x
-if (( "$y" > "$x" )) 
-then
-    convert -resize 1920  $FILE $FINAL_PATH
-    echo "resized to x 1920" >> /tmp/lastLock.log
-else
-    # else rezize to y
-    echo "resized to y 1080" >> /tmp/lastLock.log
-    convert -resize x1080  $FILE $FINAL_PATH
-    color=`convert -resize 1x1 $FINAL_PATH txt:-| grep -Po '#[0-9A-F]+'`
-    convert -size 1920x1080 xc:"$color" background.png
-    composite -gravity Center $FINAL_PATH background.png $FINAL_PATH
+
+if [[ ( $YRES != $y ) || ( $XRES != $x ) ]]; then
+    # 1920x1080 means 1920 in width and 1080 height
+    # x = 1920 y = 1080; x > y
+    # as long as img has similar charecteristics ie x1 > y1
+    # resize to x
+    if (( "$y" > "$x" )) 
+    then
+        convert -resize $XRES  $FILE $FINAL_PATH
+        echo "resized to x $x to $XRES" >> /tmp/lastLock.log
+    else
+        # else rezize to y
+        echo "resized to y $y to $YRES" >> /tmp/lastLock.log
+        convert -resize x${YRES} $FILE $FINAL_PATH
+        color=`convert -resize 1x1 $FINAL_PATH txt:-| grep -Po '#[0-9A-F]+'`
+        convert -size ${XRES}x${YRES} xc:"$color" background.png
+        composite -gravity Center $FINAL_PATH background.png $FINAL_PATH
+    fi
 fi
 # use the file
 i3lock -i $FINAL_PATH
