@@ -452,7 +452,8 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    --{{{ volume mappings
+    --{{{ UTILITY MAPPINGS ( not awesome specific
+        --{{{ volume mappings
     awful.key({}, "XF86AudioRaiseVolume" ,
         function ()
             awful.util.spawn_with_shell("~/bin/vol-control.sh louder")
@@ -479,11 +480,8 @@ globalkeys = awful.util.table.join(
             awful.util.spawn_with_shell("~/bin/vol-control.sh louder")
             update_volume(volume_widget)
         end),
-    --}}}
-
-    awful.key({ modkey,           }, "`", function () quakeconsole[mouse.screen]:toggle() end),
-    awful.key({}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end),
-    -- {{{ light mappping brightness
+        --}}}
+        --{{{ light mappping brightness
     -- mappping inspiraton from https://github.com/tpope/tpope 
     awful.key({ modkey , altkey}, "bracketright" ,
         function ()
@@ -525,25 +523,28 @@ globalkeys = awful.util.table.join(
             awful.util.spawn("light -S 10")
             brightnessTimer:start()
         end),
-    -- }}}
+        -- }}}
+    awful.key({}, "XF86AudioPlay",  function () awful.util.spawn("mpc toggle") end),
     awful.key({}, "XF86Mail" ,      function () awful.util.spawn("thunderbird") end),
     awful.key({}, "XF86HomePage" ,  function () awful.util.spawn("firefox") end),
     awful.key({}, "Print" ,         function () awful.util.spawn_with_shell('import $HOME/selection-`date +%Y-%m-%d_%H-%M-%S`.png') end),-- Print Screen : take screenshot
     awful.key({}, "Scroll_Lock" ,   function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh") end), -- Lock screen
     awful.key({}, "Pause" ,         function () awful.util.spawn("urxvtc -e ranger") end),      -- launch fileexplorer
-    --{{{ TAB bindings & similar
-    -- disbled in favor of rofi!!
-    -- awful.key({ altkey         }, "Tab",    -- Alt TAB   
-    --     function ()
-    --         awful.menu.clients( { theme = { font="Ubuntu Mono 14"; width = 800; height=30 } })
-    --     end),  --ESCAPE to close
-    awful.key({ modkey,           }, "Tab" ,   function () awful.util.spawn("rofi -show window") end),-- window switcher
-    awful.key({ altkey,           }, "Tab", -- focus previous window
+    awful.key({ modkey,}, "Tab" ,   function () awful.util.spawn("rofi -show window") end),-- window switcher
+    awful.key({ altkey, "Control" }, "s",
+        function() 
+            awful.util.spawn_with_shell( "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')") 
+        end),
+    awful.key({ modkey }, "q",      function () awful.util.spawn_with_shell("exec ~/Downloads/lockScript_mod.sh") end), -- show a quote
+    --}}} UTILITY MAPPINGS ( not awesome specific
+    -- {{{ AWESOME SPECIFIC MAPPINGS 
+    awful.key({ modkey,}, "`",      function () quakeconsole[mouse.screen]:toggle() end),
+    awful.key({ altkey,}, "Tab", -- focus previous window (def awesome tab binding disbled in favor of rofi!!) {{{
         function ()
             awful.client.focus.history.previous()
             if client.focus then client.focus:raise() end
-        end),--}}}
-    -- window moving and resizing  {{{
+        end),  -- }}}
+        -- window moving and resizing  {{{
     awful.key({ modkey          }, "Prior",function () awful.client.moveresize( 0,  0, 40, 0) end),-- Super PageUp: increase window width
     awful.key({ modkey, "Shift" }, "Prior",function () awful.client.moveresize( 0,  0,  -40, 0) end),-- Super Shift PageUp
     awful.key({ modkey          }, "Next", function () awful.client.moveresize( 0, 0, 0,  40) end),-- Super PageDown: increase window height
@@ -553,9 +554,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "Left", function () awful.client.moveresize(-20,   0,   0,   0) end),
     awful.key({ modkey }, "Right",function () awful.client.moveresize( 20,   0,   0,   0) end),
     -- }}}
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-
-    -- {{{ hjkl bindings
+        -- {{{ hjkl bindings
     awful.key({ modkey,           }, "j",   -- focus the next client
         function ()
             awful.client.focus.byidx( 1)
@@ -578,33 +577,28 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05) end),  -- resize split
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1) end),    -- increase number of Master window
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1) end),       -- increase number of Column window
-
     -- }}}
-
-    awful.key({ modkey,           }, "u",  awful.client.urgent.jumpto),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),   --show context menu( free desktop)
-    awful.key({ modkey,           }, "Return",  function () awful.util.spawn(terminal) end),-- Standard program
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
-    awful.key({ modkey, "Control" }, "r", awesome.restart),
+    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    awful.key({ modkey,           }, "u"     , awful.client.urgent.jumpto),
+    awful.key({ modkey,           }, "w"     , function () mymainmenu:show() end),   --show context menu( free desktop)
+    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),-- Standard program
+    awful.key({ modkey, "Shift"   }, "q"    , awesome.quit),
+    awful.key({ modkey, "Control" }, "r"    , awesome.restart),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
-    awful.key({ modkey, "Shift"   }, "n", awful.client.restore),
-    awful.key({ modkey },            "r",   -- Prompt--{{{
+    awful.key({ modkey, "Shift"   }, "n"    , awful.client.restore),
+    awful.key({ modkey },            "r"    ,   -- Prompt--{{{
         function ()
             mypromptbox[mouse.screen]:run()
             mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
         end),--}}}
-    awful.key({ altkey, "Control" }, "s", 
-        function() 
-            awful.util.spawn_with_shell( "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')") 
-        end),
-    awful.key({ modkey }, "q", function () awful.util.spawn_with_shell("exec ~/Downloads/lockScript_mod.sh") end), -- show a quote
     awful.key({ modkey }, "p", function() menubar.show() end),  -- Menubar
     awful.key({ modkey }, "b",              -- wibox visibility toggle--{{{
         function ()
             mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
             wiboxAutoHide = not wiboxAutoHide
         end)--}}}
+    -- }}} END  AWESOME SPECIFIC MAPPINGS 
 )
 
 clientkeys = awful.util.table.join(
@@ -634,7 +628,7 @@ clientkeys = awful.util.table.join(
                 , font     = "Ubuntu Mono 20"
             })
         end),--}}}
-    awful.key({ modkey,           }, "t",    function (c) c.ontop = not c.ontop end),   -- on top
+    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop end),   -- on top
     awful.key({ modkey,           }, "n",       -- minimize--{{{
         function (c)
             -- The client currently has the input focus, so it cannot be
