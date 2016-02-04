@@ -18,16 +18,10 @@ Plugin 'gmarik/Vundle.vim'                                                      
 Plugin 'kien/ctrlp.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
 Plugin 'powerman/vim-plugin-viewdoc'
-" Plugin 'Raimondi/delimitMate'                                                   " autoclose quotes and brackets
 Plugin 'tpope/vim-commentary'                                                   " map: gcc
 Plugin 'tpope/vim-fugitive'                                                     " GIT
 Plugin 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
 Plugin 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
-Plugin 'vim-scripts/matchit.zip'
-" Plugin 'davidhalter/jedi-vim'                                                 " Python
-" Plugin 'klen/python-mode'                                                     " Python
-" Plugin 'vim-scripts/Conque-GDB'                                               " CPP
-" Plugin 'Valloric/YouCompleteMe'                                               " CPP
 call vundle#end()
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
@@ -189,7 +183,6 @@ nnoremap <leader>co :botright cope<cr>
 nnoremap <leader>cc :cclose<cr>
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
-nnoremap <leader>so :colorscheme solarized<cr>
 nnoremap <Leader>dd :Gdiff<CR>
 nnoremap <Leader>du :diffupdate<CR>
 " ge is used after n_CTRL-e
@@ -269,6 +262,7 @@ augroup FTOptions
     autocmd filetype javascript setlocal shiftwidth=2 softtabstop=2
     autocmd FileType xml,xsd,xslt,javascript setlocal tabstop=2
     autocmd FileType xdefaults setlocal commentstring=!\ %s
+    autocmd FileType matlab setlocal commentstring=%\ %s
     autocmd filetype c,cpp,java setlocal foldmethod=syntax foldlevel=99
     autocmd FileType c,cpp,java setlocal complete-=k                                                                 " add dictionary too
     autocmd FileType liquid,markdown,text,txt setlocal complete+=k
@@ -293,7 +287,7 @@ fu! s:LoadRandomColorScheme()
 
     if strlen(s:color_file_list)
         if s:color_file_list =~ ','
-            let s:rnd  = (strftime( "%d" ) + 0)%10
+            let s:rnd  = (strftime( "%d" ) + 0)%12
             let s:loop = 0
 
             while s:loop < s:rnd
@@ -318,3 +312,5 @@ endf "}}}
 call s:LoadRandomColorScheme()
 
 nnoremap <leader>l :!google-chrome-stable <C-R><C-A><CR>
+" prevent screen flasing on multiple esc
+set vb t_vb=
