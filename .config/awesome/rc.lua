@@ -454,79 +454,26 @@ root.buttons(awful.util.table.join(
 globalkeys = awful.util.table.join(
     --{{{ UTILITY MAPPINGS ( not awesome specific
         --{{{ volume mappings
-    awful.key({}, "XF86AudioRaiseVolume" ,
-        function ()
-            awful.util.spawn_with_shell("~/bin/vol-control.sh louder")
-            update_volume(volume_widget)
-        end),
-    awful.key({}, "XF86AudioLowerVolume" ,
-        function ()
-            awful.util.spawn_with_shell("~/bin/vol-control.sh softer")
-            update_volume(volume_widget)
-        end),
-    awful.key({}, "XF86AudioMute",
-        function ()
-            awful.util.spawn_with_shell("~/bin/vol-control.sh toggle")
-            update_volume(volume_widget)
-        end),
+    -- awful.key({}, "XF86AudioRaiseVolume" ,  function () update_volume(volume_widget, "~/bin/vol-control.sh louder" ) end),
+    -- awful.key({}, "XF86AudioLowerVolume" ,  function () update_volume(volume_widget, "~/bin/vol-control.sh softer" ) end),
+    awful.key({}, "XF86AudioMute",          function () update_volume(volume_widget, "~/bin/vol-control.sh toggle" ) end),
     -- mappping inspiraton from https://github.com/tpope/tpope
-    awful.key({ modkey, }, "bracketleft",
-        function ()
-            awful.util.spawn_with_shell("~/bin/vol-control.sh softer")
-            update_volume(volume_widget)
-        end),
-    awful.key({ modkey, }, "]",
-        function ()
-            awful.util.spawn_with_shell("~/bin/vol-control.sh louder")
-            update_volume(volume_widget)
-        end),
+    awful.key({ modkey, }, "bracketleft",   function () update_volume(volume_widget, "~/bin/vol-control.sh softer" ) end),
+    awful.key({ modkey, }, "]",             function () update_volume(volume_widget, "~/bin/vol-control.sh louder" ) end),
+    awful.key({ modkey, }, "backslash",     function () awful.util.spawn_with_shell ("pavucontrol") end),
         --}}}
         --{{{ light mappping brightness
     -- mappping inspiraton from https://github.com/tpope/tpope 
-    awful.key({ modkey , altkey}, "bracketright" ,
-        function ()
-            awful.util.spawn("light -A 10")
-            brightnessTimer:start()
-        end),
-    awful.key({ modkey , altkey}, "bracketleft" ,
-        function ()
-            awful.util.spawn("light -U 10")
-            brightnessTimer:start()
-        end),
-    awful.key({}, "XF86MonBrightnessUp" ,
-        function ()
-            awful.util.spawn("light -A 10")
-            brightnessTimer:start()
-        end),
-    awful.key({}, "XF86MonBrightnessDown" ,
-        function ()
-            awful.util.spawn("light -U 10")
-            brightnessTimer:start()
-        end),
-    awful.key({}, "XF86Calculator" ,
-        function ()
-            awful.util.spawn("light -A 10")
-            brightnessTimer:start()
-        end),
-    awful.key({}, "XF86Sleep" ,
-        function ()
-            awful.util.spawn("light -U 10")
-            brightnessTimer:start()
-        end),
-    awful.key({ "Control" }, "XF86Calculator" ,
-        function ()
-            awful.util.spawn("light -S 100")
-            brightnessTimer:start()
-        end),
-    awful.key({"Control"}, "XF86Sleep" ,
-        function ()
-            awful.util.spawn("light -S 10")
-            brightnessTimer:start()
-        end),
+    awful.key({ modkey , }, "=" ,           function () update_b(brightness_widget , "light -A 10" ) end),
+    awful.key({ modkey , }, "-" ,           function () update_b(brightness_widget , "light -U 10" ) end),
+    awful.key({}, "XF86MonBrightnessUp" ,   function () update_b(brightness_widget , "light -A 10" ) end),
+    awful.key({}, "XF86MonBrightnessDown" , function () update_b(brightness_widget , "light -U 10" ) end),
+    awful.key({modkey, "Control" }, "=" ,   function () update_b(brightness_widget , "light -S 100" ) end),
+    awful.key({modkey, "Control"}, "-" ,    function () update_b(brightness_widget , "light -S 10" ) end),
         -- }}}
-    awful.key({}, "XF86AudioPlay",  function () awful.util.spawn("mpc toggle") end),
-    awful.key({}, "XF86Mail" ,      function () awful.util.spawn("thunderbird") end),
-    awful.key({}, "XF86HomePage" ,  function () awful.util.spawn("firefox") end),
+    -- awful.key({}, "XF86AudioPlay",  function () awful.util.spawn("mpc toggle") end),
+    -- awful.key({}, "XF86Mail" ,      function () awful.util.spawn("thunderbird") end),
+    -- awful.key({}, "XF86HomePage" ,  function () awful.util.spawn("firefox") end),
     awful.key({}, "Print" ,         function () awful.util.spawn_with_shell('import $HOME/selection-`date +%Y-%m-%d_%H-%M-%S`.png') end),-- Print Screen : take screenshot
     awful.key({}, "Scroll_Lock" ,   function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh") end), -- Lock screen
     awful.key({}, "Pause" ,         function () awful.util.spawn("urxvtc -e ranger") end),      -- launch fileexplorer
