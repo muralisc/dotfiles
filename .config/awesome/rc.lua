@@ -554,7 +554,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
-    awful.key({ modkey }, "d",                          -- show details--{{{
+    awful.key({ modkey }, "i",                          -- show info--{{{
         function (c)
             mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
             naughty.notify({
