@@ -532,11 +532,6 @@ globalkeys = awful.util.table.join(
     awful.key({}, "Scroll_Lock" ,   function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh") end), -- Lock screen
     awful.key({}, "Pause" ,         function () awful.util.spawn("urxvtc -e ranger") end),      -- launch fileexplorer
     --{{{ TAB bindings & similar
-    awful.key({ modkey,           }, "k",   -- focus previous client
-        function ()
-            awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
-        end),
     -- disbled in favor of rofi!!
     -- awful.key({ altkey         }, "Tab",    -- Alt TAB   
     --     function ()
@@ -559,28 +554,38 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "Right",function () awful.client.moveresize( 20,   0,   0,   0) end),
     -- }}}
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-    awful.key({ modkey,           }, "j",   -- focus the next client--{{{
+
+    -- {{{ hjkl bindings
+    awful.key({ modkey,           }, "j",   -- focus the next client
         function ()
             awful.client.focus.byidx( 1)
             if client.focus then client.focus:raise() end
-        end),--}}}
+        end),
+    awful.key({ modkey,           }, "k",   -- focus previous client
+        function ()
+            awful.client.focus.byidx(-1)
+            if client.focus then client.focus:raise() end
+        end),
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1) end), --move clinet clockwise
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end), -- for multiple screen setup
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1) end),  --move clinet anticlockwise
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),-- for multiple screen setup
     awful.key({ modkey, altkey    }, "h",  awful.tag.viewprev       ),
     awful.key({ modkey, altkey    }, "l",  awful.tag.viewnext       ),
-    awful.key({ modkey,           }, "u",  awful.client.urgent.jumpto),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),   --show context menu( free desktop)
-    awful.key({ modkey,           }, "Return",  function () awful.util.spawn(terminal) end),-- Standard program
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
-    awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05) end),  -- RESIZE-- increse Master width factor
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1) end),    -- decrease number of Master window
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1) end),       -- decrease number of Column window
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05) end),  -- resize split
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1) end),    -- increase number of Master window
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1) end),       -- increase number of Column window
+
+    -- }}}
+
+    awful.key({ modkey,           }, "u",  awful.client.urgent.jumpto),
+    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),   --show context menu( free desktop)
+    awful.key({ modkey,           }, "Return",  function () awful.util.spawn(terminal) end),-- Standard program
+    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
+    awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
     awful.key({ modkey, "Shift"   }, "n", awful.client.restore),
