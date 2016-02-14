@@ -7,17 +7,9 @@ URxvt*depth: 32
 ! Create the window with the specified X window geometry [default
 ! URxvt*geometry: geom
 
-! Use the specified colour as the windows background colour [default
 URxvt*background: [80]#000000
-
-! Use the specified colour as the windows foreground colour [default
 URxvt*foreground: White
 
-! Use the specified colour for the colour value n, where 0-7
-! URxvt*colorn: colour
-
-! Solarized color scheme for the X Window System
-!
 ! http://ethanschoonover.com/solarized
 ! Common
 #define S_yellow #b58900
@@ -37,21 +29,6 @@ URxvt*foreground: White
 #define S_base1 #93a1a1
 #define S_base2 #eee8d5
 #define S_base3 #fdf6e3
-! Light
-! #define S_base03 #fdf6e3
-! #define S_base02 #eee8d5
-! #define S_base01 #93a1a1
-! #define S_base00 #839496
-! #define S_base0 #657b83
-! #define S_base1 #586e75
-! #define S_base2 #073642
-! #define S_base3 #002b36
-! To only apply colors to your terminal, for example, prefix
-! the color assignment statement with its name. Example:
-!
-! URxvt*background: S_base03
-*background: S_base03
-*foreground: S_base0
 *fading: 40
 *fadeColor: S_base03
 *cursorColor: S_base1
@@ -168,7 +145,12 @@ URxvt*intensityStyles: false
 ! True: start as a login shell by prepending a - to argv[0] of the
 ! URxvt*loginShell: boolean
 
-! True: inhibit writing record into the system log file utmp; option
+! Specify the maximum time in milliseconds between multi-click select events. 
+! The default is 500 milliseconds; option -mc.
+! URxvt*multiClickTime: number
+
+! True: inhibit writing record into the system log file utmp; option -ut. 
+! False: write record into the system log file utmp [default]; option +ut.
 ! URxvt*utmpInhibit: boolean
 
 ! Specify a command pipe for vt100 printer [default lpr(1)]. Use
@@ -246,7 +228,12 @@ URxvt*mouseWheelScrollPage: 0
 ! Mouse pointer background colour.
 ! URxvt*pointerColor2: colour
 
-! Specifies number of seconds before blanking the pointer [default
+! Compile frills: Specifies the name of the mouse pointer shape [default xterm]. 
+! See the macros in the X11/cursorfont.h include file for possible values (omit
+! URxvt*pointerShape: string
+
+! Specifies number of seconds before blanking the pointer [default 2]. 
+! Use a large number (e.g. 987654321) to effectively disable the timeout.
 ! URxvt*pointerBlankDelay: number
 
 ! The string to send when the backspace key is pressed. If set to DEC
@@ -351,5 +338,3 @@ URxvt.resize-font.show:    C-question
 
 ! Turn on/off ISO 14755 5.2 mode (default enabled).
 ! URxvt*iso14755_52: boolean
-
-
