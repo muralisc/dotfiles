@@ -10,7 +10,7 @@ URxvt*depth: 32
 URxvt*background: [80]#000000
 URxvt*foreground: White
 
-! http://ethanschoonover.com/solarized
+! modified from http://ethanschoonover.com/solarized
 ! Common
 #define S_yellow #b58900
 #define S_orange #cb4b16
@@ -21,43 +21,43 @@ URxvt*foreground: White
 #define S_cyan #2aa198
 #define S_green #859900
 ! Dark
-#define S_base03 #002b36
-#define S_base02 #073642
-#define S_base01 #586e75
-#define S_base00 #657b83
-#define S_base0 #839496
-#define S_base1 #93a1a1
-#define S_base2 #eee8d5
-#define S_base3 #fdf6e3
+#define S_black #555753
+#define S_black1 #073642
+#define S_greenC #586e75
+#define S_yellowC #657b83
+#define S_blueC #839496
+#define S_cyanC #93a1a1
+#define S_white #eee8d5
+#define S_whiteC #fdf6e3
 *fading: 40
-*fadeColor: S_base03
-*cursorColor: S_base1
-*pointerColorBackground: S_base01
-*pointerColorForeground: S_base1
+*fadeColor: S_black
+*cursorColor: S_cyanC
+*pointerColor: S_greenC
+*pointerColor2: S_cyanC
 !Black
-*color0: S_base02
-*color8: S_base03
+*color0: S_black1
+*color8: S_black
 !Red
 *color1: S_red
 *color9: S_orange
 !Green
 *color2: S_green
-*color10: S_base01
+*color10: S_greenC
 !Yellow
 *color3: S_yellow
-*color11: S_base00
+*color11: S_yellowC
 !Blue
 *color4: S_blue
-*color12: S_base0
+*color12: S_blueC
 !Magneta
 *color5: S_magenta
 *color13: S_violet
 !Cyan
 *color6: S_cyan
-*color14: S_base1
+*color14: S_cyanC
 !White
-*color7: S_base2
-*color15: S_base3
+*color7: S_white
+*color15: S_whiteC
 
 !
 ! URxvt*colorBD: colour
@@ -66,7 +66,7 @@ URxvt*foreground: White
 URxvt*colorIT: #ff0000
 
 ! Use the specified colour to display underlined characters when the
-! URxvt*colorUL: colour
+URxvt*colorUL: #4682B4
 
 ! If set, use the specified colour as the colour for the underline
 ! URxvt*underlineColor: colour
@@ -290,7 +290,6 @@ URxvt*secondaryScroll: 0
 URxvt*perl-ext-common: font-size,default,keyboard-select,clipboard,url-select,matcher,vtwheel,resize-font
 URxvt.url-select.launcher: /usr/bin/firefox
 URxvt*matcher.button: 1
-URxvt*colorUL: #4682B4
 URxvt*keysym.M-Escape: perl:keyboard-select:activate
 URxvt*keysym.M-s:      perl:keyboard-select:search
 URxvt*keysym.M-u:      perl:url-select:select_next
