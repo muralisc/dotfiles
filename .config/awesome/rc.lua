@@ -9,7 +9,7 @@ local naughty = require("naughty")      -- Notification library
 local menubar = require("menubar")
 local vicious = require("vicious")
 
-awful.util.spawn_with_shell("compton --inactive-dim 0.2 -b")
+awful.util.spawn_with_shell("compton --inactive-dim 0.4 -b")
 awful.util.spawn_with_shell("urxvtd -q -o -f &")
 awful.util.spawn_with_shell("xrdb ~/.Xresources")
 -- {{{ Error handling

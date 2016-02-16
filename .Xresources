@@ -90,7 +90,8 @@ URxvt*colorUL: #4682B4
 
 ! Fade the text by the given percentage when focus is lost; option
 ! URxvt*fading: number
-*fading: 40
+! Use compton inactive dim instead
+! *fading: 40
 
 ! Fade to this colour, when fading is used (see fading:). The default
 ! URxvt*fadeColor: colour
