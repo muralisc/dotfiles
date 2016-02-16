@@ -13,7 +13,7 @@ call vundle#begin()
 Plugin 'airblade/vim-gitgutter'
 Plugin 'chazy/cscope_maps'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'flazz/vim-colorschemes'
+Plugin 'muralisc/vim-colorschemes'
 Plugin 'gmarik/Vundle.vim'                                                      " pluging shortcuts
 Plugin 'kien/ctrlp.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
