@@ -41,7 +41,7 @@ if [[ $1 = "arch" ]] ; then
     systemctl enable NetworkManager.service
     timedatectl set-timezone Asia/Kolkatta
     echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf
-# zathura zathura-pdf-mupdf  // use browser instead
+# mupdf for backup // use browser instead
 
 echo "INSTALL following ====================" 
 ranger w3m # for image preview in ranger 
@@ -56,6 +56,9 @@ thunderbird tigervnc tmux vlc wget
 xf86-input-synaptics xf86-video-intel xorg-server xorg-server-utils
 xorg-xinit yaourt youtube-dl zsh zukwito-themes xclip yajl perl-rename unzip
 xorg-xprop xorg-xev compton-git
+
+echo "optional:"
+texlive-core
 
 git config --global user.email "muralisc@gmail.com"
 
