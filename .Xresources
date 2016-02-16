@@ -15,7 +15,7 @@ URxvt*foreground: White
 #define S_yellow #b58900
 #define S_orange #cb4b16
 #define S_red #dc322f
-#define S_magenta #d33682
+#define S_magenta #de6ea4
 #define S_violet #6c71c4
 #define S_blue #268bd2
 #define S_cyan #2aa198
@@ -29,11 +29,6 @@ URxvt*foreground: White
 #define S_cyanC #93a1a1
 #define S_white #eee8d5
 #define S_whiteC #fdf6e3
-*fading: 40
-*fadeColor: S_black
-*cursorColor: S_cyanC
-*pointerColor: S_greenC
-*pointerColor2: S_cyanC
 !Black
 *color0: S_black1
 *color8: S_black
@@ -79,6 +74,7 @@ URxvt*colorUL: #4682B4
 
 ! Use the specified colour for the cursor. The default is to use the
 ! URxvt*cursorColor: colour
+*cursorColor: S_cyanC
 
 ! Use the specified colour for the colour of the cursor text. For
 ! URxvt*cursorColor2: colour
@@ -94,9 +90,11 @@ URxvt*colorUL: #4682B4
 
 ! Fade the text by the given percentage when focus is lost; option
 ! URxvt*fading: number
+*fading: 40
 
 ! Fade to this colour, when fading is used (see fading:). The default
 ! URxvt*fadeColor: colour
+*fadeColor: S_black
 
 ! Set the application icon pixmap; option -icon.
 ! URxvt*iconFile: file
@@ -224,9 +222,11 @@ URxvt*mouseWheelScrollPage: 0
 
 ! Mouse pointer foreground colour.
 ! URxvt*pointerColor: colour
+*pointerColor: S_greenC
 
 ! Mouse pointer background colour.
 ! URxvt*pointerColor2: colour
+*pointerColor2: S_cyanC
 
 ! Compile frills: Specifies the name of the mouse pointer shape [default xterm]. 
 ! See the macros in the X11/cursorfont.h include file for possible values (omit
@@ -297,8 +297,6 @@ URxvt*keysym.M-c:      perl:clipboard:copy
 URxvt*keysym.M-v:      perl:clipboard:paste
 URxvt*keysym.M-C-v:    perl:clipboard:paste_escaped
 URxvt*clipboard.autocopy:   true
-URxvt.iso14755: false
-URxvt.iso14755_52: false
 URxvt.resize-font.smaller: C-Down
 URxvt.resize-font.bigger:  C-Up
 URxvt.resize-font.reset:   C-equal
@@ -333,7 +331,5 @@ URxvt.resize-font.show:    C-question
 ! URxvt*override-redirect: boolean
 
 ! Turn on/off ISO 14755 (default enabled).
-! URxvt*iso14755: boolean
-
-! Turn on/off ISO 14755 5.2 mode (default enabled).
-! URxvt*iso14755_52: boolean
+URxvt.iso14755: false
+URxvt.iso14755_52: false
