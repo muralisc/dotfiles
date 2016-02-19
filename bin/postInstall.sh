@@ -41,7 +41,7 @@ if [[ $1 = "arch" ]] ; then
     systemctl enable NetworkManager.service
     timedatectl set-timezone Asia/Kolkatta
     echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf
-# mupdf for backup // use browser instead
+# zathura for backup // use browser instead
 
 echo "INSTALL following ====================" 
 ranger w3m # for image preview in ranger 
@@ -69,7 +69,7 @@ git config --global user.email "muralisc@gmail.com"
 else sudo apt-get update sudo apt-get upgrade sudo apt-get install \ feh git
     git-gui gitk htop i3lock inkscape leafpad linuxdcpp openssh-server rsync
     rxvt-unicode-256color texlive-latex-extra texlive-fonts-recomended tmux
-    xsel vim-gtk vlc youtube-dl zathura zsh
+    xsel vim-gtk vlc youtube-dl zathura zathura-pdf-poppler zsh
     sudo add-apt-repository ppa:klaus-vormweg/awesome
     sudo apt-get update
     sudo apt-get install awesome
