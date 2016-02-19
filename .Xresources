@@ -113,7 +113,8 @@ URxvt*font: xft:UbuntuMono:Regular:size=16,\
 ! The font list to use for displaying bold, italic or bold italic
 ! URxvt*boldItalicFont: fontlist
 
-! For solarized colors
+! false : prevent bold0 = color8 ,instead just bold it!!
+! http://superuser.com/questions/512138/urxvt-bold-colors-are-wrong-bold-0-7-are-using-colors-from-8-15
 URxvt*intensityStyles: false
 
 ! Set window title string, the default title is the command-line
