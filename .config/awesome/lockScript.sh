@@ -69,8 +69,13 @@ if [[ ( $YRES != $y ) || ( $XRES != $x ) ]]; then
         composite -gravity Center $FINAL_PATH background.png $FINAL_PATH
     fi
 fi
+
+if [ -z $1 ] 
+then
 # use the file
 i3lock -i $FINAL_PATH
-
 # Turn the screen off after a delay.
 sleep 60; pgrep i3lock && xset dpms force off
+else
+    feh $FINAL_PATH
+fi

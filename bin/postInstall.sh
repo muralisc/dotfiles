@@ -56,6 +56,7 @@ thunderbird tigervnc tmux vlc wget
 xf86-input-synaptics xf86-video-intel xorg-server xorg-server-utils
 xorg-xinit yaourt youtube-dl zsh zukwito-themes xclip yajl perl-rename unzip
 xorg-xprop xorg-xev compton-git
+cronie
 
 echo "optional:"
 texlive-core

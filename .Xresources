@@ -58,10 +58,10 @@ URxvt*foreground: White
 ! URxvt*colorBD: colour
 
 ! Use the specified colour to display bold or italic characters when
-URxvt*colorIT: #ff0000
+URxvt*colorIT: S_red
 
 ! Use the specified colour to display underlined characters when the
-URxvt*colorUL: #4682B4
+URxvt*colorUL: S_magenta
 
 ! If set, use the specified colour as the colour for the underline
 ! URxvt*underlineColor: colour
@@ -183,7 +183,7 @@ URxvt*scrollWithBuffer: true
 URxvt*scrollTtyKeypress: true
 
 ! Save number lines in the scrollback buffer [default 64]. This
-URxvt*saveLines: 65000
+URxvt*saveLines: 99999
 
 ! Internal border of number pixels. This resource is limited to 100;
 ! URxvt*internalBorder: number

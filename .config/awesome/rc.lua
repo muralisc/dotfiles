@@ -385,7 +385,7 @@ batterywidget_timer:start()
 
 -- }}}
 -- Create a textclock widget {{{
-mytextclockTimeout = 60
+mytextclockTimeout = 1
 mytextclock = awful.widget.textclock(" %a, %Y %b %d, %H:%M:%S ", mytextclockTimeout )
 -- }}}
 require("volume")
@@ -482,7 +482,7 @@ globalkeys = awful.util.table.join(
         function() 
             awful.util.spawn_with_shell( "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')") 
         end),
-    awful.key({ modkey }, "q",      function () awful.util.spawn_with_shell("exec ~/Downloads/lockScript_mod.sh") end), -- show a quote
+    awful.key({ modkey }, "q",      function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh show") end), -- show a quote
     --}}} UTILITY MAPPINGS ( not awesome specific
     -- {{{ AWESOME SPECIFIC MAPPINGS 
     awful.key({ modkey,}, "`",      function () quakeconsole[mouse.screen]:toggle() end),

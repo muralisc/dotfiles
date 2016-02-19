@@ -271,7 +271,7 @@ augroup FTOptions
     autocmd filetype xml,sh,vim,tex,html,lua setlocal foldmethod=marker
     autocmd FileType gitcommit,tex setlocal spell
     autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
-    autocmd FileType liquid,markdown,text,txt setlocal tw=78 linebreak nolist
+    autocmd FileType liquid,markdown,text,txt setlocal tw=100 linebreak nolist
 augroup end
 "}}} Filetype Specific Settings 
 
