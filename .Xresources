@@ -7,14 +7,11 @@ URxvt*depth: 32
 ! Create the window with the specified X window geometry [default
 ! URxvt*geometry: geom
 
-URxvt*background: [80]#000000
-URxvt*foreground: White
-
 ! modified from http://ethanschoonover.com/solarized
 ! Common
 #define S_yellow #b58900
 #define S_orange #cb4b16
-#define S_red #dc322f
+#define S_red #ff6666
 #define S_magenta #de6ea4
 #define S_violet #6c71c4
 #define S_blue #268bd2
@@ -27,8 +24,8 @@ URxvt*foreground: White
 #define S_yellowC #657b83
 #define S_blueC #839496
 #define S_cyanC #93a1a1
-#define S_white #eee8d5
-#define S_whiteC #fdf6e3
+#define S_white #a8a8a8
+#define S_whiteC #cccccc
 !Black
 *color0: S_black1
 *color8: S_black
@@ -54,6 +51,8 @@ URxvt*foreground: White
 *color7: S_white
 *color15: S_whiteC
 
+URxvt*background: [80]#000000
+URxvt*foreground: S_whiteC
 !
 ! URxvt*colorBD: colour
 
