@@ -311,6 +311,6 @@ fu! s:LoadRandomColorScheme()
 endf "}}}
 call s:LoadRandomColorScheme()
 
-nnoremap <leader>l :!google-chrome-stable <C-R><C-A><CR>
+nnoremap <leader>l :!firefox <C-R><C-A><CR>
 " prevent screen flasing on multiple esc
 set vb t_vb=
