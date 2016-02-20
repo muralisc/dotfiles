@@ -654,16 +654,12 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "URxvt" }, properties = { border_width = 0 } },
-    { rule = { class = "feh" }, properties = { floating = true } },
-    { rule = { class = "Thunderbird" }, properties = { tag = tags[1][5] } },
-    -- Set Google Chrome to always map on tags number 2 of screen 1.and
-    { rule = { class = "Google-chrome-stable" }, properties = { tag = tags[1][1] } },
-    { rule = { class = "Firefox" }, properties = { tag = tags[1][1] } },
-    { rule = { class = "Tor Browser" }, properties = { tag = tags[1][3] } },
-    { rule = { class = "Vlc" }, properties = { tag = tags[1][4] } },
-    -- { rule = { instance = "plugin-container" }, -- for youtube
-    --      properties = { floating = true } },
+    { rule = { class = "URxvt" },       properties = { border_width = 0 }   },
+    { rule = { class = "feh" },         properties = { floating = true  }   },
+    { rule = { class = "Thunderbird" }, properties = { tag = tags[1][5] }   },
+    { rule = { class = "Firefox" },     properties = { tag = tags[1][1] }   },
+    { rule = { class = "Tor Browser" }, properties = { tag = tags[1][3] }   },
+    { rule = { class = "Vlc" },         properties = { floating = true  }   },
 }
 -- }}}
 
