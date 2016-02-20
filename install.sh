@@ -8,11 +8,11 @@ then
     exit
 fi
 
-mkdir -p ~/.config/inkscape/keys
-mkdir -p ~/.ssh
-mkdir -p ~/.vim
-mkdir ~/.vim/vimundo
-mkdir -p ~/.local/share/applications
+mkdir -p $HOME/.config/inkscape/keys
+mkdir -p $HOME/.ssh
+mkdir -p $HOME/.vim
+mkdir -p $HOME/.vim/vimundo
+mkdir -p $HOME/.local/share/applications
 
 
 for i in \
@@ -20,11 +20,13 @@ for i in \
 .bashrc     \
 .bcrc       \
 bin                                 \
+.local/share/applications           \
 .config/inkscape/keys/default.xml   \
 .config/user-dirs.dirs              \
 .config/awesome                     \
 .config/ranger                      \
 .config/zathura                     \
+.config/mimeapps.list               \
 .fehbg      \
 .gdbinit    \
 .inputrc    \
@@ -40,8 +42,15 @@ bin                                 \
 .zshrc      \
     ;
 do
-    mv ~/$i ~/${i}.bak
-    ln -s `pwd`/$i ~/$i
+    if [[ -L "$HOME/$i" ]];
+    then
+        # if symbolic link already exits do nothing
+        :   # empty placeholder for later
+    else
+        echo "$HOME/$i making"
+        mv $HOME/$i $HOME/${i}.bak
+        ln -s `pwd`/$i $HOME/$i
+    fi
 done
 
 # install perls for urxvt {{{
