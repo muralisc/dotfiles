@@ -25,7 +25,7 @@ URxvt*depth: 32
 #define S_blueC #839496
 #define S_cyanC #93a1a1
 #define S_white #a8a8a8
-#define S_whiteC #cccccc
+#define S_whiteC #e6e6e6
 !Black
 *color0: S_black1
 *color8: S_black

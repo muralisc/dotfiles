@@ -29,6 +29,11 @@ if [[ $1 = "arch" ]] ; then
     ~/bin/connect_To_iitb "muralis" 'rum!la'
     sudo pacman -Syy
     sudo pacman -S firefox yajl
+    # firefox addons
+    # Facebook Messenger
+    # Html5 Video everywhere
+    # ipswitcher
+    # LeechBlock
     wget https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz
     wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
     makepkg
@@ -57,6 +62,8 @@ xf86-input-synaptics xf86-video-intel xorg-server xorg-server-utils
 xorg-xinit yaourt youtube-dl zsh zukwito-themes xclip yajl perl-rename unzip
 xorg-xprop xorg-xev compton-git
 cronie
+keynav-git
+logkeys-git
 
 echo "optional:"
 texlive-core
