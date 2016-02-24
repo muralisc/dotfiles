@@ -7,52 +7,60 @@ URxvt*depth: 32
 ! Create the window with the specified X window geometry [default
 ! URxvt*geometry: geom
 
-! modified from http://ethanschoonover.com/solarized
-! Common
-#define S_yellow #b58900
-#define S_orange #cb4b16
-#define S_red #ff6666
-#define S_magenta #de6ea4
-#define S_violet #6c71c4
-#define S_blue #268bd2
-#define S_cyan #2aa198
-#define S_green #859900
-! Dark
-#define S_black #555753
-#define S_black1 #073642
-#define S_greenC #586e75
-#define S_yellowC #657b83
-#define S_blueC #839496
-#define S_cyanC #93a1a1
-#define S_white #a8a8a8
-#define S_whiteC #e6e6e6
-!Black
-*color0: S_black1
-*color8: S_black
-!Red
-*color1: S_red
-*color9: S_orange
-!Green
-*color2: S_green
-*color10: S_greenC
-!Yellow
-*color3: S_yellow
-*color11: S_yellowC
-!Blue
-*color4: S_blue
-*color12: S_blueC
-!Magneta
-*color5: S_magenta
-*color13: S_violet
-!Cyan
-*color6: S_cyan
-*color14: S_cyanC
-!White
-*color7: S_white
-*color15: S_whiteC
+! modified from https://github.com/solarized/xresources
+#define S_base03        #000000
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
 
-URxvt*background: [80]#000000
-URxvt*foreground: S_whiteC
+*background:            S_base03
+*foreground:            S_base0
+
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
+
+!! black dark/light
+*color0:                S_base02
+*color8:                S_base03
+
+!! red dark/light
+*color1:                S_red
+*color9:                S_orange
+
+!! green dark/light
+*color2:                S_green
+*color10:               S_base01
+
+!! yellow dark/light
+*color3:                S_yellow
+*color11:               S_base00
+
+!! blue dark/light
+*color4:                S_blue
+*color12:               S_base0
+
+!! magenta dark/light
+*color5:                S_magenta
+*color13:               S_violet
+
+!! cyan dark/light
+*color6:                S_cyan
+*color14:               S_base1
+
+!! white dark/light
+*color7:                S_base2
+*color15:               S_base3
+
 ! bold
 ! URxvt*colorBD: colour
 ! italics
@@ -66,12 +74,11 @@ URxvt*colorUL: S_magenta
 ! If set and highlightColor is set, use the specified colour as the
 ! URxvt*highlightTextColor: colour
 ! Use the specified colour for the cursor. The default is to use the
-! URxvt*cursorColor: colour
-*cursorColor: S_cyanC
+*cursorColor:           S_base1
 ! Use the specified colour for the colour of the cursor text. For
 ! URxvt*cursorColor2: colour
 ! Fade to this colour, when fading is used (see fading:). The default
-*fadeColor: S_black
+*fadeColor:             S_base03
 ! Use the specified colour for the scrollbar [default #B2B2B2].
 ! URxvt*scrollColor: colour
 ! Use the specified colour for the scrollbars trough area [default
@@ -80,9 +87,10 @@ URxvt*colorUL: S_magenta
 ! URxvt*borderColor: colour
 ! Mouse pointer foreground colour.
 ! URxvt*pointerColor: colour
-*pointerColor: S_greenC
-! Mouse pointer background colour.
-*pointerColor2: S_cyanC
+! *pointerColor:S_base01
+! *pointerColor2:S_base1
+*pointerColorBackground:S_base01
+*pointerColorForeground:S_base1
 
 ! True: simulate reverse video by foreground and background colours;
 ! URxvt*reverseVideo: boolean

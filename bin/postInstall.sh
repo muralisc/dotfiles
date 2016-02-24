@@ -64,6 +64,8 @@ xorg-xprop xorg-xev compton-git
 cronie
 keynav-git
 logkeys-git
+xorg-xev
+xorg-xwininfo
 
 echo "optional:"
 texlive-core
