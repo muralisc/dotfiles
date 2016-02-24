@@ -286,8 +286,10 @@ fu! s:LoadRandomColorScheme()
     " echo s:color_file_list
 
     if strlen(s:color_file_list)
+        let s:no_of_commas = substitute(s:color_file_list, '\([^,]\+\)', '', 'g')
         if s:color_file_list =~ ','
-            let s:rnd  = (strftime( "%d" ) + 0)%12
+            let s:rnd  = (strftime( "%d" ) + 0)% ( strlen(s:no_of_commas) +1 )
+            " echo strlen(s:no_of_commas)
             let s:loop = 0
 
             while s:loop < s:rnd
