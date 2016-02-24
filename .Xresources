@@ -17,7 +17,7 @@ URxvt*depth: 32
 #define S_base2         #eee8d5
 #define S_base3         #fdf6e3
 
-*background:            S_base03
+*background:            [50]S_base03
 *foreground:            S_base0
 
 #define S_yellow        #b58900
