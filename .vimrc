@@ -22,6 +22,7 @@ Plugin 'tpope/vim-commentary'                                                   
 Plugin 'tpope/vim-fugitive'                                                     " GIT
 Plugin 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
 Plugin 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
+Plugin 'vim-scripts/scrollfix'
 call vundle#end()
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
@@ -183,8 +184,10 @@ nnoremap <leader>co :botright cope<cr>
 nnoremap <leader>cc :cclose<cr>
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
-nnoremap <Leader>dd :Gdiff<CR>
 nnoremap <Leader>du :diffupdate<CR>
+nnoremap <Leader>gl :silent! Glog<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <leader>gs :Gstatus<CR>
 " ge is used after n_CTRL-e
 nnoremap <Leader>ge :GitGutterNextHunk<CR>
 " ge is used after n_CTRL-y
@@ -207,7 +210,6 @@ nnoremap <leader>y "+y
 nnoremap <leader>q :bd<cr>
 nnoremap <leader>Q :qall!<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
-nnoremap <leader>s :Gstatus<CR>
 " traling spaces and jump to last point
 nnoremap <leader>t :%s/\s\+$//e<cr>`'
 " Useful mappings for managing tabs
@@ -226,6 +228,7 @@ nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 " }}} Shortcut Mappings 
 " Plugin Specific Settings {{{
 set tags=./tags;~/Projects
+let g:scrollfix=20
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
 " YOU COMPLETE ME
 let g:ycm_confirm_extra_conf = 0
@@ -269,7 +272,7 @@ augroup FTOptions
     autocmd filetype vim setlocal keywordprg=:help
     autocmd filetype sh setlocal keywordprg=man
     autocmd filetype xml,sh,vim,tex,html,lua setlocal foldmethod=marker
-    autocmd FileType gitcommit,tex setlocal spell
+    autocmd FileType gitcommit setlocal spell
     autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
     autocmd FileType liquid,markdown,text,txt setlocal tw=100 linebreak nolist
 augroup end

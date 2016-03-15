@@ -74,7 +74,7 @@ function tt {
     days=$(($hours / 24))
 
     if [[ $2 = "s" ]]; then
-        echo "$days:$(($hours%24)):$(($minutes%60)):$(($seconds%60))"
+        echo "$days days :$(($hours%24)):$(($minutes%60)):$(($seconds%60))"
     else
         printf "printing time till `date -d $1`  \n\n"
         if [[ "$days" -ne 0 ]]; then

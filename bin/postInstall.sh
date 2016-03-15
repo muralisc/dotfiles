@@ -66,6 +66,8 @@ keynav-git
 logkeys-git
 xorg-xev
 xorg-xwininfo
+submarine
+sshfs
 
 echo "optional:"
 texlive-core
