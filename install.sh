@@ -9,6 +9,7 @@ then
 fi
 
 mkdir -p $HOME/.config/inkscape/keys
+mkdir -p $HOME/.config/beets/
 mkdir -p $HOME/.ssh
 mkdir -p $HOME/.vim
 mkdir -p $HOME/.vim/vimundo
@@ -25,6 +26,7 @@ bin                                 \
 .config/user-dirs.dirs              \
 .config/awesome                     \
 .config/ranger                      \
+.config/beets/config.yaml           \
 .config/zathura                     \
 .config/mimeapps.list               \
 .fehbg      \

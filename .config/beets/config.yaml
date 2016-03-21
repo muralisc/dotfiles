@@ -1,0 +1,15 @@
+directory: ~/Dropbox/Songs/
+library: ~/Dropbox/Songs/musiclibrary.blb
+import:
+    copy: no
+    write: no
+plugins: edit lastimport smartplaylist
+lastfm:
+    user: muralisc
+smartplaylist:
+    playlist_dir: ~/Dropbox/Songs/playlists
+    playlists:
+        - name: all.m3u
+          query: 'year:..1970'
+edit:
+    itemfields: track title artist album lyrics
