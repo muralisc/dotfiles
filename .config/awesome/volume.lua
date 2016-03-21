@@ -8,9 +8,9 @@ function update_volume(widget , command )
    awful.util.spawn_with_shell( command )
    os.execute("sleep 0.01")
    local status = awful.util.pread("eval ~/bin/vol-control.sh getVol")
-   -- local volume = tonumber(string.match(status, "(%d?%d?%d)%%")) / 100
+   -- local volume = tonumber(string.match(status, "(%d?%d?%d)%%"))
    local volume = string.gsub(status, "%%" ,"♫")
-   local volume = string.gsub(status, "-" ,"♫")
+   local volume = string.gsub(volume, "-" ,"♫")
    -- volume = string.format("%3d♫ ", volume)
    -- status = string.match(status, "%[(o[^%]]*)%]")
    -- if string.find(status, "on", 1, true) then
