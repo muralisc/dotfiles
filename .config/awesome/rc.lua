@@ -192,7 +192,7 @@ mytaglist.buttons = awful.util.table.join(
 -- {{{ Tasklist
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
-                    awful.button({ }, 1, 
+                    awful.button({ }, 1,
                         function (c)
                             if c == client.focus then
                                 c.minimized = true
@@ -209,7 +209,7 @@ mytasklist.buttons = awful.util.table.join(
                                 c:raise()
                             end
                         end),
-                     awful.button({ }, 3, 
+                     awful.button({ }, 3,
                         function ()
                             if instance then
                                 instance:hide()
@@ -220,12 +220,12 @@ mytasklist.buttons = awful.util.table.join(
                                 })
                             end
                         end),
-                     awful.button({ }, 4, 
+                     awful.button({ }, 4,
                         function ()
                             awful.client.focus.byidx(1)
                             if client.focus then client.focus:raise() end
                         end),
-                     awful.button({ }, 5, 
+                     awful.button({ }, 5,
                         function ()
                             awful.client.focus.byidx(-1)
                             if client.focus then client.focus:raise() end
@@ -463,7 +463,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, }, "backslash",     function () awful.util.spawn_with_shell ("pavucontrol") end),
         --}}}
         --{{{ light mappping brightness
-    -- mappping inspiraton from https://github.com/tpope/tpope 
+    -- mappping inspiraton from https://github.com/tpope/tpope
     awful.key({ modkey , }, "=" ,           function () update_b(brightness_widget , "light -A 10" ) end),
     awful.key({ modkey , }, "-" ,           function () update_b(brightness_widget , "light -U 10" ) end),
     awful.key({}, "XF86MonBrightnessUp" ,   function () update_b(brightness_widget , "light -A 10" ) end),
@@ -475,16 +475,17 @@ globalkeys = awful.util.table.join(
     -- awful.key({}, "XF86Mail" ,      function () awful.util.spawn("thunderbird") end),
     -- awful.key({}, "XF86HomePage" ,  function () awful.util.spawn("firefox") end),
     awful.key({}, "Print" ,         function () awful.util.spawn_with_shell('import $HOME/selection-`date +%Y-%m-%d_%H-%M-%S`.png') end),-- Print Screen : take screenshot
+    awful.key({ "Shift" }, "Print", function () awful.util.spawn_with_shell('import -window root $HOME/selection-`date +%Y-%m-%d_%H-%M-%S`.png') end),
     awful.key({}, "Scroll_Lock" ,   function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh") end), -- Lock screen
     awful.key({}, "Pause" ,         function () awful.util.spawn("urxvtc -e ranger") end),      -- launch fileexplorer
     awful.key({ modkey,}, "Tab" ,   function () awful.util.spawn("rofi -show window") end),-- window switcher
     awful.key({ altkey, "Control" }, "s",
-        function() 
-            awful.util.spawn_with_shell( "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')") 
+        function()
+            awful.util.spawn_with_shell( "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')")
         end),
     awful.key({ modkey }, "q",      function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh show") end), -- show a quote
     --}}} UTILITY MAPPINGS ( not awesome specific
-    -- {{{ AWESOME SPECIFIC MAPPINGS 
+    -- {{{ AWESOME SPECIFIC MAPPINGS
     awful.key({ modkey,}, "`",      function () quakeconsole[mouse.screen]:toggle() end),
     awful.key({ altkey,}, "Tab", -- focus previous window (def awesome tab binding disbled in favor of rofi!!) {{{
         function ()
@@ -545,7 +546,7 @@ globalkeys = awful.util.table.join(
             mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
             wiboxAutoHide = not wiboxAutoHide
         end)--}}}
-    -- }}} END  AWESOME SPECIFIC MAPPINGS 
+    -- }}} END  AWESOME SPECIFIC MAPPINGS
 )
 
 clientkeys = awful.util.table.join(
