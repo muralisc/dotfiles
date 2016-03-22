@@ -22,7 +22,7 @@ Plugin 'tpope/vim-commentary'                                                   
 Plugin 'tpope/vim-fugitive'                                                     " GIT
 Plugin 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
 Plugin 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
-Plugin 'vim-scripts/scrollfix'
+" Plugin 'vim-scripts/scrollfix'
 call vundle#end()
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
@@ -144,7 +144,7 @@ set encoding=utf-8
 set lazyredraw                                                                  " don't update the display while executing macros
 set laststatus=2                                                                " always put a status line even if one window
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y%*%=%-14.(%l,%c\|%L%)%{g:colors_name}\ %P
-set cmdheight=2                                                                 " use a status bar that is 2 rows high
+set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 " Shortcut Mappings {{{
 " insert mode {{{
@@ -228,7 +228,7 @@ nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 " }}} Shortcut Mappings 
 " Plugin Specific Settings {{{
 set tags=./tags;~/Projects
-let g:scrollfix=20
+let g:scrollfix=30
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
 " YOU COMPLETE ME
 let g:ycm_confirm_extra_conf = 0

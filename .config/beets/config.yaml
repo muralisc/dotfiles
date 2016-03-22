@@ -2,14 +2,16 @@ directory: ~/Dropbox/Songs/
 library: ~/Dropbox/Songs/musiclibrary.blb
 import:
     copy: no
-    write: no
-plugins: edit lastimport smartplaylist
+    write: yes
+plugins: edit lastimport smartplaylist mpdstats
 lastfm:
     user: muralisc
 smartplaylist:
-    playlist_dir: ~/Dropbox/Songs/playlists
+    playlist_dir: ~/.mpd/playlists
     playlists:
         - name: all.m3u
-          query: 'year:..1970'
+          query: 'year:2010..'
 edit:
     itemfields: track title artist album lyrics
+lyrics:
+    auto: yes
