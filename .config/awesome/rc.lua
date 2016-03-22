@@ -656,6 +656,7 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons } },
     { rule = { class = "URxvt" },       properties = { border_width = 0 }   },
+    { rule = { class = "MPlayer" },     properties = { border_width = 1 }   },
     { rule = { class = "feh" },         properties = { floating = true  }   },
     { rule = { class = "Thunderbird" }, properties = { tag = tags[1][5] }   },
     { rule = { class = "Firefox" },     properties = { tag = tags[1][1] }   },
