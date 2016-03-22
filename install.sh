@@ -11,6 +11,7 @@ fi
 mkdir -p $HOME/.config/inkscape/keys
 mkdir -p $HOME/.config/beets/
 mkdir -p $HOME/.ssh
+mkdir -p $HOME/.mpd
 mkdir -p $HOME/.vim
 mkdir -p $HOME/.vim/vimundo
 mkdir -p $HOME/.local/share/applications
@@ -29,6 +30,7 @@ bin                                 \
 .config/beets/config.yaml           \
 .config/zathura                     \
 .config/mimeapps.list               \
+.mpd/mpd.conf                       \
 .fehbg      \
 .gdbinit    \
 .inputrc    \

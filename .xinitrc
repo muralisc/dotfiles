@@ -20,8 +20,8 @@ fi
 # [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 export EDITOR=vim
 devmon --exec-on-drive "notify-send --icon=block-device --urgency=low \"Volume %l has been mounted\"" &
-#mpd &
-#mpdscribble &
+mpd &
+mpdscribble &
 dropbox &
 #~/thing/syncthing -no-browser &
 pulseaudio --start &
