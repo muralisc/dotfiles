@@ -68,6 +68,9 @@ xorg-xev
 xorg-xwininfo
 submarine
 sshfs
+mpd mpc ncmpcpp
+ffmpeg
+ffmpegthumbnailer
 
 echo "optional:"
 texlive-core
