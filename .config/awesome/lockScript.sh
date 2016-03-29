@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash
 
 ######## Take a screenshot
 # scrot $FINAL_PATH
@@ -51,7 +51,8 @@ res=`identify $FILE | awk '{print $3}'`
 x=`echo $res | grep -Po "[0-9]+(?=x)"`
 y=`echo $res | grep -Po "(?<=x)[0-9]+"`
 
-if [[ ( $YRES != $y ) || ( $XRES != $x ) ]]; then
+
+if [[ ( $YRES != $y ) || ( $XRES != $x ) || "$extension" != "png" ]]; then
     # 1920x1080 means 1920 in width and 1080 height
     # x = 1920 y = 1080; x > y
     # as long as img has similar charecteristics ie x1 > y1
@@ -65,9 +66,11 @@ if [[ ( $YRES != $y ) || ( $XRES != $x ) ]]; then
         echo "resized to y $y to $YRES" >> /tmp/lastLock.log
         convert -resize x${YRES} $FILE $FINAL_PATH
         color=`convert -resize 1x1 $FINAL_PATH txt:-| grep -Po '#[0-9A-F]+'`
-        convert -size ${XRES}x${YRES} xc:"$color" background.png
-        composite -gravity Center $FINAL_PATH background.png $FINAL_PATH
+        convert -size ${XRES}x${YRES} xc:"$color" /tmp/background.png
+        composite -gravity Center $FINAL_PATH /tmp/background.png $FINAL_PATH
     fi
+else
+    cp $FILE $FINAL_PATH
 fi
 
 if [ -z $1 ] 
@@ -75,7 +78,7 @@ then
 # use the file
 i3lock -i $FINAL_PATH
 # Turn the screen off after a delay.
-sleep 60; pgrep i3lock && xset dpms force off
+sleep 2; pgrep i3lock && xset dpms force off
 else
     feh $FINAL_PATH
 fi

@@ -317,5 +317,6 @@ endf "}}}
 call s:LoadRandomColorScheme()
 
 nnoremap <leader>l :!firefox <C-R><C-A><CR>
+inoremap <F5> <C-R>=strftime("%H:%M")<CR>
 " prevent screen flasing on multiple esc
 set vb t_vb=
