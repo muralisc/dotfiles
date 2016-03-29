@@ -30,7 +30,7 @@ alias gS='git status -uall'
 # }}}
 alias j='fasd_cd -d'
 alias l='ls -1Fh'       # classify , human readable, use ll for long
-alias n='urxvt &; disown'
+alias n='ncmpcpp'
 alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
 alias r='ranger'
 alias ta='tmux attach'

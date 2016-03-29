@@ -9,7 +9,7 @@ local naughty = require("naughty")      -- Notification library
 local menubar = require("menubar")
 local vicious = require("vicious")
 
-awful.util.spawn_with_shell("compton --inactive-dim 0.4 -b")
+awful.util.spawn_with_shell("compton --inactive-dim 0.2 -b")
 awful.util.spawn_with_shell("urxvtd -q -o -f &")
 awful.util.spawn_with_shell("xrdb ~/.Xresources")
 -- {{{ Error handling
@@ -387,6 +387,9 @@ batterywidget_timer:start()
 -- Create a textclock widget {{{
 mytextclockTimeout = 1
 mytextclock = awful.widget.textclock(" %a, %Y %b %d, %H:%M:%S ", mytextclockTimeout )
+mytextclock:buttons(awful.util.table.join(
+     awful.button({ }, 1, function() awful.util.spawn_with_shell("urxvtc -hold -e cal -y") end)
+            ))
 -- }}}
 require("volume")
 require("brightness")
