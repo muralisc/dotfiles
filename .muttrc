@@ -1,50 +1,79 @@
-# set signature="sign.txt"
-#
-set editor= "vim"
-set ssl_verify_host = no
+# This script is used on imaps server. Along with m file.
 
-source "~/.mutt/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc"
-
-# set pager_index_lines=10
-
-set index_format="%3C %Z %{%b %d} %-20.20L %s"
-
-set imap_check_subscribed
-set imap_list_subscribed
-
-# activate TLS if available on the server
 set ssl_starttls=yes
-# always use SSL when connecting to a server
 set ssl_force_tls=yes
-# Don't wait to enter mailbox manually
-unset imap_passive
-# Automatically poll subscribed mailboxes for new mail (new in 1.5.11)
+
+## Editor
+set editor = "vim -c 'set spell spelllang=en syntax=mail ft=mail enc=utf-8' '+/^$'"
+
+## Muttrc file for ee and gpo accounts.
+
+mailboxes 'imaps://imap.iitb.ac.in'
+
+## Folder hooks
+folder-hook imaps://imap.iitb.ac.in " \
+  set \
+  folder='imaps://imap.iitb.ac.in/' \
+  spoolfile='+INBOX' \
+  record='+INBOX.Sent' \
+  imap_user=muralis \
+  imap_pass='' \
+  postponed='+INBOX.Drafts' \
+  smtp_url=smtp://muralis@smtp-auth.iitb.ac.in:25 \
+  smtp_pass='' \
+  from='muralis@iitb.ac.in' \
+  use_from=yes \
+  realname='Murali S' "
+
+
+folder-hook imaps://imap.cse.iitb.ac.in " \
+  set \
+  folder='imaps://imap.cse.iitb.ac.in/' \
+  spoolfile='+INBOX' \
+  record='+INBOX.Sent' \
+  imap_user=muralis \
+  imap_pass='' \
+  postponed='+INBOX.Drafts' \
+  smtp_url=smtp://muralis@smtp.cse.iitb.ac.in:25 \
+  smtp_pass='' \
+  from='murali <muralis@cse.iitb.ac.in>' \
+  realname='Murali S' "
+
+
+set timeout=60	#Check for mail every minute
+set mail_check=5
+set sleep_time=0
 set imap_check_subscribed
-# Reduce polling frequency to a sane level
-set mail_check=60
-# And poll the current mailbox more often (not needed with IDLE in post 1.5.11)
-set timeout=10
-
-# Sidebar Patch --------------------------------------
-set sidebar_delim   = '  │'
-set sidebar_visible = yes
-set sidebar_width   = 30 
-
-# Sidebar Navigation ---------------------------------
-bind index,pager <down>   sidebar-next
-bind index,pager <up>     sidebar-prev
-bind index,pager <right>  sidebar-open
 
 
-# map A to archive mails
-# macro index,pager A ":set confirmappend=no delete=yes\n<save-message>=Archives.2015\n<sync-mailbox>:set confirmappend=yes delete=ask-yes\n"
-macro index,pager A ":set confirmappend=no delete=yes\n<save-message>=Archives.2015\n:set confirmappend=yes delete=ask-yes\n"
-# change the mailbox
-macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/cse_mail<enter><change-folder>!<enter>'
-macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/iitb_mail<enter><change-folder>!<enter>'
+macro index <f2> '<change-folder>imaps://imap.cse.iitb.ac.in<enter>'
+macro index <f3> '<change-folder>imaps://imap.iitb.ac.in<enter>'
 
-# ACCOUNT 1
-source "~/.mutt/cse_mail"
 
-# ACCOUNT 2
-# source "~/.mutt/iitb_mail"
+#macro generic "1" ":set from 'Dilawar <dilawars@iitb.ac.in>'"
+#
+color   hdrdefault      brightcyan      default
+color   header          brightred       default "^from:"
+color   header          brightred       default "^subject:"
+color   quoted          brightgreen     default
+color   quoted          brightgreen     default
+color   signature       brightwhite     default
+
+color   indicator       blue            default
+
+color   error           red             default
+mono    error           bold
+color   status          cyan            default
+mono    status          bold
+color   tree            yellow          default
+
+color   tilde           brightmagenta   default
+color   body            red             default    "[-a-z_0-9.]+@[-a-z_0-9.]+"
+mono    body            bold                    "[-a-z_0-9.]+@[-a-z_0-9.]+"
+color   body            red             default   "^Good signature"
+mono    body            bold                    "^Good signature"
+color   body            brightwhite     default     "^Bad signature from.*"
+mono    body            bold                    "^Bad signature from.*"
+color   normal          white          default
+color   message         red            default
+color   attachment      red            blue

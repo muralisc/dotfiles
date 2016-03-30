@@ -34,7 +34,6 @@ bin                                 \
 .fehbg      \
 .gdbinit    \
 .inputrc    \
-.mutt       \
 .muttrc     \
 .gitconfig  \
 .ssh/config \
