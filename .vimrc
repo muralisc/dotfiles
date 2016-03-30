@@ -275,6 +275,7 @@ augroup FTOptions
     autocmd FileType gitcommit setlocal spell
     autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
     autocmd FileType liquid,markdown,text,txt setlocal tw=100 linebreak nolist
+    autocmd FileType tex setlocal tw=70 linebreak nolist
 augroup end
 "}}} Filetype Specific Settings 
 
@@ -318,5 +319,6 @@ call s:LoadRandomColorScheme()
 
 nnoremap <leader>l :!firefox <C-R><C-A><CR>
 inoremap <F5> <C-R>=strftime("%H:%M")<CR>
+nnoremap <F5> i<C-R>=strftime("%H:%M")<CR><ESC>
 " prevent screen flasing on multiple esc
 set vb t_vb=
