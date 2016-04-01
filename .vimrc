@@ -147,6 +147,8 @@ set statusline=[%n]\ %<%.99f\ %h%w%m%r%y%*%=%-14.(%l,%c\|%L%)%{g:colors_name}\ %
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 " Shortcut Mappings {{{
+" search seected text
+vnoremap // y/<C-R>"<CR>
 " insert mode {{{
 " inoremap <c-e> <C-o>A ------  use o 
 " Dont move your fingers from the home row OR use ctrl-[ instead
@@ -172,6 +174,8 @@ nnoremap Q <nop>
 nnoremap Y y$
 " prevent automatically closing vim
 nnoremap ZZ :close<CR>
+" instead of scorlling to middle .. scroll almost to top
+nnoremap zz zt10<C-y>
 " }}}  normal mappings
 " leader mapings {{{
 " Clears the search register
@@ -223,6 +227,7 @@ nnoremap <leader>w :w<cr>
 nnoremap <leader>W w !sudo tee % >/dev/null
 " make the current file executable
 nnoremap <silent><leader>x :!chmod +x %<CR>
+" dont delete useful while searching
 nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 " }}} leader maping end
 " }}} Shortcut Mappings 
@@ -274,7 +279,7 @@ augroup FTOptions
     autocmd filetype xml,sh,vim,tex,html,lua setlocal foldmethod=marker
     autocmd FileType gitcommit setlocal spell
     autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
-    autocmd FileType liquid,markdown,text,txt setlocal tw=100 linebreak nolist
+    autocmd FileType liquid,markdown,setlocal tw=100 linebreak nolist
     autocmd FileType tex setlocal tw=70 linebreak nolist
 augroup end
 "}}} Filetype Specific Settings 
@@ -318,7 +323,6 @@ endf "}}}
 call s:LoadRandomColorScheme()
 
 nnoremap <leader>l :!firefox <C-R><C-A><CR>
-inoremap <F5> <C-R>=strftime("%H:%M")<CR>
-nnoremap <F5> i<C-R>=strftime("%H:%M")<CR><ESC>
+nnoremap <F5> o<C-o>0<TAB><TAB><TAB><TAB><C-R>=strftime("%H:%M")<CR>: <ESC>
 " prevent screen flasing on multiple esc
 set vb t_vb=
