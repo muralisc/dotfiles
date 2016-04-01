@@ -14,6 +14,9 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # initililize fasd
 eval "$(fasd --init auto)"
+# C-x C-a to do fasd-complete (files and directories)
+# or do d,ton<TAb> insted of below
+bindkey '^X^A' fasd-complete    
 
 source ~/.aliases.sh
 
