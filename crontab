@@ -1,0 +1,13 @@
+# field          allowed values
+# -----          --------------
+# minute         0-59
+# hour           0-23
+# day of month   1-31
+# month          1-12 (or names, see below)
+# day of week    0-7 (0 or 7 is Sunday, or use names)
+
+# =======================================================
+
+#min  hour   dom  Mon  dow 
+15    18,19  */2  *    *      DISPLAY=:0 feh ~/PersonalData_max26gb/Jpegs/keep-calm-and-call-my-mother-1.png
+0     */2    *    *    *      DISPLAY=:0 ~/.config/awesome/lockScript.sh show
