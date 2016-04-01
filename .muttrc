@@ -1,15 +1,15 @@
-# This script is used on imaps server. Along with m file.
-
+# from https://github.com/dilawar/Scripts/blob/master/muttrccc
+#
 set ssl_starttls=yes
 set ssl_force_tls=yes
+set menu_scroll
+set pager_index_lines=6
 
 ## Editor
 set editor = "vim -c 'set spell spelllang=en syntax=mail ft=mail enc=utf-8' '+/^$'"
 
-## Muttrc file for ee and gpo accounts.
-
-mailboxes 'imaps://imap.iitb.ac.in'
-
+## Muttrc file for cse and gpo accounts.
+mailboxes 'imaps://imap.iitb.ac.in' 'imaps://imap.cse.iitb.ac.in/'
 ## Folder hooks
 folder-hook imaps://imap.iitb.ac.in " \
   set \
@@ -17,10 +17,10 @@ folder-hook imaps://imap.iitb.ac.in " \
   spoolfile='+INBOX' \
   record='+INBOX.Sent' \
   imap_user=muralis \
-  imap_pass='' \
+  imap_pass='$pass' \
   postponed='+INBOX.Drafts' \
-  smtp_url=smtp://muralis@smtp-auth.iitb.ac.in:25 \
-  smtp_pass='' \
+  smtp_url=smtp://muralis@smtp.cse.iitb.ac.in:25 \
+  smtp_pass='$pass' \
   from='muralis@iitb.ac.in' \
   use_from=yes \
   realname='Murali S' "
@@ -32,10 +32,10 @@ folder-hook imaps://imap.cse.iitb.ac.in " \
   spoolfile='+INBOX' \
   record='+INBOX.Sent' \
   imap_user=muralis \
-  imap_pass='' \
+  imap_pass='$pass' \
   postponed='+INBOX.Drafts' \
   smtp_url=smtp://muralis@smtp.cse.iitb.ac.in:25 \
-  smtp_pass='' \
+  smtp_pass='$pass' \
   from='murali <muralis@cse.iitb.ac.in>' \
   realname='Murali S' "
 
@@ -50,8 +50,6 @@ macro index <f2> '<change-folder>imaps://imap.cse.iitb.ac.in<enter>'
 macro index <f3> '<change-folder>imaps://imap.iitb.ac.in<enter>'
 
 
-#macro generic "1" ":set from 'Dilawar <dilawars@iitb.ac.in>'"
-#
 color   hdrdefault      brightcyan      default
 color   header          brightred       default "^from:"
 color   header          brightred       default "^subject:"
