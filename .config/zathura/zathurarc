@@ -7,8 +7,8 @@ set default-fg                  "#202020" #01
 set statusbar-fg                "#B0B0B0" #04
 set statusbar-bg                "#202020" #01
 
-set inputbar-bg                 "#151515" #00 currently not used
-set inputbar-fg                 "#303030" #02
+set inputbar-bg                 "#303030" #00 currently not used
+set inputbar-fg                 "#75B5AA" #02
 
 set notification-error-bg       "#AC4142" #08
 set notification-error-fg       "#151515" #00
