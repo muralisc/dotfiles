@@ -277,7 +277,7 @@ URxvt*secondaryScroll: 0
 ! Compile frills: Associate string with keysym sym. The intervening
 ! URxvt*keysym.sym: string
 
-URxvt*perl-ext-common: default,keyboard-select,clipboard,url-select,matcher,vtwheel,resize-font
+URxvt*perl-ext-common: default,keyboard-select,clipboard,url-select,matcher,resize-font
 URxvt.url-select.launcher: /usr/bin/firefox
 URxvt*matcher.button: 1
 URxvt*keysym.M-Escape: perl:keyboard-select:activate
