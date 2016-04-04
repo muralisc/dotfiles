@@ -525,9 +525,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05) end),  -- RESIZE-- increse Master width factor
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1) end),    -- decrease number of Master window
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1) end),       -- decrease number of Column window
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05) end),  -- resize split
+    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05) end),  --- RESIZE-- increse Master width factor
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1) end),    -- increase number of Master window
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1) end),       -- increase number of Column window
+    awful.key({ modkey, altkey    }, "j", function () awful.client.incwfact( 0.05) end),    -- increase client width|height
+    awful.key({ modkey, altkey    }, "k", function () awful.client.incwfact( -0.05) end),   -- decreaseclient width|height
     -- }}}
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
     awful.key({ modkey,           }, "u"     , awful.client.urgent.jumpto),
