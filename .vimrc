@@ -145,7 +145,7 @@ set termencoding=utf-8
 set encoding=utf-8
 set lazyredraw                                                                  " don't update the display while executing macros
 set laststatus=2                                                                " always put a status line even if one window
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%y%*%=%-14.(%l,%c\|%L%)%{g:colors_name}\ %P
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%y%*%=%-14.(%l/%L,%c%)%{g:colors_name}\ %P
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 " Shortcut Mappings {{{
