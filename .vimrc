@@ -13,6 +13,8 @@ call vundle#begin()
 Plugin 'airblade/vim-gitgutter'
 Plugin 'chazy/cscope_maps'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'muralisc/vim-colorschemes'
 Plugin 'gmarik/Vundle.vim'                                                      " pluging shortcuts
 Plugin 'kien/ctrlp.vim'
@@ -155,13 +157,6 @@ vnoremap // y/<C-R>"<CR>
 inoremap jj <Esc>
 " }}} insert mode 
 " normal mappings {{{
-" Do something usefull with the arrow keys 
-nnoremap <left>  :vertical resize -5<cr> 
-nnoremap <right> :vertical resize +5<cr>
-nnoremap <up>   :resize -5<cr>
-nnoremap <down> :resize +5<cr>
- 
-nnoremap <F3> :colorscheme random<CR>
 " load vimrc
 nnoremap <F4> :e ~/dotfiles/.vimrc<CR>
 nnoremap <F5> :!cscope -Rbi cscopeFiles<CR>:cs reset<CR>
@@ -323,6 +318,5 @@ endf "}}}
 call s:LoadRandomColorScheme()
 
 nnoremap <leader>l :!firefox <C-R><C-A><CR>
-nnoremap <F5> o<C-o>0<TAB><TAB><TAB><TAB><C-R>=strftime("%H:%M")<CR>: <ESC>
 " prevent screen flasing on multiple esc
 set vb t_vb=
