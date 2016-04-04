@@ -1,11 +1,7 @@
 #!/bin/bash
-alias vrc='vim ~/dotfiles/.vimrc'
-alias arc='vim ~/.config/awesome/rc.lua'
-alias vch='vim ~/Dropbox/IITB/public_html/htaccess/cheatsheets/vim.txt'
-alias tlc='vim ~/Dropbox/IITB/public_html/htaccess/cheatsheets/theLinuxCommandline.txt'
-alias zrc='vim ~/.zshrc'
-alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars; cd -"
 
+# use fasd insted of vim document aliases
+alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars; cd -"
 
 alias acs='apt-cache search'
 alias agi='sudo apt-get install'
