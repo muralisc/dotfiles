@@ -67,9 +67,9 @@ local layouts =
 {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    -- awful.layout.suit.tile.left,
+    awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
-    -- awful.layout.suit.tile.top,
+    awful.layout.suit.tile.top,
     awful.layout.suit.fair,             --RESIZE dont work use mod+shift+h/l
     -- awful.layout.suit.fair.horizontal,  --RESIZE dont work
     -- awful.layout.suit.spiral,

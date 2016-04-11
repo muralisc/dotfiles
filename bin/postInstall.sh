@@ -47,6 +47,7 @@ if [[ $1 = "arch" ]] ; then
     timedatectl set-timezone Asia/Kolkatta
     echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf
 # zathura for backup // use browser instead
+zathura-ps
 
 echo "INSTALL following ====================" 
 ranger w3m # for image preview in ranger 

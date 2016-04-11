@@ -170,7 +170,7 @@ nnoremap Y y$
 " prevent automatically closing vim
 nnoremap ZZ :close<CR>
 " instead of scorlling to middle .. scroll almost to top
-nnoremap zz zt10<C-y>
+nnoremap zz zt5<C-y>
 " }}}  normal mappings
 " leader mapings {{{
 " Clears the search register

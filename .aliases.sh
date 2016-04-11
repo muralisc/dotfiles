@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # use fasd insted of vim document aliases
-alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars; cd -"
+alias stm="cd /home/murali/Dropbox/IITB/; ./syncToMars run; ~/synctompt.sh; cd -"
 
 alias acs='apt-cache search'
 alias agi='sudo apt-get install'

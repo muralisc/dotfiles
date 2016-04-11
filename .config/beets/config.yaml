@@ -10,7 +10,7 @@ smartplaylist:
     playlist_dir: ~/.mpd/playlists
     playlists:
         - name: all.m3u
-          query: 'year:2010.. genre:SingAlong'
+          query: 'path::English'
 edit:
     itemfields: track title artist album lyrics
 lyrics:
