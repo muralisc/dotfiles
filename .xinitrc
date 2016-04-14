@@ -23,6 +23,7 @@ devmon --exec-on-drive "notify-send --icon=block-device --urgency=low \"Volume %
 mpd &
 mpdscribble &
 dropbox &
+beet mpdstats &
 #~/thing/syncthing -no-browser &
 pulseaudio --start &
 # caps remapped more comprehensively in Xmodmap
