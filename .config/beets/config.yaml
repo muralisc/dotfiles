@@ -10,7 +10,11 @@ smartplaylist:
     playlist_dir: ~/.mpd/playlists
     playlists:
         - name: all.m3u
-          query: 'path::English'
+          query: 'last_played:..2016-04-17'
+        - name: Hindi.m3u
+          query: 'path::Hindi last_played:..2016-04-17'
+        - name: English.m3u
+          query: 'path::English last_played:..2016-04-17'
 edit:
     itemfields: track title artist album lyrics
 lyrics:

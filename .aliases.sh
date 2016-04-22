@@ -49,12 +49,15 @@ EDITOR=/usr/bin/vim
 export BC_ENV_ARGS=~/.bcrc
 
 #   functions {{{
+function msa {
+    beet ls -f '$path' "$*" | sed 's#/home/murali/Dropbox/Songs/##'
+}
 function ms { #mpc search
-    mpc search filename "$*"
+    mpc search filename "`echo $*| sed 's/ /_/g'`"
 }
 function mp { #mpc play
     mpc clear
-    mpc search filename "$*" | mpc add
+    mpc search filename "`echo $*| sed 's/ /_/g'`" | mpc add
     mpc play
 }
 function apt-list-packages {

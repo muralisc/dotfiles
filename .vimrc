@@ -24,6 +24,8 @@ Plugin 'tpope/vim-commentary'                                                   
 Plugin 'tpope/vim-fugitive'                                                     " GIT
 Plugin 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
 Plugin 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
+Plugin 'suan/vim-instant-markdown'
+Plugin 'plasticboy/vim-markdown'
 " Plugin 'vim-scripts/scrollfix'
 call vundle#end()
 "}}} ===========================================================Vundle setup done
@@ -274,7 +276,7 @@ augroup FTOptions
     autocmd filetype xml,sh,vim,tex,html,lua setlocal foldmethod=marker
     autocmd FileType gitcommit setlocal spell
     autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
-    autocmd FileType liquid,markdown,setlocal tw=100 linebreak nolist
+    autocmd FileType liquid,markdown setlocal tw=100 linebreak nolist
     autocmd FileType tex setlocal tw=70 linebreak nolist
 augroup end
 "}}} Filetype Specific Settings 
