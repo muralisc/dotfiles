@@ -250,6 +250,8 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
+" plasticboy markdown
+let g:vim_markdown_folding_disabled = 1
 " }}} Plugin Specific Settings 
 " Filetype Specific Settings {{{
                                                                                 " Restore cursor position upon reopening files
