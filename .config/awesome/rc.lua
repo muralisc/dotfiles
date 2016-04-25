@@ -470,7 +470,7 @@ globalkeys = awful.util.table.join(
     -- awful.key({ modkey,"Control" }, "]",           function () update_volume(volume_widget, "~/bin/vol-control.sh louder" ) end),
     awful.key({ modkey, altkey   }, "bracketleft", function () update_volume(volume_widget, "mpc prev" ) end),
     awful.key({ modkey, altkey   }, "bracketright",function () update_volume(volume_widget, "mpc next" ) end),
-    awful.key({ modkey,          }, "backslash",   function () awful.util.spawn_with_shell ("mpc pause") end),
+    awful.key({ modkey,          }, "backslash",   function () awful.util.spawn_with_shell ("mpc toggle") end),
     awful.key({ modkey, altkey   }, "backslash",   function () awful.util.spawn_with_shell ("pavucontrol") end),
         --}}}
         --{{{ light mappping brightness
