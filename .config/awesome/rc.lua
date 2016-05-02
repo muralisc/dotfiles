@@ -457,21 +457,21 @@ root.buttons(awful.util.table.join(
 globalkeys = awful.util.table.join(
     --{{{ UTILITY MAPPINGS ( not awesome specific
         --{{{ media mappings
-    -- awful.key({}, "XF86AudioRaiseVolume" ,   function () update_volume(volume_widget, "~/bin/vol-control.sh louder" ) end),
-    -- awful.key({}, "XF86AudioLowerVolume" ,   function () update_volume(volume_widget, "~/bin/vol-control.sh softer" ) end),
-    awful.key({}, "XF86AudioMute",              function () update_volume(volume_widget, "~/bin/vol-control.sh toggle" ) end),
+    awful.key({}, "XF86AudioRaiseVolume" ,   function () update_volume(volume_widget, "~/bin/vol-control.sh louder" ) end),
+    awful.key({}, "XF86AudioLowerVolume" ,   function () update_volume(volume_widget, "~/bin/vol-control.sh softer" ) end),
+    awful.key({}, "XF86AudioMute",           function () update_volume(volume_widget, "~/bin/vol-control.sh toggle" ) end),
     -- mappping inspiraton from https://github.com/tpope/tpope
     awful.key({ modkey,          }, "bracketleft", function () update_volume(volume_widget, "~/bin/vol-control.sh softer" ) end),
     awful.key({ modkey,          }, "]",           function () update_volume(volume_widget, "~/bin/vol-control.sh louder" ) end),
     awful.key({ modkey,"Shift"   }, "[",           function () update_volume(volume_widget, "mpc seek -5" ) end),
     awful.key({ modkey,"Shift"   }, "bracketright",function () update_volume(volume_widget, "mpc seek +5" ) end),
-    -- use later
-    -- awful.key({ modkey,"Control" }, "[",           function () update_volume(volume_widget, "~/bin/vol-control.sh softer" ) end),
-    -- awful.key({ modkey,"Control" }, "]",           function () update_volume(volume_widget, "~/bin/vol-control.sh louder" ) end),
+    awful.key({ modkey,"Control" }, "[",           function () update_volume(volume_widget, "~/bin/vol-control.sh 0" ) end),
+    awful.key({ modkey,"Control" }, "]",           function () update_volume(volume_widget, "~/bin/vol-control.sh 100" ) end),
     awful.key({ modkey, altkey   }, "bracketleft", function () update_volume(volume_widget, "mpc prev" ) end),
     awful.key({ modkey, altkey   }, "bracketright",function () update_volume(volume_widget, "mpc next" ) end),
-    awful.key({ modkey,          }, "backslash",   function () awful.util.spawn_with_shell ("mpc toggle") end),
-    awful.key({ modkey, altkey   }, "backslash",   function () awful.util.spawn_with_shell ("pavucontrol") end),
+    awful.key({ modkey,          }, "backslash",   function () awful.util.spawn("mpc toggle") end),
+    awful.key({ modkey, "Control"}, "backslash" ,  function () awful.util.spawn("urxvtc -e ncmpcpp") end),
+    awful.key({ modkey, altkey   }, "backslash",   function () awful.util.spawn("pavucontrol") end),
         --}}}
         --{{{ light mappping brightness
     -- mappping inspiraton from https://github.com/tpope/tpope
@@ -482,9 +482,12 @@ globalkeys = awful.util.table.join(
     awful.key({modkey, "Control" }, "=" ,   function () update_b(brightness_widget , "light -S 100" ) end),
     awful.key({modkey, "Control" },  "-" ,  function () update_b(brightness_widget , "light -S 10" ) end),
         -- }}}
-    -- awful.key({}, "XF86AudioPlay",  function () awful.util.spawn("mpc toggle") end),
-    -- awful.key({}, "XF86Mail" ,      function () awful.util.spawn("thunderbird") end),
-    -- awful.key({}, "XF86HomePage" ,  function () awful.util.spawn("firefox") end),
+        --{{{ appliacation mappings 
+    awful.key({        }, "XF86AudioPlay",  function () awful.util.spawn("mpc toggle") end),
+    awful.key({        }, "XF86Mail" ,      function () awful.util.spawn("thunderbird") end),
+    awful.key({ modkey }, "x" ,             function () awful.util.spawn("thunderbird") end),
+    awful.key({        }, "XF86HomePage" ,  function () awful.util.spawn("firefox") end),
+        -- }}}
     awful.key({                   }, "Print" ,       function () awful.util.spawn_with_shell('import $HOME/selection-`date +%Y-%m-%d_%H-%M-%S`.png') end), -- Print Screen : take screenshot
     awful.key({ "Shift"           }, "Print",        function () awful.util.spawn_with_shell('import -window root $HOME/selection-`date +%Y-%m-%d_%H-%M-%S`.png') end),
     awful.key({                   }, "Scroll_Lock" , function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh") end), -- Lock screen
