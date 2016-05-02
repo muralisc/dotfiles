@@ -17,6 +17,18 @@ function hard_limit_100 {
 }
 
 case $1 in
+    0)
+        for sink in `pactl list short sinks|cut -f 1`; do
+        pactl -- set-sink-volume $sink 0%
+        done || amixer set Master 0%
+        exit 0
+        ;;
+    100)
+        for sink in `pactl list short sinks|cut -f 1`; do
+        pactl -- set-sink-volume $sink 100%
+        done || amixer set Master 100%
+        exit 0
+        ;;
     softer)
         for sink in `pactl list short sinks|cut -f 1`; do
         pactl -- set-sink-volume $sink -5%
