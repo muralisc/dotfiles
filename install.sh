@@ -15,6 +15,7 @@ mkdir -p $HOME/.mpd
 mkdir -p $HOME/.ssh
 mkdir -p $HOME/.vim
 mkdir -p $HOME/.vim/vimundo
+mkdir -p $HOME/.ncmpcpp
 
 
 for i in \
@@ -36,6 +37,7 @@ bin                                 \
 .local/share/applications           \
 .mpd/mpd.conf                       \
 .muttrc     \
+.ncmpcpp/config \
 .ssh/config \
 .tmux.conf  \
 .vimrc      \

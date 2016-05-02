@@ -14,7 +14,6 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'chazy/cscope_maps'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
 Plugin 'muralisc/vim-colorschemes'
 Plugin 'gmarik/Vundle.vim'                                                      " pluging shortcuts
 Plugin 'kien/ctrlp.vim'
@@ -24,9 +23,7 @@ Plugin 'tpope/vim-commentary'                                                   
 Plugin 'tpope/vim-fugitive'                                                     " GIT
 Plugin 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
 Plugin 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
-Plugin 'suan/vim-instant-markdown'
-Plugin 'plasticboy/vim-markdown'
-" Plugin 'vim-scripts/scrollfix'
+Plugin 'muralisc/vim-snippets'
 call vundle#end()
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
