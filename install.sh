@@ -8,13 +8,13 @@ then
     exit
 fi
 
-mkdir -p $HOME/.config/inkscape/keys
 mkdir -p $HOME/.config/beets/
-mkdir -p $HOME/.ssh
+mkdir -p $HOME/.config/inkscape/keys
+mkdir -p $HOME/.local/share/applications
 mkdir -p $HOME/.mpd
+mkdir -p $HOME/.ssh
 mkdir -p $HOME/.vim
 mkdir -p $HOME/.vim/vimundo
-mkdir -p $HOME/.local/share/applications
 
 
 for i in \
@@ -22,20 +22,20 @@ for i in \
 .bashrc     \
 .bcrc       \
 bin                                 \
-.local/share/applications           \
-.config/inkscape/keys/default.xml   \
-.config/user-dirs.dirs              \
 .config/awesome                     \
-.config/ranger                      \
 .config/beets/config.yaml           \
-.config/zathura                     \
+.config/inkscape/keys/default.xml   \
 .config/mimeapps.list               \
-.mpd/mpd.conf                       \
+.config/ranger                      \
+.config/user-dirs.dirs              \
+.config/zathura                     \
 .fehbg      \
 .gdbinit    \
-.inputrc    \
-.muttrc     \
 .gitconfig  \
+.inputrc    \
+.local/share/applications           \
+.mpd/mpd.conf                       \
+.muttrc     \
 .ssh/config \
 .tmux.conf  \
 .vimrc      \
