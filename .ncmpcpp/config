@@ -1,0 +1,12 @@
+# copied from /usr/share/doc/ncmpcpp/config
+
+mpd_music_dir = ~/Dropbox/Songs/
+ask_before_clearing_playlists = no
+playlist_disable_highlight_delay = 600
+browser_sort_format = {%g}{%t}|{%f} {(%l)}
+playlist_display_mode = columns
+browser_display_mode = columns
+
+
+song_list_format = "{$8%n▕ $9}{$2%a - $9}{$4%t$9}|{$5%f$9}$R{$5▕ %b$9}{$8▕ %l$9}"
+song_columns_list_format = (20)[blue]{a} (20f)[green]{gE} (40)[white]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
