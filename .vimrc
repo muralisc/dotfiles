@@ -324,6 +324,5 @@ fu! s:LoadRandomColorScheme()
 endf "}}}
 call s:LoadRandomColorScheme()
 
-nnoremap <leader>l :Unite line<CR>
 " prevent screen flasing on multiple esc
 set vb t_vb=
