@@ -25,11 +25,11 @@ Plugin 'tpope/vim-surround'                                                     
 Plugin 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
 Plugin 'muralisc/vim-snippets'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'xolox/vim-colorscheme-switcher'
-Plugin 'xolox/vim-misc'
-Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/unite.vim'                       " for line , colorscheme, jump changes
 Plugin 'Shougo/neomru.vim'
 Plugin 'ujihisa/unite-colorscheme'
+Plugin 'Shougo/unite-outline'
+Plugin 'godlygeek/tabular'
 call vundle#end()
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
@@ -178,16 +178,10 @@ nnoremap ZZ :close<CR>
 nnoremap zz zt5<C-y>
 " }}}  normal mappings
 " leader mapings {{{
-" Clears the search register
-nnoremap <leader>/ :nohlsearch<CR>
+" home row {{{
 nnoremap <Leader>a zA
-nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <leader><C-P> :CtrlP<CR>
-" with vimgrep, see results in cope(leader+cc) next (]q) previous ([q)
-nnoremap <leader>co :botright cope<cr>
-nnoremap <leader>cc :cclose<cr>
-" Switch CWD to the directory of the open buffer
-nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+" s for structure
+nnoremap <leader>s :Unite -start-insert outline<CR>
 nnoremap <Leader>du :diffupdate<CR>
 nnoremap <Leader>gl :silent! Glog<CR>
 nnoremap <Leader>gd :Gdiff<CR>
@@ -196,6 +190,17 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <Leader>ge :GitGutterNextHunk<CR>
 " ge is used after n_CTRL-y
 nnoremap <Leader>gy :GitGutterPrevHunk<CR>
+" }}}
+
+" Clears the search register
+nnoremap <leader>/ :nohlsearch<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader><C-P> :CtrlP<CR>
+" with vimgrep, see results in cope(leader+cc) next (]q) previous ([q)
+nnoremap <leader>co :botright cope<cr>
+nnoremap <leader>cc :cclose<cr>
+" Switch CWD to the directory of the open buffer
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " make file ( use quick fix window to see errors )
 nnoremap <leader>m :!clear<CR>:w<CR>:make<CR>
 " open another file in same dir as current file

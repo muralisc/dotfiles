@@ -93,11 +93,11 @@ function c {
     awk "BEGIN { print $1 }"
 }
 
-o(){
+function o(){
     nohup xdg-open $* &
 }
 
-transfer() {
+fucntion transfer() {
     if [ $# -eq 0 ];
     then
         echo "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md";
@@ -117,8 +117,8 @@ transfer() {
 function cdown(){
    date1=$((`date +%s` + $1*60)); 
    while [ "$date1" -ge `date +%s` ]; do 
-     echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
-     sleep 0.1
+       echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+       sleep 0.1
    done
 }
 
