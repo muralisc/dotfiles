@@ -24,6 +24,12 @@ Plugin 'tpope/vim-fugitive'                                                     
 Plugin 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
 Plugin 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
 Plugin 'muralisc/vim-snippets'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'xolox/vim-colorscheme-switcher'
+Plugin 'xolox/vim-misc'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/neomru.vim'
+Plugin 'ujihisa/unite-colorscheme'
 call vundle#end()
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
@@ -318,6 +324,6 @@ fu! s:LoadRandomColorScheme()
 endf "}}}
 call s:LoadRandomColorScheme()
 
-nnoremap <leader>l :!firefox <C-R><C-A><CR>
+nnoremap <leader>l :Unite line<CR>
 " prevent screen flasing on multiple esc
 set vb t_vb=
