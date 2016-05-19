@@ -119,7 +119,7 @@ set dictionary=/usr/share/dict/cracklib-small
 set foldenable                                                                  " enable folding
 set foldcolumn=0                                                                " add a fold column
 set foldmethod=syntax                                                           " detect triple-{ style fold markers [marker indent]
-set foldlevel=0              " start out with everything folded
+set foldlevel=99             " start out with everything folded
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
 " Foldingtext {{{ 
 " http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/ 

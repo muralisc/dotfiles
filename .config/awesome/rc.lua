@@ -564,27 +564,27 @@ globalkeys = awful.util.table.join(
 )
 
 clientkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill() end),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
-    awful.key({ modkey }, "i",                          -- show info--{{{
+    awful.key({ modkey,           } , "f",      function (c) c.fullscreen = not c.fullscreen  end),
+    awful.key({ modkey, "Shift"   } , "c",      function (c) c:kill() end),
+    awful.key({ modkey, "Control" } , "space",  awful.client.floating.toggle                     ),
+    awful.key({ modkey, "Control" } , "Return", function (c) c:swap(awful.client.getmaster()) end),
+    awful.key({ modkey,           } , "o",      awful.client.movetoscreen                        ),
+    awful.key({ modkey            } , "i",                          -- show info--{{{
         function (c)
             mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
             naughty.notify({
                   title    = "Screen Details"
                 , text     = ""
-                        .. string.format("Master width factor: %.3f \n", awful.tag.getmwfact())
-                        .. string.format("No of Master window: %.3f \n", awful.tag.getnmaster())
-                        .. string.format("No of Column window: %.3f \n", awful.tag.getncol())
-                        .. string.format("Wibox AutoHide: %s \n", tostring(wiboxAutoHide))
-                        .. string.format("CLIENT name : %s \n", tostring(c.name))
-                        .. string.format("Ontop status: %s \n", tostring(c.ontop))
-                        .. string.format("Fullscreen: %s \n", tostring(c.fullscreen))
-                        .. string.format("Maximised: %s \n", tostring(c.maximized))
-                        .. string.format("floating status: %s \n", tostring(awful.client.floating.get()))
-                        .. string.format("border_width: %s \n", tostring(c.border_width))
+                        .. string.format("Master width factor: %.3f \n" , awful.tag.getmwfact())
+                        .. string.format("No of Master window: %.3f \n" , awful.tag.getnmaster())
+                        .. string.format("No of Column window: %.3f \n" , awful.tag.getncol())
+                        .. string.format("Wibox AutoHide: %s \n"        , tostring(wiboxAutoHide))
+                        .. string.format("CLIENT name : %s \n"          , tostring(c.name))
+                        .. string.format("Ontop status: %s \n"          , tostring(c.ontop))
+                        .. string.format("Fullscreen: %s \n"            , tostring(c.fullscreen))
+                        .. string.format("Maximised: %s \n"             , tostring(c.maximized))
+                        .. string.format("floating status: %s \n"       , tostring(awful.client.floating.get()))
+                        .. string.format("border_width: %s \n"          , tostring(c.border_width))
                 , timeout  = 10
                 , position = "bottom_right"
                 , font     = "Ubuntu Mono 20"
@@ -669,13 +669,13 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "URxvt" },       properties = { border_width = 0 }   },
-    { rule = { class = "MPlayer" },     properties = { border_width = 1 }   },
-    { rule = { class = "feh" },         properties = { floating = true  }   },
-    { rule = { class = "Thunderbird" }, properties = { tag = tags[1][5] }   },
-    { rule = { class = "Firefox" },     properties = { tag = tags[1][1] }   },
-    { rule = { class = "Tor Browser" }, properties = { tag = tags[1][3] }   },
-    { rule = { class = "Vlc" },         properties = { floating = true  }   },
+    { rule = { class = "URxvt"       } ,       properties = { border_width = 0  }  } ,
+    { rule = { class = "MPlayer"     } ,     properties = { border_width = 1    }  } ,
+    { rule = { class = "feh"         } ,         properties = { floating = true }  } ,
+    { rule = { class = "Thunderbird" } , properties = { tag = tags[1][5]        }  } ,
+    { rule = { class = "Firefox"     } ,     properties = { tag = tags[1][1]    }  } ,
+    { rule = { class = "Tor Browser" } , properties = { tag = tags[1][3]        }  } ,
+    { rule = { class = "Vlc"         } ,         properties = { floating = true }  } ,
 }
 -- }}}
 
