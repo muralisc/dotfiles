@@ -115,14 +115,18 @@ fucntion transfer() {
 }
 
 function cdown(){
-    # funciton <time in min> <beep freq in sec>
+    if [ $# -eq 0 ]; 
+    then
+        echo no arg specified
+        echo "funciton <time in min> <beep freq in sec>"
+        return 1
+    fi
     date1=$((`date +%s` + $1*60));
     elapsed=0
     while [ "$date1" -ge `date +%s` ]; do
         echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
         sleep 1
         elapsed=$(($elapsed + 1))
-        echo $elapsed
         if [ "$elapsed" -eq $2 ]; then
             paplay /usr/share/sounds/freedesktop/stereo/bell.oga
             elapsed=0
