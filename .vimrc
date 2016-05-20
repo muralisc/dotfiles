@@ -24,7 +24,7 @@ Plugin 'tpope/vim-fugitive'                                                     
 Plugin 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
 Plugin 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
 Plugin 'muralisc/vim-snippets'
-Plugin 'plasticboy/vim-markdown'
+" Plugin 'plasticboy/vim-markdown'
 Plugin 'Shougo/unite.vim'                       " for line , colorscheme, jump changes
 Plugin 'Shougo/neomru.vim'
 Plugin 'ujihisa/unite-colorscheme'
