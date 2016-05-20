@@ -9,20 +9,22 @@ alias c='noglob c'
 alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1280x960+320+60 -C /usr/share/fonts/TTF -e Ubuntu-R/35'
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
 # git aliases  {{{
-alias ga='git add'
-alias gb='git branch'
-alias gcam='git commit -am'
-alias gcm='git commit -m'
-alias gco='git checkout'
-alias gdc='git diff --cached'
-alias gd='git diff'
-alias gf='git fetch origin'
+alias ga='     git add'
+alias gb='     git branch'
+alias gcam='   git commit -am'
+alias gcm='    git commit -m'
+alias gco='    git checkout'
+alias gdc='    git diff --cached'
+alias gd='     git diff'
+alias gf='     git fetch origin'
 alias gl="git log --pretty=format:'%C(yellow)%h%C(red)%d %C(cyan)%an%Creset %s %Cgreen(%cr)' --graph --all"
-alias gp='git push origin master'
-alias gpl='git pull --rebase origin master'
-alias grhh='git reset HEAD --hard'
-alias gs='git status -sb'
-alias gS='git status -uall'
+alias gp='     git push origin master'
+alias gpl='    git pull --rebase origin master'
+alias grhh='   git reset HEAD --hard'
+alias gs='     git status -sb'
+alias gS='     git status -uall'
+alias gsp='    git stash pop'
+alias gst='    git stash'
 # }}}
 alias j='fasd_cd -d'
 alias l='ls -1Fh'       # classify , human readable, use ll for long
@@ -37,8 +39,6 @@ alias xo='xdg-open'
 alias ync='yaourt --noconfirm'
 alias ys='yaourt --color --pager -Ss'
 alias y='yaourt'
-
-
 alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'
 alias rm='rm -v'
 alias rf='rm -rf'
@@ -115,11 +115,19 @@ fucntion transfer() {
 }
 
 function cdown(){
-   date1=$((`date +%s` + $1*60)); 
-   while [ "$date1" -ge `date +%s` ]; do 
-       echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
-       sleep 0.1
-   done
+    # funciton <time in min> <beep freq in sec>
+    date1=$((`date +%s` + $1*60));
+    elapsed=0
+    while [ "$date1" -ge `date +%s` ]; do
+        echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+        sleep 1
+        elapsed=$(($elapsed + 1))
+        echo $elapsed
+        if [ "$elapsed" -eq $2 ]; then
+            paplay /usr/share/sounds/freedesktop/stereo/bell.oga
+            elapsed=0
+        fi
+    done
 }
 
 # }}}
