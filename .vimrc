@@ -107,7 +107,7 @@ set visualbell                                                                  
 set noerrorbells                                                                " don't beep
 set showcmd                                                                     " show (partial) command at right bottom; this also shows visual selection info
 " }}} Ease of Use "
-set nomodeline                                                                  " disable mode lines (security measure)
+set modeline                                                                    " enable mode lines
 set ttyfast                                                                     " always use a fast terminal
 set spell spelllang=en_us
 set nospell
