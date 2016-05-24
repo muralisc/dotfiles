@@ -18,6 +18,12 @@ eval "$(fasd --init auto)"
 # or do d,ton<TAb> insted of below
 # f,rc.lua<TAB> for files
 bindkey '^X^A' fasd-complete
+# http://chneukirchen.org/blog/archive/2013/03/10-fresh-zsh-tricks-you-may-not-know.html
+bindkey '^[' vi-cmd-mode   # even in default c-x c-v wil go to vim mode
+# second one from above link
+autoload -Uz copy-earlier-word
+zle -N copy-earlier-word
+bindkey "^[m" copy-earlier-word
 
 source ~/.aliases.sh
 
