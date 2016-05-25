@@ -59,7 +59,16 @@ if [ "$preview_images" = "True" ]; then
             exit 7;;
         # Image preview for video, disabled by default.:
         video/*)
-            ffmpegthumbnailer -i "$path" -o "$cached" -s 0 && exit 6 || exit 1;;
+            # get req info in text file
+            mediainfo "$path" | \grep -iP "General|^Video|^Audio|duration|Wid|Hei|Chan" > /tmp/tmpinfo
+            # make the info into image
+            convert label:"`cat /tmp/tmpinfo`" /tmp/info.jpg
+            # get movie thumbnail
+            ffmpegthumbnailer -i "$path" -o /tmp/film.jpg -s 720 
+            # either overlay over the figure 
+            # convert /tmp/info.jpg -gravity NorthWest -annotate 0 "`cat /tmp/tmpinfo`" "$cached" && exit 6 || exit 1;;
+            # or append both the info image
+            convert /tmp/film.jpg /tmp/info.jpg -append "$cached" && exit 6 || exit 1;;
         audio/*)
             ffmpeg -i "$path" "$cached" && exit 6 || exit 1;;
     esac

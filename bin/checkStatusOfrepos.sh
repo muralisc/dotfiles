@@ -1,5 +1,7 @@
 
-for i in ~/dotfiles ~/.vim/bundle/vim-snippets/ ~/.vim/bundle/vim-colorschemes/
+for i in ~/dotfiles \
+    ~/.vim/bundle/vim-snippets/ \
+    ~/.vim/bundle/vim-colorschemes/
 do
     echo ========================= $i
     cd $i
