@@ -133,6 +133,7 @@ function cdown(){
             elapsed=0
         fi
     done
+    paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
 }
 
 function timeGoogle(){

@@ -14,7 +14,10 @@ if [ `wc -l $LIST_PATH | cut -d " " -f1` -eq 0 ];
 then
     # execution here means no lines in file
     # get the files and shuffle them into the wallpaper list
-    \find $Wallpaper_folder -iregex ".*\(txt\|png\|jpg\|svg\)" |shuf > $LIST_PATH
+    # SHUFFLE
+    # \find $Wallpaper_folder -iregex ".*\(txt\|png\|jpg\|svg\)" |shuf > $LIST_PATH
+    # NO SHUFFLE
+    \find $Wallpaper_folder -iregex ".*\(txt\|png\|jpg\|svg\)" > $LIST_PATH
 fi
 # Lock screen displaying this image.
 FILE=`head -1 $LIST_PATH`

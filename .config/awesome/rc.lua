@@ -470,7 +470,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, altkey   }, "bracketleft", function () update_volume(volume_widget, "mpc prev" ) end),
     awful.key({ modkey, altkey   }, "bracketright",function () update_volume(volume_widget, "mpc next" ) end),
     awful.key({ modkey,          }, "backslash",   function () awful.util.spawn("mpc toggle") end),
-    awful.key({ modkey, "Control"}, "backslash" ,  function () awful.util.spawn("urxvtc -e ncmpcpp -S clock") end),
+    awful.key({ modkey, "Control"}, "backslash" ,  function () awful.util.spawn("urxvtc -e ncmpcpp -s clock") end),
     awful.key({ modkey, altkey   }, "backslash",   function () awful.util.spawn("pavucontrol") end),
         --}}}
         --{{{ light mappping brightness
