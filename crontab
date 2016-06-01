@@ -11,3 +11,4 @@
 #min  hour   dom  Mon  dow 
 15    18,19  */2  *    *      DISPLAY=:0 feh ~/PersonalData_max26gb/Jpegs/keep-calm-and-call-my-mother-1.png
 0     */2    *    *    *      DISPLAY=:0 ~/.config/awesome/lockScript.sh show
+#*     *      *    *    *      DISPLAY=:0 ~/bin/timelapse.sh
