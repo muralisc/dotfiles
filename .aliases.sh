@@ -125,7 +125,7 @@ function cdown(){
     date1=$((`date +%s` + $1*60));
     elapsed=0
     while [ "$date1" -ge `date +%s` ]; do
-        echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+        echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\b\b\b\b\b\b\b\b";
         sleep 1
         elapsed=$(($elapsed + 1))
         if [ "$elapsed" -eq $2 ]; then
