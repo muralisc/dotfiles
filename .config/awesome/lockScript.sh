@@ -6,7 +6,7 @@
 # mogrify -scale 10% -scale 1000% $FINAL_PATH
 # convert -resize 1920 bb9a5897307ea096bd66dd658dfa1d75.jpg wallpaperLock.png
 ######## 1920x1080
-Wallpaper_folder=~/PersonalData_max26gb/Jpegs/Quotataions/
+Wallpaper_folder=~/Dropbox/Quotataions_copy/
 LIST_PATH=/var/tmp/wallpaper_list
 FINAL_PATH=/tmp/wallpaperLock.png
 touch $LIST_PATH

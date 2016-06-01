@@ -3,7 +3,6 @@ for i in ~/dotfiles \
     ~/.vim/bundle/vim-snippets/ \
     ~/.vim/bundle/vim-colorschemes/
 do
-    echo ========================= $i
     cd $i
-    git status -sb
+    echo `git status -sb | grep M | wc -l` $i 
 done

@@ -77,7 +77,7 @@ set hlsearch                                                                    
 " }}} Visual "
 set smartcase                                                                   " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set smarttab                                                                    " insert tabs on the start of a line according to shiftwidth, not tabstop
-" set virtualedit=block             " (handled by plugin) allow the cursor to go in to 'invalid' places
+set virtualedit=block                                                           " allow the cursor to go in to 'invalid' places
 set incsearch                                                                   " show search matches as you type
 set gdefault                                                                    " search/replace 'globally' (on a line) by default
 " set nolist                                                                    " don't show invisible characters by default
