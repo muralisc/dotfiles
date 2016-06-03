@@ -1,8 +1,11 @@
 #!/bin/bash
 
-# copy vim plug
+# if not exit plug.vim
+if [[ ! -a ~/.vim/autoload/plug.vim ]] ;
+then
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
 
 # cd ~/dotfiles
 if (( "$?"!=0 ));
@@ -54,14 +57,12 @@ bin                               \
 .zshrc                            \
     ;
 do
-    if [[ -L "$HOME/$i" ]];
+    # if not *file exits and is symbolic link*
+    if [[ ! -L "$HOME/$i" ]];
     then
-        # if symbolic link already exits do nothing
-        :   # empty placeholder for later
-    else
         echo "$HOME/$i making"
         # back up files
-        mv $HOME/$i $HOME/$BKPfolder/${i}.bak
+        mv $HOME/$i $HOME/$BKPfolder/${i//\//-}.bak
         # link files
         ln -s `pwd`/$i $HOME/$i
     fi
