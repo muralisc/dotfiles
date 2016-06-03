@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# copy vim plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # cd ~/dotfiles
 if (( "$?"!=0 ));
@@ -17,36 +20,38 @@ mkdir -p $HOME/.ncmpcpp
 mkdir -p $HOME/.ssh
 mkdir -p $HOME/.vim
 mkdir -p $HOME/.vim/vimundo
+BKPfolder=bak`date +'%Fat%H-%M-%S'`
+mkdir -p $HOME/$BKPfolder
 
 
-for i in \
-.aliases.sh \
-.bashrc     \
-.bcrc       \
-bin                                 \
-.config/awesome                     \
-.config/beets/config.yaml           \
-.config/inkscape/keys/default.xml   \
-.config/mimeapps.list               \
-.config/ranger                      \
-.config/user-dirs.dirs              \
-.config/vlc/vlcrc                   \
-.config/zathura                     \
-.fehbg      \
-.gdbinit    \
-.gitconfig  \
-.inputrc    \
-.local/share/applications           \
-.mpd/mpd.conf                       \
-.muttrc     \
-.ncmpcpp/config \
-.ssh/config \
-.tmux.conf  \
-.vimrc      \
-.xinitrc    \
-.Xmodmap    \
-.Xresources \
-.zshrc      \
+for i in                          \
+.aliases.sh                       \
+.bashrc                           \
+.bcrc                             \
+bin                               \
+.config/awesome                   \
+.config/beets/config.yaml         \
+.config/inkscape/keys/default.xml \
+.config/mimeapps.list             \
+.config/ranger                    \
+.config/user-dirs.dirs            \
+.config/vlc/vlcrc                 \
+.config/zathura                   \
+.fehbg                            \
+.gdbinit                          \
+.gitconfig                        \
+.inputrc                          \
+.local/share/applications         \
+.mpd/mpd.conf                     \
+.muttrc                           \
+.ncmpcpp/config                   \
+.ssh/config                       \
+.tmux.conf                        \
+.vimrc                            \
+.xinitrc                          \
+.Xmodmap                          \
+.Xresources                       \
+.zshrc                            \
     ;
 do
     if [[ -L "$HOME/$i" ]];
@@ -55,7 +60,9 @@ do
         :   # empty placeholder for later
     else
         echo "$HOME/$i making"
-        mv $HOME/$i $HOME/${i}.bak
+        # back up files
+        mv $HOME/$i $HOME/$BKPfolder/${i}.bak
+        # link files
         ln -s `pwd`/$i $HOME/$i
     fi
 done

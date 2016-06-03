@@ -8,29 +8,28 @@ set nocompatible                                                                
 " Vundle setup {{{
 filetype off                                                                    " Required Vundle setup
 set rtp+=~/.vim/bundle/Vundle.vim
-set rtp+=~/.fzf
-call vundle#begin()
-Plugin 'airblade/vim-gitgutter'
-Plugin 'chazy/cscope_maps'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'SirVer/ultisnips'
-Plugin 'muralisc/vim-colorschemes'
-Plugin 'gmarik/Vundle.vim'                                                      " pluging shortcuts
-Plugin 'kien/ctrlp.vim'
-Plugin 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
-Plugin 'powerman/vim-plugin-viewdoc'
-Plugin 'tpope/vim-commentary'                                                   " map: gcc
-Plugin 'tpope/vim-fugitive'                                                     " GIT
-Plugin 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
-Plugin 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
-Plugin 'muralisc/vim-snippets'
-" Plugin 'plasticboy/vim-markdown'
-Plugin 'Shougo/unite.vim'                       " for line , colorscheme, jump changes
-Plugin 'Shougo/neomru.vim'
-Plugin 'ujihisa/unite-colorscheme'
-Plugin 'Shougo/unite-outline'
-Plugin 'godlygeek/tabular'
-call vundle#end()
+call plug#begin('~/.vim/plugged')
+Plug 'airblade/vim-gitgutter'
+Plug 'chazy/cscope_maps'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'SirVer/ultisnips'
+Plug 'muralisc/vim-colorschemes'
+Plug 'gmarik/Vundle.vim'                                                      " pluging shortcuts
+Plug 'kien/ctrlp.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
+Plug 'powerman/vim-plugin-viewdoc'
+Plug 'tpope/vim-commentary'                                                   " map: gcc
+Plug 'tpope/vim-fugitive'                                                     " GIT
+Plug 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
+Plug 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
+Plug 'muralisc/vim-snippets'
+" Plug 'plasticboy/vim-markdown'
+Plug 'Shougo/unite.vim'                       " for line , colorscheme, jump changes
+Plug 'Shougo/neomru.vim'
+Plug 'ujihisa/unite-colorscheme'
+Plug 'Shougo/unite-outline'
+Plug 'godlygeek/tabular'
+call plug#end()
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
 set guioptions-=m  "remove menu bar

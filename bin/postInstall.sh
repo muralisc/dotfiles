@@ -72,6 +72,7 @@ sshfs
 mpd mpc ncmpcpp
 ffmpeg
 ffmpegthumbnailer
+kdebase-runtime ( for kdenlive)
 
 echo "optional:"
 texlive-core
