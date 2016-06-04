@@ -7,7 +7,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-# cd ~/dotfiles
+cd ~/dotfiles
 if (( "$?"!=0 ));
 then
     echo "folder not found"
@@ -57,15 +57,11 @@ bin                               \
 .zshrc                            \
     ;
 do
-    # if not *file exits and is symbolic link*
-    if [[ ! -L "$HOME/$i" ]];
-    then
-        echo "$HOME/$i making"
-        # back up files
-        mv $HOME/$i $HOME/$BKPfolder/${i//\//-}.bak
-        # link files
-        ln -s `pwd`/$i $HOME/$i
-    fi
+    echo "$HOME/$i making"
+    # back up files
+    mv $HOME/$i $HOME/$BKPfolder/${i//\//-}.bak
+    # link files
+    ln -s `pwd`/$i $HOME/$i
 done
 
 # install perls for urxvt {{{
