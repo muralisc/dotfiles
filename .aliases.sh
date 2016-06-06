@@ -41,6 +41,8 @@ alias ys='yaourt --color --pager -Ss'
 alias y='yaourt'
 alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'
 alias rm='rm -v'
+alias rr='rm -rv'
+alias rrs='rm -r'
 alias rf='rm -rf'
 
 VISUAL=/usr/bin/vim
@@ -124,12 +126,17 @@ function cdown(){
     fi
     date1=$((`date +%s` + $1*60));
     elapsed=0
+    bells=0
     while [ "$date1" -ge `date +%s` ]; do
         echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\b\b\b\b\b\b\b\b";
         sleep 1
         elapsed=$(($elapsed + 1))
         if [ "$elapsed" -eq $2 ]; then
-            paplay /usr/share/sounds/freedesktop/stereo/bell.oga
+            bells=$(($bells + 1))
+            for i in `seq 1 $bells`;
+            do
+                paplay /usr/share/sounds/freedesktop/stereo/bell.oga
+            done
             elapsed=0
         fi
     done

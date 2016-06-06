@@ -10,11 +10,9 @@ filetype off                                                                    
 set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
-Plug 'chazy/cscope_maps'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'SirVer/ultisnips'
 Plug 'muralisc/vim-colorschemes'
-Plug 'gmarik/Vundle.vim'                                                      " pluging shortcuts
 Plug 'kien/ctrlp.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
 Plug 'powerman/vim-plugin-viewdoc'
@@ -23,12 +21,11 @@ Plug 'tpope/vim-fugitive'                                                     " 
 Plug 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
 Plug 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
 Plug 'muralisc/vim-snippets'
-" Plug 'plasticboy/vim-markdown'
-Plug 'Shougo/unite.vim'                       " for line , colorscheme, jump changes
-Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite.vim'                       " for line , colorscheme, jump, changes, outline
 Plug 'ujihisa/unite-colorscheme'
 Plug 'Shougo/unite-outline'
 Plug 'godlygeek/tabular'
+Plug 'vim-scripts/restore_view.vim'
 call plug#end()
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
@@ -96,6 +93,7 @@ set undofile                                                                    
 set undodir=~/.vim/vimundo
 set directory=~/.vim/.tmp,/tmp                                                  " store swap files in one of these directories (in case swapfile is ever turned on)
 set viminfo='20,\"80                                                            " read/write a .viminfo file, don't store more than 80 lines of registers
+set textwidth=70        " not 80 cause helps in vs mode
 " Ease of Use {{{ "
 set wildmenu                                                                    " tab completion for files/buffers like bash
 set wildmode=list:full                                                          " show a list when pressing tab and complete first full match
@@ -113,6 +111,7 @@ set nospell
 set colorcolumn=81                                                              " show a marker at 81 so you have a visual cue
 set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
+set viewoptions-=options        " to make restore_view work well
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
@@ -261,32 +260,25 @@ let g:UltiSnipsEditSplit="vertical"
 let g:vim_markdown_folding_disabled = 1
 " }}} Plugin Specific Settings 
 " Filetype Specific Settings {{{
-                                                                                " Restore cursor position upon reopening files
-autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+                                                                                " " Restore cursor position upon reopening files
+" autocmd BufReadPost *
+    " \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    " \   exe "normal! g`\"" |
+    " \ endif
                                                                                  " Strip all trailing whitespace from a file
-augroup Misc " {{{2
-    autocmd!
-    autocmd BufNewFile,BufRead *.txt,README,INSTALL,NEWS,TODO if &ft == ""|set ft=text|endif
-augroup END " }}}2
 augroup FTOptions
     autocmd!
     autocmd filetype javascript setlocal shiftwidth=2 softtabstop=2
     autocmd FileType xml,xsd,xslt,javascript setlocal tabstop=2
     autocmd FileType xdefaults setlocal commentstring=!\ %s
     autocmd FileType matlab setlocal commentstring=%\ %s
-    autocmd filetype c,cpp,java setlocal foldmethod=syntax foldlevel=99
-    autocmd FileType c,cpp,java setlocal complete-=k                                                                 " add dictionary too
+    autocmd filetype c,cpp,java setlocal foldmethod=syntax foldlevel=99 complete-=k
     autocmd FileType liquid,markdown,text,txt setlocal complete+=k
     autocmd filetype vim setlocal keywordprg=:help
     autocmd filetype sh setlocal keywordprg=man
     autocmd filetype xml,sh,vim,tex,html,lua setlocal foldmethod=marker
     autocmd FileType gitcommit setlocal spell
     autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
-    autocmd FileType liquid,markdown setlocal tw=100 linebreak nolist
-    autocmd FileType tex setlocal tw=70 linebreak nolist
 augroup end
 "}}} Filetype Specific Settings 
 
