@@ -27,6 +27,6 @@ bindkey "^[m" copy-earlier-word
 
 source ~/.aliases.sh
 
-mux start test
+tmux attach || echo "do mux start"
 # [ -f ~/.localaliases.sh ] && source ~/.localaliases.sh
 
