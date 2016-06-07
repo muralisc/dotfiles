@@ -27,7 +27,6 @@ bindkey "^[m" copy-earlier-word
 
 source ~/.aliases.sh
 
-tmux attach
-[[ $TMUX != "screen" ]] && tmux
+mux start test
 # [ -f ~/.localaliases.sh ] && source ~/.localaliases.sh
 

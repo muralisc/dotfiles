@@ -40,10 +40,8 @@ alias ync='yaourt --noconfirm'
 alias ys='yaourt --color --pager -Ss'
 alias y='yaourt'
 alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'
-alias rm='rm -v'
 alias rr='rm -rv'
-alias rrs='rm -r'
-alias rf='rm -rf'
+alias rf='rm -rfv'
 
 VISUAL=/usr/bin/vim
 EDITOR=/usr/bin/vim

@@ -46,7 +46,9 @@ if [[ $1 = "arch" ]] ; then
     systemctl enable NetworkManager.service
     timedatectl set-timezone Asia/Kolkatta
     echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf
-# zathura for backup // use browser instead
+# zathura for backup // use browser instead; firefox even shows
+# comments,
+aurvote
 zathura-ps
 
 echo "INSTALL following ====================" 
