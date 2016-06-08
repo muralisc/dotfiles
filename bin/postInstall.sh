@@ -50,6 +50,7 @@ if [[ $1 = "arch" ]] ; then
 # comments,
 aurvote
 zathura-ps
+ncdc
 
 echo "INSTALL following ====================" 
 ranger w3m # for image preview in ranger 

@@ -27,6 +27,10 @@ bindkey "^[m" copy-earlier-word
 
 source ~/.aliases.sh
 
-echo "do \n\t\tmux start \n\t\t  OR \n\t\ttmux attach"
+if [[ $TMUX != "screen" ]]; then
+    mux start test
+else
+    tmux attach
+fi
 # [ -f ~/.localaliases.sh ] && source ~/.localaliases.sh
 

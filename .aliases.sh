@@ -33,6 +33,7 @@ alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
 alias r='ranger'
 alias ta='tmux attach'
 alias tl='tmux list-sessions'
+alias ts='tmuxinator start test'
 alias t='tmux'
 alias v='fasd -f -e vim'
 alias xo='xdg-open'
@@ -40,6 +41,7 @@ alias ync='yaourt --noconfirm'
 alias ys='yaourt --color --pager -Ss'
 alias y='yaourt'
 alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'
+alias rm=rm
 alias rr='rm -rv'
 alias rf='rm -rfv'
 
