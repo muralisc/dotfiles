@@ -192,7 +192,7 @@ nnoremap <Leader>gy :GitGutterPrevHunk<CR>
 
 " Clears the search register
 nnoremap <leader>/ :nohlsearch<CR>
-nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>f :CtrlPBuffer<CR>
 nnoremap <leader><C-P> :CtrlP<CR>
 " with vimgrep, see results in cope(leader+cc) next (]q) previous ([q)
 nnoremap <leader>co :botright cope<cr>
@@ -215,7 +215,9 @@ nnoremap <leader>y "+y
 " }}} clipboard madness
 " Quit Files with ldr + q
 nnoremap <leader>q :bd<cr>
-nnoremap <leader>Q :qall!<cr>
+" Open a shell in current directory
+nnoremap <leader>s :shell<CR>
+" nnoremap <leader>Q :qall!<cr> dont close !!
 nnoremap <leader>r :so $MYVIMRC<CR>
 " traling spaces and jump to last point
 nnoremap <leader>t :%s/\s\+$//e<cr>`'
@@ -226,10 +228,8 @@ nnoremap <leader>u :Unite -start-insert line<CR>
 nnoremap <leader>v :vimgrep // **/*.<left><left><left><left><left><left><left>
 " Fast saving
 nnoremap <leader>w :w<cr>
-" Sudo to write
-nnoremap <leader>W w !sudo tee % >/dev/null
 " make the current file executable
-nnoremap <silent><leader>x :!chmod +x %<CR>
+nnoremap <leader>x :close<CR>
 " dont delete useful while searching
 nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 " }}} leader maping end
