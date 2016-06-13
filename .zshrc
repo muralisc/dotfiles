@@ -27,5 +27,6 @@ bindkey "^[m" copy-earlier-word
 
 source ~/.aliases.sh
 
+tmux list-sessions
 # [ -f ~/.localaliases.sh ] && source ~/.localaliases.sh
 

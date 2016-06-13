@@ -109,7 +109,7 @@ set ttyfast                                                                     
 set spell spelllang=en_us
 set nospell
 set colorcolumn=81                                                              " show a marker at 81 so you have a visual cue
-set diffopt+=vertical                                                           " default split method is to split in a verical split
+" set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
 set viewoptions-=options        " to make restore_view work well
 "}}} Basic Settings

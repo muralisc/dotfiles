@@ -491,8 +491,7 @@ globalkeys = awful.util.table.join(
     awful.key({                   }, "Print" ,       function () awful.util.spawn_with_shell('import $HOME/selection-`date +%Y-%m-%d_%H-%M-%S`.png') end), -- Print Screen : take screenshot
     awful.key({ "Shift"           }, "Print",        function () awful.util.spawn_with_shell('import -window root $HOME/selection-`date +%Y-%m-%d_%H-%M-%S`.png') end),
     awful.key({                   }, "Scroll_Lock" , function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh") end), -- Lock screen
-    awful.key({                   }, "Pause" ,       function () awful.util.spawn("urxvtc -e vim") end),      -- launch vim
-    awful.key({ modkey,           }, "Pause" ,       function () awful.util.spawn("urxvtc -e ranger") end),      -- launch fileexplorer
+    awful.key({                   }, "Pause" ,       function () awful.util.spawn("urxvtc -e ranger") end),      -- launch fileexplorer
     awful.key({ modkey,           }, "Tab" ,         function () awful.util.spawn("rofi -show window -font 'Ubuntu mono 30'") end),-- window switcher
     awful.key({ altkey, "Control" }, "s",            function () awful.util.spawn_with_shell( "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')") end),
     awful.key({ modkey            }, "q",            function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh show") end), -- show a quote
