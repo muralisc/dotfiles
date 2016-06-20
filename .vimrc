@@ -26,6 +26,7 @@ Plug 'ujihisa/unite-colorscheme'
 Plug 'Shougo/unite-outline'
 Plug 'godlygeek/tabular'
 Plug 'vim-scripts/restore_view.vim'
+Plug 'vim-airline/vim-airline'
 call plug#end()
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
@@ -119,8 +120,8 @@ set foldcolumn=0                                                                
 set foldmethod=syntax                                                           " detect triple-{ style fold markers [marker indent]
 set foldlevel=99             " start out with everything folded
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
-" Foldingtext {{{ 
-" http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/ 
+" Foldingtext {{{
+" http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
  fu! CustomFoldText()
      "get first non-blank line
      let fs = v:foldstart
@@ -152,13 +153,17 @@ set statusline=[%n]\ %<%.99f\ %h%w%m%r%y%*%=%-14.(%l/%L,%c%)%{g:colors_name}\ %P
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 " Shortcut Mappings {{{
+nnoremap <Up>    5<c-w>+
+nnoremap <Down>  5<c-w>-
+nnoremap <Right> 5<c-w>>
+nnoremap <Left>  5<c-w><
 " search seected text
 vnoremap // y/<C-R>"<CR>
 " insert mode {{{
-" inoremap <c-e> <C-o>A ------  use o 
+" inoremap <c-e> <C-o>A ------  use o
 " Dont move your fingers from the home row OR use ctrl-[ instead
 inoremap jj <Esc>
-" }}} insert mode 
+" }}} insert mode
 " normal mappings {{{
 " load vimrc
 nnoremap <F4> :e ~/dotfiles/.vimrc<CR>
@@ -200,7 +205,7 @@ nnoremap <leader>cc :cclose<cr>
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " make file ( use quick fix window to see errors )
-nnoremap <leader>m :!clear<CR>:w<CR>:make<CR>
+nnoremap <leader>m :cd %:p:h<cr>:pwd<cr>:!clear<CR>:w<CR>:make<CR>
 " open another file in same dir as current file
 nnoremap <leader>o :e %:h/<C-d>
 " clipboard madness {{{
@@ -214,7 +219,7 @@ nnoremap <leader>Y "*y
 nnoremap <leader>y "+y
 " }}} clipboard madness
 " Quit Files with ldr + q
-nnoremap <leader>q :bd<cr>
+nnoremap <leader>q :bp\|bd #<cr>
 " Open a shell in current directory
 nnoremap <leader>s :shell<CR>
 " nnoremap <leader>Q :qall!<cr> dont close !!
@@ -233,7 +238,7 @@ nnoremap <leader>x :close<CR>
 " dont delete useful while searching
 nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 " }}} leader maping end
-" }}} Shortcut Mappings 
+" }}} Shortcut Mappings
 " Plugin Specific Settings {{{
 set tags=./tags;~/Projects
 let g:scrollfix=30
@@ -258,7 +263,13 @@ let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical"
 " plasticboy markdown
 let g:vim_markdown_folding_disabled = 1
-" }}} Plugin Specific Settings 
+
+let g:airline_right_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_left_alt_sep= ''
+let g:airline_left_sep = ''
+let g:airline_section_z = '%P %l/%L,%c'
+" }}} Plugin Specific Settings
 " Filetype Specific Settings {{{
                                                                                 " " Restore cursor position upon reopening files
 " autocmd BufReadPost *
@@ -280,10 +291,10 @@ augroup FTOptions
     autocmd FileType gitcommit setlocal spell
     autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
 augroup end
-"}}} Filetype Specific Settings 
+"}}} Filetype Specific Settings
 
 "{{{ load colorscheme depending on the day of month
-fu! s:LoadRandomColorScheme() 
+fu! s:LoadRandomColorScheme()
 
     let s:color_file_list = globpath(&runtimepath, 'colors/*.vim'     )
     let s:color_file_list = substitute(s:color_file_list, '\'            , '/', 'g')
@@ -310,12 +321,12 @@ fu! s:LoadRandomColorScheme()
             execute "colorscheme" s:color_file
             unlet! s:color_file
 
-            unlet! s:loop 
-            unlet! s:rnd 
+            unlet! s:loop
+            unlet! s:rnd
         endif
     endif
 
-    unlet! s:color_file_list 
+    unlet! s:color_file_list
     unlet! s:self_file
 endf "}}}
 call s:LoadRandomColorScheme()
