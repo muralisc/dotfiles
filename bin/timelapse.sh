@@ -5,7 +5,7 @@
 
 export DISPLAY=:0
 # take 4 pics in a minute
-NOPICS=4
+NOPICS=0
 for i in `seq 1 $NOPICS`
 do
 dir=`who -b | awk '{print $3"_"$4}'` #get log in time

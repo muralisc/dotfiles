@@ -1,0 +1,33 @@
+#!/bin/bash
+
+
+# Example
+# echo -e "power on\nagent on\nconnect A8:F7:24:58:F5:51\nquit" | bluetoothctl
+
+if [ -z $1 ];
+then
+    echo "bluetooth c -> T3250w"
+    echo "bluetooth 2 -> Jabra"
+    echo "bluetooth d -> disconnect"
+    exit
+fi
+
+if [ "$1" = "c" ];
+then
+    # T3250w bluetooth
+    echo -e "power on\nagent on\n" | bluetoothctl
+    sleep 1
+    echo -e "connect 00:11:67:13:46:8A\n" | bluetoothctl
+elif [ "$1" = "2" ];
+then
+    # Jabra bluetooth
+    echo -e "power on\nagent on\nconnect 48:D2:24:44:92:80\n" | bluetoothctl
+else
+    # Disconnect
+    echo -e "disconnect\nquit" | bluetoothctl
+fi
+
+
+
+
+

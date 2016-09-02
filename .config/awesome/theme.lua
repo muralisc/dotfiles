@@ -28,12 +28,16 @@ theme.border_marked = "#91231c"
 -- defined, the sets are:
 -- taglist_[bg|fg]_[focus|urgent|occupied|empty]
 -- tasklist_[bg|fg]_[focus|urgent]
+theme.tasklist_bg_focus = "#000000"
+theme.tasklist_fg_focus = "#777777"
+theme.tasklist_fg_normal = "#555555"
+theme.tasklist_font = "DejaVuSansCondensed 12"
 -- titlebar_[bg|fg]_[normal|focus]
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
 theme.tooltip_font = "ubuntu mono 14"
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- Example:
---theme.taglist_bg_focus = "#ff0000"
+-- theme.taglist_bg_focus = "#ff0000"
 
 -- Display the taglist squares
 theme.taglist_squares_sel   = "/usr/share/awesome/themes/default/taglist/squarefw.png"
@@ -75,7 +79,7 @@ theme.titlebar_maximized_button_focus_inactive  = "/usr/share/awesome/themes/def
 theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper="/home/murali/PersonalData_max26gb/Jpegs/black-wallpaper-hd.jpg"
+theme.wallpaper = "/usr/share/awesome/themes/default/background.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"

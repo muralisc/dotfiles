@@ -6,6 +6,8 @@ playlist_disable_highlight_delay = 600
 browser_sort_format = {%g}{%t}|{%f} {(%l)}
 playlist_display_mode = columns
 browser_display_mode = columns
+visualizer_type = ellipse
+mouse_list_scroll_whole_page = no
 
 
 song_list_format = "{$8%n▕ $9}{$2%a - $9}{$4%t$9}|{$5%f$9}$R{$5▕ %b$9}{$8▕ %l$9}"

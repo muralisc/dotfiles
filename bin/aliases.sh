@@ -9,22 +9,22 @@ alias c='noglob c'
 alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1280x960+320+60 -C /usr/share/fonts/TTF -e Ubuntu-R/35'
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
 # git aliases  {{{
-alias ga='     git add'
-alias gb='     git branch'
-alias gcam='   git commit -am'
-alias gcm='    git commit -m'
-alias gco='    git checkout'
-alias gdc='    git diff --cached'
-alias gd='     git diff'
-alias gf='     git fetch origin'
-alias gl="git log --pretty=format:'%C(yellow)%h%C(red)%d %C(cyan)%an%Creset %s %Cgreen(%cr)' --graph --all"
-alias gp='     git push origin master'
-alias gpl='    git pull --rebase origin master'
-alias grhh='   git reset HEAD --hard'
-alias gs='     git status -sb'
-alias gS='     git status -uall'
-alias gsp='    git stash pop'
-alias gst='    git stash'
+alias ga='git add'
+alias gb='git branch'
+alias gcam='git commit -am'
+alias gcm='git commit -m'
+alias gco='git checkout'
+alias gdc='git diff --cached'
+alias gd='git diff'
+alias gf='git fetch origin'
+alias gl="git log --pretty=format:'%C(yellow)%h%C(red)%d %C(blue)%an%Creset %s %Cgreen(%cr)' --graph --all"
+alias gp='git push origin master'
+alias gpl='git pull --rebase origin master'
+alias grhh='git reset HEAD --hard'
+alias gs='git status -sb'
+alias gS='git status -uall'
+alias gsp='git stash pop'
+alias gst='git stash'
 # }}}
 alias j='fasd_cd -d'
 alias l='ls -1Fh'       # classify , human readable, use ll for long
@@ -34,7 +34,7 @@ alias r='ranger'
 alias ta='tmux attach'
 alias tl='tmux list-sessions'
 alias ts='tmuxinator start test'
-alias t='tmux'
+alias t='tmux new-session -s "scratch" -d; tmux split-window -v ;tmux split-window -v ;tmux new-session -s "Main" -d ; tmux attach;'
 alias v='fasd -f -e vim'
 alias xo='xdg-open'
 alias ync='yaourt --noconfirm'
@@ -51,31 +51,49 @@ EDITOR=/usr/bin/vim
 export BC_ENV_ARGS=~/.bcrc
 
 #   functions {{{
-function msa {
-    beet ls -f '$path' "$*" | sed 's#/home/murali/Dropbox/Songs/##'
-}
+# eg ms year:2000 path::Hindi
+# eg ms year:..1995 path::Hindi
 function ms { #mpc search
-    mpc search filename "`echo $*| sed 's/ /_/g'`"
+    # mpc search filename "`echo $*| sed 's/ /_/g'`"
+    beet ls -f '$path' "$@" | sed 's#/home/murali/Dropbox/Songs/##' 
 }
 function mp { #mpc play
     mpc clear
-    mpc search filename "`echo $*| sed 's/ /_/g'`" | mpc add
+    # mpc search filename "`echo $*| sed 's/ /_/g'`" | mpc add
+    beet ls -f '$path' "$@" | sed 's#/home/murali/Dropbox/Songs/##' | mpc add
     mpc play
 }
+
+# database update
+function mu {
+    rm ~/Dropbox/Songs/musiclibrary.blb; beet import -A ~/Dropbox/Songs/ ;
+}
+
 function apt-list-packages {
     dpkg-query -W --showformat='${Installed-Size} ${Package} ${Status}\n' | grep -v deinstall | sort -n | awk '{print $1" "$2}'
 }
 
-#usage : tt tomorrow5am
 # time till
 function tt {
+
+    if [ $# -eq 0 ];
+    then
+        echo usage : tt tomorrow5am
+        echo usage : tt tomorrow5am -s
+        echo usage : sleep `tt 2:37am -c`
+        return 1;
+    fi
+
     seconds=$((`date -d $1 +'%s'` - `date +'%s'`))
     minutes=$(($seconds / 60))
     hours=$(($minutes / 60))
     days=$(($hours / 24))
 
-    if [[ $2 = "s" ]]; then
-        echo "$days days :$(($hours%24)):$(($minutes%60)):$(($seconds%60))"
+    if [[ $2 = "-c" ]]; then
+        # for piping to sleep
+        echo "$seconds"
+    elif [[ $2 = "-s" ]]; then
+        echo "$days days $(($hours%24)):$(($minutes%60)):$(($seconds%60))"
     else
         printf "printing time till `date -d $1`  \n\n"
         if [[ "$days" -ne 0 ]]; then
@@ -149,3 +167,5 @@ function timeGoogle(){
 
 # }}}
 
+# add songs by year
+# mpc clear; beet ls -f '$path' year:..2000 path::Hindi | sed 's#/home/murali/Dropbox/Songs/##' | mpc add; mpc play

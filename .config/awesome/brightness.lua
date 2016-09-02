@@ -13,7 +13,11 @@ function update_b(widget, command )
    fd:close()
    -- local brightness = tonumber(string.match(status, "(%d?%d?%d)%%")) / 100
    local brightness = string.match(status, "%d?%d?%d")
-   brightness = string.format("<span color='#00FF00'>%3d☼</span>", brightness)
+   if brightness == nil then
+       brightness = string.format("<span color='#00FF00'> ~~ </span>" )
+   else
+       brightness = string.format("<span color='#00FF00'>%3d☼</span>", brightness)
+   end
    widget:set_markup("|"..brightness)
 end
 brightness_widget:buttons(awful.util.table.join(

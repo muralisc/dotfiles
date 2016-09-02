@@ -60,9 +60,9 @@ if [ "$preview_images" = "True" ]; then
         # Image preview for video, disabled by default.:
         video/*)
             # get req info in text file
-            mediainfo "$path" | \grep -iP "General|^Video|^Audio|duration|Wid|Hei|Chan" > /tmp/tmpinfo
+            mediainfo "$path" | \grep -iP "Wid|Hei|Chan|^Display|Text"| sed 's/                    //' > /tmp/tmpinfo
             # make the info into image
-            convert label:"`cat /tmp/tmpinfo`" /tmp/info.jpg
+            convert -font Ubuntu -pointsize 20 -resize 720 label:"`cat /tmp/tmpinfo`" /tmp/info.jpg
             # get movie thumbnail
             ffmpegthumbnailer -i "$path" -o /tmp/film.jpg -s 720 
             # either overlay over the figure 
@@ -119,6 +119,7 @@ case "$mimetype" in
     video/* | audio/*)
         exiftool "$path" && exit 5
         # Use sed to remove spaces so the output fits into the narrow window
+        # try tmsu tags "$path" && { dump | trim | sed 's/[^:]*://;';  exit 5; } || exit 1;;
         try mediainfo "$path" && { dump | trim | sed 's/  \+:/: /;';  exit 5; } || exit 1;;
 esac
 

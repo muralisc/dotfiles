@@ -1,3 +1,4 @@
+" vim: foldlevel=0:
 "Courtsey
 "Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
 "Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
@@ -9,9 +10,10 @@ set nocompatible                                                                
 filetype off                                                                    " Required Vundle setup
 set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin('~/.vim/plugged')
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
+Plug 'mattn/emmet-vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
 Plug 'muralisc/vim-colorschemes'
 Plug 'kien/ctrlp.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
@@ -21,12 +23,14 @@ Plug 'tpope/vim-fugitive'                                                     " 
 Plug 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
 Plug 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
 Plug 'muralisc/vim-snippets'
-Plug 'Shougo/unite.vim'                       " for line , colorscheme, jump, changes, outline
-Plug 'ujihisa/unite-colorscheme'
-Plug 'Shougo/unite-outline'
 Plug 'godlygeek/tabular'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite-outline'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'vim-airline/vim-airline'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'                                                       " :Colors :Lines and shell **
+Plug 'scrooloose/nerdtree'
 call plug#end()
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
@@ -42,6 +46,7 @@ filetype on                                                                     
 filetype indent on                                                              " Enable filetype-specific indenting
 filetype plugin on                                                              " Enable filetype-specific plugins
 syntax on                                                                       " syntax highlight
+set vb t_vb=                                                                    " prevent screen flasing on multiple esc
 set t_Co=256                                                                    " set 256 colors in vim
 set background=dark
 let mapleader="\<Space>"                                                        " Change the mapleader from \ to
@@ -50,7 +55,7 @@ set showmode                                                                    
 set timeoutlen=1200 " A little bit more time for macros
 set ttimeoutlen=50  " Make Esc work faster
 set nowrap                                                                      " don't wrap lines
-"    Editing {{{ "
+" Editing {{{
 set tabstop=4                                                                   " a tab is four spaces
 set softtabstop=4                                                               " when hitting <BS>, delete 4 spaces insted of 1
 set expandtab                                                                   " expand tabs by default (overloadable per file type later)
@@ -58,11 +63,11 @@ set shiftwidth=4                                                                
 set autoindent                                                                  " always set autoindenting on
 set copyindent                                                                  " copy the previous indentation on autoindenting
 set clipboard=unnamedplus
-" }}}    Editing "
+" }}}
 set shiftround                                                                  " use multiple of shiftwidth when indenting with '<' and '>'
 set backspace=indent,eol,start                                                  " allow backspacing over everything in insert mode
 set ignorecase                                                                  " ignore case when searching
-" Visual {{{ "
+" Visual {{{
 set showmatch                                                                   " set show matching parenthesis
 set number                                                                      " always show line numbers
 set rnu                                                                         " relative number
@@ -71,7 +76,7 @@ set cursorline                                                                  
 set cursorcolumn                                                                " have a vertical line marking the cursor column
 set scrolloff=0                                                                 " keep 4 lines off the edges of the screen when scrolling
 set hlsearch                                                                    " highlight search terms
-" }}} Visual "
+" }}}
 set smartcase                                                                   " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set smarttab                                                                    " insert tabs on the start of a line according to shiftwidth, not tabstop
 set virtualedit=block                                                           " allow the cursor to go in to 'invalid' places
@@ -94,7 +99,7 @@ set undofile                                                                    
 set undodir=~/.vim/vimundo
 set directory=~/.vim/.tmp,/tmp                                                  " store swap files in one of these directories (in case swapfile is ever turned on)
 set viminfo='20,\"80                                                            " read/write a .viminfo file, don't store more than 80 lines of registers
-set textwidth=70        " not 80 cause helps in vs mode
+set textwidth=170        " not 80 cause helps in vs mode
 " Ease of Use {{{ "
 set wildmenu                                                                    " tab completion for files/buffers like bash
 set wildmode=list:full                                                          " show a list when pressing tab and complete first full match
@@ -109,15 +114,15 @@ set modeline                                                                    
 set ttyfast                                                                     " always use a fast terminal
 set spell spelllang=en_us
 set nospell
-set colorcolumn=81                                                              " show a marker at 81 so you have a visual cue
-" set diffopt+=vertical                                                           " default split method is to split in a verical split
+" set colorcolumn=81                                                              " show a marker at 81 so you have a visual cue
+set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
-set viewoptions-=options        " to make restore_view work well
+set viewoptions-=options                                                        " to make restore_view work well
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
 set foldcolumn=0                                                                " add a fold column
-set foldmethod=syntax                                                           " detect triple-{ style fold markers [marker indent]
+set foldmethod=marker                                                           " detect triple-{ style fold markers [marker indent]
 set foldlevel=99             " start out with everything folded
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
 " Foldingtext {{{
@@ -153,6 +158,7 @@ set statusline=[%n]\ %<%.99f\ %h%w%m%r%y%*%=%-14.(%l/%L,%c%)%{g:colors_name}\ %P
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 " Shortcut Mappings {{{
+" resize
 nnoremap <Up>    5<c-w>+
 nnoremap <Down>  5<c-w>-
 nnoremap <Right> 5<c-w>>
@@ -186,7 +192,8 @@ nnoremap <Leader>a zA
 " s for structure
 nnoremap <leader>s :Unite -start-insert outline<CR>
 nnoremap <Leader>du :diffupdate<CR>
-nnoremap <Leader>gl :silent! Glog<CR>
+nnoremap <Leader>gl :silent! Glog --<CR>
+" when browsing glog, when you are in diff and want to go back to commit TODO
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <leader>gs :Gstatus<CR>
 " ge is used after n_CTRL-e
@@ -206,6 +213,8 @@ nnoremap <leader>cc :cclose<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " make file ( use quick fix window to see errors )
 nnoremap <leader>m :cd %:p:h<cr>:pwd<cr>:!clear<CR>:w<CR>:make<CR>
+" NERD
+nnoremap <leader>n :NERDTreeToggle<CR>
 " open another file in same dir as current file
 nnoremap <leader>o :e %:h/<C-d>
 " clipboard madness {{{
@@ -222,15 +231,15 @@ nnoremap <leader>y "+y
 nnoremap <leader>q :bp\|bd #<cr>
 " Open a shell in current directory
 nnoremap <leader>s :shell<CR>
-" nnoremap <leader>Q :qall!<cr> dont close !!
+nnoremap <leader><tab> :q<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
 " traling spaces and jump to last point
 nnoremap <leader>t :%s/\s\+$//e<cr>`'
 " Useful mappings for managing tabs
 nnoremap <leader>T :tabnew<cr>
-nnoremap <leader>u :Unite -start-insert line<CR>
+nnoremap <leader>l :Lines<CR>
 " Open vimgrep and put the cursor in the right position
-nnoremap <leader>v :vimgrep // **/*.<left><left><left><left><left><left><left>
+nnoremap <leader>v :grep<UP><home><s-right><right><right><c-f>
 " Fast saving
 nnoremap <leader>w :w<cr>
 " make the current file executable
@@ -239,37 +248,6 @@ nnoremap <leader>x :close<CR>
 nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 " }}} leader maping end
 " }}} Shortcut Mappings
-" Plugin Specific Settings {{{
-set tags=./tags;~/Projects
-let g:scrollfix=30
-let g:ViewDoc_DEFAULT = 'ViewDoc_help'
-" YOU COMPLETE ME
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_always_populate_location_list = 1
-" PYTHON MODE SETTINGS
-let g:pymode_rope = 1
-" PYMODE ignore errors list
-let g:pymode_lint_ignore = "E702,E501,E225,E221,E203,E231,E201,E202,E261,E262"
-let g:ctrlp_cmd = 'CtrlPMRUFiles'
-" VIM-FIGITIVE : close all unwanted buffers opened by vim fugitive (git blame)
-" autocmd BufReadPost fugitive://* set bufhidden=delete
-" delimitMate settings
-let delimitMate_expand_space = 1
-let delimitMate_expand_cr = 1
-" ULTISNIPS
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
-let g:UltiSnipsEditSplit="vertical"
-" plasticboy markdown
-let g:vim_markdown_folding_disabled = 1
-
-let g:airline_right_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_left_alt_sep= ''
-let g:airline_left_sep = ''
-let g:airline_section_z = '%P %l/%L,%c'
-" }}} Plugin Specific Settings
 " Filetype Specific Settings {{{
                                                                                 " " Restore cursor position upon reopening files
 " autocmd BufReadPost *
@@ -289,11 +267,10 @@ augroup FTOptions
     autocmd filetype sh setlocal keywordprg=man
     autocmd filetype xml,sh,vim,tex,html,lua setlocal foldmethod=marker
     autocmd FileType gitcommit setlocal spell
-    autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+    autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=0
 augroup end
 "}}} Filetype Specific Settings
-
-"{{{ load colorscheme depending on the day of month
+" load colorscheme depending on the day of month {{{
 fu! s:LoadRandomColorScheme()
 
     let s:color_file_list = globpath(&runtimepath, 'colors/*.vim'     )
@@ -328,8 +305,48 @@ fu! s:LoadRandomColorScheme()
 
     unlet! s:color_file_list
     unlet! s:self_file
-endf "}}}
+endf
 call s:LoadRandomColorScheme()
-
-" prevent screen flasing on multiple esc
-set vb t_vb=
+"}}}
+" Plugin Specific Settings {{{
+    " ACK.vim {{{
+if executable('ag')
+      let g:ackprg = 'ag'
+endif
+" }}}
+    " viewdoc settings "{{{
+let g:ViewDoc_DEFAULT = 'ViewDoc_help'
+" }}}
+    " YOU COMPLETE ME {{{
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_always_populate_location_list = 1 "}}}
+    " PYTHON MODE SETTINGS {{{
+let g:pymode_rope = 1
+" PYMODE ignore errors list
+let g:pymode_lint_ignore = "E702,E501,E225,E221,E203,E231,E201,E202,E261,E262" "}}}
+    " ctrlp settings{{{
+let g:ctrlp_cmd = 'CtrlPMRUFiles' "}}}
+    " VIM-FIGITIVE {{{
+" close all unwanted buffers opened by vim fugitive (git blame)
+" autocmd BufReadPost fugitive://* set bufhidden=delete
+" }}}
+    " delimitMate settings {{{
+let delimitMate_expand_space = 1
+let delimitMate_expand_cr = 1 "}}}
+    " ULTISNIPS {{{
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+let g:UltiSnipsEditSplit="vertical" "}}}
+    " plasticboy markdown {{{
+let g:vim_markdown_folding_disabled = 1
+" }}}
+    " airline {{{
+let g:airline_right_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_left_alt_sep= ''
+let g:airline_left_sep = ''
+let g:airline_section_z = '%P %l:%c %{g:colors_name}'
+" }}}
+"
+" }}} Plugin Specific Settings

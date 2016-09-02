@@ -1,3 +1,4 @@
+! #include "Downloads/Xresources.light"
 ! Compile xft: Attempt to find a visual with the given bit depth;
 URxvt*depth: 32
 

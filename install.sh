@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# use this script to place all config files at correct
+# location
+
 # if not exit plug.vim
 if [[ ! -a ~/.vim/autoload/plug.vim ]] ;
 then
@@ -23,12 +26,12 @@ mkdir -p $HOME/.ncmpcpp
 mkdir -p $HOME/.ssh
 mkdir -p $HOME/.vim
 mkdir -p $HOME/.vim/vimundo
+mkdir -p $HOME/.rtorrentSession
 BKPfolder=bak`date +'%Fat%H-%M-%S'`
 mkdir -p $HOME/$BKPfolder
 
 
 for i in                          \
-.aliases.sh                       \
 .bashrc                           \
 .bcrc                             \
 bin                               \
@@ -37,6 +40,7 @@ bin                               \
 .config/inkscape/keys/default.xml \
 .config/mimeapps.list             \
 .config/ranger                    \
+.config/mpv                       \
 .config/user-dirs.dirs            \
 .config/vlc/vlcrc                 \
 .config/zathura                   \
@@ -55,24 +59,23 @@ bin                               \
 .Xmodmap                          \
 .Xresources                       \
 .zshrc                            \
+.yaourtrc                         \
+.rtorrent.rc                      \
     ;
 do
     echo "$HOME/$i making"
-    # back up files
-    mv $HOME/$i $HOME/$BKPfolder/${i//\//-}.bak
+    # back up files if not links else delete
+    if [ ! -L $HOME/$i ]; then
+        mv $HOME/$i $HOME/$BKPfolder/${i//\//-}.bak
+    else
+        rm $HOME/$i
+    fi
     # link files
     ln -s `pwd`/$i $HOME/$i
 done
+vim +PlugInstall +qall!   #vim -c PlugInstall -c qall!
 
-# install perls for urxvt {{{
-# git clone https://github.com/muennich/urxvt-perls
-# sudo mv urxvt-perls/* /usr/lib/urxvt/perl/
-# git clone https://github.com/majutsushi/urxvt-font-size
-# sudo mv urxvt-font-size/* /usr/lib/urxvt/perl/
-# rm -rf urxvt-perls
-# rm -rf urxvt-font-size
-# if  grep -qi 'Arch' /etc/lsb-release ;
-# then
-#     yaourt -S urxvt-vtwheel
-# fi
-# }}}
+# delete backup folder if no files
+if [ `ls $HOME/$BKPfolder | wc -l` -eq "0" ]; then
+    rm $HOME/$BKPfolder
+fi

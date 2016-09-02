@@ -93,7 +93,7 @@ end
 tags = {
     names  = {
                  "1 net",
-                 "2 mux",
+                 "2 sshfs",
                  "3 ssh",
                  "4",
                  "5",
@@ -146,6 +146,7 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "open terminal", terminal },
+                                    { "ranger", terminal .. " -e ranger" },
                                     { "shutdown", 'poweroff' },
                                     { "free-desktop",  menu_items}
                                   },
@@ -208,6 +209,10 @@ mytasklist.buttons = awful.util.table.join(
                                 client.focus = c
                                 c:raise()
                             end
+                        end),
+                     awful.button({ }, 2,
+                        function (c)
+                            c:kill()
                         end),
                      awful.button({ }, 3,
                         function ()
@@ -393,6 +398,7 @@ mytextclock:buttons(awful.util.table.join(
 -- }}}
 require("volume")
 require("brightness")
+require("stopwatch")
 
 for s = 1, screen.count() do    --{{{ for each screen set promptbox, layoutbox, wibox etc
     -- Create a promptbox for each screen
@@ -432,12 +438,13 @@ for s = 1, screen.count() do    --{{{ for each screen set promptbox, layoutbox, 
     right_layout:add(batterywidget)
     right_layout:add(mytextclock)
     right_layout:add(brightness_widget)
+    right_layout:add(stopwatch_widget)
     right_layout:add(volume_widget)
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
-    -- layout:set_middle(mytasklist[s])
+    layout:set_middle(mytasklist[s])
     layout:set_right(right_layout)
 
     mywibox[s]:set_widget(layout)
@@ -457,8 +464,8 @@ root.buttons(awful.util.table.join(
 globalkeys = awful.util.table.join(
     --{{{ UTILITY MAPPINGS ( not awesome specific
         --{{{ media mappings
-    awful.key({}, "XF86AudioRaiseVolume" ,   function () update_volume(volume_widget, "~/bin/vol-control.sh louder" ) end),
-    awful.key({}, "XF86AudioLowerVolume" ,   function () update_volume(volume_widget, "~/bin/vol-control.sh softer" ) end),
+    awful.key({}, "XF86AudioRaiseVolume" ,   function () update_volume(volume_widget, "mpc next" ) end),
+    awful.key({}, "XF86AudioLowerVolume" ,   function () update_volume(volume_widget, "mpc prev" ) end),
     awful.key({}, "XF86AudioMute",           function () update_volume(volume_widget, "~/bin/vol-control.sh toggle" ) end),
     -- mappping inspiraton from https://github.com/tpope/tpope
     awful.key({ modkey,          }, "bracketleft", function () update_volume(volume_widget, "~/bin/vol-control.sh softer" ) end),
@@ -470,9 +477,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, altkey   }, "bracketleft", function () update_volume(volume_widget, "mpc prev" ) end),
     awful.key({ modkey, altkey   }, "bracketright",function () update_volume(volume_widget, "mpc next" ) end),
     awful.key({ modkey,          }, "backslash",   function () awful.util.spawn("mpc toggle") end),
-    awful.key({ modkey, "Control"}, "backslash" ,  function () awful.util.spawn("urxvtc -e ncmpcpp -s clock") end),
+    awful.key({ modkey, "Control"}, "backslash" ,  function () awful.util.spawn("urxvtc -fn 'xft:UbuntuMono:Regular:size=5' -bg rgba:0000/0000/0000/1111 -e ncmpcpp -s clock ") end),
     awful.key({ modkey, altkey   }, "backslash",   function () awful.util.spawn("pavucontrol") end),
         --}}}
+    awful.key({ modkey, altkey, "Control", "Shift" }, "space" ,  function () awful.util.spawn("urxvtc -e poweroff") end),
         --{{{ light mappping brightness
     -- mappping inspiraton from https://github.com/tpope/tpope
     awful.key({}, "XF86MonBrightnessUp" ,   function () update_b(brightness_widget , "light -A 10" ) end),
@@ -482,7 +490,7 @@ globalkeys = awful.util.table.join(
     awful.key({modkey, "Control" }, "=" ,   function () update_b(brightness_widget , "light -S 100" ) end),
     awful.key({modkey, "Control" },  "-" ,  function () update_b(brightness_widget , "light -S 10" ) end),
         -- }}}
-        --{{{ appliacation mappings 
+        --{{{ application mappings
     awful.key({        }, "XF86AudioPlay",  function () awful.util.spawn("mpc toggle") end),
     awful.key({        }, "XF86Mail" ,      function () awful.util.spawn("thunderbird") end),
     awful.key({ modkey }, "x" ,             function () awful.util.spawn("thunderbird") end),
@@ -495,9 +503,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Tab" ,         function () awful.util.spawn("rofi -show window -font 'Ubuntu mono 30'") end),-- window switcher
     awful.key({ altkey, "Control" }, "s",            function () awful.util.spawn_with_shell( "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')") end),
     awful.key({ modkey            }, "q",            function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh show") end), -- show a quote
+    awful.key({ modkey            }, "s",            function () awful.util.spawn_with_shell("exec ~/bin/stopwatch.sh") end), -- show a quote
     --}}} UTILITY MAPPINGS ( not awesome specific
     -- {{{ AWESOME SPECIFIC MAPPINGS
-    awful.key({ modkey,}, "`",      function () quakeconsole[mouse.screen]:toggle() end),
+    -- See if you can live without quake for a while
+    -- awful.key({ modkey,}, "`",      function () quakeconsole[mouse.screen]:toggle() end),
     awful.key({ altkey,}, "Tab", -- focus previous window (def awesome tab binding disbled in favor of rofi!!) {{{
         function ()
             awful.client.focus.history.previous()
@@ -542,7 +552,15 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
     awful.key({ modkey,           }, "u"     , awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "w"     , function () mymainmenu:show() end),   --show context menu( free desktop)
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),-- Standard program
+    -- control + semicolon is used by keynav
+    awful.key({ modkey,           }, "semicolon", function () awful.util.spawn(terminal) end),-- Standard program
+    awful.key({ modkey,           }, "Return",   function ()
+                                                        local matcher = function (c)
+                                                            return awful.rules.match(c, {class = 'URxvt'})
+                                                        end
+                                                        awful.client.run_or_raise( terminal , matcher)
+                                                    end),
+
     awful.key({ modkey, "Shift"   }, "q"    , awesome.quit),
     awful.key({ modkey, "Control" }, "r"    , awesome.restart),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
@@ -553,8 +571,10 @@ globalkeys = awful.util.table.join(
             mypromptbox[mouse.screen]:run()
             mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
         end),--}}}
-    awful.key({ modkey }, "p", function() menubar.show() end),  -- Menubar
-    awful.key({ modkey }, "b",              -- wibox visibility toggle--{{{
+    awful.key({ modkey          } , "p", function() menubar.show() end),  -- Menubar
+    awful.key({ modkey          } , "e", function () awful.util.spawn_with_shell("exec xrandr --output HDMI-1 --auto --output eDP-1 --off") end), -- external
+    awful.key({ modkey, "Shift" } , "e", function () awful.util.spawn_with_shell("exec xrandr --output HDMI-1 --off  --output eDP-1 --auto") end), -- external off
+    awful.key({ modkey          } , "b",              -- wibox visibility toggle--{{{
         function ()
             mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
             wiboxAutoHide = not wiboxAutoHide
@@ -572,21 +592,33 @@ clientkeys = awful.util.table.join(
         function (c)
             mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
             naughty.notify({
+                  title    = "Volume"
+                , text     = ""
+
+                        .. string.format("Volume: %s \n"              , awful.util.pread("eval ~/bin/vol-control.sh getVol | head -1 | tr '\n' ' '"))
+
+                , timeout  = 3
+                , position = "top_right"
+                , font     = "Ubuntu Mono 28"
+            })
+            naughty.notify({
                   title    = "Screen Details"
                 , text     = ""
+
                         .. string.format("Master width factor: %.3f \n" , awful.tag.getmwfact())
                         .. string.format("No of Master window: %.3f \n" , awful.tag.getnmaster())
                         .. string.format("No of Column window: %.3f \n" , awful.tag.getncol())
                         .. string.format("Wibox AutoHide: %s \n"        , tostring(wiboxAutoHide))
-                        .. string.format("CLIENT name : %s \n"          , tostring(c.name))
+                        -- .. string.format("CLIENT name : %s \n"          , tostring(c.name))
                         .. string.format("Ontop status: %s \n"          , tostring(c.ontop))
                         .. string.format("Fullscreen: %s \n"            , tostring(c.fullscreen))
                         .. string.format("Maximised: %s \n"             , tostring(c.maximized))
                         .. string.format("floating status: %s \n"       , tostring(awful.client.floating.get()))
                         .. string.format("border_width: %s \n"          , tostring(c.border_width))
-                , timeout  = 10
+
+                , timeout  = 3
                 , position = "bottom_right"
-                , font     = "Ubuntu Mono 20"
+                , font     = "Ubuntu Mono 28"
             })
         end),--}}}
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop end),   -- on top
@@ -668,13 +700,16 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "URxvt"       } ,       properties = { border_width = 0  }  } ,
-    { rule = { class = "MPlayer"     } ,     properties = { border_width = 1    }  } ,
-    { rule = { class = "feh"         } ,         properties = { floating = true }  } ,
-    { rule = { class = "Thunderbird" } , properties = { tag = tags[1][5]        }  } ,
-    { rule = { class = "Firefox"     } ,     properties = { tag = tags[1][1]    }  } ,
-    { rule = { class = "Tor Browser" } , properties = { tag = tags[1][3]        }  } ,
-    { rule = { class = "Vlc"         } ,         properties = { floating = true }  } ,
+
+    { rule = { class = "URxvt"       } , properties = { border_width = 0}  } ,
+    { rule = { name  = "ncmpcpp"     } , properties = { floating = true }  } ,
+    { rule = { class = "MPlayer"     } , properties = { border_width = 1}  } ,
+    { rule = { class = "feh"         } , properties = { floating = true }  } ,
+    { rule = { class = "Thunderbird" } , properties = { tag = tags[1][5]}  } ,
+    { rule = { class = "Tor Browser" } , properties = { tag = tags[1][3]}  } ,
+    { rule = { class = "Vlc"         } , properties = { floating = true,
+                                                        x = 20, y = 10  }  } ,
+    { rule = { class = "Mplayer"     } , properties = { floating = true }  } ,
 }
 -- }}}
 

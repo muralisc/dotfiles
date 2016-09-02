@@ -3,7 +3,7 @@ library: ~/Dropbox/Songs/musiclibrary.blb
 import:
     copy: no
     write: yes
-plugins: edit lastimport smartplaylist mpdstats
+plugins: edit #smartplaylist mpdstats
 lastfm:
     user: muralisc
 smartplaylist:
