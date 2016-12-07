@@ -41,6 +41,7 @@ passwd
 # setup bootloader
     # systemd-boot
     bootctl --path=/boot install
+    # make conf file https://wiki.archlinux.org/index.php/Systemd-boot#Configuration
 
 
 # USER CREATION
