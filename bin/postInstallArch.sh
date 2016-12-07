@@ -8,9 +8,41 @@
 # for vagrant box with diff key layout sudo loadkeys us
 # install virtualbox-guest-utils if in virtual box
 
+# updated 12-7-2016
+loadkeys us
+timedatectl set-ntp true
+fdisk /dev/sda
+    make gpt table # UEFI needs that
+           sda1   512MB   EFI_system(ef00)        /boot
+           sda2   16G     LINUX_swap        SWAP
+           sda3   100G    Linux_filesystem  /
+           sda4   rem     Linux_filesystem  /home
+    # use systemd-boot
+mkfs.fat -F32 /dev/sda1 #EFI
+mkfs.ext4 /dev/sda1
+mount /dev/sda3 /mnt
+mkdir /mnt/boot
+mount /dev/sda1 /mnt/boot
+pacstrap /mnt base
 
-sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
-pacman -Syu
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+ln -s /usr/share/zoneinfo/Reginon/City /etc/localtime
+hwclock --systohc
+# uncomment /etc/locale.gen
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "KEYMAP=us" > /etc/vconsole.conf
+echo "rivendell" > /etc/hostname
+pacman -S networkmanager
+systemctl enable NetworkManager.service
+timedatectl set-timezone Asia/Kolkatta
+passwd
+# setup bootloader
+    # systemd-boot
+    bootctl --path=/boot install
+
+
 # USER CREATION
 useradd -m -g users -s /bin/bash murali
 #passwd murali
@@ -20,6 +52,9 @@ echo " reboot if necessary "
 pacman -S sudo
 echo "visudo /etc/sudoers"
 echo "dulpicate root ..murali ALL"
+
+sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
+pacman -Syu
 # INSTALL BASIC STUFF TMUX VIM ZSH etc
 sudo pacman -S fakeroot git jshon wget make pkg-config autoconf automake patch expac zsh tmux gvim
 wget http://aur.archlinux.org/cgit/aur.git/snapshot/packer.tar.gz
@@ -33,7 +68,7 @@ sudo pacman -S alsa-utils xorg-server xorg-xinit xorg-server-utils mesa awesome 
 xf86-video-vesa xterm rxvt-unicode xsel xclip --noconfirm
 sudo yaourt -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
 git clone https://github.com/terceiro/awesome-freedesktop
-mv awesome-freedesktop/freedesktop /etc/xdg/awesome/
+sudo mv awesome-freedesktop/freedesktop /etc/xdg/awesome/
 rm -rf awesome-freedesktop
 echo "skip from 9:20 to 10:50 "
 echo "skip from 11:00 to 14.38 "
@@ -82,9 +117,6 @@ sudo chsh -s /bin/zsh $USERNAME
 
 sudo pacman -S jre8-openjdk firefox yajl
 yaourt -S mt7601u-git   # for external wifi dongle
-sudo pacman -S networkmanager
-systemctl enable NetworkManager.service
-timedatectl set-timezone Asia/Kolkatta
 echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf
 # zathura for backup // use browser instead; firefox even shows
 # comments,
