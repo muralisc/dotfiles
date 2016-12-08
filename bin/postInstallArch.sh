@@ -55,6 +55,8 @@ echo "visudo /etc/sudoers"
 echo "dulpicate root ..murali ALL"
 
 sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
+# to make pacman and yaourt work behind proxy
+sudo sh -c 'echo Defaults env_keep += "http_proxy https_proxy ftp_proxy" >> /etc/sudoers'
 pacman -Syu
 # INSTALL BASIC STUFF TMUX VIM ZSH etc
 sudo pacman -S fakeroot git jshon wget make pkg-config autoconf automake patch expac zsh tmux gvim

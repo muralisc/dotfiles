@@ -35,3 +35,4 @@ tmux list-sessions
 PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
 export GOPATH=~/go
 export PATH="$PATH:$GOPATH/bin"
+[ ! -f "$HOME/.zshrc.local" ] || source "$HOME/.zshrc.local"
