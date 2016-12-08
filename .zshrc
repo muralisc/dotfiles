@@ -24,13 +24,8 @@ bindkey '^[' vi-cmd-mode   # even in default c-x c-v wil go to vim mode
 autoload -Uz copy-earlier-word
 zle -N copy-earlier-word
 bindkey "^[m" copy-earlier-word
-
 source ~/bin/aliases.sh
-
 tmux list-sessions
 # for ruby and nvm( nodejs ) and go
 [ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
-PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
-export GOPATH=~/go
-export PATH="$PATH:$GOPATH/bin"
 [ ! -f "$HOME/.zshrc.local" ] || source "$HOME/.zshrc.local"
