@@ -56,7 +56,6 @@ bin                               \
 .config/zathura                   \
 .fehbg                            \
 .gdbinit                          \
-.gitconfig                        \
 .inputrc                          \
 .local/share/applications         \
 .mpd/mpd.conf                     \
