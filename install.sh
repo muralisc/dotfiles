@@ -4,6 +4,10 @@
 # location
 
 # if not exit plug.vim
+git config --global user.email "muralisc@gmail.com"
+git config --global user.name "Murali S"
+git config --global credential.helper 'cache --timeout=80000'
+
 if [[ ! -a ~/.vim/autoload/plug.vim ]] ;
 then
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \

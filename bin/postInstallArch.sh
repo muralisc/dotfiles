@@ -77,8 +77,6 @@ echo "skip from 9:20 to 10:50 "
 echo "skip from 11:00 to 14.38 "
 reboot
 # check startx working
-git config --global user.email "muralisc@gmail.com"
-git config --global user.name "Murali S"
 echo "  ===========add inifinality============     "
 # ADD infinaliyt repo
 sudo sh -c 'cat << END >> /etc/pacman.conf
