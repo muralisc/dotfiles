@@ -9,7 +9,7 @@ do
     NO_OF_COMMITS=`git status -sb | grep ahead | wc -l`
     if [ $NO_OF_MODFILES -gt 0 ] || [ $NO_OF_COMMITS -gt 0 ] ; then
         echo $REPOROOT $NO_OF_MODFILES $NO_OF_COMMITS
-        git diff --stat
+        # git diff --stat
         # echo -e "\n\n"
     fi
 done
