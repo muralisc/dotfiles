@@ -3,11 +3,17 @@
 # use this script to place all config files at correct
 # location
 
-# if not exit plug.vim
+if [[ ! -d $HOME/dotfiles ]] ;
+then
+    cd $HOME
+    git clone https://github.com/muralisc/dotfiles/
+fi
+
 git config --global user.email "muralisc@gmail.com"
 git config --global user.name "Murali S"
 git config --global credential.helper 'cache --timeout=80000'
 
+# if not exit plug.vim
 if [[ ! -a ~/.vim/autoload/plug.vim ]] ;
 then
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \

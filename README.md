@@ -4,15 +4,10 @@ dotfiles
 #### Setup all rc files
 Clone the directory and run install.sh to use all the settings.
 
-```sh
-git clone https://github.com/muralisc/dotfiles.git
-./dotfiles/install.sh
-```
-#### Setup zsh awesomeWM and rc files in Ubuntu
+#### via wget or curl
 
-Usefull while instaling OS
-```sh
-USERNAME=vagrant        # change
-git clone https://github.com/muralisc/dotfiles.git
-./dotfiles/bin/postInstallUbuntu.sh $USERNAME
+```shell
+sh -c "$(wget https://raw.githubusercontent.com/muralisc/dotfiles/master/install.sh -O -)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/muralisc/dotfiles/master/install.sh)"
 ```
+
