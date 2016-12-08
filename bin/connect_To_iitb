@@ -1,6 +1,0 @@
-#!/bin/bash
-#curl -v -X POST 'https://internet.iitb.ac.in/index.php' --data-urlencode 'uname=143050093'  --data-urlencode 'passwd=' --data-urlencode 'button=Login' 1>/dev/null 2>&1
-
-wget --save-cookies cookies.txt --post-data "uname=$1&passwd=$2&button=Login" https://internet.iitb.ac.in/index.php?ccsForm=auth  -O index.php
-rm cookies.txt
-rm index.php
