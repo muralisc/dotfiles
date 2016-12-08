@@ -28,8 +28,6 @@ bindkey "^[m" copy-earlier-word
 source ~/bin/aliases.sh
 
 tmux list-sessions
-# [ -f ~/.localaliases.sh ] && source ~/.localaliases.sh
-
 # for ruby and nvm( nodejs ) and go
 [ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
 PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
