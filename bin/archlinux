@@ -100,21 +100,7 @@ sudo pacman -S ttf-ubuntu-font-family-ib
 
 
 # INSTALL AND SETUP ZSH {{{
-USERNAME=vagrant
-cd ~/
-zsh -c 'git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"'
-zsh -c 'setopt EXTENDED_GLOB
-for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-done'
-sed '/e:prompt/ s/sorin/minimal/' ~/.zpreztorc -i
-sed "/[']utility/a \'history-substring-search\' \\\\"  ~/.zpreztorc -i
-git clone https://github.com/clvv/fasd
-cd fasd
-sudo make install
-cd ~/
-rm -rf fasd
-sudo chsh -s /bin/zsh $USERNAME
+bash ./zshsetup
 # }}}
 
 
@@ -185,5 +171,5 @@ kdebase-runtime ( for kdenlive)
 
 # order mirrorlist
 sudo cp /etc/pacman.d/mirrorlist  /etc/pacman.d/mirrorlist.bkp
-red -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.bkp
-rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > temp
+sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.bkp
+rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirrorlist

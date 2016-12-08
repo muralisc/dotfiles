@@ -14,21 +14,7 @@ git clone https://github.com/muennich/urxvt-perls
 git clone https://github.com/simmel/urxvt-resize-font
 sudo ln -sf /usr/share/zoneinfo/Asia/Calcutta /etc/localtime
 
-if [ ! -d  "${ZDOTDIR:-$HOME}/.zprezto" ]; then
-    zsh -c 'git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"'
-    zsh -c 'setopt EXTENDED_GLOB
-    for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-    ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-    done'
-
-    sed '/e:prompt/ s/sorin/minimal/' $HOME/.zpreztorc -i
-    sed "/[']utility/a \'history-substring-search\' \\\\"  $HOME/.zpreztorc -i
-    git clone https://github.com/clvv/fasd
-    cd fasd
-    sudo make install
-    cd $HOME/
-    rm -rf $HOME/fasd
-fi
+bash ./zshsetup
 
 sudo mv vicious /etc/xdg/awesome/
 sudo mv awesome-freedesktop/freedesktop /etc/xdg/awesome/
@@ -38,7 +24,6 @@ sudo rm -rf /usr/share/vim/vim74/colors/* $HOME/urxvt-* $HOME/awesome-freedeskto
 cd dotfiles
 git update-index --assume-unchanged .config/awesome/brightness.lua .config/awesome/rc.lua .config/awesome/theme.lua
 cd $HOME/
-sudo chsh -s /bin/zsh $USER
 # autostart x-server on login
 cat<<END >> $HOME/.zprofile
 if [ -z "\$DISPLAY" ] && [ -n "\$XDG_VTNR" ] && [ "\$XDG_VTNR" -eq 1 ]; then
