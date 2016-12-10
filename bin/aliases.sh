@@ -1,12 +1,27 @@
 #!/bin/bash
 
-# use fasd insted of vim document aliases
+# initililize fasd
+eval "$(fasd --init auto)"
+if [ -n "$ZSH_VERSION" ]; then # assume Zsh
+    # initialize fzf
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    # C-x C-a to do fasd-complete (files and directories)
+    # or do d,ton<TAb> insted of below
+    # f,rc.lua<TAB> for files
+    bindkey '^X^A' fasd-complete
+elif [ -n "$BASH_VERSION" ]; then # assume Bash
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+else
+    # asume something else
+fi
+
+# use fasd insted of vim document aliases {{{
 alias acs='apt-cache search'
 alias agi='sudo apt-get install'
 alias c='noglob c'
 alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1280x960+320+60 -C /usr/share/fonts/TTF -e Ubuntu-R/35'
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
-# git aliases  {{{
+# git aliases
 alias ga='git add'
 alias gb='git branch'
 alias gcam='git commit -am'
@@ -23,7 +38,6 @@ alias gs='git status -sb'
 alias gS='git status -uall'
 alias gsp='git stash pop'
 alias gst='git stash'
-# }}}
 alias j='fasd_cd -d'
 alias l='ls -1Fh'       # classify , human readable, use ll for long
 alias n='ncmpcpp'
@@ -42,6 +56,7 @@ alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-:
 alias rm=rm
 alias rr='rm -rv'
 alias rf='rm -rfv'
+# }}}
 
 VISUAL=/usr/bin/vim
 EDITOR=/usr/bin/vim
@@ -164,6 +179,23 @@ function timeGoogle(){
 }
 
 # }}}
+
+
+
+# for ruby and nvm( nodejs )
+[ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
+
+# create a tmux for the first teminal spawned
+if [ `tmux list-sessions 2> /dev/null | wc -l` -eq 0 ] ; then
+# if no tmux session in the machine , create  one and attach
+    tmux new-session -s "scratch" -d;
+    tmux split-window -v ;
+    tmux select-pane -t 1 ;
+    tmux new-session -s "Main" -d ;
+    tmux attach;
+else
+    tmux list-sessions 2> /dev/null
+fi
 
 # add songs by year
 # mpc clear; beet ls -f '$path' year:..2000 path::Hindi | sed 's#/home/murali/Dropbox/Songs/##' | mpc add; mpc play

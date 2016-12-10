@@ -62,6 +62,3 @@ fi
 
 # load aliases
 source ~/bin/aliases.sh
-
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
