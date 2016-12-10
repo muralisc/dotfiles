@@ -705,7 +705,7 @@ awful.rules.rules = {
     { rule = { name  = "ncmpcpp"     } , properties = { floating = true }  } ,
     { rule = { class = "MPlayer"     } , properties = { border_width = 1}  } ,
     { rule = { class = "feh"         } , properties = { floating = true }  } ,
-    { rule = { class = "Thunderbird" } , properties = { tag = tags[1][5]}  } ,
+    { rule = { class = "Firefox"     } , properties = { tag = tags[1][1]}  } ,
     { rule = { class = "Tor Browser" } , properties = { tag = tags[1][3]}  } ,
     { rule = { class = "Vlc"         } , properties = { floating = true,
                                                         x = 20, y = 10  }  } ,
