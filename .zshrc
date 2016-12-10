@@ -25,7 +25,17 @@ autoload -Uz copy-earlier-word
 zle -N copy-earlier-word
 bindkey "^[m" copy-earlier-word
 source ~/bin/aliases.sh
-tmux list-sessions
 # for ruby and nvm( nodejs ) and go
 [ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
 [ ! -f "$HOME/.zshrc.local" ] || source "$HOME/.zshrc.local"
+
+tmux list-sessions 2> /dev/null
+# create a tmux for the first teminal spawned
+if [ `tmux list-sessions 2> /dev/null | wc -l` -eq 0 ] ; then
+# if no tmux session in the machine , create  one and attach
+    tmux new-session -s "scratch" -d;
+    tmux split-window -v ;
+    tmux select-pane -t 1 ;
+    tmux new-session -s "Main" -d ;
+    tmux attach;
+fi
