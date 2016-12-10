@@ -1,4 +1,5 @@
 #!/bin/bash
+#  vim: foldlevel=0:
 
 # initililize fasd
 eval "$(fasd --init auto)"
@@ -44,9 +45,6 @@ alias n='ncmpcpp'
 alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
 alias r='ranger'
 alias ta='tmux attach'
-alias tl='tmux list-sessions'
-alias ts='tmuxinator start test'
-alias t='tmux new-session -s "scratch" -d; tmux split-window -v ; tmux select-pane -t 1 ;tmux new-session -s "Main" -d ; tmux attach;'
 alias v='fasd -f -e vim'
 alias xo='xdg-open'
 alias ync='yaourt --noconfirm'
