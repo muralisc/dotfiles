@@ -592,16 +592,6 @@ clientkeys = awful.util.table.join(
         function (c)
             mywibox[mouse.screen].visible = true        -- show wibox ( see hide wibox)
             naughty.notify({
-                  title    = "Volume"
-                , text     = ""
-
-                        .. string.format("Volume: %s \n"              , awful.util.pread("eval ~/bin/vol-control.sh getVol | head -1 | tr '\n' ' '"))
-
-                , timeout  = 3
-                , position = "top_right"
-                , font     = "Ubuntu Mono 28"
-            })
-            naughty.notify({
                   title    = "Screen Details"
                 , text     = ""
 
