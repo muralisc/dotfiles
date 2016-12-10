@@ -61,4 +61,4 @@ elif [ -f /etc/bash_completion ]; then
 fi
 
 # load aliases
-source ~/bin/aliases.sh
+source ~/bin/shrc

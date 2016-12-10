@@ -18,6 +18,6 @@ zle -N copy-earlier-word
 bindkey "^[m" copy-earlier-word
 
 # load aliases
-source ~/bin/aliases.sh
+source ~/bin/shrc
 # source local file
 [ ! -f "$HOME/.zshrc.local" ] || source "$HOME/.zshrc.local"

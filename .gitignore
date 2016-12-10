@@ -1,5 +1,6 @@
 mutt-colors-solarized
 *.png
+watch_later
 .config/ranger/commands_full.py
 .config/ranger/history
 .config/ranger/bookmarks
