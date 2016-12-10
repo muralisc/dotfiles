@@ -190,7 +190,6 @@ nnoremap zz zt5<C-y>
 " home row {{{
 nnoremap <Leader>a zA
 " s for structure
-nnoremap <leader>s :Unite -start-insert outline<CR>
 nnoremap <Leader>du :diffupdate<CR>
 nnoremap <Leader>gl :silent! Glog --<CR>
 " when browsing glog, when you are in diff and want to go back to commit TODO
