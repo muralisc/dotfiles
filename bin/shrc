@@ -187,7 +187,9 @@ PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
 export GOPATH=~/go
 export PATH="$PATH:$GOPATH/bin"
 
-# create a tmux for the first teminal spawned
+###############################################{{{
+# create a tmux for the first teminal spawned  
+##################################################
 if [ `tmux list-sessions 2> /dev/null | wc -l` -eq 0 ] ; then
 # if no tmux session in the machine , create  one and attach
     tmux new-session -s "scratch" -d;
@@ -199,6 +201,7 @@ else
     ;
     # tmux list-sessions 2> /dev/null
 fi
+# }}}
 
 # add songs by year
 # mpc clear; beet ls -f '$path' year:..2000 path::Hindi | sed 's#/home/murali/Dropbox/Songs/##' | mpc add; mpc play
