@@ -196,7 +196,8 @@ if [ `tmux list-sessions 2> /dev/null | wc -l` -eq 0 ] ; then
     tmux new-session -s "Main" -d ;
     tmux attach;
 else
-    tmux list-sessions 2> /dev/null
+    ;
+    # tmux list-sessions 2> /dev/null
 fi
 
 # add songs by year
