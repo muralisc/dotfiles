@@ -179,6 +179,7 @@ xorg-xev
 xorg-xwininfo
 sshfs
 kdebase-runtime ( for kdenlive)
+vnstat
 
 
 
@@ -186,3 +187,4 @@ kdebase-runtime ( for kdenlive)
 sudo cp /etc/pacman.d/mirrorlist  /etc/pacman.d/mirrorlist.bkp
 sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.bkp
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirrorlist
+
