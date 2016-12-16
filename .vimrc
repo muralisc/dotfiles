@@ -31,6 +31,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                                                       " :Colors :Lines and shell **
 Plug 'scrooloose/nerdtree'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'pangloss/vim-javascript'
 call plug#end()
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
@@ -118,6 +120,7 @@ set nospell
 set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
 set viewoptions-=options                                                        " to make restore_view work well
+colorscheme neverland-darker
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
@@ -154,7 +157,6 @@ set termencoding=utf-8
 set encoding=utf-8
 set lazyredraw                                                                  " don't update the display while executing macros
 set laststatus=2                                                                " always put a status line even if one window
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%y%*%=%-14.(%l/%L,%c%)%{g:colors_name}\ %P
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 " Shortcut Mappings {{{
@@ -228,17 +230,22 @@ nnoremap <leader>y "+y
 " }}} clipboard madness
 " Quit Files with ldr + q
 nnoremap <leader>q :bp\|bd #<cr>
+nnoremap <leader><leader>q :q!<cr>
+nnoremap <leader><leader><leader>q :qa!<cr>
 " Open a shell in current directory
 nnoremap <leader>s :shell<CR>
 nnoremap <leader><tab> :q<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
 " traling spaces and jump to last point
-nnoremap <leader>t :%s/\s\+$//e<cr>`'
+nnoremap <leader>t :%s/\s\+$//e<cr>
+nnoremap <leader>td :TernDef<CR>
+nnoremap <leader>tr :TernRefs<CR>
 " Useful mappings for managing tabs
 nnoremap <leader>T :tabnew<cr>
 nnoremap <leader>l :Lines<CR>
 " Open vimgrep and put the cursor in the right position
-nnoremap <leader>v :grep<UP><home><s-right><right><right><c-f>
+nnoremap <leader>v :grep <C-r><C-w> **/*.js<CR>
+nnoremap <leader><leader>v :grep  **/*.js<c-f>F <c-c>
 " Fast saving
 nnoremap <leader>w :w<cr>
 " make the current file executable
@@ -269,44 +276,6 @@ augroup FTOptions
     autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=0
 augroup end
 "}}} Filetype Specific Settings
-" load colorscheme depending on the day of month {{{
-fu! s:LoadRandomColorScheme()
-
-    let s:color_file_list = globpath(&runtimepath, 'colors/*.vim'     )
-    let s:color_file_list = substitute(s:color_file_list, '\'            , '/', 'g')
-    let s:color_file_list = substitute(s:color_file_list, "\n"           , ',', 'g')
-    let s:color_file_list = substitute(s:color_file_list, '\(/[^,]\+/\)' , '', 'g')
-    let s:color_file_list = substitute(s:color_file_list, '\.vim' , '', 'g')
-    " echo s:color_file_list
-
-    if strlen(s:color_file_list)
-        let s:no_of_commas = substitute(s:color_file_list, '\([^,]\+\)', '', 'g')
-        if s:color_file_list =~ ','
-            let s:rnd  = (strftime( "%d" ) + 0)% ( strlen(s:no_of_commas) +1 )
-            " echo strlen(s:no_of_commas)
-            let s:loop = 0
-
-            while s:loop < s:rnd
-                let s:color_file_list = substitute(s:color_file_list, '^\([^,]\+\),', '', '')
-                let s:loop            = s:loop + 1
-            endwhile
-            " echo s:color_file_list
-
-            let s:color_file = matchstr(s:color_file_list, '^[^,]\+')
-            " echo s:color_file
-            execute "colorscheme" s:color_file
-            unlet! s:color_file
-
-            unlet! s:loop
-            unlet! s:rnd
-        endif
-    endif
-
-    unlet! s:color_file_list
-    unlet! s:self_file
-endf
-call s:LoadRandomColorScheme()
-"}}}
 " Plugin Specific Settings {{{
     " ACK.vim {{{
 if executable('ag')
@@ -345,7 +314,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_left_alt_sep= ''
 let g:airline_left_sep = ''
-let g:airline_section_z = '%P %l:%c %{g:colors_name}'
+let g:airline_section_z = '%P %l:%c'
 " }}}
 "
 " }}} Plugin Specific Settings

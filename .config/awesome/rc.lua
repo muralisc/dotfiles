@@ -8,10 +8,10 @@ local beautiful = require("beautiful")  -- Theme handling library
 local naughty = require("naughty")      -- Notification library
 local menubar = require("menubar")
 local vicious = require("vicious")
-
 awful.util.spawn_with_shell("compton --inactive-dim 0.2 -b")
 awful.util.spawn_with_shell("urxvtd -q -o -f &")
 awful.util.spawn_with_shell("xrdb ~/.Xresources")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -41,6 +41,9 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("~/.config/awesome/theme.lua")
+require("volume")
+require("brightness")
+local stopwatchTimer = require("stopwatch")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvtc"
@@ -60,7 +63,7 @@ mouseMiddle = 2
 mouseRight = 3
 mouseRollDown =4
 mouseRollUp = 5
-wiboxAutoHide = false;
+wiboxAutoHide = true;
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
@@ -396,9 +399,7 @@ mytextclock:buttons(awful.util.table.join(
      awful.button({ }, 1, function() awful.util.spawn_with_shell("urxvtc -hold -e cal -y") end)
             ))
 -- }}}
-require("volume")
-require("brightness")
-require("stopwatch")
+
 
 for s = 1, screen.count() do    --{{{ for each screen set promptbox, layoutbox, wibox etc
     -- Create a promptbox for each screen
@@ -503,7 +504,17 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Tab" ,         function () awful.util.spawn("rofi -show window -font 'Ubuntu mono 30'") end),-- window switcher
     awful.key({ altkey, "Control" }, "s",            function () awful.util.spawn_with_shell( "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')") end),
     awful.key({ modkey            }, "q",            function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh show") end), -- show a quote
-    awful.key({ modkey            }, "s",            function () awful.util.spawn_with_shell("exec ~/bin/stopwatch.sh") end), -- show a quote
+    awful.key({ modkey, "Shift"   }, "s",            function () awful.util.spawn_with_shell("exec ~/bin/stopwatch.sh toggle") end),
+    awful.key({ modkey,           }, "s",            function () awful.util.spawn_with_shell("exec ~/bin/stopwatch.sh interrupt") end),
+    awful.key({ modkey, altkey    }, "s",            function () 
+                                                        if stopwatch_command == ""  then
+                                                            stopwatch_command = "exec ~/bin/stopwatch.sh tell"
+                                                            awful.util.spawn_with_shell("exec ~/bin/stopwatch.sh tell")
+                                                        else
+                                                            stopwatch_command = ""
+                                                            awful.util.spawn_with_shell("exec speak stopped")
+                                                        end
+                                                     end),
     --}}} UTILITY MAPPINGS ( not awesome specific
     -- {{{ AWESOME SPECIFIC MAPPINGS
     -- See if you can live without quake for a while

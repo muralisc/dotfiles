@@ -12,8 +12,6 @@ if [ -n "$ZSH_VERSION" ]; then # assume Zsh
     bindkey '^X^A' fasd-complete
 elif [ -n "$BASH_VERSION" ]; then # assume Bash
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-else
-    # asume something else
 fi
 
 # use fasd insted of vim document aliases {{{
@@ -62,6 +60,10 @@ EDITOR=/usr/bin/vim
 export BC_ENV_ARGS=~/.bcrc
 
 #   functions {{{
+function vimtmuxselect {
+tmux list-panes -a -F '#S:#I.#P #{pane_current_command}' | grep vim | cut -d' ' -f 1 |xargs tmux select-pane -t
+tmux list-panes -a -F '#S:#I.#P #{pane_current_command}' | grep vim | cut -d'.' -f 1 |xargs tmux select-window -t
+}
 # eg ms year:2000 path::Hindi
 # eg ms year:..1995 path::Hindi
 function ms { #mpc search
@@ -130,7 +132,7 @@ function o(){
     nohup xdg-open $* &
 }
 
-fucntion transfer() {
+function transfer() {
     if [ $# -eq 0 ];
     then
         echo "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md";
@@ -198,7 +200,7 @@ if [ `tmux list-sessions 2> /dev/null | wc -l` -eq 0 ] ; then
     tmux new-session -s "Main" -d ;
     tmux attach;
 else
-    ;
+    :
     # tmux list-sessions 2> /dev/null
 fi
 # }}}

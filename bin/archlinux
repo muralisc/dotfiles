@@ -1,33 +1,25 @@
 #!/bin/bash
 
 # command to get an arch linux up and running TODO
-
 # followiing the video of sean Bruen : Arch Linux : from post install to Xorg
-
-###############
-# Virtual Box #
-###############
-
 # for vagrant box with diff key layout sudo loadkeys us
 # install virtualbox-guest-utils if in virtual box
 
-# updated 12-7-2016
 loadkeys us
 timedatectl set-ntp true
 fdisk /dev/sda
-    make gpt table # UEFI needs that
-           sda1   512MB   EFI_system(ef00)        /boot
-           sda2   16G     LINUX_swap        SWAP
-           sda3   100G    Linux_filesystem  /
-           sda4   rem     Linux_filesystem  /home
-    # use systemd-boot
+make gpt table # UEFI needs that
+# sda1   512MB   EFI_system(ef00)        /boot
+# sda2   16G     LINUX_swap        SWAP
+# sda3   100G    Linux_filesystem  /
+# sda4   rem     Linux_filesystem  /home
+# use systemd-boot
 mkfs.fat -F32 /dev/sda1 #EFI
 mkfs.ext4 /dev/sda1
 mount /dev/sda3 /mnt
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 pacstrap /mnt base
-
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 ln -s /usr/share/zoneinfo/Reginon/City /etc/localtime
@@ -42,11 +34,9 @@ systemctl enable NetworkManager.service
 timedatectl set-timezone Asia/Kolkatta
 passwd
 # setup bootloader
-    # systemd-boot
-    bootctl --path=/boot install
-    # make conf file https://wiki.archlinux.org/index.php/Systemd-boot#Configuration
-
-
+# systemd-boot
+bootctl --path=/boot install
+# make conf file https://wiki.archlinux.org/index.php/Systemd-boot#Configuration
 # USER CREATION
 useradd -m -g users -s /bin/bash murali
 #passwd murali
@@ -56,24 +46,23 @@ echo " reboot if necessary "
 pacman -S sudo
 echo "visudo /etc/sudoers"
 echo "dulpicate root ..murali ALL"
-
 sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
 # to make pacman and yaourt work behind proxy
 sudo sh -c 'echo Defaults env_keep += "http_proxy https_proxy ftp_proxy" >> /etc/sudoers'
 pacman -Syu
 # INSTALL BASIC STUFF TMUX VIM ZSH etc
-sudo pacman -S fakeroot git jshon wget make pkg-config autoconf automake patch expac zsh tmux gvim
+sudo pacman -S fakeroot git jshon wget make pkg-config autoconf automake patch expac zsh tmux gvim ttf-freefont
 wget http://aur.archlinux.org/cgit/aur.git/snapshot/packer.tar.gz
 tar zxvf packer.tar.gz
 cd packer && makepkg
 sudo pacman -U ~/packer/packer-20150808-1-any.pkg.tar.xz
 packer -S yaourt
-~/dotfiles/install.sh
 
 
-
+# for a vagrant box start from here
 # INSTALL BASIC XSERVER WITH AWESOME
-
+git clone 'https://github.com/muralisc/dotfiles'
+~/dotfiles/install.sh
 # enable auto-login
 sudo sh -c 'cat << EOF >> /etc/systemd/system/getty@tty1.service.d/override.conf
 [Service]
@@ -89,9 +78,14 @@ sudo yaourt -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel
 git clone https://github.com/terceiro/awesome-freedesktop
 sudo mv awesome-freedesktop/freedesktop /etc/xdg/awesome/
 rm -rf awesome-freedesktop
+# INSTALL AND SETUP ZSH {{{
+bash ./zshsetup
+# }}}
 echo "skip from 9:20 to 10:50 "
 echo "skip from 11:00 to 14.38 "
 reboot
+
+
 # check startx working
 echo "  ===========add inifinality============     "
 # ADD infinaliyt repo
@@ -111,13 +105,6 @@ sudo pacman -S infinality-bundle
 sudo pacman -S ttf-ubuntu-font-family-ib
 # GUI TERMINAL URXVT SHOULD BE WORKING BY NOW
 
-
-# INSTALL AND SETUP ZSH {{{
-bash ./zshsetup
-# }}}
-
-
-
 sudo pacman -S jre8-openjdk firefox yajl
 yaourt -S mt7601u-git   # for external wifi dongle
 echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf
@@ -126,10 +113,8 @@ echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf
 aurvote
 zathura-ps
 ncdc    #linux commandline dcpp client
-
 # RANGER STUFF
 yaourt -S   ranger w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo --noconfirm
-
 # AUDIO and movies STUFF
 alsa-utils
 submarine subliminal # subtitle stuff
@@ -180,8 +165,7 @@ xorg-xwininfo
 sshfs
 kdebase-runtime ( for kdenlive)
 vnstat
-
-
+espeak
 
 # order mirrorlist
 sudo cp /etc/pacman.d/mirrorlist  /etc/pacman.d/mirrorlist.bkp

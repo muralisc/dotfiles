@@ -68,6 +68,7 @@ bin                               \
 .Xmodmap                          \
 .Xresources                       \
 .zshrc                            \
+.zprofile                         \
 .yaourtrc                         \
 .rtorrent.rc                      \
     ;
