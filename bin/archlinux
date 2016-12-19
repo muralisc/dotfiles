@@ -69,7 +69,20 @@ cd packer && makepkg
 sudo pacman -U ~/packer/packer-20150808-1-any.pkg.tar.xz
 packer -S yaourt
 ~/dotfiles/install.sh
+
+
+
 # INSTALL BASIC XSERVER WITH AWESOME
+
+# enable auto-login
+sudo sh -c 'cat << EOF >> /etc/systemd/system/getty@tty1.service.d/override.conf
+[Service]
+ExecStart=
+ExecStart=-/usr/bin/agetty --autologin vagrant --noclear %I $TERM
+EOF
+'
+
+
 sudo pacman -S alsa-utils xorg-server xorg-xinit xorg-server-utils mesa awesome \
 xf86-video-vesa xterm rxvt-unicode xsel xclip --noconfirm
 sudo yaourt -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
