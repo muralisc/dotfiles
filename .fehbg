@@ -1,2 +1,2 @@
 #!/bin/sh
-feh  --bg-fill '/home/murali/Downloads/White-7.jpg' 
+feh  --bg-fill '/tmp/today.jpg' 

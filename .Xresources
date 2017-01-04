@@ -9,8 +9,7 @@ URxvt*depth: 32
 ! URxvt*geometry: geom
 
 ! modified from https://github.com/solarized/xresources
-!#define S_base03        #002b36
-#define S_base03        #000000
+#define S_base03        #002b36
 #define S_base02        #073642
 #define S_base01        #586e75
 #define S_base00        #657b83
@@ -19,7 +18,8 @@ URxvt*depth: 32
 #define S_base2         #eee8d5
 #define S_base3         #fdf6e3
 
-URxvt*background:       [80]S_base03
+! use different color for background
+URxvt*background:       [80]#000000
 *foreground:            S_base0
 
 #define S_yellow        #b58900

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#check if git repos are changed/behind
+STATS=""        # just for printing nicely
+for path in `find $HOME -iname .git -not -ipath '*.vim*'`
+do
+  REPOROOT=${path/%.git/}
+  cd "$REPOROOT"
+  NO_OF_MODFILES=`git status -sb | grep -P "M|R|D" | wc -l`
+  NO_OF_COMMITS=`git status -sb | grep ahead | wc -l`
+  if [ $NO_OF_MODFILES -gt 0 ] || [ $NO_OF_COMMITS -gt 0 ] ; then
+    STATS+="\n"`echo $REPOROOT Mod:$NO_OF_MODFILES CommitsAhead:$NO_OF_COMMITS $(git config user.email) $(git config credential.username)`
+    # git diff --stat
+  else
+    [[ ! -z $1 ]] && { echo "$(tput bold)$(tput setb 4)$(tput setaf 7)Updating repo $REPOROOT$(tput sgr0)"; git pull; }
+  fi
+done
+echo -e "$STATS" | column -t

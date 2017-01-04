@@ -5,7 +5,7 @@ sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt install -y awesome xinit git zsh tmux ttf-ubuntu-font-family rxvt-unicode-256color xclip xsel firefox vim-gnome openssh-server rsync
 if [ ! -f "$HOME/dotfiles" ]; then
-    git clone https://github.com/muralisc/dotfiles
+  git clone https://github.com/muralisc/dotfiles
 fi
 $HOME/dotfiles/install.sh
 git clone https://github.com/Mic92/vicious
@@ -14,7 +14,7 @@ git clone https://github.com/muennich/urxvt-perls
 git clone https://github.com/simmel/urxvt-resize-font
 sudo ln -sf /usr/share/zoneinfo/Asia/Calcutta /etc/localtime
 
-bash ./zshsetup
+bash $HOME/bin/zshsetup
 
 sudo mv vicious /etc/xdg/awesome/
 sudo mv awesome-freedesktop/freedesktop /etc/xdg/awesome/

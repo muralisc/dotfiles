@@ -6,7 +6,7 @@
 "The commands are are anged in the order encountered in vim user manual
 
 set nocompatible                                                                " not compatible with the old-fashion vi mode
-" Vundle setup {{{
+" vim-plug setup {{{
 filetype off                                                                    " Required Vundle setup
 set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin('~/.vim/plugged')
@@ -16,6 +16,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
 Plug 'muralisc/vim-colorschemes'
 Plug 'kien/ctrlp.vim'
+Plug 'mileszs/ack.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
 Plug 'powerman/vim-plugin-viewdoc'
 Plug 'tpope/vim-commentary'                                                   " map: gcc
@@ -24,14 +25,11 @@ Plug 'tpope/vim-surround'                                                     " 
 Plug 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
 Plug 'muralisc/vim-snippets'
 Plug 'godlygeek/tabular'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                                                       " :Colors :Lines and shell **
 Plug 'scrooloose/nerdtree'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'pangloss/vim-javascript'
 call plug#end()
 "}}} ===========================================================Vundle setup done
@@ -75,7 +73,7 @@ set number                                                                      
 set rnu                                                                         " relative number
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
 set cursorline                                                                  " underline the current line, for quick orientation
-set cursorcolumn                                                                " have a vertical line marking the cursor column
+" set cursorcolumn                                                                " have a vertical line marking the cursor column
 set scrolloff=0                                                                 " keep 4 lines off the edges of the screen when scrolling
 set hlsearch                                                                    " highlight search terms
 " }}}
@@ -106,6 +104,7 @@ set textwidth=170        " not 80 cause helps in vs mode
 set wildmenu                                                                    " tab completion for files/buffers like bash
 set wildmode=list:full                                                          " show a list when pressing tab and complete first full match
 set wildignore=*.swp,*.bak,*.pyc,*.class
+set wildignore+=*/node_modules/*
 set wildignorecase                                                              " ignore case while filename complete
 set title                                                                       " change the terminal's title
 set visualbell                                                                  " don't beep
@@ -116,11 +115,11 @@ set modeline                                                                    
 set ttyfast                                                                     " always use a fast terminal
 set spell spelllang=en_us
 set nospell
-" set colorcolumn=81                                                              " show a marker at 81 so you have a visual cue
+" set colorcolumn=135                                                             " Github limit
 set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
 set viewoptions-=options                                                        " to make restore_view work well
-colorscheme neverland-darker
+silent! colorscheme neverland-darker
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
@@ -215,7 +214,9 @@ nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " make file ( use quick fix window to see errors )
 nnoremap <leader>m :cd %:p:h<cr>:pwd<cr>:!clear<CR>:w<CR>:make<CR>
 " NERD
-nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeFind<CR>
+nnoremap <leader>N :NERDTreeToggle<CR>
+
 " open another file in same dir as current file
 nnoremap <leader>o :e %:h/<C-d>
 " clipboard madness {{{
@@ -244,8 +245,7 @@ nnoremap <leader>tr :TernRefs<CR>
 nnoremap <leader>T :tabnew<cr>
 nnoremap <leader>l :Lines<CR>
 " Open vimgrep and put the cursor in the right position
-nnoremap <leader>v :grep <C-r><C-w> **/*.js<CR>
-nnoremap <leader><leader>v :grep  **/*.js<c-f>F <c-c>
+nnoremap <leader>v :Ack! --ignore 'node_modules' --ignore 'test' --ignore 'logs' <C-r><C-w>
 " Fast saving
 nnoremap <leader>w :w<cr>
 " make the current file executable
@@ -263,23 +263,21 @@ nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
                                                                                  " Strip all trailing whitespace from a file
 augroup FTOptions
     autocmd!
-    autocmd filetype javascript setlocal shiftwidth=2 softtabstop=2
-    autocmd FileType xml,xsd,xslt,javascript setlocal tabstop=2
-    autocmd FileType xdefaults setlocal commentstring=!\ %s
-    autocmd FileType matlab setlocal commentstring=%\ %s
-    autocmd filetype c,cpp,java setlocal foldmethod=syntax foldlevel=99 complete-=k
-    autocmd FileType liquid,markdown,text,txt setlocal complete+=k
-    autocmd filetype vim setlocal keywordprg=:help
-    autocmd filetype sh setlocal keywordprg=man
-    autocmd filetype xml,sh,vim,tex,html,lua setlocal foldmethod=marker
-    autocmd FileType gitcommit setlocal spell
-    autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=0
+    autocmd filetype xml,xsd,xslt,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2
+    autocmd FileType xdefaults                    setlocal commentstring=!\ %s
+    autocmd filetype c,cpp,java                   setlocal foldmethod=syntax foldlevel=99 complete-=k
+    autocmd FileType liquid,markdown,text,txt     setlocal complete+=k
+    autocmd filetype vim                          setlocal keywordprg=:help
+    autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
+    autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker
+    autocmd FileType gitcommit                    setlocal spell
+    autocmd FileType git,gitcommit                setlocal foldmethod=syntax foldlevel=0
 augroup end
 "}}} Filetype Specific Settings
 " Plugin Specific Settings {{{
     " ACK.vim {{{
 if executable('ag')
-      let g:ackprg = 'ag'
+      let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 " }}}
     " viewdoc settings "{{{

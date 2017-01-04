@@ -3,6 +3,14 @@
 # command to get an arch linux up and running TODO
 # followiing the video of sean Bruen : Arch Linux : from post install to Xorg
 # for vagrant box with diff key layout sudo loadkeys us
+
+# solution to invalid or curropted packages ( PGP signature )
+# https://bbs.archlinux.org/viewtopic.php?id=203168
+sudo vim /etc/pacman.conf
+#Change SigLevel to Never:
+[community]
+SigLevel = Never
+# DONE
 # install virtualbox-guest-utils if in virtual box
 
 loadkeys us
@@ -64,6 +72,7 @@ packer -S yaourt
 git clone 'https://github.com/muralisc/dotfiles'
 ~/dotfiles/install.sh
 # enable auto-login
+sudo systemctl edit getty@tty1
 sudo sh -c 'cat << EOF >> /etc/systemd/system/getty@tty1.service.d/override.conf
 [Service]
 ExecStart=
@@ -102,7 +111,7 @@ END'
 sudo pacman-key -r 962DDE58
 sudo pacman-key --lsign-key 962DDE58
 sudo pacman -S infinality-bundle
-sudo pacman -S ttf-ubuntu-font-family-ib
+sudo pacman -S ttf-ubuntu-font-family-ib ttf-dejavu # needed for bold ❯
 # GUI TERMINAL URXVT SHOULD BE WORKING BY NOW
 
 sudo pacman -S jre8-openjdk firefox yajl
@@ -129,6 +138,9 @@ yaourt -S --noconfirm ntfs-3g perl-rename jmtpfs sed rsync tar gzip feh gawk gcc
 #  APPS WITHOUT  GUI
 #  APPS WITH  GUI
 
+tig # helps a lot
+tk # for wish ( gitk )
+youcompleteme
 bbswitch
 bumblebee
 dropbox

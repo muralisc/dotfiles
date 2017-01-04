@@ -1,0 +1,9 @@
+#!/bin/bash
+grep -Po '2017 \S\S\S .*' ~/Dropbox/cheatsheets/Documetation_Help_Blog.txt | \
+  while read -r line ; do
+    date=`printf "$line" | grep -Po '2017 ... ..'`
+    daystill=`python -c "
+    from datetime import *; 
+    print( ( datetime.strptime( \"$date\" , '%Y %b %d' ).date() - date.today()).days ); "`
+    echo $daystill $line
+  done

@@ -3,8 +3,9 @@ python -c '
 from datetime import *;
 print( (date( 2017,1,26) - date.today()).days )
 ' > /tmp/daycount.wallmaker
+~/bin/plan-maker | awk '{$2=$3=$4=""; print $0 }' > /tmp/daycount.wallmaker
 convert -background black -fill '#ffbbbbbb' -font Ubuntu  \
-    -size 1920x1080 -gravity center \
-    label:"`cat /tmp/daycount.wallmaker`" /tmp/`date +%F`.jpg
+  -size 1920x1080 -gravity west \
+  label:"`cat /tmp/daycount.wallmaker`" /tmp/`date +%F`.jpg
 cp /tmp/`date +%F`.jpg /tmp/today.jpg
 feh --bg-fill /tmp/today.jpg

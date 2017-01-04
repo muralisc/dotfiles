@@ -31,4 +31,7 @@ pulseaudio --start &
 xmodmap ~/.Xmodmap
 keynav daemonize
 # feh --bg-fill Downloads/wallp_custom_gimp_svg/vim-shortcuts2560x1600_black.png
+# dont turn off the screen soon, wait 2 hours, change every 60sec
+xset -dpms
+xset s 7200 60
 exec awesome

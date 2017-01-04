@@ -5,26 +5,22 @@
 
 if [[ ! -d $HOME/dotfiles ]] ;
 then
-    cd $HOME
-    git clone https://github.com/muralisc/dotfiles/
+  cd $HOME
+  git clone https://github.com/muralisc/dotfiles/
 fi
-
-git config --global user.email "muralisc@gmail.com"
-git config --global user.name "Murali S"
-git config --global credential.helper 'cache --timeout=80000'
 
 # if not exit plug.vim
 if [[ ! -a ~/.vim/autoload/plug.vim ]] ;
 then
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
 cd ~/dotfiles
 if (( "$?"!=0 ));
 then
-    echo "folder not found"
-    exit
+  echo "folder not found"
+  exit
 fi
 
 mkdir -p $HOME/.config/beets/
@@ -73,19 +69,31 @@ bin                               \
 .rtorrent.rc                      \
     ;
 do
-    echo "$HOME/$i making"
-    # back up files if not links else delete
-    if [ ! -L $HOME/$i ]; then
-        mv $HOME/$i $HOME/$BKPfolder/${i//\//-}.bak
-    else
-        rm $HOME/$i
-    fi
-    # link files
-    ln -s `pwd`/$i $HOME/$i
+  # back up files if not links else delete
+  if [ ! -L $HOME/$i ]; then
+    mv $HOME/$i $HOME/$BKPfolder/${i//\//-}.bak &> /dev/null
+  else
+    rm $HOME/$i
+  fi
+  # link files
+  ln -s `pwd`/$i $HOME/$i
 done
 vim +PlugInstall +qall!   #vim -c PlugInstall -c qall!
 
 # delete backup folder if no files
-if [ `ls $HOME/$BKPfolder | wc -l` -eq "0" ]; then
-    rm $HOME/$BKPfolder
+if [ `ls -la $HOME/$BKPfolder | wc -l` -eq "0" ]; then
+  rm -r $HOME/$BKPfolder
 fi
+# tmux plugin
+if [ ! -d ~/.tmux/plugins/tpm ]; then
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+# Note to self: this is parameterized in my office dotfiles using env values, 
+# hence not versioning a .zshrc.local in git
+socket=`cat /etc/hostname`
+session=`cat /etc/hostname`
+echo "
+attach_to_tmux $socket $session
+alias t='attach_to_tmux $socket $session'
+" > ~/.zshrc.local

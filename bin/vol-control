@@ -93,14 +93,13 @@ case $1 in
             # amixer sget Master
         ;;
     *)
-        echo "Use command line options
-    softer
-    louder
-    toggle
-    getVol
-    display
-        "
-        ;;
+      echo "Use command line options"
+      echo "    softer"
+      echo "    louder"
+      echo "    toggle"
+      echo "    getVol"
+      echo "    display"
+      ;;
 esac
 
 
