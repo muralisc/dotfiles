@@ -12,12 +12,11 @@ fi
 
 # http://chneukirchen.org/blog/archive/2013/03/10-fresh-zsh-tricks-you-may-not-know.html
 bindkey '^[' vi-cmd-mode   # even in default c-x c-v wil go to vim mode
-# second one from above link
-autoload -Uz copy-earlier-word
-zle -N copy-earlier-word
-bindkey "^[m" copy-earlier-word
+# match vim cmdline behavior
+# C-f is used for going forward; since very rarely used bind to c-x-e used more frequnetly
+bindkey "^F" edit-command-line
 
 # load aliases
-source ~/bin/shrc
+[ -f "$HOME/bin/shrc" ] && source "$HOME/bin/shrc"
 # source local file
-[ ! -f "$HOME/.zshrc.local" ] || source "$HOME/.zshrc.local"
+[ ! -f "$HOME/.shrc.local" ] || source "$HOME/.shrc.local"

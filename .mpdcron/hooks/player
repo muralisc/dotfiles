@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ROOT=$(grep -oP '(?<=music_directory ")[^"]*' ~/.mpd/mpd.conf)
+FILEPATH=$ROOT/$MPD_SONG_URI
+ls -l $FILEPATH >> ~/.mpdcron/hooks/player.log
+touch $FILEPATH
+ls -l $FILEPATH >> ~/.mpdcron/hooks/player.log

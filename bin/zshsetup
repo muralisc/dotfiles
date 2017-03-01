@@ -8,7 +8,8 @@ if [ ! -d  "${ZDOTDIR:-$HOME}/.zprezto" ]; then
     done'
     sed '/e:prompt/ s/sorin/pure/' $HOME/.zpreztorc -i
     sed "/[']utility/a \'history-substring-search\' \\\\"  $HOME/.zpreztorc -i
-    sed -i 's#ssh/config#ssh/*config#' modules/completion/init.zsh
+    sed "/[']utility/d "  $HOME/.zpreztorc -i
+    sed -i 's#ssh/config#ssh/*config#' $HOME/.zprezto/modules/completion/init.zsh
 fi
 
 # install fasd

@@ -1,4 +1,4 @@
-" vim: foldlevel=0:
+" vim: foldlevel=99:
 "Courtsey
 "Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
 "Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
@@ -8,30 +8,29 @@
 set nocompatible                                                                " not compatible with the old-fashion vi mode
 " vim-plug setup {{{
 filetype off                                                                    " Required Vundle setup
-set rtp+=~/.vim/bundle/Vundle.vim
-call plug#begin('~/.vim/plugged')
-" Plug 'airblade/vim-gitgutter'
-Plug 'mattn/emmet-vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
-Plug 'muralisc/vim-colorschemes'
-Plug 'kien/ctrlp.vim'
-Plug 'mileszs/ack.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
-Plug 'powerman/vim-plugin-viewdoc'
-Plug 'tpope/vim-commentary'                                                   " map: gcc
-Plug 'tpope/vim-fugitive'                                                     " GIT
-Plug 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
-Plug 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
-Plug 'muralisc/vim-snippets'
-Plug 'godlygeek/tabular'
-Plug 'vim-scripts/restore_view.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'                                                       " :Colors :Lines and shell **
-Plug 'scrooloose/nerdtree'
-Plug 'pangloss/vim-javascript'
-call plug#end()
+if filereadable(expand("~/.vim/autoload/plug.vim"))
+  set rtp+=~/.vim/bundle/Vundle.vim
+  call plug#begin('~/.vim/plugged')
+  "Plug 'mattn/emmet-vim'  "Use while coding html
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
+  Plug 'muralisc/vim-colorschemes'
+  Plug 'kien/ctrlp.vim'
+  Plug 'mileszs/ack.vim'
+  Plug 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
+  Plug 'powerman/vim-plugin-viewdoc'
+  Plug 'tpope/vim-commentary'                                                   " map: gcc
+  Plug 'tpope/vim-fugitive'                                                     " GIT
+  Plug 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
+  Plug 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
+  Plug 'muralisc/vim-snippets'
+  Plug 'godlygeek/tabular'
+  Plug 'vim-scripts/restore_view.vim'
+  Plug 'vim-airline/vim-airline'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'                                                       " :Colors :Lines and shell **
+  call plug#end()
+endif
 "}}} ===========================================================Vundle setup done
 " Gui options {{{
 set guioptions-=m  "remove menu bar
@@ -115,9 +114,10 @@ set modeline                                                                    
 set ttyfast                                                                     " always use a fast terminal
 set spell spelllang=en_us
 set nospell
-" set colorcolumn=135                                                             " Github limit
+" set colorcolumn=135                                                           " Github limit
 set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
+set tags=tags;~,my-tags;~                                                       "seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
 silent! colorscheme neverland-darker
 "}}} Basic Settings
@@ -125,8 +125,21 @@ silent! colorscheme neverland-darker
 set foldenable                                                                  " enable folding
 set foldcolumn=0                                                                " add a fold column
 set foldmethod=marker                                                           " detect triple-{ style fold markers [marker indent]
-set foldlevel=99             " start out with everything folded
+set foldlevel=99                                                                " 0-foldall 99-unfoldall
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
+
+"Courtsey http://inlehmansterms.net/2014/09/04/sane-vim-working-directories/
+function! SetProjectRoot()
+  " default to the current file's directory
+  lcd %:p:h
+  let git_dir = system("git rev-parse --show-toplevel")
+  " See if the command output starts with 'fatal' (if it does, not in a git repo)
+  let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
+  " if git project, change local directory to git project root
+  if empty(is_not_git_dir)
+    lcd `=git_dir`
+  endif
+endfunction
 " Foldingtext {{{
 " http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
  fu! CustomFoldText()
@@ -211,6 +224,7 @@ nnoremap <leader>co :botright cope<cr>
 nnoremap <leader>cc :cclose<cr>
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>dc :call SetProjectRoot()<cr>
 " make file ( use quick fix window to see errors )
 nnoremap <leader>m :cd %:p:h<cr>:pwd<cr>:!clear<CR>:w<CR>:make<CR>
 " NERD
@@ -231,8 +245,10 @@ nnoremap <leader>y "+y
 " }}} clipboard madness
 " Quit Files with ldr + q
 nnoremap <leader>q :bp\|bd #<cr>
-nnoremap <leader><leader>q :q!<cr>
-nnoremap <leader><leader><leader>q :qa!<cr>
+" Close splits but not last window
+nnoremap <leader><leader>q :close!<cr>
+" Close vim itself
+nnoremap <leader><leader><leader>q :wqa!<cr>
 " Open a shell in current directory
 nnoremap <leader>s :shell<CR>
 nnoremap <leader><tab> :q<cr>
@@ -245,7 +261,7 @@ nnoremap <leader>tr :TernRefs<CR>
 nnoremap <leader>T :tabnew<cr>
 nnoremap <leader>l :Lines<CR>
 " Open vimgrep and put the cursor in the right position
-nnoremap <leader>v :Ack! --ignore 'node_modules' --ignore 'test' --ignore 'logs' <C-r><C-w>
+nnoremap <leader>v :Ack! --ignore 'node_modules' --ignore 'test' --ignore 'logs' --ignore 'public' <C-r><C-w>
 " Fast saving
 nnoremap <leader>w :w<cr>
 " make the current file executable
@@ -271,7 +287,7 @@ augroup FTOptions
     autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
     autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker
     autocmd FileType gitcommit                    setlocal spell
-    autocmd FileType git,gitcommit                setlocal foldmethod=syntax foldlevel=0
+    autocmd FileType git,gitcommit                setlocal foldmethod=syntax
 augroup end
 "}}} Filetype Specific Settings
 " Plugin Specific Settings {{{

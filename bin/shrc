@@ -2,19 +2,19 @@
 #  vim: foldlevel=0:
 
 # initililize fasd
-eval "$(fasd --init auto)"
-if [ -n "$ZSH_VERSION" ]; then # assume Zsh
-  # initialize fzf
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-  # C-x C-a to do fasd-complete (files and directories)
-  # or do d,ton<TAb> insted of below
-  # f,rc.lua<TAB> for files
-  bindkey '^X^A' fasd-complete
-elif [ -n "$BASH_VERSION" ]; then # assume Bash
-  [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if which fasd > /dev/null ; then
+  eval "$(fasd --init auto)"
+  if [ -n "$ZSH_VERSION" ]; then # assume Zsh
+    # initialize fzf
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    # C-x C-a to do fasd-complete (files and directories)
+    # or do d,ton<TAb> insted of below
+    # f,rc.lua<TAB> for files
+    bindkey '^X^A' fasd-complete
+  elif [ -n "$BASH_VERSION" ]; then # assume Bash
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+  fi
 fi
-
-# ALIASES {{{
 
 # git aliases
 
@@ -24,26 +24,26 @@ alias gcam='git commit -am'
 alias gcm='git commit -m'
 alias gco='git checkout'
 alias gcp='git cherry-pick'
-alias gdc='git diff --cached'
-alias gd='git diff'
-alias gdtc='git difftool --cached'
-alias gdt='git difftool'
+alias gd='git difftool --dir-diff &'
 alias gf='git fetch --all'
-alias gl="git log --pretty=format:'%C(yellow)%h%C(red)%d %C(blue)%an%Creset %s %Cgreen(%cr)' --graph --all"
+alias gl="git log --pretty=format:'%C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%cr)' --graph"
+alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
 alias gp='git push origin HEAD'
-alias gpl='git pull --rebase origin master'
+alias gpl='git pull --rebase' # git pull --rebase origin master
 alias grhh='git reset HEAD --hard'
-alias grpo='git remote prune origin'
 alias gs='git status -sb'
-alias gS='git status -uall'
 alias gsp='git stash pop'
 alias gst='git stash'
 alias gsu='git submodule update --init --recursive'
 
 # other aliases
 
-alias acs='apt-cache search'
-alias agi='sudo apt-get install'
+alias ls='ls --group-directories-first --color'
+if [[ -s "$HOME/.dir_colors" ]]; then
+  eval "$(dircolors --sh "$HOME/.dir_colors")"
+else
+  eval "$(dircolors --sh)"
+fi
 alias c='noglob c'
 alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1280x960+320+60 -C /usr/share/fonts/TTF -e Ubuntu-R/35'
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
@@ -52,22 +52,13 @@ alias l='ls -1Fh'       # classify , human readable, use ll for long
 alias n='ncmpcpp'
 alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
 alias r='ranger'
-alias v='fasd -f -e vim'
-alias xo='xdg-open'
 alias ync='yaourt --noconfirm'
-alias ys='yaourt --color --pager -Ss'
 alias y='yaourt'
-alias naughty='find . -type f -exec stat --printf "%x %n\n" "{}" \+ | awk -F"[-: ]" "{print \$1\$2\$3\$4\$5\" \"\$8}" | sort -nr'
-alias rm=rm
-alias rr='rm -rv'
-alias rf='rm -rfv'
 alias sor="status-of-repos"
-
-# }}}
 
 # FUNCTIONS {{{
 
-function ms { 
+ms() { # mpc search
   #mpc search
   # eg ms year:2000 path::Hindi
   # eg ms year:..1995 path::Hindi
@@ -76,37 +67,39 @@ function ms {
   beet ls -f '$path' "$@" | sed 's#/home/murali/Dropbox/Songs/##'
 }
 
-function mp { #mpc play
+mp() { #mpc play
   mpc clear
   # mpc search filename "`echo $*| sed 's/ /_/g'`" | mpc add
   beet ls -f '$path' "$@" | sed 's#/home/murali/Dropbox/Songs/##' | mpc add
   mpc play
+  # TODO
+  # find -type f -iname "*.mp3" -printf "\n%C@ %p" | sort -n | awk '{print $2}' | sed 's#./##' | mpc add
 }
 
 # database update
-function mu {
+mu() {
   rm ~/Dropbox/Songs/musiclibrary.blb; beet import -A ~/Dropbox/Songs/ ;
 }
 
-function apt-list-packages {
+apt-list-packages() {
   dpkg-query -W --showformat='${Installed-Size} ${Package} ${Status}\n' | grep -v deinstall | sort -n | awk '{print $1" "$2}'
 }
 
 # time till
-function tt {
+tt() {
 
   if [ $# -eq 0 ];
   then
     echo usage : tt tomorrow5am
     echo usage : tt tomorrow5am -s
-    echo usage : sleep `tt 2:37am -c`
+    echo usage : sleep $(tt 2:37am -c)
     return 1;
   fi
 
-  seconds=$((`date -d $1 +'%s'` - `date +'%s'`))
-  minutes=$(($seconds / 60))
-  hours=$(($minutes / 60))
-  days=$(($hours / 24))
+  seconds=$(( $(date -d "$1" +'%s') - $(date +'%s') ))
+  minutes=$(( seconds/60 ))
+  hours=$(( minutes/60 ))
+  days=$(( hours/24 ))
 
   if [[ $2 = "-c" ]]; then
     # for piping to sleep
@@ -128,12 +121,12 @@ function tt {
   fi
 }
 # simple calculator
-function c {
-noSpaceExpr=`echo $* | sed -e "s/ //g"`
-awk "BEGIN { print $noSpaceExpr }"
+function c() {
+  noSpaceExpr=`echo $* | sed -e "s/ //g"`
+  awk "BEGIN { print $noSpaceExpr }"
 }
 
-function transfer() {
+transfer() {
   if [ $# -eq 0 ];
   then
     echo "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md";
@@ -150,7 +143,7 @@ function transfer() {
   rm -f $tmpfile;
 }
 
-function cdown(){
+cdown() {
   if [ $# -eq 0 ];
   then
     echo no arg specified
@@ -160,13 +153,13 @@ function cdown(){
   date1=$((`date +%s` + $1*60));
   elapsed=0
   bells=0
-  while [ "$date1" -ge `date +%s` ]; do
-    echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\b\b\b\b\b\b\b\b";
+  while [ "$date1" -ge $(date +%s) ]; do
+    echo -ne "$(date -u --date @$(($date1 - $(date +%s) )) +%H:%M:%S)\b\b\b\b\b\b\b\b";
     sleep 1
-    elapsed=$(($elapsed + 1))
+    elapsed=$(( elapsed + 1))
     if [ "$elapsed" -eq $2 ]; then
-      bells=$(($bells + 1))
-      for i in `seq 1 $bells`;
+      bells=$(( bells + 1))
+      for i in $(seq 1 $bells);
       do
         paplay /usr/share/sounds/freedesktop/stereo/bell.oga
       done
@@ -176,21 +169,21 @@ function cdown(){
   paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
 }
 
-function timeGoogle(){
+timeGoogle() {
   sudo date -s "$(wget -S  "http://www.google.com/" 2>&1 | grep -E '^[[:space:]]*[dD]ate:' | sed 's/^[[:space:]]*[dD]ate:[[:space:]]*//' | head -1l | awk '{print $1, $3, $2,  $5 ,"GMT", $4 }' | sed 's/,//')"
 }
 
 # create a tmux for the first teminal spawned 
-function attach_to_tmux(){
+attach_to_tmux() {
   export TMUX_SOCKET_NAME=${1:-default}
   TMUX_SESSION_NAME=${2:-Main}
-  if [ `tmux -L $TMUX_SOCKET_NAME list-sessions 2> /dev/null | wc -l` -eq 0 ] ; then
+  if [ $(tmux -L $TMUX_SOCKET_NAME list-sessions 2> /dev/null | wc -l) -eq 0 ] ; then
     # if no tmux session in the machine , create  one and attach
     tmux -L $TMUX_SOCKET_NAME new-session -s "$TMUX_SESSION_NAME" -d ;
     tmux -L $TMUX_SOCKET_NAME attach;
   else
     # if a session is already there but not attached, then attach
-    if [ `tmux -L $TMUX_SOCKET_NAME list-clients | wc -l` -eq 0 ]; then
+    if [ $(tmux -L $TMUX_SOCKET_NAME list-clients | wc -l) -eq 0 ]; then
       tmux -L $TMUX_SOCKET_NAME attach;
     fi
     # else do nothing if alredy attached
@@ -199,12 +192,32 @@ function attach_to_tmux(){
   alias tad='tmux -L $TMUX_SOCKET_NAME attach -d'
 }
 
+list_custom_defined_functions() {
+  #TODO
+  if [[ $SHELL =~ "zsh" ]]; then
+    # if zsh
+    functions | grep -P "^[^_ \t][^ ]* *\(\)" | grep -vP "^(prompt_|is-)"
+  else
+    # if bash
+    declare -F
+  fi
+}
+
 # }}}
 
-# for ruby and nvm( nodejs )
-[ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
-VISUAL=/usr/bin/vim
-EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
+export EDITOR=/usr/bin/vim
 export BC_ENV_ARGS=~/.bcrc
 export GOPATH=~/go
 export PATH="$PATH:$GOPATH/bin:$HOME/.gem/ruby/2.4.0/bin:$HOME/bin"
+
+
+decimal_to_binary() {
+  export D2B=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})
+  echo "${D2B[$1]}"
+  # leading zeros removed
+  echo $(( ${D2B[$1]} ))
+}
+binary_to_decimal() {
+  echo $((2#$1))
+}

@@ -184,3 +184,4 @@ sudo cp /etc/pacman.d/mirrorlist  /etc/pacman.d/mirrorlist.bkp
 sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.bkp
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirrorlist
 
+mpdcron #https://aur.archlinux.org/packages/mpdcron-git/

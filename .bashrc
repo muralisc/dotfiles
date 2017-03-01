@@ -40,25 +40,22 @@ hostname="$txtblu\h"
 filepath="$bldylw\w"
 datecolr="$bldpur\D{%F %T}"
 #PS1='\u@\h:\w\$ '
-PS1="$username $hostname $filepath $datecolr \$$txtrst\n"
+PS1="$username $hostname $filepath $datecolr $txtred❯$txtylw❯$txtgrn❯ $txtrst"
 
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-#if [ -f ~/.bash_aliases ]; then
-#    . ~/.bash_aliases
-#fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# enable programmable completion features
 if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+# move here from inputrc
+# ----------------------
+# match vim cmdline behavior
+# C-f is used for going forward; since very rarely used bind to c-x-e used more frequnetly
+bind "C-f":edit-and-execute-command
+bind 'set completion-ignore-case on'
+bind '"\e[A":history-substring-search-backward'
+bind '"\e[B":history-substring-search-forward'
 # load aliases
-source ~/bin/shrc
+[ -f "$HOME/bin/shrc" ] && source "$HOME/bin/shrc"

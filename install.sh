@@ -9,6 +9,11 @@ then
   git clone https://github.com/muralisc/dotfiles/
 fi
 
+git config --global user.email "muralisc@gmail.com"
+git config --global user.name "Murali Suresh"
+git config --global credential.helper 'cache --timeout=80000'
+git config --global diff.tool 'meld'
+
 # if not exit plug.vim
 if [[ ! -a ~/.vim/autoload/plug.vim ]] ;
 then
@@ -27,6 +32,7 @@ mkdir -p $HOME/.config/beets/
 mkdir -p $HOME/.config/inkscape/keys
 mkdir -p $HOME/.config/vlc
 mkdir -p $HOME/.local/share/applications
+mkdir -p $HOME/.mpdcron/hooks
 mkdir -p $HOME/.mpd
 mkdir -p $HOME/.ncmpcpp
 mkdir -p $HOME/.ssh
@@ -52,9 +58,9 @@ bin                               \
 .config/zathura                   \
 .fehbg                            \
 .gdbinit                          \
-.inputrc                          \
 .local/share/applications         \
 .mpd/mpd.conf                     \
+.mpdcron/hooks/player             \
 .muttrc                           \
 .ncmpcpp/config                   \
 .ssh/config                       \
@@ -89,11 +95,11 @@ if [ ! -d ~/.tmux/plugins/tpm ]; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
-# Note to self: this is parameterized in my office dotfiles using env values, 
-# hence not versioning a .zshrc.local in git
+# Note to self: this is parameterized in my office dotfiles using env values,
+# hence not versioning a .shrc.local in git
 socket=`cat /etc/hostname`
 session=`cat /etc/hostname`
 echo "
 attach_to_tmux $socket $session
 alias t='attach_to_tmux $socket $session'
-" > ~/.zshrc.local
+" > ~/.shrc.local

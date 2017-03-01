@@ -77,7 +77,7 @@ awful.layout.layouts = {
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    -- awful.layout.suit.max.fullscreen,
+    awful.layout.suit.max.fullscreen,
     -- awful.layout.suit.magnifier,
     awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
@@ -185,9 +185,9 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
                 )
 --}}}
 -- {{{ hdd temp widget
-hddTempWidget = wibox.widget.textbox()
+tempWidget = wibox.widget.textbox()
 hddwidgetTimeout = 37
-vicious.register(hddTempWidget,
+vicious.register(tempWidget,
                  vicious.widgets.thermal,
                  " <span color='#FFFF00'>$1°С </span>",
                  hddwidgetTimeout ,
@@ -396,7 +396,7 @@ awful.screen.connect_for_each_screen(function(s)
             cpuwidget,
             memwidget,
             netgraph,
-            hddTempWidget,
+            tempWidget,
             wifiwidget,
             batterywidget,
             mytextclock,
