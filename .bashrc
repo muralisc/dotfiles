@@ -1,14 +1,3 @@
-export HISTCONTROL=ignoredups:erasedups
-export HISTSIZE=10000
-export HISTFILESIZE=10000
-shopt -s histappend
-# to share history among multiple open terminals
-export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-
 # enclosing in \[ \] else bash will count these as characters and wrapping wont
 # be proper
 txtblk='\[\e[0;30m\]' # Black - Regular
@@ -37,6 +26,13 @@ undcyn='\[\e[4;36m\]' # Cyan
 undwht='\[\e[4;37m\]' # White
 txtrst='\[\e[0m\]'    # Text Reset
 
+export HISTCONTROL=ignoredups:erasedups
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+shopt -s histappend
+# to share history among multiple open terminals
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
 username="$bldgrn\u"
 hostname="$txtylw\h"
 filepath="$txtblu\w"
@@ -62,7 +58,7 @@ bind 'set keymap vi-insert'             #################keymap vi insert#######
 bind '"\e[A":history-substring-search-backward'
 bind '"\e[B":history-substring-search-forward'
 bind 'set show-mode-in-prompt on'
-bind 'TAB: menu-complete'
+bind 'set show-all-if-ambiguous on'
 # load aliases
 [ -f "$HOME/bin/shrc" ] && source "$HOME/bin/shrc"
 # source local file
