@@ -4,17 +4,8 @@
 # initililize fasd
 if which fasd > /dev/null ; then
   eval "$(fasd --init auto)"
-  if [ -n "$ZSH_VERSION" ]; then # assume Zsh
-    # initialize fzf
-    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-    # C-x C-a to do fasd-complete (files and directories)
-    # or do d,ton<TAb> insted of below
-    # f,rc.lua<TAB> for files
-    bindkey '^X^A' fasd-complete
-  elif [ -n "$BASH_VERSION" ]; then # assume Bash
-    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-  fi
 fi
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # git aliases
 

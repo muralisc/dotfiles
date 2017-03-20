@@ -68,9 +68,8 @@ bin                               \
 .vimrc                            \
 .xinitrc                          \
 .Xmodmap                          \
+.bash_profile                     \
 .Xresources                       \
-.zshrc                            \
-.zprofile                         \
 .yaourtrc                         \
 .rtorrent.rc                      \
     ;
