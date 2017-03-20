@@ -59,6 +59,9 @@ bind '"\e[A":history-substring-search-backward'
 bind '"\e[B":history-substring-search-forward'
 bind 'set show-mode-in-prompt on'
 bind 'set show-all-if-ambiguous on'
+bind 'set vi-ins-mode-string \1\e[35m\2+\1\e[0m\2'
+bind 'set vi-cmd-mode-string \1\e[33m\2:\1\e[0m\2'
+bind '"\C-e": glob-expand-word'
 # load aliases
 [ -f "$HOME/bin/shrc" ] && source "$HOME/bin/shrc"
 # source local file
