@@ -16,7 +16,8 @@ alias gcam='git commit -am'
 alias gcm='git commit -m'
 alias gco='git checkout'
 alias gcp='git cherry-pick'
-alias gd='git difftool --dir-diff &'
+alias gd='git difftool --dir-diff'
+alias gdf='git diff'
 alias gf='git fetch --all'
 alias gl="clear; git log --pretty=format:'%C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%cr)' --graph -5"
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
