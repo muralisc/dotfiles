@@ -11,7 +11,7 @@ filetype off                                                                    
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   set rtp+=~/.vim/bundle/Vundle.vim
   call plug#begin('~/.vim/plugged')
-  "Plug 'mattn/emmet-vim'  "Use while coding html
+  " Plug 'mattn/emmet-vim'                                                      "Use while coding html
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
   Plug 'muralisc/vim-colorschemes'
@@ -26,6 +26,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/vim-snippets'
   Plug 'godlygeek/tabular'
   Plug 'vim-scripts/restore_view.vim'
+  " Plug 'ap/vim-buftabline'                                                    " uncomment when required
+  " Plug 'scrooloose/nerdtree'                                                  " uncomment when required
   Plug 'vim-airline/vim-airline'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'                                                       " :Colors :Lines and shell **
@@ -261,7 +263,7 @@ nnoremap <leader>tr :TernRefs<CR>
 nnoremap <leader>T :tabnew<cr>
 nnoremap <leader>l :Lines<CR>
 " Open vimgrep and put the cursor in the right position
-nnoremap <leader>v :Ack! --ignore 'node_modules' --ignore 'test' --ignore 'logs' --ignore 'public' <C-r><C-w>
+nnoremap <leader>v :Ack! --ignore 'node_modules' --ignore 'test' --ignore 'logs' --ignore 'public' '<C-r><C-w>'
 " Fast saving
 nnoremap <leader>w :w<cr>
 " make the current file executable
@@ -279,7 +281,7 @@ nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
                                                                                  " Strip all trailing whitespace from a file
 augroup FTOptions
     autocmd!
-    autocmd filetype xml,xsd,xslt,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2
+    autocmd filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
     autocmd FileType xdefaults                    setlocal commentstring=!\ %s
     autocmd filetype c,cpp,java                   setlocal foldmethod=syntax foldlevel=99 complete-=k
     autocmd FileType liquid,markdown,text,txt     setlocal complete+=k

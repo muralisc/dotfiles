@@ -38,7 +38,7 @@ hostname="$txtylw\h"
 filepath="$txtblu\w"
 datecolr="$bldpur\D{%F %T}"
 #PS1='\u@\h:\w\$ '
-PS1="$filepath $txtred❯$txtylw❯$txtgrn❯ $txtrst"
+PS1="${SSH_CONNECTION:+ssh }$filepath $txtred❯$txtylw❯$txtgrn❯ $txtrst"
 
 # enable programmable completion features
 if [ -f /usr/share/bash-completion/bash_completion ]; then
