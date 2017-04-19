@@ -183,6 +183,9 @@ function timeGoogle(){
 
 # for ruby and nvm( nodejs )
 [ -f /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
+PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
+export GOPATH=~/go
+export PATH="$PATH:$GOPATH/bin"
 
 # create a tmux for the first teminal spawned
 if [ `tmux list-sessions 2> /dev/null | wc -l` -eq 0 ] ; then
