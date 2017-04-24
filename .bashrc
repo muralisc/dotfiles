@@ -57,7 +57,7 @@ bind 'set editing-mode vi'
 bind 'set keymap vi-insert'             #################keymap vi insert#################
 bind '"\e[A":history-substring-search-backward'
 bind '"\e[B":history-substring-search-forward'
-bind 'TAB: menu-complete'
+# bind 'TAB: menu-complete'
 bind 'set show-mode-in-prompt on'
 bind 'set show-all-if-ambiguous on'
 bind 'set vi-ins-mode-string \1\e[35m\2+\1\e[0m\2'
