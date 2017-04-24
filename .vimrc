@@ -74,7 +74,7 @@ set number                                                                      
 set rnu                                                                         " relative number
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
 set cursorline                                                                  " underline the current line, for quick orientation
-" set cursorcolumn                                                                " have a vertical line marking the cursor column
+set cursorcolumn                                                                " have a vertical line marking the cursor column
 set scrolloff=0                                                                 " keep 4 lines off the edges of the screen when scrolling
 set hlsearch                                                                    " highlight search terms
 " }}}
@@ -116,7 +116,7 @@ set modeline                                                                    
 set ttyfast                                                                     " always use a fast terminal
 set spell spelllang=en_us
 set nospell
-" set colorcolumn=135                                                           " Github limit
+set colorcolumn=135                                                             " Github limit
 set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       "seach for tags|TAGS|my-tags and bubble up till home direcotry
