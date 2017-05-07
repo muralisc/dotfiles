@@ -12,6 +12,8 @@ fi
 git config --global user.email "muralisc@gmail.com"
 git config --global user.name "Murali Suresh"
 git config --global credential.helper 'cache --timeout=80000'
+git config --global credential.helper 'store'
+git config --global credential.username 'muralisc'
 git config --global diff.tool 'meld'
 
 # if not exit plug.vim
