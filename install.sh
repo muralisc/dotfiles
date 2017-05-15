@@ -9,25 +9,21 @@ then
   git clone https://github.com/muralisc/dotfiles/
 fi
 
-git config --global user.email "muralisc@gmail.com"
+git config --local  user.email "muralisc@gmail.com"
 git config --global user.name "Murali Suresh"
 git config --global credential.helper 'cache --timeout=80000'
 git config --global credential.helper 'store'
 git config --global credential.username 'muralisc'
+git config --global credential.https://github.com.username 'muralisc'
 git config --global diff.tool 'meld'
+git config --global user.useConfigOnly true
+git config --global --unset-all user.email
 
 # if not exit plug.vim
 if [[ ! -a ~/.vim/autoload/plug.vim ]] ;
 then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
-cd ~/dotfiles
-if (( "$?"!=0 ));
-then
-  echo "folder not found"
-  exit
 fi
 
 mkdir -p $HOME/.config/beets/
@@ -44,7 +40,7 @@ mkdir -p $HOME/.rtorrentSession
 BKPfolder=bak`date +'%Fat%H-%M-%S'`
 mkdir -p $HOME/$BKPfolder
 
-
+# find `pwd` -type f -not -ipath '*.git*' -not -name README.md
 for i in                          \
 .bashrc                           \
 .bcrc                             \
