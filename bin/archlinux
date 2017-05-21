@@ -178,6 +178,8 @@ sshfs
 kdebase-runtime ( for kdenlive)
 vnstat
 espeak
+xvkbd
+xzoom
 
 # order mirrorlist
 sudo cp /etc/pacman.d/mirrorlist  /etc/pacman.d/mirrorlist.bkp
