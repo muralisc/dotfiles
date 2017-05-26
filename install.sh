@@ -94,9 +94,11 @@ fi
 
 # Note to self: this is parameterized in my office dotfiles using env values,
 # hence not versioning a .shrc.local in git
-socket=`cat /etc/hostname`
-session=`cat /etc/hostname`
+if [[ ! -f ~/.shrc.local ]]; then
+  socket=`cat /etc/hostname`
+  session=`cat /etc/hostname`
 echo "
 attach_to_tmux $socket $session
 alias t='attach_to_tmux $socket $session'
 " > ~/.shrc.local
+fi

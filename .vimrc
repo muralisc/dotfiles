@@ -274,7 +274,7 @@ nnoremap <leader>tr :TernRefs<CR>
 nnoremap <leader>T :tabnew<cr>
 nnoremap <leader>l :Lines<CR>
 " Open vimgrep and put the cursor in the right position
-nnoremap <leader>v :Ack! --ignore 'node_modules' --ignore 'test' --ignore 'logs' --ignore 'public' '<C-r><C-w>'
+nnoremap <leader>v :Ack! --ignore 'tags' <C-r><C-w>
 " Fast saving
 nnoremap <leader>w :w<cr>
 " make the current file executable
@@ -294,7 +294,7 @@ augroup FTOptions
     autocmd!
     autocmd filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
     autocmd FileType xdefaults                    setlocal commentstring=!\ %s
-    autocmd filetype c,cpp,java                   setlocal foldmethod=syntax foldlevel=99 complete-=k
+    autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k
     autocmd FileType liquid,markdown,text,txt     setlocal complete+=k
     autocmd filetype vim                          setlocal keywordprg=:help
     autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
@@ -342,6 +342,7 @@ let g:airline_right_sep = ''
 let g:airline_left_alt_sep= ''
 let g:airline_left_sep = ''
 let g:airline_section_z = '%P %l:%c'
+let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long' ]
 " }}}
 "
 " }}} Plugin Specific Settings
