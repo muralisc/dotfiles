@@ -26,67 +26,18 @@ then
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-mkdir -p $HOME/.config/beets/
-mkdir -p $HOME/.config/inkscape/keys
-mkdir -p $HOME/.config/vlc
-mkdir -p $HOME/.local/share/applications
-mkdir -p $HOME/.mpdcron/hooks
-mkdir -p $HOME/.mpd
-mkdir -p $HOME/.ncmpcpp
-mkdir -p $HOME/.ssh
-mkdir -p $HOME/.vim
-mkdir -p $HOME/.vim/vimundo
-mkdir -p $HOME/.rtorrentSession
-BKPfolder=bak`date +'%Fat%H-%M-%S'`
-mkdir -p $HOME/$BKPfolder
-
-# find `pwd` -type f -not -ipath '*.git*' -not -name README.md
-for i in                          \
-.bashrc                           \
-.bcrc                             \
-bin                               \
-.config/awesome                   \
-.config/beets/config.yaml         \
-.config/inkscape/keys/default.xml \
-.config/mimeapps.list             \
-.config/ranger                    \
-.config/mpv                       \
-.config/user-dirs.dirs            \
-.config/vlc/vlcrc                 \
-.config/zathura                   \
-.fehbg                            \
-.gdbinit                          \
-.local/share/applications         \
-.mpd/mpd.conf                     \
-.mpdcron/hooks/player             \
-.muttrc                           \
-.ncmpcpp/config                   \
-.ssh/config                       \
-.tmux.conf                        \
-.vimrc                            \
-.xinitrc                          \
-.Xmodmap                          \
-.bash_profile                     \
-.Xresources                       \
-.yaourtrc                         \
-.rtorrent.rc                      \
-    ;
-do
-  # back up files if not links else delete
-  if [ ! -L $HOME/$i ]; then
-    mv $HOME/$i $HOME/$BKPfolder/${i//\//-}.bak &> /dev/null
-  else
-    rm $HOME/$i
-  fi
-  # link files
-  ln -s `pwd`/$i $HOME/$i
+allfiles=$(find `pwd` -type f -not \(        \
+                          -ipath '*.git*' -o \
+                          -name README.md -o \
+                          -name crontab   -o \
+                          -name install.sh \) )
+for file in $allfiles; do
+  homepath=$( sed "s#/dotfiles##" <<< $file )
+  mkdir -p $(dirname $homepath)
+  ln -s --backup=numbered $file $homepath
 done
-vim +PlugInstall +qall!   #vim -c PlugInstall -c qall!
 
-# delete backup folder if no files
-if [ `ls -la $HOME/$BKPfolder | wc -l` -eq "0" ]; then
-  rm -r $HOME/$BKPfolder
-fi
+vim +PlugInstall +qall!   #vim -c PlugInstall -c qall!
 # tmux plugin
 if [ ! -d ~/.tmux/plugins/tpm ]; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
