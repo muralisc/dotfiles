@@ -176,9 +176,9 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
                         end
                         cpuwidget_t:set_text(""
                         .. string.format("%3d%% Cpu 1\n",args[2])
-                        .. string.format("%3d%% Cpu 2\n",args[3])
-                        .. string.format("%3d%% Cpu 3\n",args[4])
-                        .. string.format("%3d%% Cpu 4",args[5])
+                        .. string.format("%3d%% Cpu 2\n", (args[3] and args[3] or 0) )
+                        .. string.format("%3d%% Cpu 3\n", (args[4] and args[4] or 0) )
+                        .. string.format("%3d%% Cpu 4",   (args[5] and args[5] or 0) )
                         )
                         return args[1]
                     end,

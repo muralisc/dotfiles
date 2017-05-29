@@ -26,7 +26,7 @@ then
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-allfiles=$(find `pwd` -type f -not \(        \
+allfiles=$(find $HOME/dotfiles -type f -not \(        \
                           -ipath '*.git*' -o \
                           -name README.md -o \
                           -name crontab   -o \
@@ -34,7 +34,7 @@ allfiles=$(find `pwd` -type f -not \(        \
 for file in $allfiles; do
   homepath=$( sed "s#/dotfiles##" <<< $file )
   mkdir -p $(dirname $homepath)
-  ln -s --backup=numbered $file $homepath
+  ln -vs --backup=numbered $file $homepath
 done
 
 vim +PlugInstall +qall!   #vim -c PlugInstall -c qall!
