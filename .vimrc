@@ -7,9 +7,7 @@
 
 set nocompatible                                                                " not compatible with the old-fashion vi mode
 " vim-plug setup {{{
-filetype off                                                                    " Required Vundle setup
 if filereadable(expand("~/.vim/autoload/plug.vim"))
-  set rtp+=~/.vim/bundle/Vundle.vim
   call plug#begin('~/.vim/plugged')
   " Plug 'mattn/emmet-vim'                                                      "Use while coding html
   Plug 'christoomey/vim-tmux-navigator'
@@ -266,10 +264,7 @@ nnoremap <leader><leader><leader>q :wqa!<cr>
 nnoremap <leader>s :shell<CR>
 nnoremap <leader><tab> :q<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
-" traling spaces and jump to last point
-nnoremap <leader>t :%s/\s\+$//e<cr>
-nnoremap <leader>td :TernDef<CR>
-nnoremap <leader>tr :TernRefs<CR>
+nnoremap <leader>t :CtrlPTag<CR>
 " Useful mappings for managing tabs
 nnoremap <leader>T :tabnew<cr>
 nnoremap <leader>l :Lines<CR>
@@ -346,3 +341,6 @@ let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long' ]
 " }}}
 "
 " }}} Plugin Specific Settings
+if filereadable(glob("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif

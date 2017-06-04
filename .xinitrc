@@ -18,6 +18,7 @@ fi
 
 # x0vncserver -PasswordFile=/home/jaleel/.vnc/passwd &
 # [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+[ ! -f "$HOME/.xinitrc.local" ] || source "$HOME/.xinitrc.local"
 export EDITOR=vim
 devmon --exec-on-drive "notify-send --icon=block-device --urgency=low \"Volume %l has been mounted\"" &
 mpd &

@@ -1,96 +1,123 @@
 #!/bin/bash
-
 # commands to get an arch linux up and running.
 # followiing the video of sean Bruen : Arch Linux : from post install to Xorg
-: enable EFI boot in virtual box settings.
+
+# enable EFI boot in virtual box settings.
+
 # rank mirrors
 sudo cp /etc/pacman.d/mirrorlist  /etc/pacman.d/mirrorlist.bkp
-sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.bkp
-rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirrorlist
+sudo sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.bkp
+sudo bash -c 'rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirrorlist'
 
+# setup install env
 loadkeys us
-timedatectl set-ntp true
+
+# setup Disk
 fdisk /dev/sda # check 'm' for 'n' , 't',  and set EFI
-make gpt table # UEFI needs that
+make gpt table # UEFI needs gpt
+# sample structure
 # sda1   512MB   EFI_system(ef00)        /boot
 # sda2   16G     LINUX_swap        SWAP
 # sda3   100G    Linux_filesystem  /
 # sda4   rem     Linux_filesystem  /home
 # use systemd-boot
+boot=/dev/sda1
 root=/dev/sda3
-mkfs.fat -F32 /dev/sda1 #EFI
-mkfs.ext4 /dev/sda1
+mkfs.fat -F32 $boot #EFI
+mkfs.ext4 $boot
 mount $root /mnt
 mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
-# wifi-menu
+mount $boot /mnt/boot
+
+# setup Network
+# wifi-menu         # use it to connect to wifi if needed
+sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
 pacstrap /mnt base
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
-passwd
-# setup bootloader
-# systemd-boot
+passwd  # change root password
+
+# setup systemd-boot bootloader 
 bootctl --path=/boot install
-# make conf file https://wiki.archlinux.org/index.php/Systemd-boot#Configuration
+# make conf file (https://wiki.archlinux.org/index.php/Systemd-boot#Configuration)
 cat <<EOF > /boot/loader/loader.conf
 default  arch
 timeout  4
 editor   0
 EOF
-blkid -s PARTUUID -o value $root >> /boot/loader/enrtries/arch.conf
+# this will help in getting PARTUUID into arch.conf 
+# blkid -s PARTUUID -o value $root >> /boot/loader/enrtries/arch.conf
 cat <<EOF > /boot/loader/entries/arch.conf
 title Arch Linux
 linux /vmlinuz-linux
 initrd /initramfs-linux.img
 options root=PARTUUID=asdfsadf-asdf-asdf rw
 EOF
+
+
 # change default boot to HARD DISK
-#systemctl reboot # REBOOT =================================================================
-hostnamectl set-hostname rivnedell #echo "rivendell" > /etc/hostname
-timedatectl set-timezone Asia/Kolkata
-# uncomment /etc/locale.gen
-locale-gen
-echo "LANG=en_US.UTF-8" > /etc/locale.conf  # VVI else special characters wont be reco in vim and tmux
-echo "KEYMAP=us" > /etc/vconsole.conf
+# systemctl reboot # REBOOT/Vagrant setup start ===========================
+sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
+sudo pacman -Syu
+sudo pacman -S sudo 
+if [[ $(sudo dmidecode -s bios-version) =~ VirtualBox ]] ; then
+ sudo pacman -S virtualbox-guest-modules-arch virtualbox-guest-utils
+cat <<EOF > ~/.xinitrc.local
+VBoxClient-all
+EOF
+fi
+sudo bash -c 'echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf'
+# echo "rivendell" > /etc/hostname
+sudo hostnamectl set-hostname rivnedell
+sudo timedatectl set-timezone Asia/Kolkata
+# uncomment en_US in locale.gen
+sudo sed -r -i'.bak' 's/#(en_US.*)/\1/' /etc/locale.gen
+sudo locale-gen
+# VVI else special characters wont be reco in vim and tmux
+sudo bash -c 'echo "LANG=en_US.UTF-8" > /etc/locale.conf' 
+sudo bash -c 'echo "KEYMAP=us" > /etc/vconsole.conf'
 # enable network through netctl
 cp /etc/netctl/example/ethernet-dhcp /etc/netctl/ethernet
 # edit ethernet link name
 netctl start ethernet
 netctl enable ethernet
-# see if net is accessible
+ping google.com
+
 # USER CREATION
 useradd -m -g users -s /bin/bash murali
+gpasswd -a murali wheel
 passwd murali
 echo " see edit from 2:00 - 2:20 "
-pacman -Syu
 ln -s /usr/share/zoneinfo/Reginon/City /etc/localtime
 hwclock --systohc
-
-pacman -S sudo # virtualbox-guest-modules-arch virtualbox-guest-utils
 echo "visudo /etc/sudoers"
 echo "dulpicate root ..murali ALL"
-sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
+echo "give permission to wheel group by uncommenting the line below"
 # to make pacman and yaourt work behind proxy
 sudo sh -c 'echo Defaults env_keep += \"http_proxy https_proxy ftp_proxy\" >> /etc/sudoers'
-pacman -Syu
-# INSTALL BASIC STUFF TMUX VIM ZSH etc
-sudo pacman -S fakeroot git jshon wget make pkg-config \
-  autoconf automake patch expac zsh tmux python gvim ttf-freefont binutils \
-# INSTALL BASIC XSERVER WITH AWESOME
-sudo pacman -S alsa-utils xorg-server xorg-xinit xorg-apps mesa awesome \
-  xf86-video-vesa xterm rxvt-unicode xsel xclip --noconfirm
-modprobe -a vboxguest vboxsf vboxvideo # or
+
+
+# setup OS with basic utilities
+sudo pacman --noconfirm -S \
+  `# INSTALL BASIC STUFF TMUX VIM ZSH etc` \
+  fakeroot git jshon wget make pkg-config \
+  autoconf automake patch expac zsh tmux   \
+  python gvim ttf-freefont binutils \
+  `# INSTALL BASIC XSERVER WITH AWESOME` \
+  alsa-utils xorg-server xorg-xinit xorg-apps mesa awesome \
+  xf86-video-vesa xterm rxvt-unicode xsel xclip # xorg
+sudo modprobe -a vboxguest vboxsf vboxvideo # or
 cat <<EOF > /usr/lib/modules-load.d/virtualbox.conf
 vboxguest
 vboxsf
 vboxvideo
 EOF
-systemctl enable vboxservice.service
+sudo systemctl enable vboxservice.service
 lspci | grep VGA # to see the graphics driver
 pacman -Ss xf86-video | less # and install the direver of g-card
-
 # startx should work now
 
+# setup yaourt
 wget http://aur.archlinux.org/cgit/aur.git/snapshot/packer.tar.gz
 tar zxvf packer.tar.gz
 cd packer && makepkg
@@ -98,6 +125,7 @@ sudo pacman -U ~/packer/packer-20*.pkg.tar.xz --noconfirm
 packer -S yaourt --noconfirm
 git clone 'https://github.com/muralisc/dotfiles'
 ~/dotfiles/install.sh
+
 # enable auto-login
 sudo systemctl edit getty@tty1
 sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
@@ -108,79 +136,71 @@ ExecStart=-/usr/bin/agetty --autologin vagrant --noclear %I $TERM
 EOF
 '
 
-
+# setup AWESOME WM
 yaourt -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
 git clone https://github.com/terceiro/awesome-freedesktop
 sudo mv awesome-freedesktop/freedesktop /etc/xdg/awesome/
 rm -rf awesome-freedesktop
 echo "skip from 9:20 to 10:50 "
 echo "skip from 11:00 to 14.38 "
-systemctl reboot
+sudo systemctl reboot
+# check awesome working
 
-
-# check startx working
-echo "  ===========add inifinality============     "
-# GUI TERMINAL URXVT SHOULD BE WORKING BY NOW
-sudo pacman -S jre8-openjdk firefox yajl
-yaourt -S mt7601u-git   # for external wifi dongle
-echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf
-# zathura for backup // use browser instead; firefox even shows
-# comments,
-aurvote
-zathura-ps `# inline comment this way`
-ncdc    #linux commandline dcpp client
-# RANGER STUFF
-yaourt -S   ranger w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo --noconfirm
-# AUDIO and movies STUFF
-alsa-utils
-submarine subliminal # subtitle stuff
-bluez bluez-utils
-pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa pulseaudio-bluetooth
-mpd mpc ncmpcpp mpv
-
-
-yaourt -S --noconfirm                                                               \
-  ntfs-3g perl-rename jmtpfs sed rsync tar gzip feh gawk gcc gdb gnuplot grep groff \
-  tig `#helps a lot`                                                                \
-  tk `#for wish ( gitk )`                                                           \
-  bbswitch                                                                          \
-  bumblebee                                                                         \
-  dropbox                                                                           \
-  faenza-icon-theme                                                                 \
-  atool htop i3lock                                                                 \
-  inkscape                                                                          \
-  iw                                                                                \
-  leafpad                                                                           \
-  lib32-mesa-libgl                                                                  \
-  lib32-nvidia-utils                                                                \
-  libreoffice-still                                                                 \
-  lxappearance nvidia                                                               \
-  openssh                                                                           \
-  package-quer                                                                      \
-  puddletag                                                                         \
-  rofi-git                                                                          \
-  thunderbird                                                                       \
-  tigervnc                                                                          \
-  xf86-input-synaptics                                                              \
-  xf86-video-intel                                                                  \
-  xorg-xinit                                                                        \
-  youtube-dl                                                                        \
-  zukwito-themes                                                                    \
-  unzip                                                                             \
-  xorg-xprop                                                                        \
-  xorg-xev                                                                          \
-  compton-git                                                                       \
-  cronie                                                                            \
-  keynav-git                                                                        \
-  logkeys-git                                                                       \
-  xorg-xev                                                                          \
-  xorg-xwininfo                                                                     \
-  sshfs                                                                             \
-  kdebase-runtime ( for kdenlive)                                                   \
-  vnstat                                                                            \
-  espeak                                                                            \
-  xvkbd                                                                             \
-  xzoom                                                                             \
-  reflector                                                                         \
-  mpdcron `#https://aur.archlinux.org/packages/mpdcron-git/` \
-  ttf-dejavu `# needed for bold`
+yaourt -S --noconfirm                                                 \
+  ttf-ubuntu-font-family                                              \
+  ttf-dejavu `# needed for bold`                                      \
+  `# BASIC`                                                           \
+  perl-rename sed rsync tar gzip feh gawk gcc gdb gnuplot grep groff  \
+  openssh                                                             \
+  rofi-git                                                            \
+  tig `# helps a lot`                                                 \
+  tk `# for wish ( gitk )`                                            \
+  `# AUDIO and movies STUFF`                                          \
+  mpdcron                                                             \
+  bluez bluez-utils iw                                                \
+  pavucontrol pacmixer pulsemixer                                     \
+  pulseaudio pulseaudio-alsa pulseaudio-bluetooth                     \
+  mpd mpc ncmpcpp mpv                                                 \
+  `# RANGER STUFF`                                                    \
+  ranger w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo           \
+  `# MOBILE`                                                          \
+  jmtpfs                                                              \
+  `# EXTRAS`                                                          \
+  compton-git                                                         \
+  ntfs-3g                                                             \
+  bumblebee                                                           \
+  dropbox                                                             \
+  bbswitch                                                            \
+  submarine subliminal `# subtitle stuff`                             \
+  faenza-icon-theme                                                   \
+  atool htop i3lock                                                   \
+  inkscape                                                            \
+  aurvote                                                             \
+  ncdc    `#linux commandline dcpp client`                            \
+  leafpad                                                             \
+  lib32-mesa-libgl lib32-nvidia-utils                                 \
+  libreoffice-still                                                   \
+  lxappearance nvidia                                                 \
+  package-query                                                       \
+  puddletag                                                           \
+  thunderbird                                                         \
+  tigervnc                                                            \
+  xf86-input-synaptics                                                \
+  xf86-video-intel                                                    \
+  youtube-dl                                                          \
+  zukwito-themes                                                      \
+  unzip                                                               \
+  xorg-xprop xorg-xev                                                 \
+  cronie                                                              \
+  keynav-git                                                          \
+  logkeys-git                                                         \
+  xorg-xwininfo                                                       \
+  sshfs                                                               \
+  kdebase-runtime ( for kdenlive)                                     \
+  vnstat                                                              \
+  espeak                                                              \
+  xvkbd                                                               \
+  xzoom                                                               \
+  $(# zathura zathura-ps for backup use firefox,even shows comments,) \
+  jre8-openjdk firefox yajl                                           \
+  mt7601u-git   # for external wifi dongle
