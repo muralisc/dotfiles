@@ -68,3 +68,5 @@ bind '"\e.":insert-last-argument'
 [ -f "$HOME/bin/shrc" ] && source "$HOME/bin/shrc"
 # source local file
 [ ! -f "$HOME/.shrc.local" ] || source "$HOME/.shrc.local"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

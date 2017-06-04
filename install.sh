@@ -13,11 +13,12 @@ git config --local  user.email "muralisc@gmail.com"
 git config --global user.name "Murali Suresh"
 git config --global credential.helper 'cache --timeout=80000'
 git config --global credential.helper 'store'
-git config --global credential.username 'muralisc'
 git config --global credential.https://github.com.username 'muralisc'
 git config --global diff.tool 'meld'
 git config --global user.useConfigOnly true
 git config --global --unset-all user.email
+git config --global core.pager 'less -RS'
+git config --global init.templatedir '~/.git_template'
 
 # if not exit plug.vim
 if [[ ! -a ~/.vim/autoload/plug.vim ]] ;
@@ -26,8 +27,15 @@ then
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
+curl https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/plugins/shrink-path/shrink-path.plugin.zsh \
+  --create-dirs -o ~/.local/shrink-path.plugin.zsh
+
+mkdir -p ~/.zsh; cd ~/.zsh
+git clone https://github.com/zsh-users/zsh-history-substring-search
+cd ~/
+
 allfiles=$(find $HOME/dotfiles -type f -not \(        \
-                          -ipath '*.git*' -o \
+                          -ipath '*.git/*' -o \
                           -name README.md -o \
                           -name crontab   -o \
                           -name install.sh \) )
