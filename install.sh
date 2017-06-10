@@ -50,14 +50,3 @@ vim +PlugInstall +qall!   #vim -c PlugInstall -c qall!
 if [ ! -d ~/.tmux/plugins/tpm ]; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
-
-# Note to self: this is parameterized in my office dotfiles using env values,
-# hence not versioning a .shrc.local in git
-if [[ ! -f ~/.shrc.local ]]; then
-  socket=`cat /etc/hostname`
-  session=`cat /etc/hostname`
-echo "
-attach_to_tmux $socket $session
-alias t='attach_to_tmux $socket $session'
-" > ~/.shrc.local
-fi

@@ -1,8 +1,12 @@
 #!/bin/bash
 source ~/devsetup/bin/dev-helpers/helper-functions
 source ~/devsetup/bin/proxy
-attach_to_tmux home home
-alias t='attach_to_tmux home home'
+# Note to self: this is parameterized in my office dotfiles using env values,
+# hence not versioning a .shrc.local in git
+socket=$HOSTNAME
+session=$HOSTNAME
+attach_to_tmux $socket $session
+alias t='attach_to_tmux $socket $session'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
