@@ -3,6 +3,6 @@ if [[ $(git config --get remote.origin.url) =~ "github.infra.hana.ondemand.com" 
   git config --local  user.email "murali.suresh@sap.com"
 else
   git config --local  user.email "muralisc@gmail.com"
-  git config --local credential.username 'i330301'
+  git config --local  credential.username 'i330301'
 fi
 
