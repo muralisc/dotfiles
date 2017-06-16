@@ -18,7 +18,7 @@ alias gcp='git cherry-pick'
 alias gd='git difftool --dir-diff'
 alias gdf='git diff'
 alias gf='git fetch --all'
-alias gl="git log --pretty=format:'%C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%cr)' --graph -5"
+alias gl="git --no-pager log --pretty=format:'%C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%cr)' --graph -5"
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
 alias gp='git push origin HEAD'
 alias gpl='git pull --rebase' # git pull --rebase origin master
@@ -202,7 +202,19 @@ export VISUAL=/usr/bin/vim
 export EDITOR=/usr/bin/vim
 export BC_ENV_ARGS=~/.bcrc
 export GOPATH=~/go
-export PATH="$PATH:$GOPATH/bin:$HOME/.gem/ruby/2.4.0/bin:$HOME/bin"
+BREWPATH=/usr/local/opt/coreutils
+case ":$PATH:" in
+  *":$GOPATH:"*)
+    : #no op
+    ;;
+  *)
+    export PATH="$PATH:$GOPATH/bin:$HOME/.gem/ruby/2.4.0/bin:$HOME/bin" 
+    if [[ $(uname -s) == "Darwin" ]] ; then
+      export PATH="$BREWPATH/libexec/gnubin:$PATH"
+      export MANPATH="$BREWPATH/libexec/gnuman:$MANPATH"
+    fi
+    ;;
+esac
 
 
 decimal_to_binary() {

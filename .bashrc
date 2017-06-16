@@ -25,6 +25,18 @@ undpur='\[\e[4;35m\]' # Purple
 undcyn='\[\e[4;36m\]' # Cyan
 undwht='\[\e[4;37m\]' # White
 txtrst='\[\e[0m\]'    # Text Reset
+wrap(){ echo '\['$1'\]'; }
+if [[ $(uname -s) == "Darwin" ]]; then
+  txtblk=$(tput setaf 0)
+  txtred=$(tput setaf 1)
+  txtgrn=$(tput setaf 2)
+  txtylw=$(tput setaf 3)
+  txtblu=$(tput setaf 4)
+  txtpur=$(tput setaf 5)
+  txtcyn=$(tput setaf 6)
+  txtwht=$(tput setaf 7)
+  txtrst=$(tput sgr0)
+fi
 
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=10000
@@ -33,12 +45,12 @@ shopt -s histappend
 # to share history among multiple open terminals
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-username="$bldgrn\u"
-hostname="$txtylw\h"
-filepath="$txtblu\w"
-datecolr="$bldpur\D{%F %T}"
+username="$(wrap $bldgrn)\u"
+hostname="$(wrap $txtylw)\h"
+filepath="$(wrap $txtblu)\w"
+datecolr="$(wrap $bldpur)\D{%F %T}"
 #PS1='\u@\h:\w\$ '
-PS1="${SSH_CONNECTION:+ssh }$filepath $txtred❯$txtylw❯$txtgrn❯ $txtrst"
+PS1="${SSH_CONNECTION:+ssh }$filepath $(wrap $txtred)❯$(wrap $txtylw)❯$(wrap $txtgrn)❯ $(wrap $txtrst)"
 
 # enable programmable completion features
 if [ -f /usr/share/bash-completion/bash_completion ]; then

@@ -23,24 +23,32 @@ bindkey '^h' backward-delete-char
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
+bindkey -M viins '\e.' insert-last-word
 
 # history
 export SAVEHIST=10000
 export HISTFILE=~/.zsh_history
-setopt APPEND_HISTORY
-setopt INC_APPEND_HISTORY # Append history without waiting until shell exit
-setopt HIST_IGNORE_DUPS   # Check if duplicate of the previous command
-setopt HIST_FIND_NO_DUPS  # While searching history, avoid showing duplicates
-setopt HIST_IGNORE_SPACE  # Ignore commands starting with a space
-setopt HIST_REDUCE_BLANKS # Trim blanks off commands
-setopt EXTENDED_HISTORY   # More information in history (timestamp etc.)
+setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing non-existent history.
 source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey '^P' history-substring-search-up #up-history
+bindkey '^N' history-substring-search-down #down-history
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # load aliases
 [ -f "$HOME/bin/shrc" ] && source "$HOME/bin/shrc"
-# source local file
+# # source local file
 [ ! -f "$HOME/.shrc.local" ] || source "$HOME/.shrc.local"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

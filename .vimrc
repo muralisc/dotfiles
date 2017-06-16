@@ -11,7 +11,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
   " Plug 'mattn/emmet-vim'                                                      "Use while coding html
   Plug 'christoomey/vim-tmux-navigator'
-  Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
+  " Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
   Plug 'muralisc/vim-colorschemes'
   Plug 'kien/ctrlp.vim'
   Plug 'mileszs/ack.vim'
@@ -229,7 +229,6 @@ nnoremap <Leader>gy :GitGutterPrevHunk<CR>
 " Clears the search register
 nnoremap <leader>/ :nohlsearch<CR>
 nnoremap <leader>f :CtrlPBuffer<CR>
-nnoremap <leader><C-P> :CtrlP<CR>
 " with vimgrep, see results in cope(leader+cc) next (]q) previous ([q)
 nnoremap <leader>co :botright cope<cr>
 nnoremap <leader>cc :cclose<cr>
