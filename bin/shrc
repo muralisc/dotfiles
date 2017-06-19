@@ -72,6 +72,7 @@ mp() { #mpc play
 # database update
 mu() {
   rm ~/Dropbox/Songs/musiclibrary.blb; beet import -A ~/Dropbox/Songs/ ;
+  mpc update;
 }
 
 apt-list-packages() {
