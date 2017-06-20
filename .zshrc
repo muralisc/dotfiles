@@ -26,6 +26,7 @@ bindkey "^X^E" edit-command-line
 bindkey -M viins '\e.' insert-last-word
 
 # history
+export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTFILE=~/.zsh_history
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
