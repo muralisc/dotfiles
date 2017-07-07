@@ -186,6 +186,10 @@ attach_to_tmux() {
   alias tad='tmux -L $TMUX_SOCKET_NAME attach -d'
 }
 
+sister_tmux_session() {
+  tmux -L $TMUX_SOCKET_NAME new-session -t $TMUX_SESSION_NAME -s `date +%d%b`
+}
+
 list_custom_defined_functions() {
   #TODO
   if [[ $SHELL =~ "zsh" ]]; then
