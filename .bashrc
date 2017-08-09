@@ -51,6 +51,7 @@ filepath="$(wrap $txtblu)\w"
 datecolr="$(wrap $bldpur)\D{%F %T}"
 #PS1='\u@\h:\w\$ '
 PS1="${SSH_CONNECTION:+ssh }$filepath $(wrap $txtred)❯$(wrap $txtylw)❯$(wrap $txtgrn)❯ $(wrap $txtrst)"
+if [[ $(id -u) == 0 ]]; then PS1="root|$PS1"; fi
 
 # enable programmable completion features
 if [ -f /usr/share/bash-completion/bash_completion ]; then

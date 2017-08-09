@@ -47,6 +47,8 @@ bindkey '^N' history-substring-search-down #down-history
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+[ -f "$HOME/.completions.zsh" ] && source "$HOME/.completions.zsh"
+
 # load aliases
 [ -f "$HOME/bin/shrc" ] && source "$HOME/bin/shrc"
 # # source local file

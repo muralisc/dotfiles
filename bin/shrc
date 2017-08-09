@@ -9,6 +9,7 @@ fi
 
 # git aliases
 
+alias less='less -R --follow-name'
 alias ga='git add'
 alias gb='git branch'
 alias gcam='git commit -am'
@@ -119,6 +120,8 @@ function c() {
   noSpaceExpr=`echo $* | sed -e "s/ //g"`
   awk "BEGIN { print $noSpaceExpr }"
 }
+# alias it for zsh
+if [[ $SHELL =~ "zsh" ]]; then alias c='noglob c'; fi
 
 transfer() {
   if [ $# -eq 0 ];
