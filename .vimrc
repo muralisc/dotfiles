@@ -4,7 +4,7 @@
 "Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
 "and Vim User Manual
 "The commands are are anged in the order encountered in vim user manual
-
+let g:loaded_matchparen = 1
 set nocompatible                                                                " not compatible with the old-fashion vi mode
 " vim-plug setup {{{
 if filereadable(expand("~/.vim/autoload/plug.vim"))
@@ -15,7 +15,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/vim-colorschemes'
   Plug 'kien/ctrlp.vim'
   Plug 'mileszs/ack.vim'
-  Plug 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
+  " Plug 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
   Plug 'powerman/vim-plugin-viewdoc'
   Plug 'tpope/vim-commentary'                                                   " map: gcc
   Plug 'tpope/vim-fugitive'                                                     " GIT
@@ -26,9 +26,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'vim-scripts/restore_view.vim'
   " Plug 'ap/vim-buftabline'                                                    " uncomment when required
   " Plug 'scrooloose/nerdtree'                                                  " uncomment when required
-  Plug 'vim-airline/vim-airline'
+  " Plug 'vim-airline/vim-airline'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'                                                       " :Colors :Lines and shell **
+  " Plug 'junegunn/fzf.vim'                                                       " :Colors :Lines and shell **
   call plug#end()
 endif
 "}}} ===========================================================Vundle setup done
@@ -67,7 +67,7 @@ set shiftround                                                                  
 set backspace=indent,eol,start                                                  " allow backspacing over everything in insert mode
 set ignorecase                                                                  " ignore case when searching
 " Visual {{{
-set showmatch                                                                   " set show matching parenthesis
+" set showmatch                                                                   " set show matching parenthesis
 set number                                                                      " always show line numbers
 set rnu                                                                         " relative number
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
@@ -124,7 +124,7 @@ silent! colorscheme neverland-darker
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
 set foldcolumn=0                                                                " add a fold column
-set foldmethod=marker                                                           " detect triple-{ style fold markers [marker indent]
+set foldmethod=manual                                                           " detect triple-{ style fold markers [marker indent]
 set foldlevel=99                                                                " 0-foldall 99-unfoldall
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
 
@@ -170,18 +170,20 @@ set encoding=utf-8
 set lazyredraw                                                                  " don't update the display while executing macros
 set laststatus=2                                                                " always put a status line even if one window
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
-" set statusline=
-" set statusline+=%7*\[%n]                                  "buffernr
-" set statusline+=%1*\ %<%F\                                "File+path
-" set statusline+=%2*\ %y\                                  "FileType
-" set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
-" set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
-" set statusline+=%4*\ %{&ff}\                              "FileFormat (dos/unix..)
-" set statusline+=%5*\ asdf\  "Spellanguage & Highlight on?
-" set statusline+=%8*\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
-" set statusline+=%9*\ col:%03c\                            "Colnr
-" set statusline+=%0*\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
 " }}} Editor Layout
+" Statusline settings
+" https://stackoverflow.com/a/10416234
+" http://got-ravings.blogspot.in/2008/08/vim-pr0n-making-statuslines-that-own.html
+set statusline=
+set statusline+=%0*%<%f\                                 "  Relative Filepath
+set statusline+=%1*%h%w%m%r\                             "  help? preview? modified? readonly? filetype
+set statusline+=%=                                       "  separator
+set statusline+=%4*%-7(%{(&bomb?\",BOM\":\"\")}%)        "  Encoding2
+set statusline+=%5*%-6(%{&ff}%)                          "  FileFormat (dos/unix..)
+set statusline+=%3*%-7(%{''.(&fenc!=''?&fenc:&enc).''}%) "  Encoding
+set statusline+=%2*%-7(%y%)                              "  filetype
+set statusline+=%0*%-15(\ %l,%c%V/%L%)%p%%               "  %* leftjustify(row,col,virtulcol,totlines) percentage
+"
 " Shortcut Mappings {{{
 " resize
 nnoremap <Up>    5<c-w>+
@@ -235,8 +237,8 @@ nnoremap <leader>cc :cclose<cr>
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>dc :call SetProjectRoot()<cr>
-" make file ( use quick fix window to see errors )
-nnoremap <leader>m :cd %:p:h<cr>:pwd<cr>:!clear<CR>:w<CR>:make<CR>
+" placeholder for ctrlpMRU
+nnoremap <leader>m :CtrlPMRUFiles <CR>
 " NERD
 nnoremap <leader>n :NERDTreeFind<CR>
 nnoremap <leader>N :NERDTreeToggle<CR>
@@ -293,7 +295,7 @@ augroup FTOptions
     autocmd filetype vim                          setlocal keywordprg=:help
     autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
     autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker
-    autocmd FileType gitcommit                    setlocal spell
+    autocmd Filetype gitcommit                    setlocal spell textwidth=72
     autocmd FileType git,gitcommit                setlocal foldmethod=syntax
 augroup end
 "}}} Filetype Specific Settings
@@ -306,39 +308,13 @@ endif
     " viewdoc settings "{{{
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
 " }}}
-    " YOU COMPLETE ME {{{
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_always_populate_location_list = 1 "}}}
-    " PYTHON MODE SETTINGS {{{
-let g:pymode_rope = 1
-" PYMODE ignore errors list
-let g:pymode_lint_ignore = "E702,E501,E225,E221,E203,E231,E201,E202,E261,E262" "}}}
     " ctrlp settings{{{
-let g:ctrlp_cmd = 'CtrlPMRUFiles' "}}}
-    " VIM-FIGITIVE {{{
-" close all unwanted buffers opened by vim fugitive (git blame)
-" autocmd BufReadPost fugitive://* set bufhidden=delete
-" }}}
-    " delimitMate settings {{{
-let delimitMate_expand_space = 1
-let delimitMate_expand_cr = 1 "}}}
+let g:ctrlp_cmd = 'CtrlPMixed' "}}}
     " ULTISNIPS {{{
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsEditSplit="vertical" "}}}
-    " plasticboy markdown {{{
-let g:vim_markdown_folding_disabled = 1
-" }}}
-    " airline {{{
-let g:airline_right_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_left_alt_sep= ''
-let g:airline_left_sep = ''
-let g:airline_section_z = '%P %l:%c'
-let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'long' ]
-" }}}
-"
 " }}} Plugin Specific Settings
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local

@@ -12,8 +12,8 @@ fi
 alias less='less -R --follow-name'
 alias ga='git add'
 alias gb='git branch'
-alias gcam='git commit -am'
-alias gcm='git commit -m'
+alias gwip='git commit -am "squash! #wip"'
+alias gc='git commit'
 alias gco='git checkout'
 alias gcp='git cherry-pick'
 alias gd='git difftool --dir-diff'
@@ -21,7 +21,10 @@ alias gdf='git diff'
 alias gf='git fetch --all'
 alias gl="git log --pretty=format:'%C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%cr)' --graph -5"
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
-alias gp='git push origin HEAD'
+function gp() {
+  [[ -z $1 ]] && echo "provide remote" && return
+  git push $1 HEAD ${@:2}
+}
 alias gpl='git pull --rebase' # git pull --rebase origin master
 alias grhh='git reset HEAD --hard'
 alias gs='git status -sb'
