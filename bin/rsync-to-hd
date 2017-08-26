@@ -1,4 +1,16 @@
 #!/bin/bash
+echo "Dooing a dry run first"
+rsync -aPvh \
+  -n \
+  --info=copy,del,progress2,stats \
+  --delete \
+  --exclude='.*'  \
+  --exclude='kubernetes/'  \
+  /home/murali/ /media/Murali_Transcend/mylap/
+
+echo "Proceed with the sync?"
+read
+
 rsync -aPvh \
   --info=copy,del,progress2,stats\
   --delete \

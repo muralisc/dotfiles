@@ -169,6 +169,7 @@ yaourt -S --noconfirm                                                 \
   compton-git                                                         \
   ntfs-3g                                                             \
   bumblebee                                                           \
+  rtorrent \
   dropbox                                                             \
   bbswitch                                                            \
   submarine subliminal `# subtitle stuff`                             \

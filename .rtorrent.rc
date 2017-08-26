@@ -1,2 +1,15 @@
 session = ~/.rtorrentSession/
-directory = ~/rtorrent/
+directory = ~/Downloads
+port_range = 55950-56000
+port_random = yes
+check_hash = yes
+use_udp_trackers = yes
+encryption = allow_incoming,enable_retry,prefer_plaintext
+dht = disable
+peer_exchange = no
+scgi_port = 127.0.0.1:5000
+
+
+# Global upload and download rate in KiB, `0` for unlimited (`download_rate`, `upload_rate`)
+throttle.global_down.max_rate.set_kb = 0
+throttle.global_up.max_rate.set_kb   = 0
