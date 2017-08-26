@@ -36,7 +36,13 @@ endif
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
-set guifont=UbuntuMono\ 20
+set guioptions-=L
+if has("unix")
+  let s:uname = system("uname -s")
+  if s:uname == "Darwin\n"
+    set guifont=Menlo:h16
+  endif
+endif
 au FocusLost * :set norelativenumber
 au FocusGained * :set relativenumber
 " }}} Vundle setup
@@ -174,6 +180,7 @@ set cmdheight=1                                                                 
 " Statusline settings
 " https://stackoverflow.com/a/10416234
 " http://got-ravings.blogspot.in/2008/08/vim-pr0n-making-statuslines-that-own.html
+" http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
 set statusline=
 set statusline+=%0*%<%f\                                 "  Relative Filepath
 set statusline+=%1*%h%w%m%r\                             "  help? preview? modified? readonly? filetype
@@ -294,7 +301,7 @@ augroup FTOptions
     autocmd FileType liquid,markdown,text,txt     setlocal complete+=k
     autocmd filetype vim                          setlocal keywordprg=:help
     autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
-    autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker
+    autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=0
     autocmd Filetype gitcommit                    setlocal spell textwidth=72
     autocmd FileType git,gitcommit                setlocal foldmethod=syntax
 augroup end
@@ -319,3 +326,4 @@ let g:UltiSnipsEditSplit="vertical" "}}}
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
+let loaded_matchparen = 1

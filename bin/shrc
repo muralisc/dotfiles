@@ -12,8 +12,8 @@ fi
 alias less='less -R --follow-name'
 alias ga='git add'
 alias gb='git branch'
-alias gwip='git commit -am "squash! #wip"'
-alias gc='git commit'
+alias gwip='git commit -am --squash "#wip"'
+alias gcam='git commit -am'
 alias gco='git checkout'
 alias gcp='git cherry-pick'
 alias gd='git difftool --dir-diff'
@@ -21,10 +21,7 @@ alias gdf='git diff'
 alias gf='git fetch --all'
 alias gl="git log --pretty=format:'%C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%cr)' --graph -5"
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
-function gp() {
-  [[ -z $1 ]] && echo "provide remote" && return
-  git push $1 HEAD ${@:2}
-}
+alias gp="git push origin HEAD"
 alias gpl='git pull --rebase' # git pull --rebase origin master
 alias grhh='git reset HEAD --hard'
 alias gs='git status -sb'
@@ -91,33 +88,23 @@ tt() {
   if [ $# -eq 0 ];
   then
     echo usage : tt tomorrow5am
-    echo usage : tt tomorrow5am -s
     echo usage : sleep $(tt 2:37am -c)
     return 1;
   fi
 
-  seconds=$(( $(date -d "$1" +'%s') - $(date +'%s') ))
-  minutes=$(( seconds/60 ))
-  hours=$(( minutes/60 ))
-  days=$(( hours/24 ))
+  requestedTime=$(date -d "$1" +%s)
+  currentTime=$(date +%s)
+  if [[ requestedTime -gt currentTime ]]; then
+    diff=$(( requestedTime - currentTime ))
+  else
+    diff=$(( currentTime - requestedTime ))
+  fi
 
   if [[ $2 = "-c" ]]; then
     # for piping to sleep
-    echo "$seconds"
-  elif [[ $2 = "-s" ]]; then
-    echo "$days days $(($hours%24)):$(($minutes%60)):$(($seconds%60))"
+    TZ=":GMT" date -d @$diff +%s
   else
-    printf "printing time till `date -d $1`  \n\n"
-    if [[ "$days" -ne 0 ]]; then
-      echo "$days days "
-    fi
-    if [[ "$hours" -ne 0 ]]; then
-      echo "$(($hours%24)) hours and "
-    fi
-    if [[ "$minutes" -ne 0 ]]; then
-      echo "$(($minutes%60)) minutes and "
-    fi
-    echo "$(($seconds % 60)) seconds"
+    TZ=":GMT" date -d @$diff +"%e %R"
   fi
 }
 # simple calculator

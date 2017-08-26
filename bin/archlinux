@@ -204,4 +204,9 @@ yaourt -S --noconfirm                                                 \
   xzoom                                                               \
   $(# zathura zathura-ps for backup use firefox,even shows comments,) \
   jre8-openjdk firefox yajl                                           \
-  mt7601u-git   # for external wifi dongle
+  mt7601u-git   $(# for external wifi dongle)  \
+  $(# https://2buntu.com/articles/1503/pgp-and-ssh-keys-generate-export-backup-and-restore )  \
+  $(# http://www.integralist.co.uk/posts/security-basics.html  )  \
+  $(# https://alexcabal.com/creating-the-perfect-gpg-keypair  )  \
+  gpg  \
+  pass

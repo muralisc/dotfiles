@@ -1,5 +1,6 @@
 #!/bin/bash
-if [[ $(git config --get remote.origin.url) =~ "github.infra.hana.ondemand.com" ]]; then
+REMOTE=$(git config --get remote.origin.url)
+if [[ $REMOTE =~ "github.infra.hana.ondemand.com" || $REMOTE =~ "/SAP/" ]]; then
   git config --local  user.email "murali.suresh@sap.com"
 else
   git config --local  user.email "muralisc@gmail.com"
