@@ -3,7 +3,9 @@ compinit
 
 # prompt setup
 setopt PROMPT_SUBST
-source ~/.local/shrink-path.plugin.zsh
+if [ -f ~/.local/shrink-path.plugin.zsh ]; then
+  source ~/.local/shrink-path.plugin.zsh
+fi
 PS1='%F{blue}$(shrink_path -f) %F{red}❯%F{green}❯%F{blue}❯%f%b '
 
 # vi mode setup

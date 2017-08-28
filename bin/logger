@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Use this program to analyse the keyboard usage.
+
+# script to use either https://github.com/kernc/logkeys (also available in AUR)
+# or
+# https://github.com/caseyscarborough/keylogger for OS x
+
 if [[ "$1" == "on" || "$1" =  "1" ]]; then
     sudo logkeys -d /dev/input/event1 -s --no-timestamps
 elif [[ "$1" == "off" || "$1" == "0" ]]; then

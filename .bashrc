@@ -43,14 +43,19 @@ export HISTSIZE=10000
 export HISTFILESIZE=10000
 shopt -s histappend
 # to share history among multiple open terminals
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
+# PROMPT
+shrink_bash_path () {
+  shrinked_prefix=$(sed "s#$HOME#~#" <<< $(dirname $(pwd)) | tr '/' '\n' | cut -c1 | tr '\n' '/')
+  export SHRINKED_PWD="$(echo ${shrinked_prefix}$(basename $(pwd)))"
+}
+export PROMPT_COMMAND="shrink_bash_path; history -a; history -c; history -r; $PROMPT_COMMAND"
 username="$(wrap $bldgrn)\u"
 hostname="$(wrap $txtylw)\h"
-filepath="$(wrap $txtblu)\w"
+filepath="$(wrap $txtblu)\$SHRINKED_PWD"
 datecolr="$(wrap $bldpur)\D{%F %T}"
 #PS1='\u@\h:\w\$ '
-PS1="${SSH_CONNECTION:+ssh }$filepath $(wrap $txtred)❯$(wrap $txtylw)❯$(wrap $txtgrn)❯ $(wrap $txtrst)"
+export PS1="${SSH_CONNECTION:+ssh }$filepath $(wrap $txtred)❯$(wrap $txtylw)❯$(wrap $txtgrn)❯ $(wrap $txtrst)"
 if [[ $(id -u) == 0 ]]; then PS1="root|$PS1"; fi
 
 # enable programmable completion features
