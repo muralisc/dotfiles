@@ -1,13 +1,5 @@
 # enclosing in \[ \] else bash will count these as characters and wrapping wont
 # be proper
-txtblk='\[\e[0;30m\]' # Black - Regular
-txtred='\[\e[0;31m\]' # Red
-txtgrn='\[\e[0;32m\]' # Green
-txtylw='\[\e[0;33m\]' # Yellow
-txtblu='\[\e[0;34m\]' # Blue
-txtpur='\[\e[0;35m\]' # Purple
-txtcyn='\[\e[0;36m\]' # Cyan
-txtwht='\[\e[0;37m\]' # White
 bldblk='\[\e[1;30m\]' # Black - Bold
 bldred='\[\e[1;31m\]' # Red
 bldgrn='\[\e[1;32m\]' # Green
@@ -25,18 +17,16 @@ undpur='\[\e[4;35m\]' # Purple
 undcyn='\[\e[4;36m\]' # Cyan
 undwht='\[\e[4;37m\]' # White
 txtrst='\[\e[0m\]'    # Text Reset
-wrap(){ echo '\['$1'\]'; }
-if [[ $(uname -s) == "Darwin" ]]; then
-  txtblk=$(tput setaf 0)
-  txtred=$(tput setaf 1)
-  txtgrn=$(tput setaf 2)
-  txtylw=$(tput setaf 3)
-  txtblu=$(tput setaf 4)
-  txtpur=$(tput setaf 5)
-  txtcyn=$(tput setaf 6)
-  txtwht=$(tput setaf 7)
-  txtrst=$(tput sgr0)
-fi
+wrap(){ echo '\['"$1"'\]'; }
+txtblk=$(tput setaf 0)  # txtblk='\[\e[0;30m\]' # Black - Regular
+txtred=$(tput setaf 1)  # txtred='\[\e[0;31m\]' # Red
+txtgrn=$(tput setaf 2)  # txtgrn='\[\e[0;32m\]' # Green
+txtylw=$(tput setaf 3)  # txtylw='\[\e[0;33m\]' # Yellow
+txtblu=$(tput setaf 4)  # txtblu='\[\e[0;34m\]' # Blue
+txtpur=$(tput setaf 5)  # txtpur='\[\e[0;35m\]' # Purple
+txtcyn=$(tput setaf 6)  # txtcyn='\[\e[0;36m\]' # Cyan
+txtwht=$(tput setaf 7)  # txtwht='\[\e[0;37m\]' # White
+txtrst=$(tput sgr0)
 
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=10000
