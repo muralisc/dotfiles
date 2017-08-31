@@ -2,7 +2,7 @@
 # commands to get an arch linux up and running.
 # followiing the video of sean Bruen : Arch Linux : from post install to Xorg
 
-# enable EFI boot in virtual box settings.
+# ENABLE EFI BOOT IN VIRTUAL BOX SETTINGS.
 
 # rank mirrors
 sudo cp /etc/pacman.d/mirrorlist  /etc/pacman.d/mirrorlist.bkp
@@ -13,8 +13,17 @@ sudo bash -c 'rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirr
 loadkeys us
 
 # setup Disk
-fdisk /dev/sda # check 'm' for 'n' , 't',  and set EFI
-make gpt table # UEFI needs gpt
+# fdisk can handle all parittion tables
+# fdisk /dev/sda # check 'm' for 'g', 'n' , 't',  and set EFI
+# gdisk is specifically for GPT so lets use gdisk
+gdisk /dev/sda  # enter console
+o  # new table
+n  # new partition
+<enter> # choose default for initial values
++512M   # size of boot partition
+Ef00    # type : EFI
+# no make second,third partition etc
+n ..
 # sample structure
 # sda1   512MB   EFI_system(ef00)        /boot
 # sda2   16G     LINUX_swap        SWAP
