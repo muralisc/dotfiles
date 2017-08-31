@@ -155,67 +155,67 @@ echo "skip from 11:00 to 14.38 "
 sudo systemctl reboot
 # check awesome working
 
-yaourt -S --noconfirm                                                 \
-  ttf-ubuntu-font-family                                              \
-  ttf-dejavu `# needed for bold`                                      \
-  `# BASIC`                                                           \
-  perl-rename sed rsync tar gzip feh gawk gcc gdb gnuplot grep groff  \
-  openssh                                                             \
-  rofi-git                                                            \
-  tig `# helps a lot`                                                 \
-  tk `# for wish ( gitk )`                                            \
-  `# AUDIO and movies STUFF`                                          \
-  mpdcron                                                             \
-  bluez bluez-utils iw                                                \
-  pavucontrol pacmixer pulsemixer                                     \
-  pulseaudio pulseaudio-alsa pulseaudio-bluetooth                     \
-  mpd mpc ncmpcpp mpv                                                 \
-  `# RANGER STUFF`                                                    \
-  ranger w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo           \
-  `# MOBILE`                                                          \
-  jmtpfs                                                              \
-  `# EXTRAS`                                                          \
-  compton-git                                                         \
-  ntfs-3g                                                             \
-  bumblebee                                                           \
-  rtorrent \
-  dropbox                                                             \
-  bbswitch                                                            \
-  submarine subliminal `# subtitle stuff`                             \
-  faenza-icon-theme                                                   \
-  atool htop i3lock                                                   \
-  inkscape                                                            \
-  aurvote                                                             \
-  ncdc    `#linux commandline dcpp client`                            \
-  leafpad                                                             \
-  lib32-mesa-libgl lib32-nvidia-utils                                 \
-  libreoffice-still                                                   \
-  lxappearance nvidia                                                 \
-  package-query                                                       \
-  puddletag                                                           \
-  thunderbird                                                         \
-  tigervnc                                                            \
-  xf86-input-synaptics                                                \
-  xf86-video-intel                                                    \
-  youtube-dl                                                          \
-  zukwito-themes                                                      \
-  unzip                                                               \
-  xorg-xprop xorg-xev                                                 \
-  cronie                                                              \
-  keynav-git                                                          \
-  logkeys-git                                                         \
-  xorg-xwininfo                                                       \
-  sshfs                                                               \
-  kdebase-runtime ( for kdenlive)                                     \
-  vnstat                                                              \
-  espeak                                                              \
-  xvkbd                                                               \
-  xzoom                                                               \
-  $(# zathura zathura-ps for backup use firefox,even shows comments,) \
-  jre8-openjdk firefox yajl                                           \
-  mt7601u-git   $(# for external wifi dongle)  \
-  $(# https://2buntu.com/articles/1503/pgp-and-ssh-keys-generate-export-backup-and-restore )  \
-  $(# http://www.integralist.co.uk/posts/security-basics.html  )  \
-  $(# https://alexcabal.com/creating-the-perfect-gpg-keypair  )  \
-  gpg  \
+yaourt -S --noconfirm                                                                        \
+  ttf-ubuntu-font-family                                                                     \
+  ttf-dejavu `# needed for bold`                                                             \
+  `# BASIC`                                                                                  \
+  perl-rename sed rsync tar gzip feh gawk gcc gdb gnuplot grep groff                         \
+  openssh                                                                                    \
+  rofi-git                                                                                   \
+  tig `# helps a lot`                                                                        \
+  tk `# for wish ( gitk )`                                                                   \
+  `# AUDIO and movies STUFF`                                                                 \
+  mpdcron                                                                                    \
+  bluez bluez-utils iw                                                                       \
+  pavucontrol pacmixer pulsemixer                                                            \
+  pulseaudio pulseaudio-alsa pulseaudio-bluetooth                                            \
+  mpd mpc ncmpcpp mpv                                                                        \
+  `# RANGER STUFF`                                                                           \
+  ranger w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo                                  \
+  `# MOBILE`                                                                                 \
+  jmtpfs                                                                                     \
+  `# EXTRAS`                                                                                 \
+  compton-git                                                                                \
+  ntfs-3g                                                                                    \
+  bumblebee                                                                                  \
+  rtorrent                                                                                   \
+  dropbox                                                                                    \
+  bbswitch                                                                                   \
+  submarine subliminal `# subtitle stuff`                                                    \
+  faenza-icon-theme                                                                          \
+  atool htop i3lock                                                                          \
+  inkscape                                                                                   \
+  aurvote                                                                                    \
+  ncdc    `#linux commandline dcpp client`                                                   \
+  leafpad                                                                                    \
+  lib32-mesa-libgl lib32-nvidia-utils                                                        \
+  libreoffice-still                                                                          \
+  lxappearance nvidia                                                                        \
+  package-query                                                                              \
+  puddletag                                                                                  \
+  thunderbird                                                                                \
+  tigervnc                                                                                   \
+  xf86-input-synaptics                                                                       \
+  xf86-video-intel                                                                           \
+  youtube-dl                                                                                 \
+  zukwito-themes                                                                             \
+  unzip                                                                                      \
+  xorg-xprop xorg-xev                                                                        \
+  cronie                                                                                     \
+  keynav-git                                                                                 \
+  logkeys-git                                                                                \
+  xorg-xwininfo                                                                              \
+  sshfs                                                                                      \
+  kdebase-runtime ( for kdenlive)                                                            \
+  vnstat                                                                                     \
+  espeak                                                                                     \
+  xvkbd                                                                                      \
+  xzoom                                                                                      \
+  $(# zathura zathura-ps for backup use firefox,even shows comments,)                        \
+  jre8-openjdk firefox yajl                                                                  \
+  mt7601u-git   $(# for external wifi dongle)                                                \
+  $(# https://2buntu.com/articles/1503/pgp-and-ssh-keys-generate-export-backup-and-restore ) \
+  $(# http://www.integralist.co.uk/posts/security-basics.html  )                             \
+  $(# https://alexcabal.com/creating-the-perfect-gpg-keypair  )                              \
+  gpg                                                                                        \
   pass
