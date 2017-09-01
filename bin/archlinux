@@ -13,27 +13,45 @@ sudo bash -c 'rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirr
 loadkeys us
 
 # setup Disk
+# 1.
 # fdisk can handle all parittion tables
 # fdisk /dev/sda # check 'm' for 'g', 'n' , 't',  and set EFI
+# 2.
 # gdisk is specifically for GPT so lets use gdisk
-gdisk /dev/sda  # enter console
-o  # new table
-n  # new partition
-<enter> # choose default for initial values
-+512M   # size of boot partition
-Ef00    # type : EFI
+# gdisk /dev/sda  # enter console
+# o  # new table
+# n  # new partition
+# <enter> # choose default for initial values
+# +512M   # size of boot partition
+# ef00    # type : EFI
 # no make second,third partition etc
-n ..
+# n ..
+# 3.
+# FOR VMS
+sgdisk -o /dev/sda
+sgdisk -n 0:0:+512M /dev/sda # /boot partition
+sgdisk -n 0:0:0     /dev/sda # /home partition
+sgdisk -L
+sgdisk -t 1:ef00
+sgdisk -t 2:8300
+# FOR bare metal
+sgdisk -o /dev/sda
+sgdisk -n 0:0:+512M /dev/sda  # /boot partition
+sgdisk -n 0:0:+16G  /dev/sda  # SWAP partition
+sgdisk -n 0:0:+100G /dev/sda  # / partition
+sgdisk -n 0:0:0     /dev/sda  # /home partition
+sgdisk -L
+sgdisk -t 1:ef00
+sgdisk -t 2:8200
 # sample structure
-# sda1   512MB   EFI_system(ef00)        /boot
+# sda1   512MB   EFI_system(ef00)  /boot
 # sda2   16G     LINUX_swap        SWAP
 # sda3   100G    Linux_filesystem  /
 # sda4   rem     Linux_filesystem  /home
-# use systemd-boot
 boot=/dev/sda1
 root=/dev/sda3
 mkfs.fat -F32 $boot #EFI
-mkfs.ext4 $boot
+mkfs.ext4 $root
 mount $root /mnt
 mkdir /mnt/boot
 mount $boot /mnt/boot
@@ -46,6 +64,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 passwd  # change root password
 
+# use systemd-boot
 # setup systemd-boot bootloader 
 bootctl --path=/boot install
 # make conf file (https://wiki.archlinux.org/index.php/Systemd-boot#Configuration)
@@ -62,7 +81,6 @@ linux /vmlinuz-linux
 initrd /initramfs-linux.img
 options root=PARTUUID=asdfsadf-asdf-asdf rw
 EOF
-
 
 # change default boot to HARD DISK
 # systemctl reboot # REBOOT/Vagrant setup start ===========================
