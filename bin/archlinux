@@ -84,27 +84,28 @@ EOF
 
 # change default boot to HARD DISK
 # systemctl reboot # REBOOT/Vagrant setup start ===========================
-sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
-sudo pacman -Syu
-sudo pacman -S sudo 
-if [[ $(sudo dmidecode -s bios-version) =~ VirtualBox ]] ; then
- sudo pacman -S virtualbox-guest-modules-arch virtualbox-guest-utils
+sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
+pacman -Syu
+pacman -S sudo
+if [[ $(dmidecode -s bios-version) =~ VirtualBox ]] ; then
+pacman -S virtualbox-guest-modules-arch virtualbox-guest-utils
 cat <<EOF > ~/.xinitrc.local
 VBoxClient-all
 EOF
 fi
-sudo bash -c 'echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf'
+bash -c 'echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf'
 # echo "rivendell" > /etc/hostname
-sudo hostnamectl set-hostname rivnedell
-sudo timedatectl set-timezone Asia/Kolkata
+hostnamectl set-hostname rivnedell
+timedatectl set-timezone Asia/Kolkata
 # uncomment en_US in locale.gen
-sudo sed -r -i'.bak' 's/#(en_US.*)/\1/' /etc/locale.gen
-sudo locale-gen
+sed -r -i'.bak' 's/#(en_US.*)/\1/' /etc/locale.gen
+locale-gen
 # VVI else special characters wont be reco in vim and tmux
-sudo bash -c 'echo "LANG=en_US.UTF-8" > /etc/locale.conf' 
-sudo bash -c 'echo "KEYMAP=us" > /etc/vconsole.conf'
+bash -c 'echo "LANG=en_US.UTF-8" > /etc/locale.conf' 
+bash -c 'echo "KEYMAP=us" > /etc/vconsole.conf'
 # enable network through netctl
-cp /etc/netctl/example/ethernet-dhcp /etc/netctl/ethernet
+cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/ethernet
+sed -i 's/eth0/enp0s3/' /etc/netctl/ethernet
 # edit ethernet link name
 netctl start ethernet
 netctl enable ethernet
