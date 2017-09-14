@@ -7,13 +7,11 @@ do
   REPOROOT=${path/%.git/}
   cd "$REPOROOT"
   NO_OF_MODFILES=`git status -sb | grep -P "^ *(M|R|D)" | wc -l`
-  NO_OF_COMMITS=`git status -sb | grep ahead | wc -l`
+  UNSYNCED_BRANCHES=$(git log --branches --not --remotes --simplify-by-decoration --decorate --oneline | wc -l )
   BRANCH=$(git branch | grep "\*" | cut -f2 -d' ')
-  if [ $NO_OF_MODFILES -gt 0 ] || [ $NO_OF_COMMITS -gt 0 ] || [ "$BRANCH" == "$1" ]; then
-    STATS+="\n"`echo $REPOROOT Mod:$NO_OF_MODFILES CommitsAhead:$NO_OF_COMMITS $BRANCH $(git config user.email) $(git config credential.username)`
+  if [ $NO_OF_MODFILES -gt 0 ] || [ $UNSYNCED_BRANCHES -gt 0 ] ; then
+    STATS+="\n"`echo $REPOROOT Mod:$NO_OF_MODFILES unsynced:$UNSYNCED_BRANCHES $BRANCH $(git config user.email) $(git config credential.username)`
     # git diff --stat
-  else
-    [[ ! -z $1 ]] && { echo "$(tput bold)$(tput setb 4)$(tput setaf 7)Updating repo $REPOROOT$(tput sgr0)"; git pull; }
   fi
 done
 echo -e "$STATS" | column -t
