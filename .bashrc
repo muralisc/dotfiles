@@ -72,6 +72,7 @@ bind 'set vi-ins-mode-string \1\e[35m\2+\1\e[0m\2'
 bind 'set vi-cmd-mode-string \1\e[33m\2:\1\e[0m\2'
 bind '"\C-e": glob-expand-word'
 bind '"\e.":insert-last-argument'
+bind '"jj":vi-movement-mode'
 # load aliases
 [ -f "$HOME/bin/shrc" ] && source "$HOME/bin/shrc"
 # source local file

@@ -26,6 +26,7 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 bindkey -M viins '\e.' insert-last-word
+# bindkey 'jj' vi-cmd-mode use ctrl+[
 
 # history
 export HISTSIZE=10000

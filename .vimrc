@@ -177,19 +177,58 @@ set lazyredraw                                                                  
 set laststatus=2                                                                " always put a status line even if one window
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
-" Statusline settings
+" Statusline settings {{{
 " https://stackoverflow.com/a/10416234
 " http://got-ravings.blogspot.in/2008/08/vim-pr0n-making-statuslines-that-own.html
 " http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
-set statusline=
-set statusline+=%0*%<%f\                                 "  Relative Filepath
-set statusline+=%1*%h%w%m%r\                             "  help? preview? modified? readonly? filetype
-set statusline+=%=                                       "  separator
-set statusline+=%4*%-7(%{(&bomb?\",BOM\":\"\")}%)        "  Encoding2
-set statusline+=%5*%-6(%{&ff}%)                          "  FileFormat (dos/unix..)
-set statusline+=%3*%-7(%{''.(&fenc!=''?&fenc:&enc).''}%) "  Encoding
-set statusline+=%2*%-7(%y%)                              "  filetype
-set statusline+=%0*%-15(\ %l,%c%V/%L%)%p%%               "  %* leftjustify(row,col,virtulcol,totlines) percentage
+" https://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
+function! Status(winnum)
+  let active = a:winnum == winnr()
+  let bufnum = winbufnr(a:winnum)
+  let stat = ''
+  function! Color(active, num )
+    if a:active
+      return '%' . a:num . '*'
+    else
+      return '%*'
+    endif
+  endfunction
+  " file name
+  let stat .= Color( active, 0 )
+  let stat .= '%<%f%*'
+  " help? preview? modified? readonly?
+  let stat .= Color( active, 1 )
+  let stat .= ' %h%w%m%r%*'
+  " right side
+  let stat .= '%='
+  " Encoding2
+  let stat .= Color( active, 5 )
+  let stat.='%-7(%{&ff}%)%*'
+  " Encoding
+  let stat .= Color( active, 3 )
+  let stat.='%-7(%{&fenc}%)%*'
+  " filetype
+  let stat .= Color( active, 2 )
+  let stat.='%-7(%y%)%*'
+  " %* leftjustify(col,virtulcol) percentage
+  let stat .= Color( active, 2 )
+  let stat.='%-15( %c%V%)%*'
+  return stat
+endfunction
+
+" Status AutoCMD:
+function! s:RefreshStatus()
+  for nr in range(1, winnr('$'))
+    call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
+  endfor
+endfunction
+augroup status
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
+augroup END
+" }}}
+
+
 "
 " Shortcut Mappings {{{
 " resize
