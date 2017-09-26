@@ -32,7 +32,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#end()
 endif
 "}}} ===========================================================Vundle setup done
-" Gui options {{{
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
@@ -45,7 +44,6 @@ if has("unix")
 endif
 au FocusLost * :set norelativenumber
 au FocusGained * :set relativenumber
-" }}} Vundle setup
 " Basic Settings {{{
 filetype on                                                                     " Enable filetype detection
 filetype indent on                                                              " Enable filetype-specific indenting
@@ -227,9 +225,6 @@ augroup status
   autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
 augroup END
 " }}}
-
-
-"
 " Shortcut Mappings {{{
 " resize
 nnoremap <Up>    5<c-w>+
@@ -338,7 +333,7 @@ augroup FTOptions
     autocmd FileType xdefaults                    setlocal commentstring=!\ %s
     autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k
     autocmd FileType liquid,markdown,text,txt     setlocal complete+=k
-    autocmd filetype vim                          setlocal keywordprg=:help
+    autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help
     autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
     autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=0
     autocmd Filetype gitcommit                    setlocal spell textwidth=72
