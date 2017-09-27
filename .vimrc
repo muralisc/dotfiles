@@ -1,4 +1,4 @@
-" vim: foldlevel=99:
+" vim: foldlevel=0:
 "Courtsey
 "Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
 "Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
@@ -42,6 +42,7 @@ if has("unix")
     set guifont=Menlo:h16
   endif
 endif
+" }}}
 au FocusLost * :set norelativenumber
 au FocusGained * :set relativenumber
 " Basic Settings {{{
@@ -209,17 +210,17 @@ function! Status(winnum)
   let stat .= Color( active, 2 )
   let stat.='%-7(%y%)%*'
   " %* leftjustify(col,virtulcol) percentage
-  let stat .= Color( active, 2 )
+  let stat .= Color( active, 9 )
   let stat.='%-15( %c%V%)%*'
   return stat
 endfunction
 
-" Status AutoCMD:
 function! s:RefreshStatus()
   for nr in range(1, winnr('$'))
     call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
   endfor
 endfunction
+
 augroup status
   autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
@@ -240,7 +241,6 @@ inoremap jj <Esc>
 " }}} insert mode
 " normal mappings {{{
 " load vimrc
-nnoremap <F4> :e ~/dotfiles/.vimrc<CR>
 nnoremap <F5> :!cscope -Rbi cscopeFiles<CR>:cs reset<CR>
 " Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
@@ -278,6 +278,8 @@ nnoremap <leader>cc :cclose<cr>
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>dc :call SetProjectRoot()<cr>
+" Open vimGrep and put the cursor in the right position
+nnoremap <leader>g :Ack! --ignore 'tags' <C-r><C-w>
 " placeholder for ctrlpMRU
 nnoremap <leader>m :CtrlPMRUFiles <CR>
 " NERD
@@ -303,15 +305,15 @@ nnoremap <leader><leader>q :close!<cr>
 " Close vim itself
 nnoremap <leader><leader><leader>q :wqa!<cr>
 " Open a shell in current directory
-nnoremap <leader>s :shell<CR>
+nnoremap <leader>s :sp<CR>
 nnoremap <leader><tab> :q<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
-nnoremap <leader>t :CtrlPTag<CR>
+nnoremap <leader>T :CtrlPTag<CR>
 " Useful mappings for managing tabs
-nnoremap <leader>T :tabnew<cr>
+nnoremap <leader>t :tabnew<cr>
 nnoremap <leader>l :Lines<CR>
-" Open vimgrep and put the cursor in the right position
-nnoremap <leader>v :Ack! --ignore 'tags' <C-r><C-w>
+nnoremap <leader>v :vs<CR>
+nnoremap <leader>V :e ~/dotfiles/.vimrc<CR>
 " Fast saving
 nnoremap <leader>w :w<cr>
 " make the current file executable
@@ -335,7 +337,7 @@ augroup FTOptions
     autocmd FileType liquid,markdown,text,txt     setlocal complete+=k
     autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help
     autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
-    autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=0
+    autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99
     autocmd Filetype gitcommit                    setlocal spell textwidth=72
     autocmd FileType git,gitcommit                setlocal foldmethod=syntax
 augroup end
