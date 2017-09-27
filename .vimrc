@@ -42,7 +42,6 @@ if has("unix")
     set guifont=Menlo:h16
   endif
 endif
-" }}}
 au FocusLost * :set norelativenumber
 au FocusGained * :set relativenumber
 " Basic Settings {{{
@@ -129,7 +128,7 @@ silent! colorscheme neverland-darker
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
 set foldcolumn=0                                                                " add a fold column
-set foldmethod=manual                                                           " detect triple-{ style fold markers [marker indent]
+set foldmethod=marker                                                           " detect triple-{ style fold markers [marker indent]
 set foldlevel=99                                                                " 0-foldall 99-unfoldall
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
 
