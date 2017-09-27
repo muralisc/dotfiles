@@ -212,6 +212,7 @@ yaourt -S --noconfirm                                                           
   lxappearance nvidia                                                                        \
   package-query                                                                              \
   puddletag                                                                                  \
+  anki                                                                                       \
   thunderbird                                                                                \
   tigervnc                                                                                   \
   xf86-input-synaptics                                                                       \
