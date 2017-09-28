@@ -318,7 +318,8 @@ nnoremap <leader>w :w<cr>
 " make the current file executable
 nnoremap <leader>x :close<CR>
 " dont delete useful while searching
-nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+nnoremap <leader>zz :let &scrolloff=999-&scrolloff<CR>
+nnoremap <leader><C-p> :CtrlP :pwd<CR>
 " }}} leader maping end
 " }}} Shortcut Mappings
 " Filetype Specific Settings {{{
