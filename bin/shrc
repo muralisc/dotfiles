@@ -59,6 +59,7 @@ ms() { # mpc search
   # eg ms year:2000 path::Hindi
   # eg ms year:..1995 path::Hindi
   # mpc search filename "`echo $*| sed 's/ /_/g'`"
+  # beet ls -f '$path' last_played:..2016-05 path::OS >! ~/.mpd/playlists/asd.m3u
 
   beet ls -f '$path' "$@" | sed 's#/home/murali/Dropbox/Songs/##'
 }
