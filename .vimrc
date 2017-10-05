@@ -262,10 +262,6 @@ nnoremap <Leader>gl :silent! Glog --<CR>
 " when browsing glog, when you are in diff and want to go back to commit TODO
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <leader>gs :Gstatus<CR>
-" ge is used after n_CTRL-e
-nnoremap <Leader>ge :GitGutterNextHunk<CR>
-" ge is used after n_CTRL-y
-nnoremap <Leader>gy :GitGutterPrevHunk<CR>
 " }}}
 
 " Clears the search register
@@ -278,7 +274,7 @@ nnoremap <leader>cc :cclose<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>dc :call SetProjectRoot()<cr>
 " Open vimGrep and put the cursor in the right position
-nnoremap <leader>g :Ack! --ignore 'tags' <C-r><C-w>
+nnoremap <leader>gr :Ack! --ignore 'tags' <C-r><C-w>
 " placeholder for ctrlpMRU
 nnoremap <leader>m :CtrlPMRUFiles <CR>
 " NERD
