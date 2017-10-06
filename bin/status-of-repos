@@ -2,7 +2,7 @@
 
 #check if git repos are changed/behind
 STATS=""        # just for printing nicely
-for path in `find $HOME -iname .git -not -ipath '*.vim*'`
+for path in `find $HOME -iname .git`
 do
   REPOROOT=${path/%.git/}
   cd "$REPOROOT"
