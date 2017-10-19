@@ -3,11 +3,12 @@
 # use this script to place all config files at correct
 # location
 
-if [[ ! -d $HOME/dotfiles ]] ;
-then
-  cd $HOME
-  git clone https://github.com/muralisc/dotfiles/
+# check if repo is cloned or not
+if ! git remote show origin | grep "dotfiles" > /dev/null ; then
+  git clone https://github.com/muralisc/dotfiles
+  cd dotfiles
 fi
+DOTFILES_PATH=$(pwd)
 
 git config --local  user.email "muralisc@gmail.com"
 git config --global user.name "Murali Suresh"
@@ -35,13 +36,13 @@ mkdir -p ~/.zsh; cd ~/.zsh
 git clone https://github.com/zsh-users/zsh-history-substring-search
 cd ~/
 
-allfiles=$(find $HOME/dotfiles -type f -not \(        \
-                          -ipath '*.git/*' -o \
-                          -name README.md -o \
-                          -name crontab   -o \
+allfiles=$(find $DOTFILES_PATH -type f -not \( \
+                          -ipath '*.git/*' -o  \
+                          -name README.md -o   \
+                          -name crontab   -o   \
                           -name install.sh \) )
 for file in $allfiles; do
-  homepath=$( sed "s#/dotfiles##" <<< $file )
+  homepath="${HOME}$( sed "s#$DOTFILES_PATH##" <<< $file )"
   mkdir -p $(dirname $homepath)
   ln -vs --backup=numbered $file $homepath
 done
