@@ -163,29 +163,6 @@ timeGoogle() {
   sudo date -s "$(wget -S  "http://www.google.com/" 2>&1 | grep -E '^[[:space:]]*[dD]ate:' | sed 's/^[[:space:]]*[dD]ate:[[:space:]]*//' | head -1l | awk '{print $1, $3, $2,  $5 ,"GMT", $4 }' | sed 's/,//')"
 }
 
-# create a tmux for the first teminal spawned 
-attach_to_tmux() {
-  export TMUX_SOCKET_NAME=${1:-default}
-  TMUX_SESSION_NAME=${2:-Main}
-  if [ $(tmux -L $TMUX_SOCKET_NAME list-sessions 2> /dev/null | wc -l) -eq 0 ] ; then
-    # if no tmux session in the machine , create  one and attach
-    tmux -L $TMUX_SOCKET_NAME new-session -s "$TMUX_SESSION_NAME" -d ;
-    tmux -L $TMUX_SOCKET_NAME attach;
-  else
-    # if a session is already there but not attached, then attach
-    if [ $(tmux -L $TMUX_SOCKET_NAME list-clients | wc -l) -eq 0 ]; then
-      tmux -L $TMUX_SOCKET_NAME attach;
-    fi
-    # else do nothing if alredy attached
-  fi
-  alias ta='tmux -L $TMUX_SOCKET_NAME attach'
-  alias tad='tmux -L $TMUX_SOCKET_NAME attach -d'
-}
-
-sister_tmux_session() {
-  tmux -L $TMUX_SOCKET_NAME new-session -t $TMUX_SESSION_NAME -s `date +%d%b`
-}
-
 list_custom_defined_functions() {
   #TODO
   if [[ $SHELL =~ "zsh" ]]; then
@@ -217,7 +194,6 @@ case ":$PATH:" in
     ;;
 esac
 
-
 decimal_to_binary() {
   export D2B=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})
   echo "${D2B[$1]}"
@@ -227,3 +203,27 @@ decimal_to_binary() {
 binary_to_decimal() {
   echo $((2#$1))
 }
+
+sister_tmux_session() {
+  tmux -L $TMUX_SOCKET_NAME new-session -t $TMUX_SESSION_NAME -s `date +%d%b`
+}
+
+# create a tmux for the first teminal spawned 
+attach_to_tmux() {
+  export TMUX_SOCKET_NAME=${1:-default}
+  TMUX_SESSION_NAME=${2:-Main}
+  if [ $(tmux -L $TMUX_SOCKET_NAME list-sessions 2> /dev/null | wc -l) -eq 0 ] ; then
+    # if no tmux session in the machine , create  one and attach
+    tmux -L $TMUX_SOCKET_NAME new-session -s "$TMUX_SESSION_NAME" -d ;
+    tmux -L $TMUX_SOCKET_NAME attach;
+  else
+    # if a session is already there but not attached, then attach
+    if [ $(tmux -L $TMUX_SOCKET_NAME list-clients | wc -l) -eq 0 ]; then
+      tmux -L $TMUX_SOCKET_NAME attach;
+    fi
+    # else do nothing if alredy attached
+  fi
+  alias ta='tmux -L $TMUX_SOCKET_NAME attach'
+  alias tad='tmux -L $TMUX_SOCKET_NAME attach -d'
+}
+attach_to_tmux rivendell rivendell

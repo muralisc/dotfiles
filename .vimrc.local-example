@@ -1,2 +1,0 @@
-set clipboard=unnamed
-nnoremap <leader>v :Ack! --ignore 'tags' --ignore 'node_modules' <C-r><C-w>

@@ -36,12 +36,6 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L
-if has("unix")
-  let s:uname = system("uname -s")
-  if s:uname == "Darwin\n"
-    set guifont=Menlo:h16
-  endif
-endif
 au FocusLost * :set norelativenumber
 au FocusGained * :set relativenumber
 " Basic Settings {{{
@@ -303,6 +297,7 @@ nnoremap <leader><leader><leader>q :wqa!<cr>
 nnoremap <leader>s :sp<CR>
 nnoremap <leader><tab> :q<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
+nnoremap <leader>e :e $MYVIMRC<CR>
 nnoremap <leader>T :CtrlPTag<CR>
 " Useful mappings for managing tabs
 nnoremap <leader>t :tabnew<cr>
@@ -359,3 +354,10 @@ if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
 let loaded_matchparen = 1
+if has("unix")
+  let s:uname = system("uname -s")
+  if s:uname == "Darwin\n"
+    set guifont=Menlo:h16
+    set clipboard=unnamed
+  endif
+endif
