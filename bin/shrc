@@ -89,7 +89,7 @@ tt() {
   if [ $# -eq 0 ];
   then
     echo usage : tt tomorrow5am
-    echo usage : sleep $(tt 2:37am -c)
+    echo 'usage : sleep $(tt 2:37am -c)'
     return 1;
   fi
 
@@ -108,6 +108,20 @@ tt() {
     TZ=":GMT" date -d @$diff +"%e %R"
   fi
 }
+
+stopwatch() {
+
+  NOW=$(date +%s)
+  while true; do
+    currentTime=$(date +%s)
+    diff=$(( currentTime - NOW ))
+    opt=$(TZ=":GMT" date -d @$diff +"%H:%M:%S")
+    printf "\r$opt     "
+    sleep 2;
+  done
+
+}
+
 # simple calculator
 function c() {
   noSpaceExpr=`echo $* | sed -e "s/ //g"`
