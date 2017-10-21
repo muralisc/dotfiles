@@ -218,14 +218,10 @@ binary_to_decimal() {
   echo $((2#$1))
 }
 
-sister_tmux_session() {
-  tmux -L $TMUX_SOCKET_NAME new-session -t $TMUX_SESSION_NAME -s `date +%d%b`
-}
-
 # create a tmux for the first teminal spawned 
 attach_to_tmux() {
   export TMUX_SOCKET_NAME=${1:-default}
-  TMUX_SESSION_NAME=${2:-Main}
+  export TMUX_SESSION_NAME=${2:-Main}
   if [ $(tmux -L $TMUX_SOCKET_NAME list-sessions 2> /dev/null | wc -l) -eq 0 ] ; then
     # if no tmux session in the machine , create  one and attach
     tmux -L $TMUX_SOCKET_NAME new-session -s "$TMUX_SESSION_NAME" -d ;
@@ -240,4 +236,7 @@ attach_to_tmux() {
   alias ta='tmux -L $TMUX_SOCKET_NAME attach'
   alias tad='tmux -L $TMUX_SOCKET_NAME attach -d'
 }
-attach_to_tmux rivendell rivendell
+
+sister_tmux_session() {
+  tmux -L $TMUX_SOCKET_NAME new-session -t $TMUX_SESSION_NAME -s `date +%d%b`
+}
