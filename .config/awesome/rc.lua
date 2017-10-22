@@ -447,14 +447,16 @@ globalkeys = awful.util.table.join(
     awful.key({ altkey, "Control" }, "s",           function () awful.util.spawn_with_shell( "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')") end),
     awful.key({ modkey            }, "q",           function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh show") end), -- show a quote
     -- window moving and resizing  {{{
-    awful.key({ modkey            }, "Prior",       function () awful.client.moveresize( 0,  0, 40, 0) end),-- Super PageUp: increase window width
-    awful.key({ modkey, "Shift"   }, "Prior",       function () awful.client.moveresize( 0,  0,  -40, 0) end),-- Super Shift PageUp
-    awful.key({ modkey            }, "Next",        function () awful.client.moveresize( 0, 0, 0,  40) end),-- Super PageDown: increase window height
-    awful.key({ modkey, "Shift"   }, "Next",        function () awful.client.moveresize( 0, 0, 0,  -40) end),
-    awful.key({ modkey            }, "Down",        function () awful.client.moveresize(  0,  20,   0,   0) end),   -- Super DownArrow: move window
-    awful.key({ modkey            }, "Up",          function () awful.client.moveresize(  0, -20,   0,   0) end),   -- Super UpArrow
-    awful.key({ modkey,           }, "Left",        function () awful.client.moveresize(-20,   0,   0,   0) end),
-    awful.key({ modkey,           }, "Right",       function () awful.client.moveresize( 20,   0,   0,   0) end),
+
+    awful.key({ modkey            }, ".",           function () awful.client.moveresize(  0,   0, 40,  0) end),   -- Super >       -increase window width
+    awful.key({ modkey            }, ",",           function () awful.client.moveresize(  0,   0,-40,  0) end),   -- Super <       -decrease window width
+    awful.key({ modkey, "Shift"   }, ".",           function () awful.client.moveresize(  0,   0,  0, 40) end),   -- Super Shift > increase window height
+    awful.key({ modkey, "Shift"   }, ",",           function () awful.client.moveresize(  0,   0,  0,-40) end),   -- Super Shift < decrease window height
+    awful.key({ modkey            }, "Down",        function () awful.client.moveresize(  0,  20,  0,  0) end),   -- Super DownArrow: move window
+    awful.key({ modkey            }, "Up",          function () awful.client.moveresize(  0, -20,  0,  0) end),   -- Super UpArrow
+    awful.key({ modkey,           }, "Left",        function () awful.client.moveresize(-20,   0,  0,  0) end),
+    awful.key({ modkey,           }, "Right",       function () awful.client.moveresize( 20,   0,  0,  0) end),
+
     -- }}}
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),

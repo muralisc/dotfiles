@@ -65,7 +65,7 @@ ms() { # mpc search
 }
 
 mp() { #mpc play
-  mpc clear
+  mpc clear > /dev/null
   # mpc search filename "`echo $*| sed 's/ /_/g'`" | mpc add
   beet ls -f '$path' "$@" | sed 's#/home/murali/Dropbox/Songs/##' | mpc add
   mpc play
