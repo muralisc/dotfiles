@@ -109,17 +109,13 @@ tt() {
   fi
 }
 
-stopwatch() {
-
-  NOW=$(date +%s)
-  while true; do
+stopwatch(){
+  date1=$(date +%s);
+   while true; do
     currentTime=$(date +%s)
-    diff=$(( currentTime - NOW ))
-    opt=$(TZ=":GMT" date -d @$diff +"%H:%M:%S")
-    printf "\r$opt     "
-    sleep 2;
-  done
-
+    echo -ne "$(date -u --date @$((currentTime - $date1)) +%H:%M:%S)\r";
+    sleep 0.5
+   done
 }
 
 # simple calculator
