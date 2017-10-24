@@ -325,7 +325,7 @@ augroup FTOptions
     autocmd filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
     autocmd FileType xdefaults                    setlocal commentstring=!\ %s
     autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k
-    autocmd FileType liquid,markdown,text,txt     setlocal complete+=k
+    autocmd FileType liquid,markdown,text,txt,tex setlocal complete+=k textwidth=80
     autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help
     autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
     autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99

@@ -10,7 +10,7 @@ PS1='%F{blue}$(shrink_path -f) %F{red}❯%F{green}❯%F{blue}❯%f%b '
 
 # vi mode setup
 bindkey -v
-export KEYTIMEOUT=1
+bindkey jj vi-cmd-mode #or use ctrl+[
 function zle-line-init zle-keymap-select {
     VIM_PROMPT="%F{magenta}[% NORMAL]%"
     RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}"
@@ -25,8 +25,8 @@ bindkey '^h' backward-delete-char
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
+# Alt+.
 bindkey -M viins '\e.' insert-last-word
-# bindkey 'jj' vi-cmd-mode use ctrl+[
 
 # history
 export HISTSIZE=10000
@@ -47,6 +47,8 @@ setopt HIST_BEEP                 # Beep when accessing non-existent history.
 source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey '^P' history-substring-search-up #up-history
 bindkey '^N' history-substring-search-down #down-history
+bindkey -M vicmd 'k' history-substring-search-up #up-history
+bindkey -M vicmd 'j' history-substring-search-down #down-history
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
