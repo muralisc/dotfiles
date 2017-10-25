@@ -68,6 +68,8 @@ set ignorecase                                                                  
 " set showmatch                                                                   " set show matching parenthesis
 set number                                                                      " always show line numbers
 set rnu                                                                         " relative number
+set termencoding=utf-8
+set encoding=utf-8
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
 set cursorline                                                                  " underline the current line, for quick orientation
 set cursorcolumn                                                                " have a vertical line marking the cursor column
@@ -163,8 +165,6 @@ endfunction
 " }}} Foldingtext
 " }}} Folding Rules
 " Editor Layout {{{
-set termencoding=utf-8
-set encoding=utf-8
 set lazyredraw                                                                  " don't update the display while executing macros
 set laststatus=2                                                                " always put a status line even if one window
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
