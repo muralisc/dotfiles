@@ -79,10 +79,6 @@ mu() {
   mpc update;
 }
 
-apt-list-packages() {
-  dpkg-query -W --showformat='${Installed-Size} ${Package} ${Status}\n' | grep -v deinstall | sort -n | awk '{print $1" "$2}'
-}
-
 # time till
 tt() {
 
