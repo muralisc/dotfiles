@@ -10,7 +10,7 @@ if ! git remote show origin | grep "dotfiles" > /dev/null ; then
 fi
 DOTFILES_PATH=$(pwd)
 
-git config --local  user.email "muralisc@gmail.com"
+git config --global user.email "muralisc@gmail.com"
 git config --global user.name "Murali Suresh"
 git config --global credential.helper 'cache --timeout=80000'
 git config --global credential.helper 'store'
