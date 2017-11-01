@@ -1,16 +1,8 @@
 autoload -Uz compinit
+# for bringing up editor on C-x C-e
+autoload -z edit-command-line
 compinit
-
-# prompt setup
-setopt PROMPT_SUBST
-if [ -f ~/.local/shrink-path.plugin.zsh ]; then
-  source ~/.local/shrink-path.plugin.zsh
-fi
-PS1='%F{blue}$(shrink_path -f) %F{red}❯%F{green}❯%F{blue}❯%f%b '
-
-# vi mode setup
-bindkey -v
-bindkey jj vi-cmd-mode #or use ctrl+[
+# for refreshing vi mode prompt
 function zle-line-init zle-keymap-select {
     VIM_PROMPT="%F{magenta}[% NORMAL]%"
     RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}"
@@ -18,15 +10,29 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
+zle -N edit-command-line
+# prompt setup
+setopt PROMPT_SUBST
+if [ -f ~/.local/shrink-path.plugin.zsh ]; then
+  source ~/.local/shrink-path.plugin.zsh
+fi
+PS1='%F{blue}$(shrink_path -f) %F{red}❯%F{green}❯%F{blue}❯%f%b '
+# vi mode setup
+bindkey -v
+bindkey jj vi-cmd-mode #or use ctrl+[
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
-
-# for bringing up editor on C-x C-e
-autoload -z edit-command-line
-zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 # Alt+.
 bindkey -M viins '\e.' insert-last-word
+bindkey '^P' history-substring-search-up #up-history
+bindkey '^N' history-substring-search-down #down-history
+bindkey -M vicmd 'k' history-substring-search-up #up-history
+bindkey -M vicmd 'j' history-substring-search-down #down-history
+# up and down arrows
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 
 # history
 export HISTSIZE=10000
@@ -45,13 +51,6 @@ setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing non-existent history.
 source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
-bindkey '^P' history-substring-search-up #up-history
-bindkey '^N' history-substring-search-down #down-history
-bindkey -M vicmd 'k' history-substring-search-up #up-history
-bindkey -M vicmd 'j' history-substring-search-down #down-history
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
 [ -f "$HOME/.completions.zsh" ] && source "$HOME/.completions.zsh"
 
 # load aliases

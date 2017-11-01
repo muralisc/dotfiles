@@ -297,7 +297,7 @@ nnoremap <leader><leader><leader>q :wqa!<cr>
 nnoremap <leader>s :sp<CR>
 nnoremap <leader><tab> :q<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
-nnoremap <leader>e :e $MYVIMRC<CR>
+nnoremap <leader>ee :e $MYVIMRC<CR>
 nnoremap <leader>T :CtrlPTag<CR>
 " Useful mappings for managing tabs
 nnoremap <leader>t :tabnew<cr>
