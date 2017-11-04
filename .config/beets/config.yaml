@@ -1,5 +1,5 @@
 directory: ~/Dropbox/Songs/
-library: ~/Dropbox/Songs/musiclibrary.blb
+library: /var/tmp/musiclibrary.blb
 import:
     copy: no
     write: yes

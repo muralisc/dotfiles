@@ -69,13 +69,20 @@ mp() { #mpc play
   # mpc search filename "`echo $*| sed 's/ /_/g'`" | mpc add
   beet ls -f '$path' "$@" | sed 's#/home/murali/Dropbox/Songs/##' | mpc add
   mpc play
-  # TODO
-  # find -type f -iname "*.mp3" -printf "\n%C@ %p" | sort -n | awk '{print $2}' | sed 's#./##' | sed '/^$/d' | mpc add 
+}
+
+least_played() {
+  # Print the access time along with the file name
+  # eg : to play songs played before 10 days
+  # least_played -atime +10
+  cd /home/murali/Dropbox/Songs/
+  find -type f "${@}" -iname "*.mp3" -printf "\n%A@ %p" | \
+    sort -nr | awk '{print $2}' | sed 's#./##' | sed '/^$/d' | mpc add
 }
 
 # database update
 mu() {
-  rm ~/Dropbox/Songs/musiclibrary.blb; beet import -A ~/Dropbox/Songs/ ;
+  rm /var/tmp/musiclibrary.blb; beet import -A ~/Dropbox/Songs/ ;
   mpc update;
 }
 
