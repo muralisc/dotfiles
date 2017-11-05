@@ -19,7 +19,7 @@ alias gcp='git cherry-pick'
 alias gd='git difftool --dir-diff'
 alias gdf='git diff'
 alias gf='git fetch --all'
-alias gl="git log --pretty=format:'%C(black)%G? %C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)' --graph -5"
+alias gl="git --no-pager log --pretty=format:'%C(black)%G? %C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)' --graph -15"
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
 alias gp="git push origin HEAD"
 alias gpl='git pull --rebase' # git pull --rebase origin master
