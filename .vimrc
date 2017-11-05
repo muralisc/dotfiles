@@ -27,8 +27,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " Plug 'ap/vim-buftabline'                                                    " uncomment when required
   " Plug 'scrooloose/nerdtree'                                                  " uncomment when required
   " Plug 'vim-airline/vim-airline'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  " Plug 'junegunn/fzf.vim'                                                       " :Colors :Lines and shell **
   call plug#end()
 endif
 "}}} ===========================================================Vundle setup done
