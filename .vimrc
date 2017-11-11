@@ -336,6 +336,7 @@ augroup end
 if executable('ag')
       let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
+let g:ack_autoclose = 0
 " }}}
     " viewdoc settings "{{{
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
