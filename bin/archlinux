@@ -24,8 +24,8 @@ loadkeys us
 # <enter> # choose default for initial values
 # +512M   # size of boot partition
 # ef00    # type : EFI
-# no make second,third partition etc
-# n ..
+# now make second,third partition etc
+# n .. etc etc
 # 3.
 # FOR VMS
 sgdisk -o /dev/sda
@@ -65,7 +65,7 @@ arch-chroot /mnt
 passwd  # change root password
 
 # use systemd-boot
-# setup systemd-boot bootloader 
+# setup systemd-boot bootloader
 bootctl --path=/boot install
 # make conf file (https://wiki.archlinux.org/index.php/Systemd-boot#Configuration)
 cat <<EOF > /boot/loader/loader.conf
@@ -73,7 +73,7 @@ default  arch
 timeout  4
 editor   0
 EOF
-# this will help in getting PARTUUID into arch.conf 
+# this will help in getting PARTUUID into arch.conf
 # blkid -s PARTUUID -o value $root >> /boot/loader/enrtries/arch.conf
 cat <<EOF > /boot/loader/entries/arch.conf
 title Arch Linux
@@ -101,7 +101,7 @@ timedatectl set-timezone Asia/Kolkata
 sed -r -i'.bak' 's/#(en_US.*)/\1/' /etc/locale.gen
 locale-gen
 # VVI else special characters wont be reco in vim and tmux
-bash -c 'echo "LANG=en_US.UTF-8" > /etc/locale.conf' 
+bash -c 'echo "LANG=en_US.UTF-8" > /etc/locale.conf'
 bash -c 'echo "KEYMAP=us" > /etc/vconsole.conf'
 # enable network through netctl
 cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/ethernet
@@ -126,14 +126,15 @@ sudo sh -c 'echo Defaults env_keep += \"http_proxy https_proxy ftp_proxy\" >> /e
 
 
 # setup OS with basic utilities
+# INSTALL BASIC STUFF TMUX VIM ZSH etc`
 sudo pacman --noconfirm -S \
-  `# INSTALL BASIC STUFF TMUX VIM ZSH etc` \
   fakeroot git jshon wget make pkg-config \
   autoconf automake patch expac zsh tmux   \
-  python gvim ttf-freefont binutils \
-  `# INSTALL BASIC XSERVER WITH AWESOME` \
+  python gvim ttf-freefont binutils
+# INSTALL BASIC XSERVER WITH AWESOME
+sudo pacman --noconfirm -S \
   alsa-utils xorg-server xorg-xinit xorg-apps mesa awesome \
-  xf86-video-vesa xterm rxvt-unicode xsel xclip # xorg
+  xf86-video-vesa xterm rxvt-unicode xsel xclip xf86-input-synaptics xf86-video-intel
 sudo modprobe -a vboxguest vboxsf vboxvideo # or
 cat <<EOF > /usr/lib/modules-load.d/virtualbox.conf
 vboxguest
@@ -174,68 +175,66 @@ echo "skip from 11:00 to 14.38 "
 sudo systemctl reboot
 # check awesome working
 
-yaourt -S --noconfirm                                                                        \
-  ttf-ubuntu-font-family                                                                     \
-  ttf-dejavu `# needed for bold`                                                             \
-  `# BASIC`                                                                                  \
-  perl-rename sed rsync tar gzip feh gawk gcc gdb gnuplot grep groff                         \
-  openssh                                                                                    \
-  rofi-git                                                                                   \
-  tig `# helps a lot`                                                                        \
-  tk `# for wish ( gitk )`                                                                   \
-  `# AUDIO and movies STUFF`                                                                 \
-  mpdcron                                                                                    \
-  bluez bluez-utils iw                                                                       \
-  pavucontrol pacmixer pulsemixer                                                            \
-  pulseaudio pulseaudio-alsa pulseaudio-bluetooth                                            \
-  mpd mpc ncmpcpp mpv                                                                        \
-  `# RANGER STUFF`                                                                           \
-  ranger w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo                                  \
-  `# MOBILE`                                                                                 \
-  jmtpfs                                                                                     \
-  `# EXTRAS`                                                                                 \
-  compton-git                                                                                \
-  ntfs-3g                                                                                    \
-  bumblebee                                                                                  \
-  rtorrent                                                                                   \
-  dropbox                                                                                    \
-  bbswitch                                                                                   \
-  submarine subliminal `# subtitle stuff`                                                    \
-  faenza-icon-theme                                                                          \
-  atool htop i3lock                                                                          \
-  inkscape                                                                                   \
-  aurvote                                                                                    \
-  ncdc    `#linux commandline dcpp client`                                                   \
-  leafpad                                                                                    \
-  lib32-mesa-libgl lib32-nvidia-utils                                                        \
-  libreoffice-still                                                                          \
-  lxappearance nvidia                                                                        \
-  package-query                                                                              \
-  puddletag                                                                                  \
-  anki                                                                                       \
-  thunderbird                                                                                \
-  tigervnc                                                                                   \
-  xf86-input-synaptics                                                                       \
-  xf86-video-intel                                                                           \
-  youtube-dl                                                                                 \
-  zukwito-themes                                                                             \
-  unzip                                                                                      \
-  xorg-xprop xorg-xev                                                                        \
-  cronie                                                                                     \
-  keynav-git                                                                                 \
-  logkeys-git                                                                                \
-  xorg-xwininfo                                                                              \
-  sshfs                                                                                      \
-  kdebase-runtime ( for kdenlive)                                                            \
-  vnstat                                                                                     \
-  espeak                                                                                     \
-  xvkbd                                                                                      \
-  xzoom                                                                                      \
-  $(# zathura zathura-ps for backup use firefox,even shows comments,)                        \
-  jre8-openjdk firefox yajl                                                                  \
-  mt7601u-git   $(# for external wifi dongle)                                                \
-  $(# https://2buntu.com/articles/1503/pgp-and-ssh-keys-generate-export-backup-and-restore ) \
-  $(# http://www.integralist.co.uk/posts/security-basics.html  )                             \
-  $(# https://alexcabal.com/creating-the-perfect-gpg-keypair  )                              \
-  gpg                                                                                        \
-  pass
+# Good font is very important
+yaourt -S --noconfirm ttf-ubuntu-font-family
+# needed for bold
+yaourt -S --noconfirm ttf-dejavu
+# Browser
+yaourt -S --noconfirm yajl firefox
+# most basic stuff
+yaourt -S --noconfirm \
+  perl-rename sed rsync tar gzip feh gawk \
+  gcc gdb gnuplot grep groff openssh unzip
+# monitors
+yaourt -S --noconfirm htop vnstat
+# for terminal git and git-gui
+yaourt -S --noconfirm tig tk
+# bluetooth wifi
+yaourt -S --noconfirm bluez bluez-utils iw
+# just get the audio working !!!
+yaourt -S --noconfirm pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa pulseaudio-bluetooth
+# movies tv songs
+yaourt -S --noconfirm mpd mpc ncmpcpp mpv puddletag
+# RANGER STUFF
+yaourt -S --noconfirm ranger w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
+# MOBILE
+yaourt -S --noconfirm jmtpfs
+# i love beauty
+yaourt -S --noconfirm compton-git faenza-icon-theme lxappearance zukwito-themes
+# i love conveniance, alt-tab, lock
+yaourt -S --noconfirm rofi-git i3lock
+# for the tinkering me
+yaourt -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
+# SECURITY
+# https://2buntu.com/articles/1503/pgp-and-ssh-keys-generate-export-backup-and-restore
+# http://www.integralist.co.uk/posts/security-basics.html
+# https://alexcabal.com/creating-the-perfect-gpg-keypair
+yaourt -S --noconfirm gpg pass
+# screen recording
+yaourt -S --noconfirm peek
+# i love to learn
+yaourt -S --noconfirm anki zathura zathura-ps #for pdf backup use firefox,even shows comments
+# for the creative me
+yaourt -S --noconfirm kdebase-runtime kdenlive inkscape gimp
+# i love more beauty ; graphics stuff
+yaourt -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
+# when friends who use windows comes over
+yaourt -S --noconfirm ntfs-3g
+# internet tools
+yaourt -S --noconfirm rtorrent dropbox youtube-dl
+# remote tools
+yaourt -S --noconfirm tigervnc sshfs
+# i dont like mouse
+yaourt -S --noconfirm keynav-git
+# i like to type better; keylogger ;)
+yaourt -S --noconfirm logkeys-git
+# accessibility when i am sitting faar away
+yaourt -S --noconfirm xzoom
+# i have java ; but we need it anyway :(
+yaourt -S --noconfirm jre8-openjdk
+# when things break down ( for external wifi dongle)
+yaourt -S --noconfirm mt7601u-git
+# old stuff
+yaourt -S --noconfirm submarine subliminal # subtitle stuff
+yaourt -S --noconfirm ncdc    `#linux commandline dcpp client`
+
