@@ -117,7 +117,7 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "open terminal", terminal },
-                                    { "ranger", terminal .. " -e ranger" },
+                                    { "ranger", "urxvtc -fn 'xft:UbuntuMono:Regular:size=25' -e ranger " },
                                     { "keybord", "xvkbd" },
                                     { "shutdown", 'poweroff' },
                                     { "free-desktop",  menu_items}

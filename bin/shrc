@@ -55,6 +55,12 @@ alias sor="status-of-repos"
 
 # FUNCTIONS {{{
 
+
+sanitize_file_name() {
+  [[ -z $1 ]] && perl-rename -n "s/ |\(|\!|&|\)|'|\[|\]/_/g" *
+  [[ -n $1 ]] && perl-rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" *
+}
+
 ms() { # mpc search
   #mpc search
   # eg ms year:2000 path::Hindi
