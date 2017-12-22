@@ -1,0 +1,37 @@
+daemonize  # background keynav
+clear      # clear all previous keybindings
+
+e grid-nav toggle
+q end
+Escape end
+space warp
+Return warp,click 1,end
+semicolon warp,end
+1 warp, click 1
+2 warp, click 2
+3 warp, click 3
+
+# Zoom to the current window
+w windowzoom
+c cursorzoom 100 100
+
+### History
+a history-back
+
+### Example using a 3x3 grid with nethack-vi keys
+ctrl+semicolon start, grid 3x3
+h cell-select 1x2      # left
+j cell-select 2x3      # down
+k cell-select 2x1      # up
+l cell-select 3x2      # right
+u cell-select 1x1      # up-left
+o cell-select 3x1      # up-right
+m cell-select 1x3      # down-left
+period cell-select 3x3      # down-right
+i cell-select 2x2 # center
+
+
+shift+h move-left
+shift+j move-down
+shift+k move-up
+shift+l move-right

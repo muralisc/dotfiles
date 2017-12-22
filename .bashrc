@@ -45,7 +45,7 @@ hostname="$(wrap $txtylw)\h"
 filepath="$(wrap $txtblu)\$SHRINKED_PWD"
 datecolr="$(wrap $bldpur)\D{%F %T}"
 #PS1='\u@\h:\w\$ '
-export PS1="${SSH_CONNECTION:+ssh }$filepath $(wrap $txtgrn)▶$(wrap $txtrst)"
+export PS1="${SSH_CONNECTION:+ssh }$filepath $(wrap $txtgrn)▶ $(wrap $txtrst)"
 if [[ $(id -u) == 0 ]]; then PS1="root|$PS1"; fi
 
 # enable programmable completion features
