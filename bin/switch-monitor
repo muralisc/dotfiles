@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# ./switch-monitor [--default|--hdmi|--auto]
+
+# ensure that xrandr recognises HDMI and eDP labels
+if xrandr | grep HDMI > /dev/null && xrandr | grep eDP > /dev/null ; then
+  # switch to HDMI only if HDMI is connected
+  hdmi_label=$(xrandr | grep -oE "^HDMI\S*")
+  edp_label=$(xrandr | grep -oE "^eDP\S*")
+  case $1 in
+    --default)
+        xrandr --output $edp_label --auto --output $hdmi_label --off
+      ;;
+    --hdmi)
+        xrandr --output $hdmi_label --auto --output $edp_label --off
+      ;;
+    --auto)
+      if xrandr | grep disconnect | grep HDMI ; then
+        xrandr --output $edp_label --auto --output $hdmi_label --off
+      else
+        xrandr --output $hdmi_label --auto --output $edp_label --off
+      fi
+      ;;
+  esac
+fi

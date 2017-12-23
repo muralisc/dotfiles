@@ -563,8 +563,8 @@ globalkeys = awful.util.table.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"}),
-    awful.key({ modkey            } , "e", function () awful.util.spawn_with_shell("exec xrandr --output HDMI-1 --auto --output eDP-1 --off") end), -- external
-    awful.key({ modkey, "Shift"   } , "e", function () awful.util.spawn_with_shell("exec xrandr --output HDMI-1 --off  --output eDP-1 --auto") end), -- external off
+    awful.key({ modkey            } , "e", function () awful.util.spawn_with_shell("exec ~/bin/switch-monitor --hdmi") end), -- external
+    awful.key({ modkey, "Shift"   } , "e", function () awful.util.spawn_with_shell("exec ~/bin/switch-monitor --default") end), -- external off
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"})

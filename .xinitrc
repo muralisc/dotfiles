@@ -35,4 +35,7 @@ keynav daemonize
 # dont turn off the screen soon, wait 2 hours, change every 60sec
 xset -dpms
 xset s 7200 60
+# ensure that xrandr recognises HDMI and eDP labels
+~/bin/switch-monitor --auto
 exec awesome
+
