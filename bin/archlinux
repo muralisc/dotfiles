@@ -63,6 +63,8 @@ pacstrap /mnt base
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 passwd  # change root password
+# install pre-req for wifi-menu
+pacman -S dialog wpa_supplicant
 
 # use systemd-boot
 # setup systemd-boot bootloader
@@ -158,10 +160,11 @@ git clone 'https://github.com/muralisc/dotfiles'
 # enable auto-login
 sudo systemctl edit getty@tty1
 sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
+USERNAME=vagrant
 sudo sh -c 'cat << EOF >> /etc/systemd/system/getty@tty1.service.d/override.conf
 [Service]
 ExecStart=
-ExecStart=-/usr/bin/agetty --autologin vagrant --noclear %I $TERM
+ExecStart=-/usr/bin/agetty --autologin '$USERNAME' --noclear %I $TERM
 EOF
 '
 
@@ -194,13 +197,13 @@ yaourt -S --noconfirm bluez bluez-utils iw
 # just get the audio working !!!
 yaourt -S --noconfirm pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa pulseaudio-bluetooth
 # movies tv songs
-yaourt -S --noconfirm mpd mpc ncmpcpp mpv puddletag
+yaourt -S --noconfirm mpd mpc ncmpcpp mpv puddletag beets
 # RANGER STUFF
 yaourt -S --noconfirm ranger w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
 # MOBILE
 yaourt -S --noconfirm jmtpfs
 # i love beauty
-yaourt -S --noconfirm compton-git faenza-icon-theme lxappearance zukwito-themes
+yaourt -S --noconfirm compton-git faenza-icon-theme lxappearance
 # i love conveniance, alt-tab, lock
 yaourt -S --noconfirm rofi-git i3lock
 # for the tinkering me
@@ -209,7 +212,7 @@ yaourt -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 # https://2buntu.com/articles/1503/pgp-and-ssh-keys-generate-export-backup-and-restore
 # http://www.integralist.co.uk/posts/security-basics.html
 # https://alexcabal.com/creating-the-perfect-gpg-keypair
-yaourt -S --noconfirm gpg pass
+yaourt -S --noconfirm gnupg pass
 # screen recording
 yaourt -S --noconfirm peek
 # i love to learn
@@ -236,5 +239,20 @@ yaourt -S --noconfirm jre8-openjdk
 yaourt -S --noconfirm mt7601u-git
 # old stuff
 yaourt -S --noconfirm submarine subliminal # subtitle stuff
-yaourt -S --noconfirm ncdc    `#linux commandline dcpp client`
+#linux commandline dcpp client`
+yaourt -S --noconfirm ncdc
 
+
+# get the gpg file from location
+# check pass in mobile for the password
+gpg --decrypt file.gpg > file.tar
+# Bad session key error is due to wrong password
+tar xf <file>.tar
+gpg --import subkey.gpg
+gpg --list-keys
+gpg --edit-key <key-id> # then trust and quit
+
+pass:
+1. clone bitbucket
+1. mv pass .password-store
+1. pass

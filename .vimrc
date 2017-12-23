@@ -15,6 +15,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/vim-colorschemes'
   Plug 'kien/ctrlp.vim'
   Plug 'mileszs/ack.vim'
+  Plug 'tpope/vim-rhubarb'
   " Plug 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
   Plug 'powerman/vim-plugin-viewdoc'
   Plug 'tpope/vim-commentary'                                                   " map: gcc
@@ -295,13 +296,12 @@ nnoremap <leader><leader><leader>q :wqa!<cr>
 nnoremap <leader>s :sp<CR>
 nnoremap <leader><tab> :q<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
-nnoremap <leader>ee :e $MYVIMRC<CR>
 nnoremap <leader>T :CtrlPTag<CR>
 " Useful mappings for managing tabs
 nnoremap <leader>t :tabnew<cr>
 nnoremap <leader>l :Lines<CR>
 nnoremap <leader>v :vs<CR>
-nnoremap <leader>V :e ~/dotfiles/.vimrc<CR>
+nnoremap <leader>V :e $MYVIMRC<CR>
 " Fast saving
 nnoremap <leader>w :w<cr>
 " make the current file executable
