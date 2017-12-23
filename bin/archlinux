@@ -170,9 +170,10 @@ EOF
 
 # setup AWESOME WM
 yaourt -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
-git clone https://github.com/terceiro/awesome-freedesktop
-sudo mv awesome-freedesktop/freedesktop /etc/xdg/awesome/
-rm -rf awesome-freedesktop
+# i love conveniance: alt-tab, lock , menu
+# install morc_menu from github
+# checkout https://wiki.archlinux.org/index.php/xdg-menu#xdg_menu
+yaourt -S --noconfirm dmenu rofi-git i3lock archlinux-xdg-menu
 echo "skip from 9:20 to 10:50 "
 echo "skip from 11:00 to 14.38 "
 sudo systemctl reboot
@@ -204,8 +205,6 @@ yaourt -S --noconfirm ranger w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
 yaourt -S --noconfirm jmtpfs
 # i love beauty
 yaourt -S --noconfirm compton-git faenza-icon-theme lxappearance
-# i love conveniance, alt-tab, lock
-yaourt -S --noconfirm rofi-git i3lock
 # for the tinkering me
 yaourt -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 # SECURITY

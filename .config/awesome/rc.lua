@@ -13,6 +13,7 @@ local vicious = require("vicious")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 awful.util.spawn_with_shell("compton --inactive-dim 0.2 -b")
 awful.util.spawn_with_shell("urxvtd -q -o -f &")
+awful.util.spawn_with_shell("xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua")
 awful.util.spawn_with_shell("xrdb ~/.Xresources")
 
 -- {{{ Error handling
@@ -104,9 +105,8 @@ end
 
 
 -- {{{ Desktop Menu
-require('freedesktop.menu')
-menu_items = freedesktop.menu.new()
 -- Create a laucher widget and a main menu
+local xdg_menu = require("archmenu")
 myawesomemenu = {
    { "hotkeys", function() return false, hotkeys_popup.show_help end},
    { "manual", terminal .. " -e man awesome" },
@@ -119,11 +119,13 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "open terminal", terminal },
                                     { "ranger", "urxvtc -fn 'xft:UbuntuMono:Regular:size=25' -e ranger " },
                                     { "keybord", "xvkbd" },
+                                    { "Applications", xdgmenu },
+                                    { "morc_menu", "morc_menu" },
                                     { "shutdown", 'poweroff' },
-                                    { "free-desktop",  menu_items}
                                   },
                           theme = { font="Ubuntu 14"; width = 190; height = 30; }
                         })
+
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
