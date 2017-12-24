@@ -78,6 +78,13 @@ mp() { #mpc play
   mpc play
 }
 
+msp() {
+  ms "$@"
+  echo "Press enter to play selection"
+  read
+  mp "$@"
+}
+
 least_played() {
   # Print the access time along with the file name
   # eg : to play songs played before 10 days

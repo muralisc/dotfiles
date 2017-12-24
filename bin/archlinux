@@ -55,6 +55,7 @@ mkfs.ext4 $root
 mount $root /mnt
 mkdir /mnt/boot
 mount $boot /mnt/boot
+mount /dev/sda4 /mnt/home
 
 # setup Network
 # wifi-menu         # use it to connect to wifi if needed
@@ -204,7 +205,9 @@ yaourt -S --noconfirm ranger w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
 # MOBILE
 yaourt -S --noconfirm jmtpfs
 # i love beauty
-yaourt -S --noconfirm compton-git faenza-icon-theme lxappearance
+yaourt -S --noconfirm compton-git lxappearance
+# beautiful icon and mouse
+yaourt -S --noconfirm adwaita-x-dark-and-light-theme bibata-cursor-theme numix-icon-theme-git
 # for the tinkering me
 yaourt -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 # SECURITY
@@ -240,6 +243,10 @@ yaourt -S --noconfirm mt7601u-git
 yaourt -S --noconfirm submarine subliminal # subtitle stuff
 #linux commandline dcpp client`
 yaourt -S --noconfirm ncdc
+# usb device automount using ( devmon )
+udevil
+#
+efibootmgr
 
 
 # get the gpg file from location
@@ -251,7 +258,7 @@ gpg --import subkey.gpg
 gpg --list-keys
 gpg --edit-key <key-id> # then trust and quit
 
-pass:
+# for pass
 1. clone bitbucket
 1. mv pass .password-store
 1. pass
