@@ -199,25 +199,9 @@ vicious.register(tempWidget,
 -- }}}
 --{{{ Memory widget
 -- Initialize widget
-memwidget = awful.widget.progressbar()
+memwidget = wibox.widget.textbox()
 memwidgetTimeout = 13
 -- Progressbar properties
-memwidget:set_width(8)
-memwidget:set_height(10)
-memwidget:set_vertical(true)
-memwidget:set_background_color("#494B4F")
-memwidget:set_border_color(nil)
-memwidget:set_color(
-                        {
-                            type = "linear",
-                            from = { 0, 0 },
-                            to = { 10,0 },
-                            stops = {
-                                {0, "#AECF96"},
-                                {0.5, "#88A175"},
-                                {1, "#FF5656"}
-                            }
-                        })
 memwidget_t = awful.tooltip({ objects = { memwidget },})
 -- Register widget
 vicious.register(       memwidget
@@ -230,7 +214,7 @@ vicious.register(       memwidget
                             string.format(" %4d %-5s \n" ,args[6],"swap%"    )..
                             string.format(" %4d %-5s"    ,args[7],"swap "    )
                             )
-                            return args[1]
+                            return args[1].."%"
                         end
                     ,   memwidgetTimeout)
 --}}}
@@ -238,7 +222,7 @@ vicious.register(       memwidget
 active_interface='lo'
 -- {{{ wifi widget
 wifiwidget = wibox.widget.textbox()
-wifiwidgetTimeout = 10
+wifiwidgetTimeout = 5
 wifiwidget_timer = timer({timeout = wifiwidgetTimeout})
 wifiwidget_timer:connect_signal("timeout",
     function()
