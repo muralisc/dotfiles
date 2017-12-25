@@ -179,6 +179,8 @@ echo "skip from 9:20 to 10:50 "
 echo "skip from 11:00 to 14.38 "
 sudo systemctl reboot
 # check awesome working
+# prevent suspend when lid is closed
+sudo sed -i 's/#HandleLidSwitch=.*/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
 
 # Good font is very important
 yaourt -S --noconfirm ttf-ubuntu-font-family
@@ -245,8 +247,10 @@ yaourt -S --noconfirm submarine subliminal # subtitle stuff
 yaourt -S --noconfirm ncdc
 # usb device automount using ( devmon )
 udevil
-#
+# Edit the UEFI menu
 efibootmgr
+#
+cronie
 
 
 # get the gpg file from location
