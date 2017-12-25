@@ -45,6 +45,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("~/.config/awesome/theme.lua")
 require("volume")
+require("music")
 require("brightness")
 
 -- This is used later as the default terminal and editor to run.
@@ -426,12 +427,12 @@ globalkeys = awful.util.table.join(
     -- mappping inspiraton from https://github.com/tpope/tpope
     awful.key({ modkey,           }, "bracketleft", function () update_volume(volume_widget, "~/bin/vol-control softer" ) end),
     awful.key({ modkey,           }, "]",           function () update_volume(volume_widget, "~/bin/vol-control louder" ) end),
-    awful.key({ modkey,"Shift"    }, "[",           function () update_volume(volume_widget, "mpc seek -5" ) end),
-    awful.key({ modkey,"Shift"    }, "bracketright",function () update_volume(volume_widget, "mpc seek +5" ) end),
+    awful.key({ modkey,"Shift"    }, "[",           function () update_music( "mpc seek -5" ) end),
+    awful.key({ modkey,"Shift"    }, "bracketright",function () update_music( "mpc seek +5" ) end),
     awful.key({ modkey,"Control"  }, "[",           function () update_volume(volume_widget, "~/bin/vol-control 0" ) end),
     awful.key({ modkey,"Control"  }, "]",           function () update_volume(volume_widget, "~/bin/vol-control 100" ) end),
-    awful.key({ modkey, altkey    }, "bracketleft", function () update_volume(volume_widget, "mpc prev" ) end),
-    awful.key({ modkey, altkey    }, "bracketright",function () update_volume(volume_widget, "mpc next" ) end),
+    awful.key({ modkey, altkey    }, "bracketleft", function () update_music( "mpc prev" ) end),
+    awful.key({ modkey, altkey    }, "bracketright",function () update_music( "mpc next" ) end),
     awful.key({ modkey,           }, "backslash",   function () awful.util.spawn("mpc toggle") end),
     awful.key({ modkey, "Control" }, "backslash" ,  function () awful.util.spawn("urxvtc -fn 'xft:UbuntuMono:Regular:size=25' -bg rgba:0000/0000/0000/1111 -e ncmpcpp -s clock ") end),
     awful.key({ modkey, altkey    }, "backslash",   function () awful.util.spawn("pavucontrol") end),
