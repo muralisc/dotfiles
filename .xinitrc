@@ -23,7 +23,7 @@ export EDITOR=vim
 devmon --exec-on-drive "notify-send --icon=block-device --urgency=low \"Volume %l has been mounted\"" &
 mpd &
 mpdscribble &
-dropbox &
+# dropbox &
 beet mpdstats &
 #~/thing/syncthing -no-browser &
 pulseaudio --start &

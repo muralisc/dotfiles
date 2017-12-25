@@ -220,7 +220,7 @@ yaourt -S --noconfirm gnupg pass
 # screen recording
 yaourt -S --noconfirm peek
 # i love to learn
-yaourt -S --noconfirm anki zathura zathura-ps #for pdf backup use firefox,even shows comments
+yaourt -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps #for pdf backup use firefox,even shows comments
 # for the creative me
 yaourt -S --noconfirm kdebase-runtime kdenlive inkscape gimp
 # i love more beauty ; graphics stuff
@@ -229,6 +229,9 @@ yaourt -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswi
 yaourt -S --noconfirm ntfs-3g
 # internet tools
 yaourt -S --noconfirm rtorrent dropbox youtube-dl
+# enable dropbox
+systemctl --user enable dropbox.service
+vim ~/.config/systemd/user/dropbox@.service  # Add display env
 # remote tools
 yaourt -S --noconfirm tigervnc sshfs
 # i dont like mouse
@@ -251,6 +254,7 @@ udevil
 efibootmgr
 #
 cronie
+sudo systemctl enable cronie
 
 
 # get the gpg file from location
