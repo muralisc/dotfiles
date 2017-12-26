@@ -564,6 +564,26 @@ clientkeys = awful.util.table.join(
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
+    awful.key({ modkey,           } , "c",
+        function ()
+            local process = io.popen("cat /proc/$(xdotool getwindowpid $(xdotool getwindowfocus))/comm"):read("*all")
+            if process == "urxvtd" then
+                awful.util.spawn_with_shell("xdotool getwindowfocus key --window %1 alt+c")
+            else
+                awful.util.spawn_with_shell("xdotool getwindowfocus key --window %1 ctrl+c")
+            end
+        end ,
+        {description = "mac like copy", group = "client"}),
+    awful.key({ modkey,           } , "v",
+        function ()
+            process = io.popen("cat /proc/$(xdotool getwindowpid $(xdotool getwindowfocus))/comm"):read("*all")
+            if process == "urxvtd" then
+                awful.util.spawn_with_shell("xdotool getwindowfocus key --window %1 ctrl+v")
+            else
+                awful.util.spawn_with_shell("xdotool getwindowfocus key --window %1 ctrl+v")
+            end
+        end ,
+        {description = "mac like paste", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
