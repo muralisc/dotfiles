@@ -245,6 +245,8 @@ nnoremap Y y$
 nnoremap ZZ :close<CR>
 " instead of scorlling to middle .. scroll almost to top
 nnoremap zz zt5<C-y>
+nnoremap <buffer> <Enter> :.cc<CR>:copen<CR>
+nnoremap <C-c> :cclose<CR>
 " }}}  normal mappings
 " leader mapings {{{
 " home row {{{
@@ -262,7 +264,6 @@ nnoremap <leader>/ :nohlsearch<CR>
 nnoremap <leader>f :CtrlPBuffer<CR>
 " with vimgrep, see results in cope(leader+cc) next (]q) previous ([q)
 nnoremap <leader>co :botright cope<cr>
-nnoremap <leader>cc :cclose<cr>
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>dc :call SetProjectRoot()<cr>
