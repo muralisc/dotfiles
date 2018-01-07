@@ -76,7 +76,7 @@ else
     cp $FILE $FINAL_PATH
 fi
 
-if [ -z $1 ] 
+if [ -z $1 ]
 then
 # use the file
 i3lock -i $FINAL_PATH
