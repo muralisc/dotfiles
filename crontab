@@ -8,7 +8,10 @@
 
 # =======================================================
 
-#min  hour   dom  Mon  dow 
+#min  hour   dom  Mon  dow
+# Remind to call mom
 15    18,19  */2  *    *      DISPLAY=:0 feh ~/PersonalData_max26gb/Jpegs/keep-calm-and-call-my-mother-1.png
-0     */2    *    *    *      DISPLAY=:0 ~/.config/awesome/lockScript.sh show
-#*     *      *    *    *      DISPLAY=:0 ~/bin/timelapse.sh
+# timelapse screenshots
+#*    *      *    *    *      DISPLAY=:0 ~/bin/timelapse.sh
+# ALARM
+*/15  3-4    *    *    *      bash -c "DISPLAY=:0 XDG_RUNTIME_DIR=/run/user/`id -u` mpv ~/Downloads/14_Rules_for_a_happier_life.mp4"
