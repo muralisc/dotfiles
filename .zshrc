@@ -51,6 +51,10 @@ setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing non-existent history.
 source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# Set title as the last command
+preexec () { print -Pn "\e]0;$1\a" }
+
 [ -f "$HOME/.completions.zsh" ] && source "$HOME/.completions.zsh"
 
 # load aliases
