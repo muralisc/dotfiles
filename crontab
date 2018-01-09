@@ -14,4 +14,4 @@
 # timelapse screenshots
 #*    *      *    *    *      DISPLAY=:0 ~/bin/timelapse.sh
 # ALARM
-*/15  3-4    *    *    *      bash -c "DISPLAY=:0 XDG_RUNTIME_DIR=/run/user/`id -u` mpv ~/Downloads/14_Rules_for_a_happier_life.mp4"
+*/15  3-4    *    *    *     DISPLAY=:0 XDG_RUNTIME_DIR=/run/user/`id -u` ~/bin/alarm
