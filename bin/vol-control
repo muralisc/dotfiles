@@ -92,12 +92,19 @@ case $1 in
             # echo "****************************"
             # amixer sget Master
         ;;
+   setVol)
+        for sink in `pactl list short sinks|cut -f 1`; do
+        pactl -- set-sink-volume $sink $2%
+        done || amixer set Master $2%
+        exit 0
+     ;;
     *)
       echo "Use command line options"
       echo "    softer"
       echo "    louder"
       echo "    toggle"
       echo "    getVol"
+      echo "    setVol"
       echo "    display"
       ;;
 esac
