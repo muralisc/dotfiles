@@ -1,6 +1,8 @@
 #!/bin/bash
 source ~/.env.local
-mpv --loop-file=inf $DOTFILES_ALARM_MEDIA &
-~/bin/vol-control setVol 20
-sleep 1m
-~/bin/vol-control louder
+if [[ $WOKE_UP != "true" ]]; then
+  mpv --loop-file=inf $DOTFILES_ALARM_MEDIA &
+  ~/bin/vol-control setVol 20
+  sleep 1m
+  ~/bin/vol-control louder
+fi

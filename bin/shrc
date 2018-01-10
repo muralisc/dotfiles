@@ -21,7 +21,7 @@ alias gdf='git diff'
 alias gf='git fetch --all'
 alias gl="git --no-pager log --pretty=tformat:'%C(black)%G? %C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)%Creset' --graph -12"
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
-alias gp="git push --set-upstream origin HEAD"
+alias gp="git push --set-upstream muralisc HEAD"
 alias gpl='git pull --rebase' # git pull --rebase origin master
 alias gri='git rebase --autosquash -i'
 alias grhh='git reset HEAD --hard'
