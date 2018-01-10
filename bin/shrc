@@ -14,10 +14,12 @@ alias ga='git add'
 alias gb='git branch'
 alias gfixup='git commit -a --fixup=HEAD'
 alias gcam='git commit -am'
+alias gcm='git commit -m'
 alias gco='git checkout'
 alias gcp='git cherry-pick'
 alias gd='git difftool --dir-diff'
 alias gdf='git diff'
+alias gdc='git diff --cached'
 alias gf='git fetch --all'
 alias gl="git --no-pager log --pretty=tformat:'%C(black)%G? %C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)%Creset' --graph -12"
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
