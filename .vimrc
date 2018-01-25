@@ -98,7 +98,7 @@ set undofile                                                                    
 set undodir=~/.vim/vimundo
 set directory=~/.vim/.tmp,/tmp                                                  " store swap files in one of these directories (in case swapfile is ever turned on)
 set viminfo='20,\"80                                                            " read/write a .viminfo file, don't store more than 80 lines of registers
-set textwidth=170        " not 80 cause helps in vs mode
+set textwidth=132        " not 80 cause helps in vs mode
 " Ease of Use {{{ "
 set wildmenu                                                                    " tab completion for files/buffers like bash
 set wildmode=list:full                                                          " show a list when pressing tab and complete first full match
@@ -114,7 +114,7 @@ set modeline                                                                    
 set ttyfast                                                                     " always use a fast terminal
 set spell spelllang=en_us
 set nospell
-set colorcolumn=80,135                                                          " Github limit
+set colorcolumn=80,132                                                          " Github limit
 " set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       "seach for tags|TAGS|my-tags and bubble up till home direcotry
@@ -325,7 +325,7 @@ augroup FTOptions
     autocmd filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
     autocmd FileType xdefaults                    setlocal commentstring=!\ %s
     autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k
-    autocmd FileType liquid,markdown,text,txt,tex setlocal complete+=k textwidth=80
+    autocmd FileType liquid,markdown,text,txt,tex setlocal complete+=k textwidth=132
     autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help
     autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
     autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99
