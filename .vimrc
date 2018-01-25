@@ -13,6 +13,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'christoomey/vim-tmux-navigator'
   " Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
   Plug 'muralisc/vim-colorschemes'
+  Plug 'ledger/vim-ledger'
   Plug 'kien/ctrlp.vim'
   Plug 'mileszs/ack.vim'
   Plug 'tpope/vim-rhubarb'
@@ -114,7 +115,7 @@ set ttyfast                                                                     
 set spell spelllang=en_us
 set nospell
 set colorcolumn=80,135                                                          " Github limit
-set diffopt+=vertical                                                           " default split method is to split in a verical split
+" set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       "seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well

@@ -10,11 +10,9 @@ fi
 # git aliases
 
 alias less='less -R --follow-name'
-alias ga='git add'
 alias gb='git branch'
-alias gfixup='git commit -a --fixup=HEAD'
-alias gcam='git commit -am'
-alias gcm='git commit -m'
+# alias gfixup='git commit -a --fixup=HEAD'
+# alias gcm='git commit -m' # use fugitive
 alias gco='git checkout'
 alias gcp='git cherry-pick'
 alias gd='git difftool --dir-diff'
