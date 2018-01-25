@@ -6,6 +6,7 @@ if which fasd > /dev/null ; then
   eval "$(fasd --init auto)"
   [[ $(echo $0) =~ "bash" ]] && _fasd_bash_hook_cmd_complete v m j o
 fi
+source ~/.env.local
 
 # git aliases
 
@@ -52,6 +53,7 @@ alias r='ranger'
 alias ync='yaourt --noconfirm'
 alias y='yaourt'
 alias sor="status-of-repos"
+alias l='ledger -f $DOTFILES_LEDGER_FILE bal \^Assets \^Liabilities --cleared ; ledger -f $DOTFILES_LEDGER_FILE bal \^Funds'
 
 # FUNCTIONS {{{
 
