@@ -1,8 +1,13 @@
 #!/bin/bash
 source ~/.env.local
+xset -dpms
 if [[ $WOKE_UP != "true" ]]; then
   mpv --loop-file=inf $DOTFILES_ALARM_MEDIA &
   ~/bin/vol-control setVol 20
-  sleep 1m
-  ~/bin/vol-control louder
+  for i in $(seq 10); do
+    ~/bin/vol-control getVol
+    printf "sleeping $i minutes\n\n"
+    sleep ${i}m
+    ~/bin/vol-control louder
+  done
 fi

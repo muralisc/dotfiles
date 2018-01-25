@@ -255,6 +255,8 @@ efibootmgr
 #
 cronie
 sudo systemctl enable cronie
+# accounting
+yaourt -S --noconfirm ledger
 
 
 # get the gpg file from location

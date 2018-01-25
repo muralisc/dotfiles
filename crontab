@@ -15,3 +15,4 @@
 #*    *      *    *    *      DISPLAY=:0 ~/bin/timelapse.sh
 # ALARM
 */10  3-5    *    *    *      DISPLAY=:0 XDG_RUNTIME_DIR=/run/user/`id -u` ~/bin/alarm
+48    22     *    *    *      sed -i '/WOKE_UP/ {s/true/false/}' ~/.env.local
