@@ -11,7 +11,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
   " Plug 'mattn/emmet-vim'                                                      "Use while coding html
   Plug 'christoomey/vim-tmux-navigator'
-  " Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
+  Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
   Plug 'muralisc/vim-colorschemes'
   Plug 'ledger/vim-ledger'
   Plug 'kien/ctrlp.vim'

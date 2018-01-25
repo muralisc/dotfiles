@@ -53,7 +53,8 @@ alias r='ranger'
 alias ync='yaourt --noconfirm'
 alias y='yaourt'
 alias sor="status-of-repos"
-alias ledger='ledger -f $DOTFILES_LEDGER_FILE bal \^Assets \^Liabilities --cleared ; ledger -f $DOTFILES_LEDGER_FILE bal \^Funds'
+alias lsum='ledger -f $DOTFILES_LEDGER_FILE bal \^Assets \^Liabilities --cleared ; ledger -f $DOTFILES_LEDGER_FILE bal \^Funds --cleared'
+alias ledger='ledger -f $DOTFILES_LEDGER_FILE'
 
 # FUNCTIONS {{{
 
