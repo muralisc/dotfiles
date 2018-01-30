@@ -55,24 +55,6 @@ elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-# move here from inputrc
-# ----------------------
-# match vim cmdline behavior
-# C-f is used for going forward; since very rarely used bind to c-x-e used more frequnetly
-bind "C-f":edit-and-execute-command
-bind 'set completion-ignore-case on'
-bind 'set editing-mode vi'
-bind 'set keymap vi-insert'             #################keymap vi insert#################
-bind '"\e[A":history-substring-search-backward'
-bind '"\e[B":history-substring-search-forward'
-# bind 'TAB: menu-complete'
-bind 'set show-mode-in-prompt on'
-bind 'set show-all-if-ambiguous on'
-bind 'set vi-ins-mode-string \1\e[35m\2+\1\e[0m\2'
-bind 'set vi-cmd-mode-string \1\e[33m\2:\1\e[0m\2'
-bind '"\C-e": glob-expand-word'
-bind '"\e.":insert-last-argument'
-bind '"jj":vi-movement-mode'
 # load aliases
 [ -f "$HOME/bin/shrc" ] && source "$HOME/bin/shrc"
 # source local file

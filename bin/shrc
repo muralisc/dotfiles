@@ -57,6 +57,7 @@ alias led_networth='ledger -f $DOTFILES_LEDGER_FILE bal \^Assets \^Liabilities -
 alias led_permonthExp='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Expenses'
 alias led_cashflow='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Income \^Expenses'
 alias led='ledger -f $DOTFILES_LEDGER_FILE'
+alias gen_pass='openssl rand -base64 25'
 
 # FUNCTIONS {{{
 

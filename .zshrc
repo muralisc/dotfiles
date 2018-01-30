@@ -11,6 +11,18 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 zle -N edit-command-line
+
+expand-aliases() {
+  unset 'functions[_expand-aliases]'
+  functions[_expand-aliases]=$BUFFER
+  (($+functions[_expand-aliases])) &&
+    BUFFER=${functions[_expand-aliases]#$'\t'} &&
+    CURSOR=$#BUFFER
+}
+
+zle -N expand-aliases
+bindkey '\e^E' expand-aliases
+
 # prompt setup
 setopt PROMPT_SUBST
 if [ -f ~/.local/shrink-path.plugin.zsh ]; then
