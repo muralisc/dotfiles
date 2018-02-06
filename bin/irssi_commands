@@ -1,0 +1,44 @@
+#!/bin/bash
+mkdir -p ~/.irssi/scripts
+pushd ~/.irssi/scripts
+wget https://raw.githubusercontent.com/irssi/scripts.irssi.org/master/scripts/adv_windowlist.pl
+popd
+FREENODE_USERNAME=nick
+FREENODE_PASSWORD=password
+irssi -c chat.freenode.net -p 6667 -n $FREENODE_USERNAME -w $FREENODE_PASSWORD
+# /set nick $FREENODE_USERNAME
+# /set real_name Murali
+# /connect irc.freenode.net 6667
+# /msg nickserv identify $FREENODE_PASSWORD
+# /wait 6000
+
+# https://www.afternet.org/help/irc/list#limit_by_number_of_users
+
+/join #archlinux
+/join #docker
+/join ##linux
+/join #archlinux
+/join #bitcoin
+/join ##networking
+/join ##security
+/join #vim
+/join #git
+/join #ipfs
+/join #gamingonlinux
+/join #gnulinuxlovers
+/join #tmux
+/ignore * kick part join nicks quit
+/alias 1 window goto 1
+/alias 2 window goto 2
+/alias 3 window goto 3
+/alias 4 window goto 4
+/alias 5 window goto 5
+/alias 6 window goto 6
+/alias 7 window goto 7
+/alias 8 window goto 8
+/alias 9 window goto 9
+/alias 0 /window goto 10
+/alias q /window goto 11
+/alias w /window goto 12
+/alias e /window goto 13
+/alias r /window goto 14
