@@ -26,6 +26,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/vim-snippets'
   Plug 'godlygeek/tabular'
   Plug 'vim-scripts/restore_view.vim'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
   " Plug 'ap/vim-buftabline'                                                    " uncomment when required
   " Plug 'scrooloose/nerdtree'                                                  " uncomment when required
   " Plug 'vim-airline/vim-airline'
