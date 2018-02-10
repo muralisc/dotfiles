@@ -15,6 +15,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/vim-colorschemes'
   Plug 'ledger/vim-ledger'
   Plug 'kien/ctrlp.vim'
+  Plug 'fatih/vim-go'
+  Plug 'majutsushi/tagbar'
   Plug 'mileszs/ack.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'tpope/vim-rhubarb'
@@ -272,7 +274,7 @@ nnoremap <leader>co :botright cope<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>dc :call SetProjectRoot()<cr>
 " Open vimGrep and put the cursor in the right position
-nnoremap <leader>gr :Ack! --ignore 'tags' <C-r><C-w>
+nnoremap <leader>gr :Ack! --ignore 'tags' --ignore 'test' <C-r><C-w>
 " placeholder for ctrlpMRU
 nnoremap <leader>m :CtrlPMRUFiles <CR>
 " NERD
@@ -365,3 +367,4 @@ if has("unix")
     set clipboard=unnamed
   endif
 endif
+let g:go_def_mode = 'godef'
