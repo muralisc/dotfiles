@@ -15,7 +15,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/vim-colorschemes'
   Plug 'ledger/vim-ledger'
   Plug 'kien/ctrlp.vim'
+  Plug 'fatih/vim-go'
+  Plug 'majutsushi/tagbar'
   Plug 'mileszs/ack.vim'
+  Plug 'scrooloose/nerdtree'
   Plug 'tpope/vim-rhubarb'
   " Plug 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
   Plug 'powerman/vim-plugin-viewdoc'
@@ -26,6 +29,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/vim-snippets'
   Plug 'godlygeek/tabular'
   Plug 'vim-scripts/restore_view.vim'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
   " Plug 'ap/vim-buftabline'                                                    " uncomment when required
   " Plug 'scrooloose/nerdtree'                                                  " uncomment when required
   " Plug 'vim-airline/vim-airline'
@@ -115,7 +120,7 @@ set ttyfast                                                                     
 set spell spelllang=en_us
 set nospell
 set colorcolumn=80,132                                                          " Github limit
-" set diffopt+=vertical                                                           " default split method is to split in a verical split
+set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       "seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
@@ -269,7 +274,7 @@ nnoremap <leader>co :botright cope<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>dc :call SetProjectRoot()<cr>
 " Open vimGrep and put the cursor in the right position
-nnoremap <leader>gr :Ack! --ignore 'tags' <C-r><C-w>
+nnoremap <leader>gr :Ack! --ignore 'tags' --ignore 'test' <C-r><C-w>
 " placeholder for ctrlpMRU
 nnoremap <leader>m :CtrlPMRUFiles <CR>
 " NERD
@@ -298,7 +303,7 @@ nnoremap <leader><leader><leader>q :wqa!<cr>
 nnoremap <leader>s :sp<CR>
 nnoremap <leader><tab> :q<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
-nnoremap <leader>T :CtrlPTag<CR>
+nnoremap <leader>T :Windows<CR>
 " Useful mappings for managing tabs
 nnoremap <leader>t :tabnew<cr>
 nnoremap <leader>l :Lines<CR>
@@ -362,3 +367,4 @@ if has("unix")
     set clipboard=unnamed
   endif
 endif
+let g:go_def_mode = 'godef'

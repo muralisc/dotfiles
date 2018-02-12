@@ -20,7 +20,7 @@ alias gd='git difftool --dir-diff'
 alias gdf='git diff'
 alias gdc='git diff --cached'
 alias gf='git fetch --all'
-alias gl="git --no-pager log --pretty=tformat:'%C(black)%G? %C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)%Creset' --graph -12"
+alias gl="git log --pretty=tformat:'%C(black)%G? %C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)%Creset' --graph"
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
 alias gp="git push --set-upstream $GIT_UPSTREAM HEAD"
 alias gpl='git pull --rebase' # git pull --rebase origin master
@@ -56,8 +56,8 @@ alias sor="status-of-repos"
 alias led_networth='ledger -f $DOTFILES_LEDGER_FILE bal \^Assets \^Liabilities --cleared -B ; echo "*******" ; ledger -f $DOTFILES_LEDGER_FILE bal \^Funds --cleared -B'
 alias led_permonthExp='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Expenses'
 alias led_cashflow='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Income \^Expenses'
+alias led_check='ledger -f $DOTFILES_LEDGER_FILE b i:sav credit --flat'
 alias led='ledger -f $DOTFILES_LEDGER_FILE'
-alias gen_pass='openssl rand -base64 25'
 
 # FUNCTIONS {{{
 
@@ -246,6 +246,12 @@ case ":$PATH:" in
     fi
     ;;
 esac
+
+gen_pass() {
+  length=15
+  gen_pwd=$(LC_ALL=C tr -dc '[:graph:]' < /dev/urandom | head -c $length)
+  grep -P "(?=.*\d)(?=.*[a-zA-Z]).{15,}" <<< $gen_pwd
+}
 
 decimal_to_binary() {
   export D2B=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})
