@@ -7,7 +7,7 @@ if [[ $WOKE_UP != "true" ]]; then
   for i in $(seq 10); do
     ~/bin/vol-control getVol
     printf "sleeping $i minutes\n\n"
-    sleep ${i}m
+    sleep 1m
     ~/bin/vol-control louder
   done
 fi
