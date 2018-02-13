@@ -124,7 +124,8 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       "seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme neverland-darker
+let g:solarized_termcolors=256
+silent! colorscheme solarized
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
@@ -191,13 +192,14 @@ function! Status(winnum)
     endif
   endfunction
   " file name
-  let stat .= Color( active, 0 )
+  let stat .= Color( active, 7 )
   let stat .= '%<%f%*'
   " help? preview? modified? readonly?
   let stat .= Color( active, 1 )
   let stat .= ' %h%w%m%r%*'
   " right side
-  let stat .= '%='
+  let stat .= Color( active, 7 )
+  let stat .= ' %=%*'
   " Encoding2
   let stat .= Color( active, 5 )
   let stat.='%-7(%{&ff}%)%*'
