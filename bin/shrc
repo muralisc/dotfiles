@@ -22,7 +22,7 @@ alias gdc='git diff --cached'
 alias gf='git fetch --all'
 alias gl="git log --pretty=tformat:'%C(black)%G? %C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)%Creset' --graph"
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
-alias gp="git push --set-upstream muralisc HEAD"
+alias gp="git push --set-upstream $GIT_UPSTREAM HEAD"
 alias gpl='git pull --rebase' # git pull --rebase origin master
 alias gri='git rebase --autosquash -i'
 alias grhh='git reset HEAD --hard'
@@ -147,6 +147,7 @@ time_after() {
 }
 
 stopwatch(){
+  # urxvtc -geometry 20x1
   date1=$(date +%s);
    while true; do
     currentTime=$(date +%s)
