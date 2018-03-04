@@ -111,9 +111,9 @@ URxvt*colorUL: S_magenta
 
 ! Select the fonts to be used. This is a comma separated list of font
 ! FREE SERIF CONTAIN MALAYALAM FONTS and other 
-URxvt*font: xft:UbuntuMono:Regular:size=14,\
-            xft:Free Serif:size=14,\
-            xft:Free Sans:size=14,
+URxvt*font: xft:UbuntuMono:Regular:size=12,\
+            xft:Free Serif:size=12,\
+            xft:Free Sans:size=12,
 
 ! URxvt*boldFont: fontlist
 
