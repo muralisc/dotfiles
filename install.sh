@@ -23,6 +23,7 @@ git_setup() {
   git config --global diff.tool 'meld'
   git config --global user.useConfigOnly true
   git config --global core.pager 'less -RS'
+  git config --global blame.date relative
   git config --global init.templatedir '~/.git_template'
 }
 
