@@ -6,7 +6,26 @@ wget https://raw.githubusercontent.com/irssi/scripts.irssi.org/master/scripts/ad
 popd
 FREENODE_USERNAME=nick
 FREENODE_PASSWORD=password
-irssi -c chat.freenode.net -p 6667 -n $FREENODE_USERNAME -w $FREENODE_PASSWORD
+# irssi -c chat.freenode.net -p 6667 -n $FREENODE_USERNAME -w $FREENODE_PASSWORD
+# irssi -c irc.mozilla.org
+irssi
+
+/NETWORK ADD mozilla
+/SERVER ADD -network mozilla irc.mozilla.org
+/CONNECT mozilla
+
+/script load adv-windowlist.pl
+
+/join #servo
+/join #cargo
+/join #rust
+/join #rust-webdev
+/join #rust-osdev
+/join #rust-beginner
+/join #rust-machine-learning
+/clear -all
+/ignore * kick part join nicks quit
+
 # /set nick $FREENODE_USERNAME
 # /set real_name Murali
 # /connect irc.freenode.net 6667
@@ -28,7 +47,6 @@ irssi -c chat.freenode.net -p 6667 -n $FREENODE_USERNAME -w $FREENODE_PASSWORD
 /join #gamingonlinux
 /join #gnulinuxlovers
 /join #tmux
-/ignore * kick part join nicks quit
 /alias 1 window goto 1
 /alias 2 window goto 2
 /alias 3 window goto 3

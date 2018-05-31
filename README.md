@@ -7,12 +7,12 @@ My dotfiles. Works seamlessly for both Mac OS X and Archlinux.
 ### Oneliner
 Using curl,
 ```shell
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/muralisc/dotfiles/master/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/muralisc/dotfiles/master/install.sh)"
 ```
 
 Or using wget
 ```shell
-sh -c "$(wget https://raw.githubusercontent.com/muralisc/dotfiles/master/install.sh -O -)"
+bash -c "$(wget https://raw.githubusercontent.com/muralisc/dotfiles/master/install.sh -O -)"
 ```
 ### Or use Git
 ```

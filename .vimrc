@@ -13,7 +13,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
   Plug 'muralisc/vim-colorschemes'
+  Plug 'rust-lang/rust.vim'
   Plug 'ledger/vim-ledger'
+  Plug 'racer-rust/vim-racer'
   Plug 'kien/ctrlp.vim'
   Plug 'fatih/vim-go'
   Plug 'majutsushi/tagbar'
@@ -370,3 +372,6 @@ if has("unix")
   endif
 endif
 let g:go_def_mode = 'godef'
+let g:rustfmt_autosave = 1
+set hidden
+let g:racer_cmd = "/Users/i330301/.cargo/bin/racer"
