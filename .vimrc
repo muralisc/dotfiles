@@ -280,7 +280,8 @@ nnoremap <leader>dc :call SetProjectRoot()<cr>
 " Open vimGrep and put the cursor in the right position
 nnoremap <leader>gr :Ack! --ignore 'tags' --ignore 'test' <C-r><C-w>
 " placeholder for ctrlpMRU
-nnoremap <leader>m :CtrlPMRUFiles <CR>
+nnoremap <leader>m :CtrlP :pwd<CR>
+nnoremap <leader><leader>m :CtrlPMRUFiles <CR>
 " NERD
 nnoremap <leader>n :NERDTreeFind<CR>
 nnoremap <leader>N :NERDTreeToggle<CR>
@@ -319,7 +320,6 @@ nnoremap <leader>w :w<cr>
 nnoremap <leader>x :close<CR>
 " dont delete useful while searching
 nnoremap <leader>zz :let &scrolloff=999-&scrolloff<CR>
-nnoremap <leader><C-p> :CtrlP :pwd<CR>
 " }}} leader maping end
 " }}} Shortcut Mappings
 " Filetype Specific Settings {{{

@@ -54,8 +54,9 @@ alias ync='yaourt --noconfirm'
 alias y='yaourt'
 alias sor="status-of-repos"
 alias led_networth='ledger -f $DOTFILES_LEDGER_FILE bal \^Assets \^Liabilities --cleared -B ; echo "*******" ; ledger -f $DOTFILES_LEDGER_FILE bal \^Funds --cleared -B'
-alias led_permonthExp='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Expenses'
-alias led_cashflow='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Income \^Expenses'
+alias led_permonthExp='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Expenses \^Equity:Adjust'
+alias led_expenseList='ledger -f $DOTFILES_LEDGER_FILE reg \^Expenses \^Equity:Adjust'
+alias led_cashflow='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Income \^Expenses \^Equity:Adjust'
 alias led_check='ledger -f $DOTFILES_LEDGER_FILE b i:sav credit --flat'
 alias led='ledger -f $DOTFILES_LEDGER_FILE'
 
