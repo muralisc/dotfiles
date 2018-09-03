@@ -1,4 +1,4 @@
-" vim: foldlevel=0:
+" vim: foldlevel=3:
 "Courtsey
 "Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
 "Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
@@ -9,7 +9,6 @@ set nocompatible                                                                
 " vim-plug setup {{{
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  " Plug 'mattn/emmet-vim'                                                      "Use while coding html
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
   Plug 'muralisc/vim-colorschemes'
@@ -17,12 +16,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'ledger/vim-ledger'
   Plug 'racer-rust/vim-racer'
   Plug 'kien/ctrlp.vim'
-  Plug 'fatih/vim-go'
   Plug 'majutsushi/tagbar'
   Plug 'mileszs/ack.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'tpope/vim-rhubarb'
-  " Plug 'octol/vim-cpp-enhanced-highlight'                                       " highlighting for STL
   Plug 'powerman/vim-plugin-viewdoc'
   Plug 'tpope/vim-commentary'                                                   " map: gcc
   Plug 'tpope/vim-fugitive'                                                     " GIT
@@ -35,7 +32,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'junegunn/fzf.vim'
   " Plug 'ap/vim-buftabline'                                                    " uncomment when required
   " Plug 'scrooloose/nerdtree'                                                  " uncomment when required
-  " Plug 'vim-airline/vim-airline'
   call plug#end()
 endif
 "}}} ===========================================================Vundle setup done
@@ -56,6 +52,7 @@ set background=dark
 let mapleader="\<Space>"                                                        " Change the mapleader from \ to
 set autoread                                                                    " read a changed file on disk
 set showmode                                                                    " always show what mode we're currently editing in
+set nofixendofline
 set timeoutlen=1200 " A little bit more time for macros
 set ttimeoutlen=50  " Make Esc work faster
 set nowrap                                                                      " don't wrap lines
@@ -108,7 +105,7 @@ set viminfo='20,\"80                                                            
 set textwidth=132        " not 80 cause helps in vs mode
 " Ease of Use {{{ "
 set wildmenu                                                                    " tab completion for files/buffers like bash
-set wildmode=list:full                                                          " show a list when pressing tab and complete first full match
+set wildmode=longest,list,full
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set wildignore+=*/node_modules/*
 set wildignorecase                                                              " ignore case while filename complete
@@ -127,7 +124,7 @@ set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       "seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
 let g:solarized_termcolors=256
-silent! colorscheme solarized
+silent! colorscheme solarized-custom
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
@@ -289,10 +286,13 @@ nnoremap <leader>N :NERDTreeToggle<CR>
 " open another file in same dir as current file
 nnoremap <leader>o :e %:h/<C-d>
 " clipboard madness {{{
+" replace currently selected text with default register
+" without yanking it
+vnoremap <leader>p "_dP
 " paste from the primary clipboard/ selection
 nnoremap <leader>P "*p
 " paste from the secondary clipboard/ ctrl+c
-nnoremap <leader>p "+p
+nnoremap <leader><leader>p "+p
 " yank from the primary clipboard/ selection
 nnoremap <leader>Y "*y
 " yank from the secondary clipboard/ ctrl+c
@@ -306,11 +306,12 @@ nnoremap <leader><leader>q :close!<cr>
 nnoremap <leader><leader><leader>q :wqa!<cr>
 " Open a shell in current directory
 nnoremap <leader>s :sp<CR>
+nnoremap <leader><leader>s :setlocal spell!<CR>
 nnoremap <leader><tab> :q<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
 nnoremap <leader>T :Windows<CR>
 " Useful mappings for managing tabs
-nnoremap <leader>t :tabnew<cr>
+nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>l :Lines<CR>
 nnoremap <leader>v :vs<CR>
 nnoremap <leader>V :e $MYVIMRC<CR>
@@ -367,11 +368,23 @@ let loaded_matchparen = 1
 if has("unix")
   let s:uname = system("uname -s")
   if s:uname == "Darwin\n"
-    set guifont=Menlo:h16
+    set guifont=Menlo:h12
     set clipboard=unnamed
   endif
 endif
 let g:go_def_mode = 'godef'
+" Rust {
 let g:rustfmt_autosave = 1
-set hidden
 let g:racer_cmd = "/Users/i330301/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
+" }
+" https://github.com/ivanceras/rust-vim-setup
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+augroup END
