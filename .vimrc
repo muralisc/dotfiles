@@ -9,29 +9,27 @@ set nocompatible                                                                
 " vim-plug setup {{{
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  Plug 'christoomey/vim-tmux-navigator'
-  Plug 'SirVer/ultisnips'                                                       " for snippets DocuHB
-  Plug 'muralisc/vim-colorschemes'
-  Plug 'rust-lang/rust.vim'
-  Plug 'ledger/vim-ledger'
-  Plug 'racer-rust/vim-racer'
-  Plug 'kien/ctrlp.vim'
-  Plug 'majutsushi/tagbar'
-  Plug 'mileszs/ack.vim'
-  Plug 'scrooloose/nerdtree'
-  Plug 'tpope/vim-rhubarb'
-  Plug 'powerman/vim-plugin-viewdoc'
-  Plug 'tpope/vim-commentary'                                                   " map: gcc
-  Plug 'tpope/vim-fugitive'                                                     " GIT
-  Plug 'tpope/vim-surround'                                                     " map: ys{tobj}[>)}] - for no space
-  Plug 'tpope/vim-unimpaired'                                                   " shorcut for various toggles
-  Plug 'muralisc/vim-snippets'
-  Plug 'godlygeek/tabular'
-  Plug 'vim-scripts/restore_view.vim'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  " Plug 'ap/vim-buftabline'                                                    " uncomment when required
-  " Plug 'scrooloose/nerdtree'                                                  " uncomment when required
+  Plug 'SirVer/ultisnips'                                           "                                                     *
+  Plug 'muralisc/vim-snippets'                                      "                                                     *
+  Plug 'majutsushi/tagbar'                                          " birds eye view of code                              *
+  Plug 'Noskcaj19/rust-conceal'                                     " for python wehamberg/vim-cute-python                *
+  Plug 'scrooloose/nerdtree'                                        " Folder navigation ? C u r cd CD                     *  *
+  Plug 'rust-lang/rust.vim'                                         " Rust formating and Tagbar and rustfmt and Syntastic *  *  *
+  Plug 'vim-syntastic/syntastic'                                    " Syntax checking (with rust)                         *  *  *
+  Plug 'christoomey/vim-tmux-navigator'                             "                                                     *  *  *  *
+  Plug 'muralisc/vim-colorschemes'                                  "                                                     *  *  *  *  *
+  Plug 'racer-rust/vim-racer'                                       " Rust completion                                     *  *  *  *  *
+  Plug 'kien/ctrlp.vim'                                             " jump files                                          *  *  *  *  *
+  Plug 'mileszs/ack.vim'                                            " search files                                        *  *  *  *  *
+  Plug 'powerman/vim-plugin-viewdoc'                                " for viewhing help files                             *  *  *  *  *
+  Plug 'tpope/vim-commentary'                                       " map: gcc                                            *  *  *  *  *
+  Plug 'tpope/vim-fugitive'                                         " GIT                                                 *  *  *  *  *
+  Plug 'tpope/vim-surround'                                         " map: ys{tobj}[>)}] - for no space                   *  *  *  *  *
+  Plug 'tpope/vim-unimpaired'                                       " shorcut for various toggles                         *  *  *  *  *
+  Plug 'godlygeek/tabular'                                          " for easily aligning                                 *  *  *  *  *
+  Plug 'vim-scripts/restore_view.vim'                               "                                                     *  *  *  *  *
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " to install fzf in system                            *  *  *  *  *
+  Plug 'junegunn/fzf.vim'                                           " :Windows :Lines                                     *  *  *  *  *
   call plug#end()
 endif
 "}}} ===========================================================Vundle setup done
@@ -281,7 +279,7 @@ nnoremap <leader>m :CtrlP :pwd<CR>
 nnoremap <leader><leader>m :CtrlPMRUFiles <CR>
 " NERD
 nnoremap <leader>n :NERDTreeFind<CR>
-nnoremap <leader>N :NERDTreeToggle<CR>
+nnoremap <leader><leader>n :NERDTreeToggle<CR>
 
 " open another file in same dir as current file
 nnoremap <leader>o :e %:h/<C-d>
@@ -368,7 +366,7 @@ let loaded_matchparen = 1
 if has("unix")
   let s:uname = system("uname -s")
   if s:uname == "Darwin\n"
-    set guifont=Menlo:h12
+    set guifont=Menlo:h14
     set clipboard=unnamed
   endif
 endif
@@ -388,3 +386,16 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 augroup END
+
+" syntastic for rust {{{
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"}}}
