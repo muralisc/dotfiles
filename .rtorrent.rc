@@ -3,10 +3,8 @@ directory = ~/Downloads
 port_range = 55950-56000
 port_random = yes
 check_hash = yes
-use_udp_trackers = yes
 encryption = allow_incoming,enable_retry,prefer_plaintext
 dht = disable
-peer_exchange = no
 scgi_port = 127.0.0.1:5000
 
 
