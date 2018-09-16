@@ -9,13 +9,12 @@ set nocompatible                                                                
 " vim-plug setup {{{
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
+  Plug 'w0rp/ale'                                                   " Async Syntax checking (with rust,shellcheck)              *  *  *  *  *
   Plug 'SirVer/ultisnips'                                           "                                                     *
   Plug 'muralisc/vim-snippets'                                      "                                                     *
   Plug 'majutsushi/tagbar'                                          " birds eye view of code                              *
-  Plug 'Noskcaj19/rust-conceal'                                     " for python wehamberg/vim-cute-python                *
   Plug 'scrooloose/nerdtree'                                        " Folder navigation ? C u r cd CD                     *  *
   Plug 'rust-lang/rust.vim'                                         " Rust formating and Tagbar and rustfmt and Syntastic *  *  *
-  Plug 'vim-syntastic/syntastic'                                    " Syntax checking (with rust)                         *  *  *
   Plug 'christoomey/vim-tmux-navigator'                             "                                                     *  *  *  *
   Plug 'muralisc/vim-colorschemes'                                  "                                                     *  *  *  *  *
   Plug 'racer-rust/vim-racer'                                       " Rust completion                                     *  *  *  *  *
@@ -29,7 +28,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'godlygeek/tabular'                                          " for easily aligning                                 *  *  *  *  *
   Plug 'vim-scripts/restore_view.vim'                               "                                                     *  *  *  *  *
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " to install fzf in system                            *  *  *  *  *
-  Plug 'junegunn/fzf.vim'                                           " :Windows :Lines                                     *  *  *  *  *
+  Plug 'junegunn/fzf.vim'                                           " Mapped for :Windows :Lines                          *  *  *  *  *
   call plug#end()
 endif
 "}}} ===========================================================Vundle setup done
@@ -333,7 +332,7 @@ augroup FTOptions
     autocmd filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
     autocmd FileType xdefaults                    setlocal commentstring=!\ %s
     autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k
-    autocmd FileType liquid,markdown,text,txt,tex setlocal complete+=k textwidth=132
+    autocmd FileType liquid,markdown,text,txt,tex setlocal complete+=k textwidth=80
     autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help
     autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
     autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99
@@ -389,13 +388,13 @@ augroup END
 
 " syntastic for rust {{{
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 "}}}
