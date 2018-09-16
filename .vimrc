@@ -398,3 +398,12 @@ augroup END
 " let g:syntastic_check_on_wq = 0
 
 "}}}
+
+" For compatability with tmux
+" Using Meta-[hjkl] mappings in tmux to move panes
+if has('mac')
+ nnoremap <silent> ˙ :TmuxNavigateLeft<cr>
+ nnoremap <silent> ∆ :TmuxNavigateDown<cr>
+ nnoremap <silent> ˚ :TmuxNavigateUp<cr>
+ nnoremap <silent> ¬ :TmuxNavigateRight<cr>
+endif
