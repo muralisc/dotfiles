@@ -9,7 +9,7 @@ set nocompatible                                                                
 " vim-plug setup {{{
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  Plug 'w0rp/ale'                                                   " Async Syntax checking (with rust,shellcheck)              *  *  *  *  *
+  Plug 'w0rp/ale'                                                   " Async Syntax checking (with rust,shellcheck)        *  *  *  *  *
   Plug 'SirVer/ultisnips'                                           "                                                     *
   Plug 'muralisc/vim-snippets'                                      "                                                     *
   Plug 'majutsushi/tagbar'                                          " birds eye view of code                              *
