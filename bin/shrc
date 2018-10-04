@@ -113,7 +113,7 @@ tt() {
   if [ $# -eq 0 ];
   then
     echo usage : tt tomorrow5am
-    echo 'usage : sleep $(tt 2:37am -c)'
+    echo 'usage: tt 2:37am'
     echo "usage: tt 'jan1 3:01am 2019'"
     echo "tt 'tomorrow 3am'"
     return 1;
@@ -126,18 +126,22 @@ tt() {
   else
     diff=$(( currentTime - requestedTime ))
   fi
-  if [[ $2 = "-c" ]]; then
-    # for piping to sleep
-    TZ=":GMT" date -d @$diff +%s
-  else
-    day_time=$(TZ=":GMT" date -d @$diff +"%m %e %R")
-    months=$(awk '{print $1}' <<< $day_time)
-    ((months-=1))
-    days=$(awk '{print $2}' <<< $day_time)
-    ((days-=1))
-    HH_MM=$(awk '{print $3}' <<< $day_time)
-    echo $months months $days days $HH_MM
-  fi
+  seconds=$diff
+  minutes=$(( seconds / 60 ))
+  hours=$(( minutes / 60 ))
+  days=$(( hours / 24 ))
+  months=$(awk 'BEGIN{ printf( "%.0f\n",'$days' / 30.4375 )}')
+  years=$(( months / 12 ))
+  echo "$seconds seconds | $hours hours | $days days | $months months | $years years"
+  timeSince1970=$(date -d @$seconds -Isec -u)
+  yearSince1970=$(cut -f1 -d'-' <<< "$timeSince1970" )
+  monthSince1970=$(cut -f2 -d'-' <<< "$timeSince1970" )
+  daysSince1970=$(awk -F'[T-]' '{print $3}' <<< "$timeSince1970" )
+  Since1970=$(cut -f2- -d'T' <<< "$timeSince1970" )
+  yearDiff=$(( yearSince1970 - 1970 ))
+  monthDiff=$(( monthSince1970 - 1 ))
+  dayDiff=$(( daysSince1970 - 1 ))
+  echo $yearDiff years, $monthDiff months, $dayDiff days, $Since1970
 }
 
 time_after() {

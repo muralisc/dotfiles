@@ -5,30 +5,33 @@
 "and Vim User Manual
 "The commands are are anged in the order encountered in vim user manual
 let g:loaded_matchparen = 1
-set nocompatible                                                                " not compatible with the old-fashion vi mode
+set nocompatible                                                     " not compatible with the old-fashion vi mode
 " vim-plug setup {{{
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  Plug 'w0rp/ale'                                                   " Async Syntax checking (with rust,shellcheck)        *  *  *  *  *
-  Plug 'SirVer/ultisnips'                                           "                                                     *
-  Plug 'muralisc/vim-snippets'                                      "                                                     *
-  Plug 'majutsushi/tagbar'                                          " birds eye view of code                              *
-  Plug 'scrooloose/nerdtree'                                        " Folder navigation ? C u r cd CD                     *  *
-  Plug 'rust-lang/rust.vim'                                         " Rust formating and Tagbar and rustfmt and Syntastic *  *  *
-  Plug 'christoomey/vim-tmux-navigator'                             "                                                     *  *  *  *
-  Plug 'muralisc/vim-colorschemes'                                  "                                                     *  *  *  *  *
-  Plug 'racer-rust/vim-racer'                                       " Rust completion                                     *  *  *  *  *
-  Plug 'kien/ctrlp.vim'                                             " jump files                                          *  *  *  *  *
-  Plug 'mileszs/ack.vim'                                            " search files                                        *  *  *  *  *
-  Plug 'powerman/vim-plugin-viewdoc'                                " for viewhing help files                             *  *  *  *  *
-  Plug 'tpope/vim-commentary'                                       " map: gcc                                            *  *  *  *  *
-  Plug 'tpope/vim-fugitive'                                         " GIT                                                 *  *  *  *  *
-  Plug 'tpope/vim-surround'                                         " map: ys{tobj}[>)}] - for no space                   *  *  *  *  *
-  Plug 'tpope/vim-unimpaired'                                       " shorcut for various toggles                         *  *  *  *  *
-  Plug 'godlygeek/tabular'                                          " for easily aligning                                 *  *  *  *  *
-  Plug 'vim-scripts/restore_view.vim'                               "                                                     *  *  *  *  *
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " to install fzf in system                            *  *  *  *  *
-  Plug 'junegunn/fzf.vim'                                           " Mapped for :Windows :Lines                          *  *  *  *  *
+  Plug 'SirVer/ultisnips'                                            "                                                             *
+  Plug 'muralisc/vim-snippets'                                       "                                                             *
+  Plug 'majutsushi/tagbar'                                           " birds eye view of code                                      *
+  Plug 'scrooloose/nerdtree'                                         " Folder navigation ? C u r cd CD                             *  *
+
+  Plug 'rust-lang/rust.vim'                                          " Rust formating and Tagbar and rustfmt and Syntastic         *  *  *
+  Plug 'w0rp/ale'                                                    " Async Syntax checking (with rust,shellcheck)                *  *  *  *  *
+  Plug 'Valloric/YouCompleteMe'                                      " https://www.danirod.es/blog/2016/rust-autocompletion-on-vim *  *  *  *  *
+  Plug 'racer-rust/vim-racer'                                        " Rust completion
+                                                                     " YCM : rust completion and goto
+  Plug 'kien/ctrlp.vim'                                              " jump files                                                  *  *  *  *  *
+  Plug 'mileszs/ack.vim'                                             " search files                                                *  *  *  *  *
+  Plug 'powerman/vim-plugin-viewdoc'                                 " for viewing help files                                      *  *  *  *  *
+  Plug 'tpope/vim-commentary'                                        " map: gcc                                                    *  *  *  *  *
+  Plug 'tpope/vim-fugitive'                                          " GIT                                                         *  *  *  *  *
+  Plug 'tpope/vim-surround'                                          " map: ys{tobj}[>)}] - for no space                           *  *  *  *  *
+  Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                                 *  *  *  *  *
+  Plug 'godlygeek/tabular'                                           " for easily aligning                                         *  *  *  *  *
+  Plug 'vim-scripts/restore_view.vim'                                "                                                             *  *  *  *  *
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " to install fzf in system                                    *  *  *  *  *
+  Plug 'junegunn/fzf.vim'                                            " Mapped for :Windows :Lines                                  *  *  *  *  *
+  Plug 'muralisc/vim-colorschemes'                                   "                                                             *  *  *  *  *
+  Plug 'christoomey/vim-tmux-navigator'                              "                                                             *  *  *  *  *
   call plug#end()
 endif
 "}}} ===========================================================Vundle setup done
@@ -36,6 +39,11 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L
+if has('mac')
+    set guifont=Hack:h14
+    " set macligatures
+    " set guifont=Fira\ Code:h12
+endif
 au FocusLost * :set norelativenumber
 au FocusGained * :set relativenumber
 " Basic Settings {{{
@@ -372,12 +380,7 @@ endif
 let g:go_def_mode = 'godef'
 " Rust {
 let g:rustfmt_autosave = 1
-let g:racer_cmd = "/Users/i330301/.cargo/bin/racer"
-let g:racer_experimental_completer = 1
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
+nnoremap <Leader>] :YcmCompleter GoTo<CR> 
 " }
 " https://github.com/ivanceras/rust-vim-setup
 augroup numbertoggle
@@ -385,19 +388,6 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 augroup END
-
-" syntastic for rust {{{
-
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-
-"}}}
 
 " For compatability with tmux
 " Using Meta-[hjkl] mappings in tmux to move panes
@@ -407,3 +397,6 @@ if has('mac')
  nnoremap <silent> ˚ :TmuxNavigateUp<cr>
  nnoremap <silent> ¬ :TmuxNavigateRight<cr>
 endif
+
+" YouCompleteMe and Ultisnip compatibility
+let g:UltiSnipsExpandTrigger = "<c-j>"
