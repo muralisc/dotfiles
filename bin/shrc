@@ -110,6 +110,17 @@ mu() {
 # time till
 tt() {
 
+  USAGE="
+    --all
+    --pretty
+    -s
+    -m
+    -h
+    -d
+    -m
+    -y
+  "
+
   if [ $# -eq 0 ];
   then
     echo usage : tt tomorrow5am
@@ -119,7 +130,7 @@ tt() {
     return 1;
   fi
 
-  requestedTime=$(date -d "$@" +%s)
+  requestedTime=$(date -d "$1" +%s)
   currentTime=$(date +%s)
   if [[ requestedTime -gt currentTime ]]; then
     diff=$(( requestedTime - currentTime ))
@@ -132,16 +143,38 @@ tt() {
   days=$(( hours / 24 ))
   months=$(awk 'BEGIN{ printf( "%.0f\n",'$days' / 30.4375 )}')
   years=$(( months / 12 ))
-  echo "$seconds seconds | $hours hours | $days days | $months months | $years years"
-  timeSince1970=$(date -d @$seconds -Isec -u)
-  yearSince1970=$(cut -f1 -d'-' <<< "$timeSince1970" )
-  monthSince1970=$(cut -f2 -d'-' <<< "$timeSince1970" )
-  daysSince1970=$(awk -F'[T-]' '{print $3}' <<< "$timeSince1970" )
-  Since1970=$(cut -f2- -d'T' <<< "$timeSince1970" )
-  yearDiff=$(( yearSince1970 - 1970 ))
-  monthDiff=$(( monthSince1970 - 1 ))
-  dayDiff=$(( daysSince1970 - 1 ))
-  echo $yearDiff years, $monthDiff months, $dayDiff days, $Since1970
+  case $2 in
+    -s)
+      echo "$seconds seconds"
+      ;;
+    -h)
+      echo "$hours hours"
+      ;;
+    -d)
+      echo "$days days"
+      ;;
+    -m)
+      echo "$months months"
+      ;;
+    -y)
+      echo "$years years"
+      ;;
+  esac
+  if [[ $2 == "--all" ]]; then
+    echo "$seconds seconds | $hours hours | $days days | $months months | $years years"
+  fi
+  if [[ $2 == "--pretty" ]] ; then
+    timeSince1970=$(date -d @$seconds -Isec -u)
+    yearSince1970=$(cut -f1 -d'-' <<< "$timeSince1970" )
+    monthSince1970=$(cut -f2 -d'-' <<< "$timeSince1970" )
+    daysSince1970=$(awk -F'[T-]' '{print $3}' <<< "$timeSince1970" )
+    Since1970=$(cut -f2- -d'T' <<< "$timeSince1970" )
+    yearDiff=$(( yearSince1970 - 1970 ))
+    monthDiff=$(( monthSince1970 - 1 ))
+    # explicitly state the base of the number to prevent '09' being interpretted as octal
+    dayDiff=$(( 10#$daysSince1970 - 1 ))
+    echo "$yearDiff years, $monthDiff months, $dayDiff days, $Since1970"
+  fi
 }
 
 time_after() {
@@ -288,7 +321,7 @@ attach_to_tmux() {
 }
 
 sister_tmux_session() {
-  tmux -L $TMUX_SOCKET_NAME new-session -t $TMUX_SESSION_NAME -s `date +%d%b`
+  tmux -L $TMUX_SOCKET_NAME new-session -t $TMUX_SESSION_NAME -s `date +%d%b` -d
 }
 
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)#examples
