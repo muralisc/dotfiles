@@ -32,6 +32,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'junegunn/fzf.vim'                                            " Mapped for :Windows :Lines                                  *  *  *  *  *
   Plug 'muralisc/vim-colorschemes'                                   "                                                             *  *  *  *  *
   Plug 'christoomey/vim-tmux-navigator'                              "                                                             *  *  *  *  *
+  Plug 'airblade/vim-gitgutter'                                      " ]h [h are mapped
   call plug#end()
 endif
 "}}} ===========================================================Vundle setup done
@@ -351,7 +352,7 @@ augroup end
 " Plugin Specific Settings {{{
     " ACK.vim {{{
 if executable('ag')
-      let g:ackprg = 'ag --nogroup --nocolor --column'
+      let g:ackprg = 'rg --vimgrep'
 endif
 let g:ack_autoclose = 0
 " }}}
@@ -400,3 +401,11 @@ endif
 
 " YouCompleteMe and Ultisnip compatibility
 let g:UltiSnipsExpandTrigger = "<c-j>"
+
+let g:racer_cmd = "/Users/i330301/.cargo/bin/racer"
+au FileType rust nmap gd <Plug>(rust-def)
+
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+
+let g:ycm_use_ultisnips_completer=0
