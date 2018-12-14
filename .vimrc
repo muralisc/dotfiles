@@ -33,6 +33,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/vim-colorschemes'                                   "                                                             *  *  *  *  *
   Plug 'christoomey/vim-tmux-navigator'                              "                                                             *  *  *  *  *
   Plug 'airblade/vim-gitgutter'                                      " ]h [h are mapped
+  Plug 'ledger/vim-ledger'
+  Plug 'tpope/vim-rhubarb'                                           " Github extention for fugitive
   call plug#end()
 endif
 "}}} ===========================================================Vundle setup done
@@ -40,11 +42,6 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L
-if has('mac')
-    set guifont=Hack:h14
-    " set macligatures
-    " set guifont=Fira\ Code:h12
-endif
 au FocusLost * :set norelativenumber
 au FocusGained * :set relativenumber
 " Basic Settings {{{
@@ -70,6 +67,15 @@ set shiftwidth=4                                                                
 set autoindent                                                                  " always set autoindenting on
 set copyindent                                                                  " copy the previous indentation on autoindenting
 set clipboard=unnamedplus
+if has("unix")
+  let s:uname = system("uname -s")
+  if s:uname == "Darwin\n"
+    set clipboard=unnamed
+  endif
+endif
+if has('mac')
+    set guifont=Hack:h14
+endif
 " }}}
 set shiftround                                                                  " use multiple of shiftwidth when indenting with '<' and '>'
 set backspace=indent,eol,start                                                  " allow backspacing over everything in insert mode
@@ -371,13 +377,6 @@ if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
 let loaded_matchparen = 1
-if has("unix")
-  let s:uname = system("uname -s")
-  if s:uname == "Darwin\n"
-    set guifont=Menlo:h14
-    set clipboard=unnamed
-  endif
-endif
 let g:go_def_mode = 'godef'
 " Rust {
 let g:rustfmt_autosave = 1
