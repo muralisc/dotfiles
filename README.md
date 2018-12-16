@@ -28,6 +28,7 @@ For e.g: my `~/.shrc.local` typically contains something like:
 attach_to_tmux <tmux_socketname> <tmux_session_name>
 source /path/to/my/helper/functions/for/work
 SONGS_DIRECTORY="path/to/my/songs"
+export DOTFILES_MY_ENV_VAR   #nitialize the set of vars used in this repo
 some_function_specific_for_this_machine() {
 }
 ```
