@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Dooing a dry run first"
+echo "Doing a dry run first"
 rsync -aPvh \
   -n \
   --info=copy,del,progress2,stats \
@@ -8,7 +8,7 @@ rsync -aPvh \
   --exclude='kubernetes/'  \
   /home/murali/ /media/Murali_Transcend/mylap/
 
-echo "Proceed with the sync?"
+echo "$(tput setaf 4)Proceed with the sync?$(tput sgr0)"
 read
 
 rsync -aPvh \

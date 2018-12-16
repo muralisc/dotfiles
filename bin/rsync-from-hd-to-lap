@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Doing a dry run first"
 rsync -aPvh \
   -n \
   --info=copy,del,progress2,stats \

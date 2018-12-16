@@ -47,6 +47,13 @@ git config --global user.email "$GIT_AUTHOR_EMAIL"
 git config --global credential.https://github.com.username "$GIT_USERNAME"
 ```
 
+Environment variables
+```
+DOTFILES_ALARM_MEDIA
+DOTFILES_LEDGER_FILE
+DOTFILES_HABBITS
+```
+
 ## Features
 
 * `c` - a command line calculator e.g: `c 2 ^ 3 * 2 ` 
