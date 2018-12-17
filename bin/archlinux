@@ -48,24 +48,69 @@ sgdisk -t 2:8200
 # sda2   16G     LINUX_swap        SWAP
 # sda3   100G    Linux_filesystem  /
 # sda4   rem     Linux_filesystem  /home
+
+ENCRYPT DISK
+
+dm-crypt ( cli --> cryptsetup )
+
+# https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption
+cryptsetup -v luksFormat <device>
+
+cryptsetup open <device> <dm_name>
+
+
 boot=/dev/sda1
-root=/dev/sda3
+root=/dev/sda3   # /dev/mapper/cryptroot in encrypted system
+home=/dev/sda4   # /dev/mapper/crypthome
 mkfs.fat -F32 $boot #EFI
 mkfs.ext4 $root
+mkfs.ext4 $home
 mount $root /mnt
 mkdir /mnt/boot
 mount $boot /mnt/boot
-mount /dev/sda4 /mnt/home
+mount $home /mnt/home
+
+mkswap /dev/sda2
+swapon /dev/sda2
 
 # setup Network
 # wifi-menu         # use it to connect to wifi if needed
+
+# use reflector to fix the mirrorlist
+reflector --sort rate --protocol https --save /etc/pacman.d/mirrorlist
+
 sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
-pacstrap /mnt base
+pacstrap /mnt base base-devel
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
+
+# Set timezone
+ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+
+
+
+
+# uncomment en_US in locale.gen
+sed -r -i'.bak' 's/#(en_US.*)/\1/' /etc/locale.gen
+locale-gen
+# VVI else special characters wont be reco in vim and tmux
+bash -c 'echo "LANG=en_US.UTF-8" > /etc/locale.conf'
+bash -c 'echo "KEYMAP=us" > /etc/vconsole.conf'
+
+
 passwd  # change root password
 # install pre-req for wifi-menu
 pacman -S dialog wpa_supplicant
+
+# initramfs
+# https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Unlocking_the_root_partition_at_boot
+# https://wiki.archlinux.org/index.php/Dm-crypt/System_configuration
+# in section "With a keyfile stored on an external media"
+vi /etc/mkinitcpio.conf
+MODULES=(vfat)
+
+HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 filesystems fsck)
+
 
 # use systemd-boot
 # setup systemd-boot bootloader
@@ -74,17 +119,30 @@ bootctl --path=/boot install
 cat <<EOF > /boot/loader/loader.conf
 default  arch
 timeout  4
-editor   0
+editor   1               # to edit the kernal parameters
 EOF
 # this will help in getting PARTUUID into arch.conf
 # blkid -s PARTUUID -o value $root >> /boot/loader/enrtries/arch.conf
+# https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system#Configuring_the_boot_loader
+# see section on configuring bootloader
 cat <<EOF > /boot/loader/entries/arch.conf
 title Arch Linux
 linux /vmlinuz-linux
 initrd /initramfs-linux.img
-options root=PARTUUID=asdfsadf-asdf-asdf rw
+options cryptdevice=PARTUUID=<device-UUID>:cryptroot cryptkey=/dev/sdb1:vfat:/keys/secretkey root=/dev/mapper/cryptroot 
 EOF
 
+# dd bs=512 count=4 if=/dev/random of=/crypto_keyfile.bin
+# chmod 000 /crypto_keyfile.bin
+# chmod 600 /boot/initramfs-linux*
+# cryptsetup luksAddKey /dev/sdX# /crypto_keyfile.bin
+
+edit /etc/crypttab
+
+mkinitcpio -p linux
+
+exit # exit chroot
+umount -R /mnt
 # change default boot to HARD DISK
 # systemctl reboot # REBOOT/Vagrant setup start ===========================
 sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
@@ -99,13 +157,6 @@ fi
 bash -c 'echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf'
 # echo "rivendell" > /etc/hostname
 hostnamectl set-hostname rivnedell
-timedatectl set-timezone Asia/Kolkata
-# uncomment en_US in locale.gen
-sed -r -i'.bak' 's/#(en_US.*)/\1/' /etc/locale.gen
-locale-gen
-# VVI else special characters wont be reco in vim and tmux
-bash -c 'echo "LANG=en_US.UTF-8" > /etc/locale.conf'
-bash -c 'echo "KEYMAP=us" > /etc/vconsole.conf'
 # enable network through netctl
 cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/ethernet
 sed -i 's/eth0/enp0s3/' /etc/netctl/ethernet
@@ -249,14 +300,21 @@ yaourt -S --noconfirm submarine subliminal # subtitle stuff
 #linux commandline dcpp client`
 yaourt -S --noconfirm ncdc
 # usb device automount using ( devmon )
-udevil
+yaourt -S --noconfirm udevil
 # Edit the UEFI menu
-efibootmgr
-#
-cronie
+yaourt -S --noconfirm efibootmgr
+# for crontabs
+yaourt -S --noconfirm cronie
 sudo systemctl enable cronie
 # accounting
 yaourt -S --noconfirm ledger
+# i need to send mail notifications  for my projects
+y -S msmptp
+# setup ntp to sync time
+yaourt -S ntp
+sudo systemctl enable ntpd
+sudo systemctl start ntpd
+# see cheat sheets for more commands
 
 
 # get the gpg file from location
@@ -272,3 +330,6 @@ gpg --edit-key <key-id> # then trust and quit
 1. clone bitbucket
 1. mv pass .password-store
 1. pass
+
+# A filemanager
+yaourt -S --noconfirm polo
