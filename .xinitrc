@@ -20,13 +20,13 @@ fi
 # [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 [ ! -f "$HOME/.xinitrc.local" ] || source "$HOME/.xinitrc.local"
 export EDITOR=vim
-devmon --exec-on-drive "notify-send --icon=block-device --urgency=low \"Volume %l has been mounted\"" &
+udiskie -t &
 mpd &
 mpdscribble &
 # dropbox &
 beet mpdstats &
 #~/thing/syncthing -no-browser &
-pulseaudio --start &
+pulseaudio --start -D
 # caps remapped more comprehensively in Xmodmap
 # setxkbmap -option caps:none
 xmodmap ~/.Xmodmap

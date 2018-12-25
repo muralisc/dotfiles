@@ -283,6 +283,8 @@ yaourt -S --noconfirm rtorrent dropbox youtube-dl
 # enable dropbox
 systemctl --user enable dropbox.service
 vim ~/.config/systemd/user/dropbox@.service  # Add display env
+# sync tools
+y -S syncthing
 # remote tools
 yaourt -S --noconfirm tigervnc sshfs
 # i dont like mouse
@@ -300,7 +302,7 @@ yaourt -S --noconfirm submarine subliminal # subtitle stuff
 #linux commandline dcpp client`
 yaourt -S --noconfirm ncdc
 # usb device automount using ( devmon )
-yaourt -S --noconfirm udevil
+yaourt -S --noconfirm udiskie
 # Edit the UEFI menu
 yaourt -S --noconfirm efibootmgr
 # for crontabs
@@ -316,6 +318,7 @@ sudo systemctl enable ntpd
 sudo systemctl start ntpd
 # see cheat sheets for more commands
 
+# install RUST
 
 # get the gpg file from location
 # check pass in mobile for the password
@@ -333,3 +336,5 @@ gpg --edit-key <key-id> # then trust and quit
 
 # A filemanager
 yaourt -S --noconfirm polo
+
+
