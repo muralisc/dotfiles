@@ -55,8 +55,10 @@ dm-crypt ( cli --> cryptsetup )
 
 # https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption
 cryptsetup -v luksFormat <device>
+# e.g: cryptsetup -v luksFormat /dev/sdc
 
 cryptsetup open <device> <dm_name>
+# e.g: cryptsetup open /dev/sdc cryptexternal
 
 
 boot=/dev/sda1
@@ -240,8 +242,9 @@ yaourt -S --noconfirm ttf-dejavu
 # Browser
 yaourt -S --noconfirm yajl firefox
 # most basic stuff
+# unrar is very helpful exp in coverting .cbr to .jpg
 yaourt -S --noconfirm \
-  perl-rename sed rsync tar gzip feh gawk \
+  perl-rename sed rsync tar gzip unrar feh gawk \
   gcc gdb gnuplot grep groff openssh unzip
 # monitors
 yaourt -S --noconfirm htop vnstat
@@ -338,3 +341,5 @@ gpg --edit-key <key-id> # then trust and quit
 yaourt -S --noconfirm polo
 
 
+awesome-freedesktop
+laptop mode tools - to handle battery acpi events

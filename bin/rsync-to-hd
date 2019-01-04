@@ -1,19 +1,22 @@
 #!/bin/bash
 
-EXTERNALHD_UUID=614e8d2e-8643-4563-9ddf-a4c09e89336a
+EXTERNALHD_UUID=57dddd4c-88ba-40d5-88ce-ff093119b2be
 EXTERNALHD_MNT=$(findmnt -S UUID=$EXTERNALHD_UUID -rn -o TARGET)
 SOURCE_PATH=${HOME}/
-BACKUP_PATH=mylap/
+BACKUP_PATH=${EXTERNALHD_MNT}/mylap/
 echo -e "Found mount point for UUID = $EXTERNALHD_UUID at $(tput bold)$EXTERNALHD_MNT$(tput sgr0)"
+echo "$(tput setaf 4)Proceed with the sync?$(tput sgr0)"
+read
+mkdir -p $BACKUP_PATH
 BLUE=$(tput setaf 4)
-echo -e "Doing a dry run from ${BLUE}${SOURCE_PATH}$(tput sgr0) to ${BLUE}$EXTERNALHD_MNT/${BACKUP_PATH}$(tput sgr0)"
+echo -e "Doing a dry run from ${BLUE}${SOURCE_PATH}$(tput sgr0) to ${BLUE}${BACKUP_PATH}$(tput sgr0)"
 rsync -aPvh \
   -n \
   --info=copy,del,progress2,stats \
   --delete \
   --exclude='.*'  \
   --cvs-exclude \
-  $SOURCE_PATH ${EXTERNALHD_MNT}/${BACKUP_PATH}
+  $SOURCE_PATH ${BACKUP_PATH}
 
 echo "$(tput setaf 4)Proceed with the sync?$(tput sgr0)"
 read
@@ -23,4 +26,4 @@ rsync -aPvh \
   --delete \
   --exclude='.*'\
   --cvs-exclude \
-  $SOURCE_PATH ${EXTERNALHD_MNT}/${BACKUP_PATH}
+  $SOURCE_PATH ${BACKUP_PATH}

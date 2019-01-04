@@ -47,6 +47,7 @@ beautiful.init("~/.config/awesome/theme.lua")
 require("volume")
 require("music")
 require("brightness")
+local xdg_menu = require("archmenu")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvtc"
@@ -122,10 +123,11 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "screen off", "xset s 10 10" },
                                     { "screen on", "xset s 7200 7200" },
                                     { "clock", "urxvtc -fn 'xft:UbuntuMono:Regular:size=25' -bg rgba:0000/0000/0000/cccc -e ncmpcpp -s clock" },
+                                    { "applications", xdgmenu },
                                     { "morc_menu", "morc_menu" },
                                     { "shutdown", 'poweroff' },
                                   },
-                          theme = { font="Ubuntu 14"; width = 190; height = 30; }
+                          theme = { font="Ubuntu 18"; width = 290; height = 30; }
                         })
 
 

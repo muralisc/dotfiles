@@ -334,3 +334,7 @@ _fzf_complete_pass() {
         sed -e 's/\(.*\)\.gpg/\1/'
   )
 }
+
+update_freedesktop_menu() {
+xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua
+}
