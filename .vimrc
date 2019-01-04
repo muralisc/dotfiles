@@ -9,8 +9,6 @@ set nocompatible                                                     " not compa
 " vim-plug setup {{{
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  Plug 'SirVer/ultisnips'                                            "                                                             *
-  Plug 'muralisc/vim-snippets'                                       "                                                             *
   Plug 'majutsushi/tagbar'                                           " birds eye view of code                                      *
   Plug 'scrooloose/nerdtree'                                         " Folder navigation ? C u r cd CD                             *  *
 
@@ -35,6 +33,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'airblade/vim-gitgutter'                                      " ]h [h are mapped
   Plug 'ledger/vim-ledger'
   Plug 'tpope/vim-rhubarb'                                           " Github extention for fugitive
+  Plug 'plasticboy/vim-markdown'
+  Plug 'itchyny/lightline.vim'
   call plug#end()
 endif
 "}}} ===========================================================Vundle setup done
@@ -117,7 +117,7 @@ set viminfo='20,\"80                                                            
 set textwidth=132        " not 80 cause helps in vs mode
 " Ease of Use {{{ "
 set wildmenu                                                                    " tab completion for files/buffers like bash
-set wildmode=longest,list,full
+set wildmode=longest,full                                                       " Complete till the longest match in command
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set wildignore+=*/node_modules/*
 set wildignorecase                                                              " ignore case while filename complete
@@ -186,57 +186,60 @@ set lazyredraw                                                                  
 set laststatus=2                                                                " always put a status line even if one window
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
-" Statusline settings {{{
-" https://stackoverflow.com/a/10416234
-" http://got-ravings.blogspot.in/2008/08/vim-pr0n-making-statuslines-that-own.html
-" http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
-" https://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
-function! Status(winnum)
-  let active = a:winnum == winnr()
-  let bufnum = winbufnr(a:winnum)
-  let stat = ''
-  function! Color(active, num )
-    if a:active
-      return '%' . a:num . '*'
-    else
-      return '%*'
-    endif
-  endfunction
-  " file name
-  let stat .= Color( active, 7 )
-  let stat .= '%<%f%*'
-  " help? preview? modified? readonly?
-  let stat .= Color( active, 1 )
-  let stat .= ' %h%w%m%r%*'
-  " right side
-  let stat .= Color( active, 7 )
-  let stat .= ' %=%*'
-  " Encoding2
-  let stat .= Color( active, 5 )
-  let stat.='%-7(%{&ff}%)%*'
-  " Encoding
-  let stat .= Color( active, 3 )
-  let stat.='%-7(%{&fenc}%)%*'
-  " filetype
-  let stat .= Color( active, 2 )
-  let stat.='%-7(%y%)%*'
-  " %* leftjustify(col,virtulcol) percentage
-  let stat .= Color( active, 9 )
-  let stat.='%-15( %c%V%)%*'
-  return stat
-endfunction
 
-function! s:RefreshStatus()
-  for nr in range(1, winnr('$'))
-    call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
-  endfor
-endfunction
+"" Statusline settings {{{
+"" https://stackoverflow.com/a/10416234
+"" http://got-ravings.blogspot.in/2008/08/vim-pr0n-making-statuslines-that-own.html
+"" http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
+"" https://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
+"" https://gist.github.com/XVilka/8346728
+"function! Status(winnum)
+"  let active = a:winnum == winnr()
+"  let bufnum = winbufnr(a:winnum)
+"  let stat = ''
+"  function! Color(active, num )
+"    if a:active
+"      return '%' . a:num . '*'
+"    else
+"      return '%*'
+"    endif
+"  endfunction
+"  " file name
+"  let stat .= Color( active, 7 )
+"  let stat .= '%<%f%*'
+"  " help? preview? modified? readonly?
+"  let stat .= Color( active, 1 )
+"  let stat .= ' %h%w%m%r%*'
+"  " right side
+"  let stat .= Color( active, 7 )
+"  let stat .= ' %=%*'
+"  " Encoding2
+"  let stat .= Color( active, 5 )
+"  let stat.='%-7(%{&ff}%)%*'
+"  " Encoding
+"  let stat .= Color( active, 3 )
+"  let stat.='%-7(%{&fenc}%)%*'
+"  " filetype
+"  let stat .= Color( active, 2 )
+"  let stat.='%-7(%y%)%*'
+"  " %* leftjustify(col,virtulcol) percentage
+"  let stat .= Color( active, 9 )
+"  let stat.='%-15( %c%V%)%*'
+"  return stat
+"endfunction
+"
+"function! s:RefreshStatus()
+"  for nr in range(1, winnr('$'))
+"    call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
+"  endfor
+"endfunction
+"
+"augroup status
+"  autocmd!
+"  autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
+"augroup END
+"" }}}
 
-augroup status
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
-augroup END
-" }}}
 " Shortcut Mappings {{{
 " resize
 nnoremap <Up>    5<c-w>+
@@ -251,8 +254,8 @@ vnoremap // y/<C-R>"<CR>
 inoremap jj <Esc>
 " }}} insert mode
 " normal mappings {{{
-" load vimrc
 nnoremap <F5> :!cscope -Rbi cscopeFiles<CR>:cs reset<CR>
+nnoremap <F6> :redraw!<CR>
 " Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
@@ -347,7 +350,7 @@ augroup FTOptions
     autocmd filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
     autocmd FileType xdefaults                    setlocal commentstring=!\ %s
     autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k
-    autocmd FileType liquid,markdown,text,txt,tex setlocal complete+=k textwidth=80
+    autocmd FileType liquid,text,txt,tex          setlocal complete+=k textwidth=80
     autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help
     autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
     autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99
@@ -355,24 +358,14 @@ augroup FTOptions
     autocmd FileType git,gitcommit                setlocal foldmethod=syntax
 augroup end
 "}}} Filetype Specific Settings
-" Plugin Specific Settings {{{
-    " ACK.vim {{{
+" Plugin Specific Settings ====================================================
 if executable('ag')
       let g:ackprg = 'rg --vimgrep'
 endif
 let g:ack_autoclose = 0
-" }}}
-    " viewdoc settings "{{{
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
-" }}}
-    " ctrlp settings{{{
-let g:ctrlp_cmd = 'CtrlPMixed' "}}}
-    " ULTISNIPS {{{
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
-let g:UltiSnipsEditSplit="vertical" "}}}
-" }}} Plugin Specific Settings
+let g:ctrlp_cmd = 'CtrlPMixed'
+" }}} Plugin Specific Settings ================================================
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
@@ -380,7 +373,7 @@ let loaded_matchparen = 1
 let g:go_def_mode = 'godef'
 " Rust {
 let g:rustfmt_autosave = 1
-nnoremap <Leader>] :YcmCompleter GoTo<CR> 
+nnoremap <Leader>] :YcmCompleter GoTo<CR>
 " }
 " https://github.com/ivanceras/rust-vim-setup
 augroup numbertoggle
@@ -398,13 +391,10 @@ if has('mac')
  nnoremap <silent> ¬ :TmuxNavigateRight<cr>
 endif
 
-" YouCompleteMe and Ultisnip compatibility
-let g:UltiSnipsExpandTrigger = "<c-j>"
-
 let g:racer_cmd = "/Users/i330301/.cargo/bin/racer"
 au FileType rust nmap gd <Plug>(rust-def)
 
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
-let g:ycm_use_ultisnips_completer=0
+inoremap <F5> <C-R>=strftime("%F, %r, %a")<CR>
