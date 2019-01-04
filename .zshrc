@@ -23,6 +23,8 @@ expand-aliases() {
 zle -N expand-aliases
 bindkey '\e^E' expand-aliases
 
+# allow comments
+setopt interactivecomments
 # prompt setup
 setopt PROMPT_SUBST
 if [ -f ~/.local/shrink-path.plugin.zsh ]; then

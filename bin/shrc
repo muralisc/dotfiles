@@ -111,14 +111,16 @@ mu() {
 tt() {
 
   USAGE="
-    --all
-    --pretty
+    tt 'time' <flags>
+    --all       Net total time in each fomat
+    --pretty    Human readable form
     -s
     -m
     -h
     -d
     -m
     -y
+    --timetill 'time' # to implement
   "
 
   if [ $# -eq 0 ];
@@ -277,7 +279,7 @@ case ":$PATH:" in
     : #no op
     ;;
   *)
-    export PATH="$PATH:$GOPATH/bin:$HOME/.gem/ruby/2.4.0/bin:$HOME/bin" 
+    export PATH="$GOPATH/bin:$HOME/.gem/ruby/2.4.0/bin:$HOME/bin:$PATH" 
     if [[ $(uname -s) == "Darwin" ]] ; then
       export PATH="$BREWPATH/libexec/gnubin:$PATH"
       export MANPATH="$BREWPATH/libexec/gnuman:$MANPATH"
