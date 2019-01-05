@@ -433,7 +433,7 @@ globalkeys = awful.util.table.join(
     awful.key({ "Shift"           }, "Print",       function () awful.util.spawn_with_shell('import -window root $HOME/selection-`date +%Y-%m-%d_%H-%M-%S`.png') end),
     awful.key({                   }, "Scroll_Lock", function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh") end), -- Lock screen
     awful.key({                   }, "Pause" ,      function () awful.util.spawn("urxvtc -e ranger") end),      -- launch fileexplorer
-    awful.key({ altkey,           }, "Tab" ,        function () awful.util.spawn("rofi -show window -font 'Ubuntu mono 30'") end),-- window switcher
+    awful.key({ altkey,           }, "Tab" ,        function () awful.util.spawn("rofi -show combi -font 'Ubuntu mono 22'") end),-- window switcher
     awful.key({ altkey, "Control" }, "s",           function () awful.util.spawn_with_shell( "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')") end),
     awful.key({ modkey            }, "q",           function () awful.util.spawn_with_shell("exec ~/.config/awesome/lockScript.sh show") end), -- show a quote
     -- window moving and resizing  {{{
