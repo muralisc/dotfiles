@@ -343,3 +343,16 @@ yaourt -S --noconfirm polo
 
 awesome-freedesktop
 laptop mode tools - to handle battery acpi events
+
+# enable touch pad clicks
+# From terminal 
+# 1 left clicnk
+# 2 middle click
+# 3 right click
+Option "TapButton2" "3"
+Option "TapButton3" "2"
+
+# Permanantly
+# /usr/share/X11/xorg.conf.d/*synaptics.conf
+Option "TapButton2" "3"
+Option "TapButton3" "2"
