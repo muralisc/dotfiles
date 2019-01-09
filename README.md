@@ -49,6 +49,7 @@ git config --global credential.https://github.com.username "$GIT_USERNAME"
 ```
 
 Environment variables
+Populate in ~/.env.local
 ```
 DOTFILES_ALARM_MEDIA
 DOTFILES_LEDGER_FILE

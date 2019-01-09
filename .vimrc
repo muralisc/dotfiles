@@ -254,7 +254,7 @@ vnoremap // y/<C-R>"<CR>
 inoremap jj <Esc>
 " }}} insert mode
 " normal mappings {{{
-nnoremap <F5> :!cscope -Rbi cscopeFiles<CR>:cs reset<CR>
+inoremap <F5> <C-R>=strftime("%F, %r, %a")<CR>
 nnoremap <F6> :redraw!<CR>
 " Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
@@ -397,4 +397,3 @@ au FileType rust nmap gd <Plug>(rust-def)
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
-inoremap <F5> <C-R>=strftime("%F, %r, %a")<CR>
