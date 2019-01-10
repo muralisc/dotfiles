@@ -257,7 +257,7 @@ yaourt -S --noconfirm pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa
 # movies tv songs
 yaourt -S --noconfirm mpd mpc ncmpcpp mpv puddletag beets
 # RANGER STUFF
-yaourt -S --noconfirm ranger w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
+yaourt -S --noconfirm ranger-git w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
 # MOBILE
 yaourt -S --noconfirm jmtpfs
 # i love beauty
@@ -341,8 +341,7 @@ gpg --edit-key <key-id> # then trust and quit
 yaourt -S --noconfirm polo
 
 
-awesome-freedesktop
-laptop mode tools - to handle battery acpi events
+use xdg_menu for archmenu.lua for awesoem wm
 
 # enable touch pad clicks
 # From terminal 
@@ -356,3 +355,5 @@ Option "TapButton3" "2"
 # /usr/share/X11/xorg.conf.d/*synaptics.conf
 Option "TapButton2" "3"
 Option "TapButton3" "2"
+
+y -S alacritty
