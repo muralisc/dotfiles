@@ -358,3 +358,5 @@ Option "TapButton3" "2"
 
 y -S alacritty
 cargo install bat fd rip-grep
+
+user tmux-copycat # manual install

@@ -12,8 +12,6 @@ fi
 
 alias less='less -R --follow-name'
 alias gb='git branch'
-# alias gfixup='git commit -a --fixup=HEAD'
-# alias gcm='git commit -m' # use fugitive
 alias gco='git checkout'
 alias gcp='git cherry-pick'
 alias gd='git difftool --dir-diff'
@@ -342,5 +340,5 @@ _fzf_complete_pass() {
 }
 
 update_freedesktop_menu() {
-xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua
+  xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua
 }
