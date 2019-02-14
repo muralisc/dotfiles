@@ -17,7 +17,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'Valloric/YouCompleteMe'                                      " https://www.danirod.es/blog/2016/rust-autocompletion-on-vim *  *  *  *  *
   Plug 'racer-rust/vim-racer'                                        " Rust completion
                                                                      " YCM : rust completion and goto
-  Plug 'kien/ctrlp.vim'                                              " jump files                                                  *  *  *  *  *
   Plug 'mileszs/ack.vim'                                             " search files                                                *  *  *  *  *
   Plug 'powerman/vim-plugin-viewdoc'                                 " for viewing help files                                      *  *  *  *  *
   Plug 'tpope/vim-commentary'                                        " map: gcc                                                    *  *  *  *  *
@@ -33,8 +32,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'airblade/vim-gitgutter'                                      " ]h [h are mapped
   Plug 'ledger/vim-ledger'
   Plug 'tpope/vim-rhubarb'                                           " Github extention for fugitive
-  Plug 'plasticboy/vim-markdown'
   Plug 'itchyny/lightline.vim'
+  Plug 'airblade/vim-rooter'
   call plug#end()
 endif
 "}}} ===========================================================Vundle setup done
@@ -145,18 +144,6 @@ set foldmethod=marker                                                           
 set foldlevel=99                                                                " 0-foldall 99-unfoldall
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
 
-"Courtsey http://inlehmansterms.net/2014/09/04/sane-vim-working-directories/
-function! SetProjectRoot()
-  " default to the current file's directory
-  lcd %:p:h
-  let git_dir = system("git rev-parse --show-toplevel")
-  " See if the command output starts with 'fatal' (if it does, not in a git repo)
-  let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
-  " if git project, change local directory to git project root
-  if empty(is_not_git_dir)
-    lcd `=git_dir`
-  endif
-endfunction
 " Foldingtext {{{
 " http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
  fu! CustomFoldText()
@@ -283,17 +270,16 @@ nnoremap <leader>gs :Gstatus<CR>
 
 " Clears the search register
 nnoremap <leader>/ :nohlsearch<CR>
-nnoremap <leader>f :CtrlPBuffer<CR>
 " with vimgrep, see results in cope(leader+cc) next (]q) previous ([q)
 nnoremap <leader>co :botright cope<cr>
-" Switch CWD to the directory of the open buffer
-nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
-nnoremap <leader>dc :call SetProjectRoot()<cr>
 " Open vimGrep and put the cursor in the right position
-nnoremap <leader>gr :Ack! --ignore 'tags' --ignore 'test' <C-r><C-w>
-" placeholder for ctrlpMRU
-nnoremap <leader>m :CtrlP :pwd<CR>
-nnoremap <leader><leader>m :CtrlPMRUFiles <CR>
+" nnoremap <leader>gr :Ack! --ignore 'tags' --ignore 'test' <C-r><C-w>
+" Use <c-r>" to get copied item
+nnoremap <leader>gr :Rg! 
+" FZF is faster than CtrlP for finding files in Directories
+nnoremap <leader>m :FZF<CR>
+" nnoremap <leader><leader>m :CtrlPMRUFiles <CR>
+nnoremap <leader><leader>m :History <CR>
 " NERD
 nnoremap <leader>n :NERDTreeFind<CR>
 nnoremap <leader><leader>n :NERDTreeToggle<CR>
@@ -325,8 +311,6 @@ nnoremap <leader><leader>s :setlocal spell!<CR>
 nnoremap <leader><tab> :q<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
 nnoremap <leader>T :Windows<CR>
-" Useful mappings for managing tabs
-nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>l :Lines<CR>
 nnoremap <leader>v :vs<CR>
 nnoremap <leader>V :e $MYVIMRC<CR>
@@ -364,7 +348,6 @@ if executable('ag')
 endif
 let g:ack_autoclose = 0
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
-let g:ctrlp_cmd = 'CtrlPMixed'
 " }}} Plugin Specific Settings ================================================
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
@@ -390,10 +373,21 @@ if has('mac')
  nnoremap <silent> ˚ :TmuxNavigateUp<cr>
  nnoremap <silent> ¬ :TmuxNavigateRight<cr>
 endif
-
 let g:racer_cmd = "/Users/i330301/.cargo/bin/racer"
 au FileType rust nmap gd <Plug>(rust-def)
 
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
+let g:rooter_silent_chdir = 1
+let g:rooter_change_directory_for_non_project_files = 'current'
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+vmap <leader>db !boxes -d stone -p v1 -a hc -s 80
+vmap <leader>xc !boxes -r<CR>
