@@ -251,11 +251,12 @@ yaourt -S --noconfirm htop vnstat
 # for terminal git and git-gui
 yaourt -S --noconfirm tig tk
 # bluetooth wifi
-yaourt -S --noconfirm bluez bluez-utils iw
+yaourt -S --noconfirm bluez bluez-utils iw blueman-git
+# use --experimental in bluetooth service
 # just get the audio working !!!
 yaourt -S --noconfirm pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa pulseaudio-bluetooth
 # movies tv songs
-yaourt -S --noconfirm mpd mpc ncmpcpp mpv puddletag beets
+yaourt -S --noconfirm mpd mpc ncmpcpp mpv exfalso beets
 # RANGER STUFF
 yaourt -S --noconfirm ranger-git w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
 # MOBILE
@@ -359,4 +360,8 @@ Option "TapButton3" "2"
 y -S alacritty
 cargo install bat fd rip-grep
 
-user tmux-copycat # manual install
+use tmux-copycat # manual install
+
+y -S alacritty xzoom
+
+y -S lib32-nvidia-utils nvidia lib32-nvidia-libgl steam
