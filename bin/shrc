@@ -111,72 +111,37 @@ mu() {
 tt() {
 
   USAGE="
-    tt 'time' <flags>
-    --all       Net total time in each fomat
-    --pretty    Human readable form
-    -s
-    -m
-    -h
-    -d
-    -m
-    -y
-    --timetill 'time' # to implement
+  Usage:
+    tt tomorrow5am
+    tt 2:37am
+
+  Spaces require quotes:
+
+    tt 'jan1 3:01am 2019'
+    tt 'tomorrow 3am'
   "
 
   if [ $# -eq 0 ];
   then
-    echo usage : tt tomorrow5am
-    echo 'usage: tt 2:37am'
-    echo "usage: tt 'jan1 3:01am 2019'"
-    echo "tt 'tomorrow 3am'"
+    echo "$USAGE"
     return 1;
   fi
 
-  requestedTime=$(date -d "$1" +%s)
-  currentTime=$(date +%s)
-  if [[ requestedTime -gt currentTime ]]; then
-    diff=$(( requestedTime - currentTime ))
+  reqInSec=$(date -d "$1" +%s)
+  nowInSec=$(date +%s)
+  format="%yy %mm %dd %Hh %Mmins"
+
+  if [[ $reqInSec -gt $nowInSec ]]; then
+    endTime=$(date -d "$1" -Is)
+    startTime=$(date -Is)
+    format="+ $format"
   else
-    diff=$(( currentTime - requestedTime ))
+    startTime=$(date -d "$1" -Is)
+    endTime=$(date -Is)
+    format="- $format"
   fi
-  seconds=$diff
-  minutes=$(( seconds / 60 ))
-  hours=$(( minutes / 60 ))
-  days=$(( hours / 24 ))
-  months=$(awk 'BEGIN{ printf( "%.0f\n",'$days' / 30.4375 )}')
-  years=$(( months / 12 ))
-  case $2 in
-    -s)
-      echo "$seconds seconds"
-      ;;
-    -h)
-      echo "$hours hours"
-      ;;
-    -d)
-      echo "$days days"
-      ;;
-    -m)
-      echo "$months months"
-      ;;
-    -y)
-      echo "$years years"
-      ;;
-  esac
-  if [[ $2 == "--all" ]]; then
-    echo "$seconds seconds | $hours hours | $days days | $months months | $years years"
-  fi
-  if [[ $2 == "--pretty" ]] ; then
-    timeSince1970=$(date -d @$seconds -Isec -u)
-    yearSince1970=$(cut -f1 -d'-' <<< "$timeSince1970" )
-    monthSince1970=$(cut -f2 -d'-' <<< "$timeSince1970" )
-    daysSince1970=$(awk -F'[T-]' '{print $3}' <<< "$timeSince1970" )
-    Since1970=$(cut -f2- -d'T' <<< "$timeSince1970" )
-    yearDiff=$(( yearSince1970 - 1970 ))
-    monthDiff=$(( monthSince1970 - 1 ))
-    # explicitly state the base of the number to prevent '09' being interpretted as octal
-    dayDiff=$(( 10#$daysSince1970 - 1 ))
-    echo "$yearDiff years, $monthDiff months, $dayDiff days, $Since1970"
-  fi
+
+  datediff "$startTime" "$endTime" -f "$format"
 }
 
 time_after() {
@@ -342,4 +307,8 @@ _fzf_complete_pass() {
 
 update_freedesktop_menu() {
   xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua
+}
+
+review_journal() {
+  rg --pretty --sort path '\[ ]' -N   201{4,6,7,8,9}* | nl
 }
