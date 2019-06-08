@@ -125,7 +125,7 @@ tt() {
 
   if [ $# -eq 0 ];
   then
-    echo usage : tt tomorrow5am
+    echo usage : tt tomorrow5am --all
     echo 'usage: tt 2:37am'
     echo "usage: tt 'jan1 3:01am 2019'"
     echo "tt 'tomorrow 3am'"

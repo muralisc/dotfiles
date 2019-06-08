@@ -25,8 +25,6 @@ mpd &
 mpdscribble &
 # dropbox &
 beet mpdstats &
-#~/thing/syncthing -no-browser &
-pulseaudio --start -D
 # caps remapped more comprehensively in Xmodmap
 # setxkbmap -option caps:none
 xmodmap ~/.Xmodmap

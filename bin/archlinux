@@ -365,3 +365,6 @@ use tmux-copycat # manual install
 y -S alacritty xzoom
 
 y -S lib32-nvidia-utils nvidia lib32-nvidia-libgl steam
+
+redshift
+masterpdfeditor
