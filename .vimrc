@@ -237,11 +237,11 @@ nnoremap <Left>  5<c-w><
 vnoremap // y/<C-R>"<CR>
 " insert mode {{{
 " inoremap <c-e> <C-o>A ------  use o
-" Dont move your fingers from the home row OR use ctrl-[ instead
+" Dont move your fingers from the home row OR use ctrl-[ instead `
 inoremap jj <Esc>
 " }}} insert mode
 " normal mappings {{{
-inoremap <F5> <C-R>=strftime("%F, %r, %a")<CR>
+inoremap <F5> <C-R>=strftime("# %F, %r, %a")<CR>
 nnoremap <F6> :redraw!<CR>
 " Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
@@ -391,3 +391,5 @@ command! -bang -nargs=* Rg
 
 vmap <leader>db !boxes -d stone -p v1 -a hc -s 80
 vmap <leader>xc !boxes -r<CR>
+" After yanking in visual mode move cursor to the end of  the selection
+vmap y ygv<Esc>
