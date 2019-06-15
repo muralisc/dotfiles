@@ -1,9 +1,9 @@
 ! use only for simple tasks, use xkb for complex tasks
-! For key bords with not Super key on right side
-remove Lock = Caps_Lock
-! map CapsLock Key to Menu ( i dont use the Capslock key anyway )
-! keycode 66 = Menu
+! https://wiki.archlinux.org/index.php/Xmodmap
+clear lock
+clear control
+! map CapsLock Key to Control
 keycode 66 = Control_L
-add Control = Control_L
-! map menu key to Super
-keycode 135 = Super_R
+! map CapsLock Key to Menu
+! keycode 66 = Menu
+add Control = Control_L Control_R
