@@ -26,7 +26,7 @@ mpdscribble &
 # dropbox &
 beet mpdstats &
 # caps remapped more comprehensively in Xmodmap
-# setxkbmap -option caps:none
+# setxkbmap -option ctrl:nocaps
 xmodmap ~/.Xmodmap
 keynav daemonize
 # feh --bg-fill Downloads/wallp_custom_gimp_svg/vim-shortcuts2560x1600_black.png

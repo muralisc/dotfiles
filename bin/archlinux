@@ -368,3 +368,5 @@ y -S lib32-nvidia-utils nvidia lib32-nvidia-libgl steam
 
 redshift
 masterpdfeditor
+
+ncdu -- command line fize size analyse
