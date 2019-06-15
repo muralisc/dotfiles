@@ -285,7 +285,7 @@ URxvt*keysym.M-Escape:       perl:keyboard-select:activate
 URxvt*keysym.M-s:            perl:keyboard-select:search
 URxvt*keysym.M-u:            perl:url-select:select_next
 URxvt*keysym.M-v:            perl:clipboard:paste
-URxvt*keysym.M-C-v:          perl:clipboard:paste_escaped
+URxvt.keysym.S-C-V:          eval:paste_clipboard
 URxvt*clipboard.autocopy:    true
 URxvt.resize-font.smaller:   C-Down
 URxvt.resize-font.bigger:    C-Up
