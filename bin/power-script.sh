@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enahnnce using this http://johnmackintosh.com/2016-12-01-the-hourly-heatmap/
+# https://gist.github.com/johnmackintosh/520643a1f82a0c7df00cf949ba98a4e9
+
 # sample cron entry
 #   */10 * *   *   *     /home/pi/bin/power-script.sh
 
