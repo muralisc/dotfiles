@@ -29,3 +29,14 @@ tail -n 5 $log_file > ${log_file}.tmp
 mv ${log_file}.tmp $log_file
 echo "$unix_epoch 1 $(date | sed 's/ /_/g')" >> $log_file
 
+
+
+# analyse
+
+function analyse() {
+  while IFS= read -r line ;
+  do
+    echo "$(date -d @$(cut -f1 -d, <<< $line) ) ==== $(date -d @$(cut -f2 -d, <<< $line ) )" ; 
+  done < <( jq -r --slurp '.[] | "\(.powerdown),\(.powerup)"' < /var/tmp/powerdown.json)
+}
+
