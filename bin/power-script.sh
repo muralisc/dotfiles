@@ -25,4 +25,6 @@ if [[ ! -z $last_entry ]]; then
     }" >> $entries_json
   fi
 fi
-echo "$unix_epoch 1" >> $log_file
+sed -i '5,$ d' $log_file
+echo "$unix_epoch 1 $(date | sed 's/ /_/g')" >> $log_file
+
