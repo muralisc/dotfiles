@@ -585,10 +585,12 @@
                   "type": "frontmost_application_unless",
                   "bundle_identifiers": [
                       "io.alacritty",
+                      "com.googlecode.iterm2",
                       "org.vim.MacVim"
                   ],
                   "file_paths": [
                       "/Applications/Alacritty.app/Contents/MacOS/alacritty",
+                      "/Applications/iTerm.app/Contents/MacOS/iTerm2",
                       "/Applications/MacVim.app/Contents/MacOS/MacVim"
                   ]
               }
@@ -617,10 +619,12 @@
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
                       "io.alacritty",
+                      "com.googlecode.iterm2",
                       "org.vim.MacVim"
                   ],
                   "file_paths": [
                       "/Applications/Alacritty.app/Contents/MacOS/alacritty",
+                      "/Applications/iTerm.app/Contents/MacOS/iTerm2",
                       "/Applications/MacVim.app/Contents/MacOS/MacVim"
                   ]
               }

@@ -4,17 +4,25 @@
 # https://gist.github.com/johnmackintosh/520643a1f82a0c7df00cf949ba98a4e9
 
 # sample cron entry
-#   */10 * *   *   *     /home/pi/bin/power-script.sh
+#   */5 * *   *   *     /home/pi/bin/power-script.sh
 
 unix_epoch=$(date +%s)
-log_file=~/logs/powerup.log
+log_file=/var/tmp/powerup.log
+entries_json=/var/tmp/powerdown.json
+touch $log_file $entries_json
 last_entry=$(tail -n1 $log_file | awk '{print $1}')
 
-threshold_sec=700
-elapsed_time=$((unix_epoch-last_entry))
-if [[ $elapsed_time -gt $threshold_sec ]] ; then
-  # put in the down entries if executed after threshold_sec
-  echo "$((last_entry+1)) 0" >> $log_file
-  echo "$((unix_epoch-1)) 0" >> $log_file
+if [[ ! -z $last_entry ]]; then
+  threshold_min=31
+  threshold_sec=$((threshold_min*60))
+  elapsed_time=$((unix_epoch-last_entry))
+  if [[ $elapsed_time -gt $threshold_sec ]] ; then
+    # put in the down entries if executed after threshold_sec
+    echo "
+    {
+       \"powerdown\": $((last_entry+1)),
+       \"powerup\": $((unix_epoch-1))
+    }" >> $entries_json
+  fi
 fi
 echo "$unix_epoch 1" >> $log_file
