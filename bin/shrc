@@ -29,7 +29,6 @@ alias gsp='git stash pop'
 alias gst='git stash'
 alias gsu='git submodule update --init --recursive'
 alias copy='rsync --archive --stats --progress --human-readable --compress'
-alias cat='bat'
 
 # other aliases
 
