@@ -7,10 +7,10 @@
   "import_url": "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/Vonng/Capslock/master/mac/capslock.json",
   "rules": [
     {
-      "description": "Left command to Hyper/Left Command",
+      "description": "Left Command to Hyper/Left Command",
       "manipulators": [
         {
-          "description": "Left command to Hyper/Left Command",
+          "description": "Left Command to Hyper if a modifier is pressed else it Left Command",
           "from": {
             "key_code": "left_command",
             "modifiers": {
@@ -39,10 +39,11 @@
       ]
     },
     {
-      "description": "Hyper Awesome WM mappings",
+      "description": "Awesome WM mappings using Hyper",
       "manipulators": [
         {
           "from": {
+            "description": "Left Command(Hyper) + [ = vol dec",
             "key_code": "open_bracket",
             "modifiers": {
               "mandatory": [
@@ -61,6 +62,7 @@
           "type": "basic"
         },
         {
+          "description": "Left Command(Hyper) + ] = vol inc",
           "from": {
             "key_code": "close_bracket",
             "modifiers": {
@@ -150,6 +152,7 @@
         },
         {
           "from": {
+            "description": "Left Command(Hyper) + c = copy",
             "key_code": "c",
             "modifiers": {
               "mandatory": [
@@ -172,6 +175,7 @@
         },
         {
           "from": {
+            "description": "Left Command(Hyper) + v = paste",
             "key_code": "v",
             "modifiers": {
               "mandatory": [
@@ -194,6 +198,7 @@
         },
         {
           "from": {
+            "description": "Left Command(Hyper) + w = close tab",
             "key_code": "w",
             "modifiers": {
               "mandatory": [
@@ -350,7 +355,7 @@
       ]
     },
     {
-      "description": "left_cmd Awesome WM mappings",
+      "description": "Awesome WM mappings using Left Command",
       "manipulators": [
         {
           "from": {
@@ -565,6 +570,7 @@
       "manipulators": [
         {
           "from": {
+            "description": "Caps lock is Command in all app except listed",
             "key_code": "caps_lock",
             "modifiers": {
               "optional": [
@@ -599,6 +605,7 @@
         },
         {
           "from": {
+            "description": "Caps lock is Ctrl in all apps listed",
             "key_code": "caps_lock",
             "modifiers": {
               "optional": [
