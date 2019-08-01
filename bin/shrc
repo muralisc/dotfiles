@@ -240,19 +240,24 @@ export EDITOR=/usr/bin/vim
 export BC_ENV_ARGS=~/.bcrc
 export GOPATH=~/go
 export FZF_DEFAULT_COMMAND='fd --type f'
-BREWPATH=/usr/local/opt/coreutils
-case ":$PATH:" in
-  *":$GOPATH/bin:"*)
-    : #no op
-    ;;
-  *)
-    export PATH="$GOPATH/bin:$HOME/.gem/ruby/2.4.0/bin:$HOME/bin:$PATH" 
-    if [[ $(uname -s) == "Darwin" ]] ; then
-      export PATH="$BREWPATH/libexec/gnubin:$PATH"
-      export MANPATH="$BREWPATH/libexec/gnuman:$MANPATH"
-    fi
-    ;;
-esac
+
+for custom_path in   \
+    $HOME/.cargo/bin \
+    $GOPATH/bin      \
+    $HOME/bin        \
+    ; do
+  [[ ":$PATH:" != *":$custom_path:"* ]] && PATH="$custom_path:${PATH}"
+done
+
+if [[ $(uname -s) == "Darwin" ]] ; then
+  for custom_path in                          \
+      /usr/local/opt/grep/libexec/gnubin      \
+      /usr/local/opt/coreutils/libexec/gnubin \
+      /usr/local/opt/coreutils/libexec/gnuman \
+      ; do
+    [[ ":$PATH:" != *":$custom_path:"* ]] && PATH="$custom_path:${PATH}"
+  done
+fi
 
 gen_pass() {
   length=15
