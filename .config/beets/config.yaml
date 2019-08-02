@@ -1,11 +1,11 @@
 directory: ~/Dropbox/Songs/
-format_item: $artist - $composer - $album - $title - $genre - $year - $path
+format_item: $artist - $composer - $album - $title - $genre - $year - $lyricist - $path
 library: /var/tmp/musiclibrary.blb
 import:
     copy: no
-    write: no
+    write: yes
     autotag: no
-plugins: edit info smartplaylist fromfilename mbcollection
+plugins: edit info smartplaylist fromfilename play mpdadd ydl
 lastfm:
     user: muralisc
 smartplaylist:
@@ -18,6 +18,17 @@ smartplaylist:
         - name: English.m3u
           query: 'path::English last_played:..2016-04-17'
 edit:
-    itemfields: track title artist album lyrics
+    itemfields: track title artist album lyrics path
 lyrics:
     auto: yes
+play:
+  command: mpv
+
+paths:
+    # default: $albumartist/$album%aunique{}/$track $title
+    default: $title
+mpd:
+    host: localhost
+    port: 6600
+ui:
+  color: yes
