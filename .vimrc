@@ -11,16 +11,15 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
   Plug 'majutsushi/tagbar'                                           " birds eye view of code                                      *
   Plug 'scrooloose/nerdtree'                                         " Folder navigation ? C u r cd CD                             *  *
-
-  Plug 'rust-lang/rust.vim'                                          " Rust formating and Tagbar and rustfmt and Syntastic         *  *  *
+  " Plug 'rust-lang/rust.vim'                                        " Rust formating and Tagbar and rustfmt and Syntastic         *  *  *
   Plug 'w0rp/ale'                                                    " Async Syntax checking (with rust,shellcheck)                *  *  *  *  *
-  Plug 'Valloric/YouCompleteMe'                                      " https://www.danirod.es/blog/2016/rust-autocompletion-on-vim *  *  *  *  *
-  Plug 'racer-rust/vim-racer'                                        " Rust completion
+  " Plug 'Valloric/YouCompleteMe'                                    " https://www.danirod.es/blog/2016/rust-autocompletion-on-vim *  *  *  *  *
+  " Plug 'racer-rust/vim-racer'                                      " Rust completion
                                                                      " YCM : rust completion and goto
   Plug 'mileszs/ack.vim'                                             " search files                                                *  *  *  *  *
   Plug 'powerman/vim-plugin-viewdoc'                                 " for viewing help files                                      *  *  *  *  *
   Plug 'tpope/vim-commentary'                                        " map: gcc                                                    *  *  *  *  *
-  Plug 'tpope/vim-fugitive'                                          " GIT                                                         *  *  *  *  *
+  " Plug 'tpope/vim-fugitive'                                        " GIT                                                         *  *  *  *  *
   Plug 'tpope/vim-surround'                                          " map: ys{tobj}[>)}] - for no space                           *  *  *  *  *
   Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                                 *  *  *  *  *
   Plug 'godlygeek/tabular'                                           " for easily aligning                                         *  *  *  *  *
@@ -30,7 +29,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/vim-colorschemes'                                   "                                                             *  *  *  *  *
   Plug 'christoomey/vim-tmux-navigator'                              "                                                             *  *  *  *  *
   Plug 'airblade/vim-gitgutter'                                      " ]h [h are mapped
-  Plug 'ledger/vim-ledger'
   Plug 'tpope/vim-rhubarb'                                           " Github extention for fugitive
   Plug 'itchyny/lightline.vim'
   Plug 'airblade/vim-rooter'
