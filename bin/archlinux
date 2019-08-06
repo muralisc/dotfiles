@@ -358,7 +358,7 @@ Option "TapButton2" "3"
 Option "TapButton3" "2"
 
 y -S alacritty
-cargo install bat fd rip-grep exa
+cargo install bat exa fd-find rip-grep watchexec
 
 use tmux-copycat # manual install
 

@@ -37,13 +37,6 @@ alias copy='rsync --archive --stats --progress --human-readable --compress'
 alias ls='ls --group-directories-first --color'
 alias ll='ls -l'
 alias la='ls -la'
-if which dircolors > /dev/null; then
-  if [[ -s "$HOME/.dir_colors" ]]; then
-    eval "$(dircolors --sh "$HOME/.dir_colors")"
-  else
-    eval "$(dircolors --sh)"
-  fi
-fi
 alias grep="grep --color"
 alias feh='feh -r --info "exiv2 %f" --auto-zoom --geometry 1280x960+320+60 -C /usr/share/fonts/TTF -e Ubuntu-R/35'
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
@@ -257,9 +250,19 @@ if [[ $(uname -s) == "Darwin" ]] ; then
       /usr/local/opt/grep/libexec/gnubin      \
       /usr/local/opt/coreutils/libexec/gnubin \
       /usr/local/opt/coreutils/libexec/gnuman \
+      /usr/local/opt/findutils/libexec/gnubin \
       ; do
     [[ ":$PATH:" != *":$custom_path:"* ]] && export PATH="$custom_path:${PATH}"
   done
+fi
+
+# dircolors is availabe after path is updated
+if which dircolors > /dev/null; then
+  if [[ -s "$HOME/.dir_colors" ]]; then
+    eval "$(dircolors --sh "$HOME/.dir_colors")"
+  else
+    eval "$(dircolors --sh)"
+  fi
 fi
 
 gen_pass() {
