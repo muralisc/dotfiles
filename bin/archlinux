@@ -279,9 +279,11 @@ yaourt -S --noconfirm gnupg pass
 # screen recording
 yaourt -S --noconfirm peek
 # i love to learn
-yaourt -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps #for pdf backup use firefox,even shows comments
+# for pdf backup use firefox,even shows comments
+yaourt -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader
 # for the creative me
-yaourt -S --noconfirm kdebase-runtime kdenlive inkscape gimp
+yaourt -S --noconfirm kdebase-runtime kdenlive inkscape gimp 
+# CHECKOUT OLIVE video editor
 # i love more beauty ; graphics stuff
 yaourt -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
 # when friends who use windows comes over
@@ -373,6 +375,8 @@ redshift
 masterpdfeditor
 
 ncdu # -- command line fize size analyse
-
 # parse pdf table ; useful for getting tables from
 firefox https://github.com/tabulapdf/tabula
+# screen record
+y -Syy simplescreenrecorder
+# m17n Multilingualization
