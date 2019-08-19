@@ -87,6 +87,10 @@ font:
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
+  normal:
+    family: Fira Mono
+    # family: Hack
+    style: Regular
 
   # Bold font face
   #bold:

@@ -235,12 +235,16 @@ sudo systemctl reboot
 # prevent suspend when lid is closed
 sudo sed -i 's/#HandleLidSwitch=.*/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
 
+# Browser
+yaourt -S --noconfirm yajl firefox
+
 # Good font is very important
 yaourt -S --noconfirm ttf-ubuntu-font-family
 # needed for bold
 yaourt -S --noconfirm ttf-dejavu
-# Browser
-yaourt -S --noconfirm yajl firefox
+# another font of choice
+# Fira Mono from firefox
+firefox https://gist.github.com/muammar/a5ffb635eb7f532346a8e777b847f8a7
 # most basic stuff
 # unrar is very helpful exp in coverting .cbr to .jpg
 yaourt -S --noconfirm \
@@ -357,7 +361,6 @@ Option "TapButton3" "2"
 Option "TapButton2" "3"
 Option "TapButton3" "2"
 
-y -S alacritty
 cargo install bat exa fd-find rip-grep watchexec
 
 use tmux-copycat # manual install
@@ -369,4 +372,7 @@ y -S lib32-nvidia-utils nvidia lib32-nvidia-libgl steam
 redshift
 masterpdfeditor
 
-ncdu -- command line fize size analyse
+ncdu # -- command line fize size analyse
+
+# parse pdf table ; useful for getting tables from
+firefox https://github.com/tabulapdf/tabula
