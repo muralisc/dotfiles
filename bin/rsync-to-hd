@@ -24,7 +24,7 @@ echo "$(tput setaf 4)Proceed with the sync?$(tput sgr0)"
 read
 
 rsync -aPvh \
-  --info=all2 \
+  --info=all\
   --delete \
   --exclude='.*'\
   --exclude-from=exclude_file.txt  \
