@@ -10,11 +10,13 @@ read
 mkdir -p $BACKUP_PATH
 BLUE=$(tput setaf 4)
 echo -e "Doing a dry run from ${BLUE}${SOURCE_PATH}$(tput sgr0) to ${BLUE}${BACKUP_PATH}$(tput sgr0)"
+touch exclude_file.txt
 rsync -aPvh \
   -n \
-  --info=copy,del,progress2,stats \
+  --info=ALL \
   --delete \
   --exclude='.*'  \
+  --exclude-from=exclude_file.txt  \
   --cvs-exclude \
   $SOURCE_PATH ${BACKUP_PATH}
 
@@ -22,8 +24,9 @@ echo "$(tput setaf 4)Proceed with the sync?$(tput sgr0)"
 read
 
 rsync -aPvh \
-  --info=copy,del,progress2,stats\
+  --info=all2 \
   --delete \
   --exclude='.*'\
+  --exclude-from=exclude_file.txt  \
   --cvs-exclude \
   $SOURCE_PATH ${BACKUP_PATH}
