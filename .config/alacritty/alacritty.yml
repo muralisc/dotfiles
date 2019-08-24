@@ -88,6 +88,7 @@ font:
     # The `style` can be specified to pick a specific face.
     #style: Regular
   normal:
+    # family: Fira Code
     family: Fira Mono
     # family: Hack
     style: Regular
@@ -151,7 +152,9 @@ debug:
   render_timer: false
 
   # Keep the log file after quitting Alacritty.
-  persistent_logging: false
+  persistent_logging: true
+  print_events: false
+  log_level: Info
 
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
