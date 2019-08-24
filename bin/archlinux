@@ -336,6 +336,7 @@ sudo systemctl start ntpd
 # see cheat sheets for more commands
 
 # install RUST
+curl https://sh.rustup.rs -sSf | sh
 
 # get the gpg file from location
 # check pass in mobile for the password
@@ -372,8 +373,6 @@ Option "TapButton3" "2"
 
 cargo install bat exa fd-find rip-grep watchexec
 
-use tmux-copycat # manual install
-
 y -S alacritty xzoom
 
 y -S lib32-nvidia-utils nvidia lib32-nvidia-libgl steam
@@ -387,3 +386,5 @@ firefox https://github.com/tabulapdf/tabula
 # screen record
 y -Syy simplescreenrecorder
 # m17n Multilingualization
+# smartmontools
+sudo smartctl -a /dev/sda
