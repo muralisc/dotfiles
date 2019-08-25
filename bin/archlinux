@@ -106,9 +106,18 @@ bash -c 'echo "KEYMAP=us" > /etc/vconsole.conf'
 
 passwd  # change root password
 # install pre-req for wifi-menu
-pacman -S dialog wpa_supplicant
+pacman -S dialog wpa_supplicant ifplugd
+# setup wifi (skip this and use wifi-menu to connect if lazy)
+# https://wiki.archlinux.org/index.php/Netctl # arch project
+ip link #check interface names
+cp /etc/netctl/examples/wireless-wpa /etc/netctl/wireless-wpa_home_wifi
+cp /etc/netctl/examples/wireless-wpa /etc/netctl/wireless-wpa_mobile_hotspot
+# EDIT
+systemctl enable netctl-auto@<interface/wlp2s0>.service
+# no need to enable indiviudal profile using 
+# netctl enable <>
 
-# initramfs
+# encrypted initramfs
 # https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Unlocking_the_root_partition_at_boot
 # https://wiki.archlinux.org/index.php/Dm-crypt/System_configuration
 # in section "With a keyfile stored on an external media"
@@ -184,7 +193,7 @@ hwclock --systohc
 echo "visudo /etc/sudoers"
 echo "dulpicate root ..murali ALL"
 echo "give permission to wheel group by uncommenting the line below"
-# to make pacman and yaourt work behind proxy
+# to make pacman and yay work behind proxy
 sudo sh -c 'echo Defaults env_keep += \"http_proxy https_proxy ftp_proxy\" >> /etc/sudoers'
 
 
@@ -230,11 +239,11 @@ EOF
 '
 
 # setup AWESOME WM
-yaourt -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
+yay -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
 # i love conveniance: alt-tab, lock , menu
 # install morc_menu from github
 # checkout https://wiki.archlinux.org/index.php/xdg-menu#xdg_menu
-yaourt -S --noconfirm dmenu rofi-git i3lock archlinux-xdg-menu
+yay -S --noconfirm dmenu rofi-git i3lock archlinux-xdg-menu
 echo "skip from 9:20 to 10:50 "
 echo "skip from 11:00 to 14.38 "
 sudo systemctl reboot
@@ -243,94 +252,94 @@ sudo systemctl reboot
 sudo sed -i 's/#HandleLidSwitch=.*/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
 
 # Browser
-yaourt -S --noconfirm yajl firefox
+yay -S --noconfirm yajl firefox
 
 # Good font is very important
-yaourt -S --noconfirm ttf-ubuntu-font-family
+yay -S --noconfirm ttf-ubuntu-font-family
 # needed for bold
-yaourt -S --noconfirm ttf-dejavu
+yay -S --noconfirm ttf-dejavu
 # another font of choice
 # Fira Mono from firefox
 firefox https://gist.github.com/muammar/a5ffb635eb7f532346a8e777b847f8a7
 # most basic stuff
 # unrar is very helpful exp in coverting .cbr to .jpg
-yaourt -S --noconfirm \
+yay -S --noconfirm \
   perl-rename sed rsync tar gzip unrar feh gawk \
   gcc gdb gnuplot grep groff openssh unzip
 # monitors
-yaourt -S --noconfirm htop vnstat
+yay -S --noconfirm htop vnstat
 # for terminal git and git-gui
-yaourt -S --noconfirm tig tk
+yay -S --noconfirm tig tk
 # bluetooth wifi
-yaourt -S --noconfirm bluez bluez-utils iw blueman-git
+yay -S --noconfirm bluez bluez-utils iw blueman-git
 # use --experimental in bluetooth service
 # just get the audio working !!!
-yaourt -S --noconfirm pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa pulseaudio-bluetooth
+yay -S --noconfirm pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa pulseaudio-bluetooth
 # movies tv songs
-yaourt -S --noconfirm mpd mpc ncmpcpp mpv exfalso beets
+yay -S --noconfirm mpd mpc ncmpcpp mpv exfalso beets
 # RANGER STUFF
-yaourt -S --noconfirm ranger-git w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
+yay -S --noconfirm ranger-git w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
 # MOBILE
-yaourt -S --noconfirm jmtpfs
+yay -S --noconfirm jmtpfs
 # i love beauty
-yaourt -S --noconfirm compton-git lxappearance
+yay -S --noconfirm compton-git lxappearance
 # beautiful icon and mouse
-yaourt -S --noconfirm adwaita-x-dark-and-light-theme bibata-cursor-theme numix-icon-theme-git
+yay -S --noconfirm adwaita-x-dark-and-light-theme bibata-cursor-theme numix-icon-theme-git
 # for the tinkering me
-yaourt -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
+yay -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 # SECURITY
 # https://2buntu.com/articles/1503/pgp-and-ssh-keys-generate-export-backup-and-restore
 # http://www.integralist.co.uk/posts/security-basics.html
 # https://alexcabal.com/creating-the-perfect-gpg-keypair
-yaourt -S --noconfirm gnupg pass
+yay -S --noconfirm gnupg pass
 # screen recording
-yaourt -S --noconfirm peek
+yay -S --noconfirm peek
 # i love to learn
 # for pdf backup use firefox,even shows comments
-yaourt -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader
+yay -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader
 # for the creative me
-yaourt -S --noconfirm kdebase-runtime kdenlive inkscape gimp 
+yay -S --noconfirm kdebase-runtime kdenlive inkscape gimp 
 # CHECKOUT OLIVE video editor
 # i love more beauty ; graphics stuff
-yaourt -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
+yay -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
 # when friends who use windows comes over
-yaourt -S --noconfirm ntfs-3g
+yay -S --noconfirm ntfs-3g
 # internet tools
-yaourt -S --noconfirm rtorrent dropbox youtube-dl
+yay -S --noconfirm rtorrent dropbox youtube-dl
 # enable dropbox
 systemctl --user enable dropbox.service
 vim ~/.config/systemd/user/dropbox@.service  # Add display env
 # sync tools
 y -S syncthing
 # remote tools
-yaourt -S --noconfirm tigervnc sshfs
+yay -S --noconfirm tigervnc sshfs
 # i dont like mouse
-yaourt -S --noconfirm keynav-git
+yay -S --noconfirm keynav-git
 # i like to type better; keylogger ;)
-yaourt -S --noconfirm logkeys-git
+yay -S --noconfirm logkeys-git
 # accessibility when i am sitting faar away
-yaourt -S --noconfirm xzoom
+yay -S --noconfirm xzoom
 # i have java ; but we need it anyway :(
-yaourt -S --noconfirm jre8-openjdk
+yay -S --noconfirm jre8-openjdk
 # when things break down ( for external wifi dongle)
-yaourt -S --noconfirm mt7601u-git
+yay -S --noconfirm mt7601u-git
 # old stuff
-yaourt -S --noconfirm submarine subliminal # subtitle stuff
+yay -S --noconfirm submarine subliminal # subtitle stuff
 #linux commandline dcpp client`
-yaourt -S --noconfirm ncdc
+yay -S --noconfirm ncdc
 # usb device automount using ( devmon )
-yaourt -S --noconfirm udiskie
+yay -S --noconfirm udiskie
 # Edit the UEFI menu
-yaourt -S --noconfirm efibootmgr
+yay -S --noconfirm efibootmgr
 # for crontabs
-yaourt -S --noconfirm cronie
+yay -S --noconfirm cronie
 sudo systemctl enable cronie
 # accounting
-yaourt -S --noconfirm ledger
+yay -S --noconfirm ledger
 # i need to send mail notifications  for my projects
 y -S msmptp
 # setup ntp to sync time
-yaourt -S ntp
+yay -S ntp
 sudo systemctl enable ntpd
 sudo systemctl start ntpd
 # see cheat sheets for more commands
@@ -353,7 +362,7 @@ gpg --edit-key <key-id> # then trust and quit
 1. pass
 
 # A filemanager
-yaourt -S --noconfirm polo
+yay -S --noconfirm polo
 
 
 use xdg_menu for archmenu.lua for awesoem wm
@@ -388,3 +397,6 @@ y -Syy simplescreenrecorder
 # m17n Multilingualization
 # smartmontools
 sudo smartctl -a /dev/sda
+perl-image-exiftool # see commetns of jpeg files
+
+https://github.com/fabiospampinato/cliflix
