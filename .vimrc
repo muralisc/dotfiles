@@ -391,3 +391,11 @@ vmap <leader>db !boxes -d stone -p v1 -a hc -s 80
 vmap <leader>xc !boxes -r<CR>
 " After yanking in visual mode move cursor to the end of  the selection
 vmap y ygv<Esc>
+let g:lightline = {
+      \ 'component_function': {
+      \   'filename': 'LightLineFilename'
+      \ }
+      \ }
+function! LightLineFilename()
+  return  expand('%')
+endfunction
