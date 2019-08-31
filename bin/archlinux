@@ -206,7 +206,8 @@ sudo pacman --noconfirm -S \
 # INSTALL BASIC XSERVER WITH AWESOME
 sudo pacman --noconfirm -S \
   alsa-utils xorg-server xorg-xinit xorg-apps mesa awesome \
-  xf86-video-vesa xterm rxvt-unicode xsel xclip xf86-input-synaptics xf86-video-intel
+  xf86-video-vesa xterm rxvt-unicode xsel xclip xf86-input-synaptics xf86-video-intel \
+  xf86-input-libinput
 sudo modprobe -a vboxguest vboxsf vboxvideo # or
 cat <<EOF > /usr/lib/modules-load.d/virtualbox.conf
 vboxguest
@@ -271,7 +272,7 @@ yay -S --noconfirm htop vnstat
 # for terminal git and git-gui
 yay -S --noconfirm tig tk
 # bluetooth wifi
-yay -S --noconfirm bluez bluez-utils iw blueman-git
+yay -S --noconfirm bluez iw blueman-git bluez-utils-compat #  bluez-utils
 # use --experimental in bluetooth service
 # just get the audio working !!!
 yay -S --noconfirm pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa pulseaudio-bluetooth
@@ -400,3 +401,5 @@ sudo smartctl -a /dev/sda
 perl-image-exiftool # see commetns of jpeg files
 
 https://github.com/fabiospampinato/cliflix
+
+dateutils

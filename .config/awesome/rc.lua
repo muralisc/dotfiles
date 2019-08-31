@@ -425,6 +425,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, altkey    }, "backslash",   function () awful.util.spawn("pavucontrol") end),
     awful.key({ modkey, altkey,
                 "Control","Shift" }, "space" ,      function () awful.util.spawn("urxvtc -e poweroff") end),
+    awful.key({ modkey, altkey    }, "p" ,          function () awful.util.spawn("alacritty -d 20 1 -e zsh -ic 'stopwatch'") end),
     awful.key({ modkey ,          }, "=" ,          function () update_b(brightness_widget , "light -A 10" ) end),
     awful.key({ modkey ,          }, "-" ,          function () update_b(brightness_widget , "light -U 10" ) end),
     awful.key({modkey, "Control"  }, "=" ,          function () update_b(brightness_widget , "light -S 100" ) end),
@@ -715,6 +716,14 @@ awful.rules.rules = {
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
+    { rule_any = {
+        class = {
+          "Alacritty",
+        }
+      }, properties = {
+          floating = true,
+          ontop = true
+    }},
     { rule = { class = "URxvt"       } , properties = { border_width = 0 }  } ,
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }

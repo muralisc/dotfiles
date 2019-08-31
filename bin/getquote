@@ -1,6 +1,0 @@
-#!/bin/bash
-echo "ranme @ $(date)" >> /tmp/ranme
-DATE=$(date +%Y/%m/%d\ %H:%M:%S)
-echo "P $DATE BTC $(curl -s 'https://live.zebapi.com/api/v1/ticker?currencyCode=INR' | jq -r '.sell') INR"
-echo "P $DATE USD $(curl -s 'https://api.fixer.io/latest?base=USD' | jq -r '.rates.INR') INR"
-echo "P $DATE USD $(curl -s 'https://api.fixer.io/latest?base=USD' | jq -r '.rates.EUR') EUR"
