@@ -9,7 +9,7 @@ set nocompatible                                                     " not compa
 " vim-plug setup {{{
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  Plug 'majutsushi/tagbar'                                           " birds eye view of code                                      *
+  " Plug 'majutsushi/tagbar'                                           " birds eye view of code                                      *
   Plug 'scrooloose/nerdtree'                                         " Folder navigation ? C u r cd CD                             *  *
   " Plug 'rust-lang/rust.vim'                                        " Rust formating and Tagbar and rustfmt and Syntastic         *  *  *
   Plug 'w0rp/ale'                                                    " Async Syntax checking (with rust,shellcheck)                *  *  *  *  *
@@ -399,3 +399,12 @@ let g:lightline = {
 function! LightLineFilename()
   return  expand('%')
 endfunction
+" Repeat last command in the next tmux pane.
+" https://ricostacruz.com/til/repeat-tmux-from-vim
+nnoremap <Leader>r :call <SID>TmuxRepeat()<CR>
+
+function! s:TmuxRepeat()
+  silent! exec "!tmux select-pane -l && tmux send up enter && tmux select-pane -l"
+  redraw!
+endfunction
+noremap  <leader>j :w<CR>:call <SID>TmuxRepeat()<CR>
