@@ -11,9 +11,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
   " Plug 'majutsushi/tagbar'                                           " birds eye view of code                                      *
   Plug 'scrooloose/nerdtree'                                         " Folder navigation ? C u r cd CD                             *  *
-  " Plug 'rust-lang/rust.vim'                                        " Rust formating and Tagbar and rustfmt and Syntastic         *  *  *
-  Plug 'w0rp/ale'                                                    " Async Syntax checking (with rust,shellcheck)                *  *  *  *  *
+  Plug 'w0rp/ale'                                                    " Async Syntax checking (with cpp, rust,shellcheck)                *  *  *  *  *
+  "" https://github.com/ivanceras/rust-vim-setup
   " Plug 'Valloric/YouCompleteMe'                                    " https://www.danirod.es/blog/2016/rust-autocompletion-on-vim *  *  *  *  *
+  " Plug 'rust-lang/rust.vim'                                        " Rust formating and Tagbar and rustfmt and Syntastic         *  *  *
   " Plug 'racer-rust/vim-racer'                                      " Rust completion
                                                                      " YCM : rust completion and goto
   Plug 'mileszs/ack.vim'                                             " search files                                                *  *  *  *  *
@@ -144,26 +145,26 @@ set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        
 
 " Foldingtext {{{
 " http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
- fu! CustomFoldText()
-     "get first non-blank line
-     let fs = v:foldstart
-     while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
-     endwhile
-     if fs > v:foldend
-         let line = getline(v:foldstart)
-     else
-         let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
-     endif
-     let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-     let foldSize = 1 + v:foldend - v:foldstart
-     let foldSizeStr = " " . foldSize . " lines "
-     let foldLevelStr = repeat("+--", v:foldlevel)
-     let lineCount = line("$")
-     let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
-     let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
-     return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
- endf
- set foldtext=CustomFoldText()
+fu! CustomFoldText()
+    "get first non-blank line
+    let fs = v:foldstart
+    while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
+    endwhile
+    if fs > v:foldend
+        let line = getline(v:foldstart)
+    else
+        let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+    endif
+    let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+    let foldSize = 1 + v:foldend - v:foldstart
+    let foldSizeStr = " " . foldSize . " lines "
+    let foldLevelStr = repeat("+--", v:foldlevel)
+    let lineCount = line("$")
+    let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
+    let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+    return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+endf
+set foldtext=CustomFoldText()
 " }}} Foldingtext
 " }}} Folding Rules
 " Editor Layout {{{
@@ -231,13 +232,10 @@ nnoremap <Up>    5<c-w>+
 nnoremap <Down>  5<c-w>-
 nnoremap <Right> 5<c-w>>
 nnoremap <Left>  5<c-w><
-" search seected text
+" search the text selected in visual mode in entire file
 vnoremap // y/<C-R>"<CR>
-" insert mode {{{
-" inoremap <c-e> <C-o>A ------  use o
 " Dont move your fingers from the home row OR use ctrl-[ instead `
 inoremap jj <Esc>
-" }}} insert mode
 " normal mappings {{{
 inoremap <F5> <C-R>=strftime("# %F, %r, %a")<CR>
 nnoremap <F6> :redraw!<CR>
@@ -256,16 +254,13 @@ nnoremap <buffer> <Enter> :.cc<CR>:copen<CR>
 nnoremap <C-c> :cclose<CR>
 " }}}  normal mappings
 " leader mapings {{{
-" home row {{{
+" Toggle Fold easily
 nnoremap <Leader>a zA
-" s for structure
 nnoremap <Leader>du :diffupdate<CR>
 nnoremap <Leader>gl :silent! Glog --<CR>
 " when browsing glog, when you are in diff and want to go back to commit TODO
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <leader>gs :Gstatus<CR>
-" }}}
-
 " Clears the search register
 nnoremap <leader>/ :nohlsearch<CR>
 " with vimgrep, see results in cope(leader+cc) next (]q) previous ([q)
@@ -273,7 +268,7 @@ nnoremap <leader>co :botright cope<cr>
 " Open vimGrep and put the cursor in the right position
 " nnoremap <leader>gr :Ack! --ignore 'tags' --ignore 'test' <C-r><C-w>
 " Use <c-r>" to get copied item
-nnoremap <leader>gr :Rg! 
+nnoremap <leader>gr :Rg!
 " FZF is faster than CtrlP for finding files in Directories
 nnoremap <leader>m :FZF<CR>
 " nnoremap <leader><leader>m :CtrlPMRUFiles <CR>
@@ -281,7 +276,6 @@ nnoremap <leader><leader>m :History <CR>
 " NERD
 nnoremap <leader>n :NERDTreeFind<CR>
 nnoremap <leader><leader>n :NERDTreeToggle<CR>
-
 " open another file in same dir as current file
 nnoremap <leader>o :e %:h/<C-d>
 " clipboard madness {{{
@@ -297,36 +291,25 @@ nnoremap <leader>Y "*y
 " yank from the secondary clipboard/ ctrl+c
 nnoremap <leader>y "+y
 " }}} clipboard madness
-" Quit Files with ldr + q
+" Quit Files with leader + q
 nnoremap <leader>q :bp\|bd #<cr>
 " Close splits but not last window
 nnoremap <leader><leader>q :close!<cr>
 " Close vim itself
 nnoremap <leader><leader><leader>q :wqa!<cr>
-" Open a shell in current directory
 nnoremap <leader>s :sp<CR>
 nnoremap <leader><leader>s :setlocal spell!<CR>
-nnoremap <leader><tab> :q<cr>
 nnoremap <leader>r :so $MYVIMRC<CR>
 nnoremap <leader>T :Windows<CR>
 nnoremap <leader>l :Lines<CR>
 nnoremap <leader>v :vs<CR>
-nnoremap <leader>V :e $MYVIMRC<CR>
 " Fast saving
 nnoremap <leader>w :w<cr>
-" make the current file executable
-nnoremap <leader>x :close<CR>
 " dont delete useful while searching
 nnoremap <leader>zz :let &scrolloff=999-&scrolloff<CR>
 " }}} leader maping end
 " }}} Shortcut Mappings
 " Filetype Specific Settings {{{
-                                                                                " " Restore cursor position upon reopening files
-" autocmd BufReadPost *
-    " \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    " \   exe "normal! g`\"" |
-    " \ endif
-                                                                                 " Strip all trailing whitespace from a file
 augroup FTOptions
     autocmd!
     autocmd filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
@@ -341,22 +324,15 @@ augroup FTOptions
 augroup end
 "}}} Filetype Specific Settings
 " Plugin Specific Settings ====================================================
-if executable('ag')
+if executable('rg')
       let g:ackprg = 'rg --vimgrep'
 endif
 let g:ack_autoclose = 0
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
-" }}} Plugin Specific Settings ================================================
+" Plugin Specific Settings ================================================
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
-let loaded_matchparen = 1
-let g:go_def_mode = 'godef'
-" Rust {
-let g:rustfmt_autosave = 1
-nnoremap <Leader>] :YcmCompleter GoTo<CR>
-" }
-" https://github.com/ivanceras/rust-vim-setup
 augroup numbertoggle
   autocmd!
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
@@ -371,14 +347,12 @@ if has('mac')
  nnoremap <silent> ˚ :TmuxNavigateUp<cr>
  nnoremap <silent> ¬ :TmuxNavigateRight<cr>
 endif
-let g:racer_cmd = "/Users/i330301/.cargo/bin/racer"
-au FileType rust nmap gd <Plug>(rust-def)
 
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
-let g:rooter_silent_chdir = 1
-let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
+let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -387,24 +361,28 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
+" Select text for which we need boxes drawn
+" https://github.com/ascii-boxes/boxes
 vmap <leader>db !boxes -d stone -p v1 -a hc -s 80
 vmap <leader>xc !boxes -r<CR>
-" After yanking in visual mode move cursor to the end of  the selection
-vmap y ygv<Esc>
+vmap y ygv<Esc>|" After yanking in visual mode move cursor to the end of  the selection
+
 let g:lightline = {
       \ 'component_function': {
       \   'filename': 'LightLineFilename'
       \ }
       \ }
 function! LightLineFilename()
-  return  expand('%')
+  " Get shrinked current working directory and filename
+  return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
 endfunction
 " Repeat last command in the next tmux pane.
 " https://ricostacruz.com/til/repeat-tmux-from-vim
-nnoremap <Leader>r :call <SID>TmuxRepeat()<CR>
-
 function! s:TmuxRepeat()
   silent! exec "!tmux select-pane -l && tmux send up enter && tmux select-pane -l"
   redraw!
 endfunction
 noremap  <leader>j :w<CR>:call <SID>TmuxRepeat()<CR>
+" How to write comments on the same line as map in vimrc: https://stackoverflow.com/a/24717020
+" :h map-comments
+" :h map-bar
