@@ -1,41 +1,42 @@
-" vim: foldlevel=3:
-"Courtsey
-"Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
-"Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
-"and Vim User Manual
-"The commands are are anged in the order encountered in vim user manual
+" vim: foldlevel=2:
+" Irrelevent sections are given a foldlevel of 3 so that they are folded by default
+" Courtsey :
+" Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
+" Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
+" and Vim User Manual
+" The commands are are anged in the order encountered in vim user manual
 let g:loaded_matchparen = 1
 set nocompatible                                                     " not compatible with the old-fashion vi mode
-" vim-plug setup {{{
+" vim-plug setup {{{1
 if filereadable(expand("~/.vim/autoload/plug.vim"))
-  call plug#begin('~/.vim/plugged')
-  " Plug 'majutsushi/tagbar'                                           " birds eye view of code                                      *
-  Plug 'scrooloose/nerdtree'                                         " Folder navigation ? C u r cd CD                             *  *
-  Plug 'w0rp/ale'                                                    " Async Syntax checking (with cpp, rust,shellcheck)                *  *  *  *  *
-  "" https://github.com/ivanceras/rust-vim-setup
-  " Plug 'Valloric/YouCompleteMe'                                    " https://www.danirod.es/blog/2016/rust-autocompletion-on-vim *  *  *  *  *
-  " Plug 'rust-lang/rust.vim'                                        " Rust formating and Tagbar and rustfmt and Syntastic         *  *  *
-  " Plug 'racer-rust/vim-racer'                                      " Rust completion
-                                                                     " YCM : rust completion and goto
-  Plug 'mileszs/ack.vim'                                             " search files                                                *  *  *  *  *
-  Plug 'powerman/vim-plugin-viewdoc'                                 " for viewing help files                                      *  *  *  *  *
-  Plug 'tpope/vim-commentary'                                        " map: gcc                                                    *  *  *  *  *
-  " Plug 'tpope/vim-fugitive'                                        " GIT                                                         *  *  *  *  *
-  Plug 'tpope/vim-surround'                                          " map: ys{tobj}[>)}] - for no space                           *  *  *  *  *
-  Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                                 *  *  *  *  *
-  Plug 'godlygeek/tabular'                                           " for easily aligning                                         *  *  *  *  *
-  Plug 'vim-scripts/restore_view.vim'                                "                                                             *  *  *  *  *
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " to install fzf in system                                    *  *  *  *  *
-  Plug 'junegunn/fzf.vim'                                            " Mapped for :Windows :Lines                                  *  *  *  *  *
-  Plug 'muralisc/vim-colorschemes'                                   "                                                             *  *  *  *  *
-  Plug 'christoomey/vim-tmux-navigator'                              "                                                             *  *  *  *  *
-  Plug 'airblade/vim-gitgutter'                                      " ]h [h are mapped
-  Plug 'tpope/vim-rhubarb'                                           " Github extention for fugitive
-  Plug 'itchyny/lightline.vim'
-  Plug 'airblade/vim-rooter'
-  call plug#end()
+    call plug#begin('~/.vim/plugged')
+    " Plug 'majutsushi/tagbar'                                           " birds eye view of code                                      *
+    Plug 'scrooloose/nerdtree'                                         " Folder navigation ? C u r cd CD                             *  *
+    Plug 'w0rp/ale'                                                    " Async Syntax checking (with cpp, rust,shellcheck)                *  *  *  *  *
+    "" https://github.com/ivanceras/rust-vim-setup
+    " Plug 'Valloric/YouCompleteMe'                                    " https://www.danirod.es/blog/2016/rust-autocompletion-on-vim *  *  *  *  *
+    " Plug 'rust-lang/rust.vim'                                        " Rust formating and Tagbar and rustfmt and Syntastic         *  *  *
+    " Plug 'racer-rust/vim-racer'                                      " Rust completion
+                                                                       " YCM : rust completion and goto
+    Plug 'mileszs/ack.vim'                                             " search files                                                *  *  *  *  *
+    Plug 'powerman/vim-plugin-viewdoc'                                 " for viewing help files                                      *  *  *  *  *
+    Plug 'tpope/vim-commentary'                                        " map: gcc                                                    *  *  *  *  *
+    " Plug 'tpope/vim-fugitive'                                        " GIT                                                         *  *  *  *  *
+    Plug 'tpope/vim-surround'                                          " map: ys{tobj}[>)}] - for no space                           *  *  *  *  *
+    Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                                 *  *  *  *  *
+    Plug 'godlygeek/tabular'                                           " for easily aligning                                         *  *  *  *  *
+    Plug 'vim-scripts/restore_view.vim'                                "                                                             *  *  *  *  *
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " to install fzf in system                                    *  *  *  *  *
+    Plug 'junegunn/fzf.vim'                                            " Mapped for :Windows :Lines                                  *  *  *  *  *
+    Plug 'muralisc/vim-colorschemes'                                   "                                                             *  *  *  *  *
+    Plug 'christoomey/vim-tmux-navigator'                              "                                                             *  *  *  *  *
+    Plug 'airblade/vim-gitgutter'                                      " ]h [h are mapped
+    Plug 'tpope/vim-rhubarb'                                           " Github extention for fugitive
+    Plug 'itchyny/lightline.vim'
+    Plug 'airblade/vim-rooter'
+    call plug#end()
 endif
-"}}} ===========================================================Vundle setup done
+"}}}1 ===========================================================Vundle setup done
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
@@ -113,7 +114,7 @@ set undodir=~/.vim/vimundo
 set directory=~/.vim/.tmp,/tmp                                                  " store swap files in one of these directories (in case swapfile is ever turned on)
 set viminfo='20,\"80                                                            " read/write a .viminfo file, don't store more than 80 lines of registers
 set textwidth=132        " not 80 cause helps in vs mode
-" Ease of Use {{{ "
+" Ease of Use {{{
 set wildmenu                                                                    " tab completion for files/buffers like bash
 set wildmode=longest,full                                                       " Complete till the longest match in command
 set wildignore=*.swp,*.bak,*.pyc,*.class
@@ -131,19 +132,17 @@ set nospell
 set colorcolumn=80,132                                                          " Github limit
 set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
-set tags=tags;~,my-tags;~                                                       "seach for tags|TAGS|my-tags and bubble up till home direcotry
+set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
 let g:solarized_termcolors=256
 silent! colorscheme solarized-custom
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
-set foldcolumn=0                                                                " add a fold column
+set foldcolumn=1                                                                " add a fold column
 set foldmethod=marker                                                           " detect triple-{ style fold markers [marker indent]
 set foldlevel=99                                                                " 0-foldall 99-unfoldall
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
-
-" Foldingtext {{{
 " http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
 fu! CustomFoldText()
     "get first non-blank line
@@ -165,7 +164,6 @@ fu! CustomFoldText()
     return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
 endf
 set foldtext=CustomFoldText()
-" }}} Foldingtext
 " }}} Folding Rules
 " Editor Layout {{{
 set lazyredraw                                                                  " don't update the display while executing macros
@@ -173,7 +171,8 @@ set laststatus=2                                                                
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 
-"" Statusline settings {{{
+" Commented for now in favor of lightline
+"" Plugin less Statusline settings {{{3
 "" https://stackoverflow.com/a/10416234
 "" http://got-ravings.blogspot.in/2008/08/vim-pr0n-making-statuslines-that-own.html
 "" http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
@@ -214,6 +213,7 @@ set cmdheight=1                                                                 
 "  return stat
 "endfunction
 "
+""RefreshStatus is used to updated all the status lines
 "function! s:RefreshStatus()
 "  for nr in range(1, winnr('$'))
 "    call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
@@ -224,9 +224,9 @@ set cmdheight=1                                                                 
 "  autocmd!
 "  autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
 "augroup END
-"" }}}
+" }}}3
 
-" Shortcut Mappings {{{
+" Shortcut Mappings {{{1
 " resize
 nnoremap <Up>    5<c-w>+
 nnoremap <Down>  5<c-w>-
@@ -278,19 +278,6 @@ nnoremap <leader>n :NERDTreeFind<CR>
 nnoremap <leader><leader>n :NERDTreeToggle<CR>
 " open another file in same dir as current file
 nnoremap <leader>o :e %:h/<C-d>
-" clipboard madness {{{
-" replace currently selected text with default register
-" without yanking it
-vnoremap <leader>p "_dP
-" paste from the primary clipboard/ selection
-nnoremap <leader>P "*p
-" paste from the secondary clipboard/ ctrl+c
-nnoremap <leader><leader>p "+p
-" yank from the primary clipboard/ selection
-nnoremap <leader>Y "*y
-" yank from the secondary clipboard/ ctrl+c
-nnoremap <leader>y "+y
-" }}} clipboard madness
 " Quit Files with leader + q
 nnoremap <leader>q :bp\|bd #<cr>
 " Close splits but not last window
@@ -308,7 +295,20 @@ nnoremap <leader>w :w<cr>
 " dont delete useful while searching
 nnoremap <leader>zz :let &scrolloff=999-&scrolloff<CR>
 " }}} leader maping end
-" }}} Shortcut Mappings
+" clipboard madness {{{
+" replace currently selected text with default register
+" without yanking it
+vnoremap <leader>p "_dP
+" paste from the primary clipboard/ selection
+nnoremap <leader>P "*p
+" paste from the secondary clipboard/ ctrl+c
+nnoremap <leader><leader>p "+p
+" yank from the primary clipboard/ selection
+nnoremap <leader>Y "*y
+" yank from the secondary clipboard/ ctrl+c
+nnoremap <leader>y "+y
+" }}} clipboard madness
+" }}}1 Shortcut Mappings
 " Filetype Specific Settings {{{
 augroup FTOptions
     autocmd!
@@ -334,18 +334,18 @@ if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
 augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
+    autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 augroup END
 
 " For compatability with tmux
 " Using Meta-[hjkl] mappings in tmux to move panes
 if has('mac')
- nnoremap <silent> ˙ :TmuxNavigateLeft<cr>
- nnoremap <silent> ∆ :TmuxNavigateDown<cr>
- nnoremap <silent> ˚ :TmuxNavigateUp<cr>
- nnoremap <silent> ¬ :TmuxNavigateRight<cr>
+    nnoremap <silent> ˙ :TmuxNavigateLeft<cr>
+    nnoremap <silent> ∆ :TmuxNavigateDown<cr>
+    nnoremap <silent> ˚ :TmuxNavigateUp<cr>
+    nnoremap <silent> ¬ :TmuxNavigateRight<cr>
 endif
 
 nmap ]h <Plug>GitGutterNextHunk
