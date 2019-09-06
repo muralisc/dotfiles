@@ -4,28 +4,33 @@ EXTERNALHD_UUID=57dddd4c-88ba-40d5-88ce-ff093119b2be
 EXTERNALHD_MNT=$(findmnt -S UUID=$EXTERNALHD_UUID -rn -o TARGET)
 SOURCE_PATH=${HOME}/
 BACKUP_PATH=${EXTERNALHD_MNT}/mylap/
+if [[ -z $EXTERNALHD_MNT ]] ; then
+  echo Mount point not found
+  exit
+fi
 echo -e "Found mount point for UUID = $EXTERNALHD_UUID at $(tput bold)$EXTERNALHD_MNT$(tput sgr0)"
 echo "$(tput setaf 4)Proceed with the dry run?$(tput sgr0)"
 read
 mkdir -p $BACKUP_PATH
 BLUE=$(tput setaf 4)
 echo -e "Doing a dry run from ${BLUE}${SOURCE_PATH}$(tput sgr0) to ${BLUE}${BACKUP_PATH}$(tput sgr0)"
-touch /tmp/exclude_file.txt
-rsync -iaPvh \
-  -n \
-  --delete \
-  --exclude='.*'  \
-  --exclude-from=exclude_file.txt  \
-  --cvs-exclude \
+echo '.*' >> /tmp/exclude_file.txt
+SYNC_COMMAND="
+rsync
+  --archive
+  -vv
+  --human-readable
+  --itemize-changes
+  --partial
+  --delete
+  --stats
+  --exclude-from=/tmp/exclude_file.txt
+  --cvs-exclude
   $SOURCE_PATH ${BACKUP_PATH}
+"
+$SYNC_COMMAND -n | tee /tmp/rsync_dry.log
 
 echo "$(tput setaf 4)Proceed with the sync?$(tput sgr0)"
 read
 
-rsync -aPvh \
-  --info=all\
-  --delete \
-  --exclude='.*'\
-  --exclude-from=exclude_file.txt  \
-  --cvs-exclude \
-  $SOURCE_PATH ${BACKUP_PATH}
+$SYNC_COMMAND | tee /tmp/rsync_dry.log

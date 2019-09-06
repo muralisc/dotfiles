@@ -10,7 +10,7 @@ read
 mkdir -p $BACKUP_PATH
 BLUE=$(tput setaf 4)
 echo -e "Doing a dry run from ${BLUE}${BACKUP_PATH}$(tput sgr0) to ${BLUE}${SOURCE_PATH}$(tput sgr0)"
-touch /tmp/exclude_file.txt
+echo '.*' >> /tmp/exclude_file.txt
 
 SYNC_COMMAND="
 rsync
