@@ -1,8 +1,6 @@
 #!/bin/bash
-# commands to get an arch linux up and running.
-# followiing the video of sean Bruen : Arch Linux : from post install to Xorg
-
-# ENABLE EFI BOOT IN VIRTUAL BOX SETTINGS.
+# Commands to get an arch linux up and running.
+# For Virtual box : ENABLE EFI BOOT IN VIRTUAL BOX SETTINGS.
 
 # setup install env
 loadkeys us
@@ -45,9 +43,9 @@ sgdisk -p /dev/sda            # print partition table
 # sda3   100G    Linux_filesystem  /
 # sda4   rem     Linux_filesystem  /home
 
-ENCRYPT DISK
+# ENCRYPT DISK
 
-dm-crypt ( cli --> cryptsetup )
+dm-crypt # ( cli --> cryptsetup )
 
 # https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption
 cryptsetup -v luksFormat <device>
@@ -72,7 +70,7 @@ mount $home /mnt/home
 mkswap /dev/sda2
 swapon /dev/sda2
 
-# setup Network
+# SETUP NETWORK
 # wifi-menu         # use it to connect to wifi if needed
 
 # use reflector to fix the mirrorlist
@@ -93,16 +91,12 @@ arch-chroot /mnt
 # Set timezone
 ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
 
-
-
-
 # uncomment en_US in locale.gen
 sed -r -i'.bak' 's/#(en_US.*)/\1/' /etc/locale.gen
 locale-gen
 # VVI else special characters wont be reco in vim and tmux
 bash -c 'echo "LANG=en_US.UTF-8" > /etc/locale.conf'
 bash -c 'echo "KEYMAP=us" > /etc/vconsole.conf'
-
 
 passwd  # change root password
 # install pre-req for wifi-menu
@@ -114,10 +108,11 @@ cp /etc/netctl/examples/wireless-wpa /etc/netctl/wireless-wpa_home_wifi
 cp /etc/netctl/examples/wireless-wpa /etc/netctl/wireless-wpa_mobile_hotspot
 # EDIT
 systemctl enable netctl-auto@<interface/wlp2s0>.service
+# NOTE:
 # no need to enable indiviudal profile using 
 # netctl enable <>
 
-# encrypted initramfs
+# for encrypted initramfs:
 # https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Unlocking_the_root_partition_at_boot
 # https://wiki.archlinux.org/index.php/Dm-crypt/System_configuration
 # in section "With a keyfile stored on an external media"
@@ -147,6 +142,7 @@ initrd /initramfs-linux.img
 options cryptdevice=PARTUUID=<device-UUID>:cryptroot cryptkey=/dev/sdb1:vfat:/keys/secretkey root=/dev/mapper/cryptroot 
 # for non encrypted
 # options root=LABEL=arch_os rw
+# options root=PARTUUID=xxxx-xxx rw
 EOF
 
 
@@ -197,7 +193,7 @@ echo "give permission to wheel group by uncommenting the line below"
 sudo sh -c 'echo Defaults env_keep += \"http_proxy https_proxy ftp_proxy\" >> /etc/sudoers'
 
 
-# setup OS with basic utilities
+# setup basic utilities
 # INSTALL BASIC STUFF TMUX VIM ZSH etc`
 sudo pacman --noconfirm -S \
   fakeroot git jshon wget make pkg-config \
@@ -220,13 +216,14 @@ pacman -Ss xf86-video | less # and install the direver of g-card
 # startx should work now
 
 # setup yay
-wget http://aur.archlinux.org/cgit/aur.git/snapshot/packer.tar.gz
-tar zxvf packer.tar.gz
-cd packer && makepkg
-sudo pacman -U ~/packer/packer-20*.pkg.tar.xz --noconfirm
-packer -S yay --noconfirm
+mkdir yay_install && cd yay_install
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz
+tar zxvf yay.tar.gz
+cd yay && makepkg
+sudo pacman -U yay*.pkg.tar.xz --noconfirm
+mkdir ~/repositories && cd ~/repositories
 git clone 'https://github.com/muralisc/dotfiles'
-~/dotfiles/install.sh
+./dotfiles/install.sh
 
 # enable auto-login
 sudo systemctl edit getty@tty1
@@ -243,10 +240,8 @@ EOF
 yay -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
 # i love conveniance: alt-tab, lock , menu
 # install morc_menu from github
-# checkout https://wiki.archlinux.org/index.php/xdg-menu#xdg_menu
+# Read  :  https://wiki.archlinux.org/index.php/xdg-menu#xdg_menu
 yay -S --noconfirm dmenu rofi-git i3lock archlinux-xdg-menu
-echo "skip from 9:20 to 10:50 "
-echo "skip from 11:00 to 14.38 "
 sudo systemctl reboot
 # check awesome working
 # prevent suspend when lid is closed
@@ -261,7 +256,7 @@ yay -S --noconfirm ttf-ubuntu-font-family
 yay -S --noconfirm ttf-dejavu
 # another font of choice
 # Fira Mono from firefox
-firefox https://gist.github.com/muammar/a5ffb635eb7f532346a8e777b847f8a7
+y -S ttf-fira-mono
 # most basic stuff
 # unrar is very helpful exp in coverting .cbr to .jpg
 yay -S --noconfirm \
@@ -358,15 +353,17 @@ gpg --list-keys
 gpg --edit-key <key-id> # then trust and quit
 
 # for pass
-1. clone bitbucket
-1. mv pass .password-store
-1. pass
+REPONAME=""
+git clone https://bitbucket.org/muralisc/$REPONAME
+mv $REPONAME .password-store
 
 # A filemanager
-yay -S --noconfirm polo
+yay -S --noconfirm polo pcmanfm thunar
 
 
-use xdg_menu for archmenu.lua for awesoem wm
+# use xdg_menu for archmenu.lua for awesoem wm
+# https://wiki.archlinux.org/index.php/Xdg-menu#Awesome
+xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua
 
 # enable touch pad clicks
 # From terminal 
@@ -387,19 +384,28 @@ y -S alacritty xzoom
 
 y -S lib32-nvidia-utils nvidia lib32-nvidia-libgl steam
 
-redshift
-masterpdfeditor
+y -S redshift
+y -S masterpdfeditor
 
-ncdu # -- command line fize size analyse
+y -S ncdu # -- command line fize size analyse
 # parse pdf table ; useful for getting tables from
-firefox https://github.com/tabulapdf/tabula
-# screen record
+https://github.com/tabulapdf/tabula
+# screen recorder
 y -Syy simplescreenrecorder
 # m17n Multilingualization
 # smartmontools
 sudo smartctl -a /dev/sda
-perl-image-exiftool # see commetns of jpeg files
 
 https://github.com/fabiospampinato/cliflix
+https://github.com/jpillora/cloud-torrent
 
-dateutils
+y -S dateutils # for datediff
+
+####### OPENBOX
+
+y -S archlinux-xdg-menu
+y -S tint2
+y -S dockbarx
+
+
+

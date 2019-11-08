@@ -10,8 +10,33 @@ FREENODE_PASSWORD=password
 # irssi -c irc.mozilla.org
 irssi
 
-/NETWORK ADD mozilla
-/SERVER ADD -network mozilla irc.mozilla.org
+
+alias irssi='TERM=screen-256color irssi' # allow proper scrolling inside tmux
+
+/NETWORK ADD freenode
+
+/server add -auto -tls -tls_verify -network freenode -port 6697 chat.freenode.net
+/network add -nick trippyrooster freenode
+/channel add -auto #archlinux freenode
+
+/server add -auto -tls -tls_verify -network mozilla -port 6697 irc.mozilla.org
+/network add -nick trippyrooster mozilla
+/channel add -auto #rust-beginners mozilla
+/channel add -auto #kerala mozilla
+
+# https://wiki.mozilla.org/IRC
+
+/msg nickserv register xxxxxxxxxxxxxxxxxxxxxxxxx muralisc@gmail.com
+/nickserv confirm confirmation_code
+/msg nickserv identify YourPassword
+# Forgot password
+/msg nickserv sendpass trippyrooster
+
+/nick my-cool-nickname
+/join #rust-beginners
+/script load awl.pl
+
+
 /CONNECT mozilla
 
 /script load adv-windowlist.pl
