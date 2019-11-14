@@ -31,7 +31,7 @@ setopt PROMPT_SUBST
 if [ -f ~/.local/shrink-path.plugin.zsh ]; then
   source ~/.local/shrink-path.plugin.zsh
 fi
-PS1='${SSH_CONNECTION:+ssh }%F{green}$(shrink_path -f)%F{white}${PANME_NAME} %F{red}❯%F{green}❯%F{blue}❯%f%b '
+PS1='${SSH_CONNECTION:+ssh }%F{green}$(shrink_path -f)%F{white}${PANE_NAME} %F{red}❯%F{green}❯%F{blue}❯%f%b '
 # vi mode setup
 bindkey -v
 bindkey jj vi-cmd-mode #or use ctrl+[
