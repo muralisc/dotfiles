@@ -34,6 +34,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'tpope/vim-rhubarb'                                           " Github extention for fugitive
     Plug 'itchyny/lightline.vim'
     Plug 'airblade/vim-rooter'
+    Plug 'tpope/vim-dispatch'
+    Plug 'fatih/vim-go'
+    Plug 'tpope/vim-fugitive'
     call plug#end()
 endif
 "}}}1 ===========================================================Vundle setup done
@@ -139,7 +142,7 @@ silent! colorscheme solarized-custom
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
-set foldcolumn=1                                                                " add a fold column
+set foldcolumn=0                                                                " add a fold column
 set foldmethod=marker                                                           " detect triple-{ style fold markers [marker indent]
 set foldlevel=99                                                                " 0-foldall 99-unfoldall
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
@@ -295,7 +298,7 @@ nnoremap <leader>w :w<cr>
 " dont delete useful while searching
 nnoremap <leader>zz :let &scrolloff=999-&scrolloff<CR>
 " }}} leader maping end
-" clipboard madness {{{
+" Clipboard madness {{{
 " replace currently selected text with default register
 " without yanking it
 vnoremap <leader>p "_dP

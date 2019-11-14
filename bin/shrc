@@ -275,9 +275,9 @@ gen_pass() {
 
 decimal_to_binary() {
   export D2B=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})
-  echo "${D2B[$1]}"
+  echo "${D2B[  $(($1+1))  ]}"
   # leading zeros removed
-  echo $(( ${D2B[$1]} ))
+  echo $(( ${D2B[ $(($1+1)) ]} ))
 }
 binary_to_decimal() {
   echo $((2#$1))

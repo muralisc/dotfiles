@@ -5,7 +5,8 @@ compinit
 # for refreshing vi mode prompt
 function zle-line-init zle-keymap-select {
     VIM_PROMPT="%F{magenta}[% NORMAL]%"
-    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}"
+    INS_PROMPT="%F{black}[% INSERT]%"
+    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/$INS_PROMPT}"
     zle reset-prompt
 }
 zle -N zle-line-init
