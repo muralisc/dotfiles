@@ -325,7 +325,7 @@ yay -S --noconfirm jre8-openjdk
 # when things break down ( for external wifi dongle)
 yay -S --noconfirm mt7601u-git
 # old stuff
-yay -S --noconfirm submarine subliminal # subtitle stuff
+yay -S --noconfirm subliminal # subtitle stuff
 #linux commandline dcpp client`
 yay -S --noconfirm ncdc
 # usb device automount using ( devmon )
@@ -403,3 +403,8 @@ perl-image-exiftool # see commetns of jpeg files
 https://github.com/fabiospampinato/cliflix
 
 dateutils
+
+# get mpv script
+curl -o ~/.config/mpv/scripts/delete_file.lua \
+https://raw.githubusercontent.com/zenyd/mpv-scripts/master/delete_file.lua
+

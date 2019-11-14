@@ -20,14 +20,15 @@ a history-back
 
 ### Example using a 3x3 grid with nethack-vi keys
 ctrl+semicolon start, grid 3x3
-h cell-select 1x2      # left
-j cell-select 2x3      # down
-k cell-select 2x1      # up
-l cell-select 3x2      # right
 u cell-select 1x1      # up-left
+i cell-select 2x1      # up
 o cell-select 3x1      # up-right
+j cell-select 1x2      # mid-left
+k cell-select 2x2      # mid
+l cell-select 3x2      # mid-right
 m cell-select 1x3      # down-left
-period cell-select 3x3      # down-right
+comma cell-select 2x3      # down
+period cell-select 3x3 # down-right
 i cell-select 2x2 # center
 
 
