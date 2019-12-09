@@ -10,33 +10,24 @@ set nocompatible                                                     " not compa
 " vim-plug setup {{{1
 if filereadable(expand("~/.vim/autoload/plug.vim"))
     call plug#begin('~/.vim/plugged')
-    " Plug 'majutsushi/tagbar'                                           " birds eye view of code                                      *
     Plug 'scrooloose/nerdtree'                                         " Folder navigation ? C u r cd CD                             *  *
     Plug 'w0rp/ale'                                                    " Async Syntax checking (with cpp, rust,shellcheck)                *  *  *  *  *
-    "" https://github.com/ivanceras/rust-vim-setup
-    " Plug 'Valloric/YouCompleteMe'                                    " https://www.danirod.es/blog/2016/rust-autocompletion-on-vim *  *  *  *  *
-    " Plug 'rust-lang/rust.vim'                                        " Rust formating and Tagbar and rustfmt and Syntastic         *  *  *
-    " Plug 'racer-rust/vim-racer'                                      " Rust completion
-                                                                       " YCM : rust completion and goto
     Plug 'mileszs/ack.vim'                                             " search files                                                *  *  *  *  *
     Plug 'powerman/vim-plugin-viewdoc'                                 " for viewing help files                                      *  *  *  *  *
     Plug 'tpope/vim-commentary'                                        " map: gcc                                                    *  *  *  *  *
-    " Plug 'tpope/vim-fugitive'                                        " GIT                                                         *  *  *  *  *
-    Plug 'tpope/vim-surround'                                          " map: ys{tobj}[>)}] - for no space                           *  *  *  *  *
+    Plug 'tpope/vim-surround'                                          " map: ys [ <{( >)} ] - for no space                           *  *  *  *  *
     Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                                 *  *  *  *  *
     Plug 'godlygeek/tabular'                                           " for easily aligning                                         *  *  *  *  *
     Plug 'vim-scripts/restore_view.vim'                                "                                                             *  *  *  *  *
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " to install fzf in system                                    *  *  *  *  *
-    Plug 'junegunn/fzf.vim'                                            " Mapped for :Windows :Lines                                  *  *  *  *  *
+    Plug 'junegunn/fzf.vim'                                            " for :Windows :Lines                                  *  *  *  *  *
     Plug 'muralisc/vim-colorschemes'                                   "                                                             *  *  *  *  *
     Plug 'christoomey/vim-tmux-navigator'                              "                                                             *  *  *  *  *
-    Plug 'airblade/vim-gitgutter'                                      " ]h [h are mapped
-    Plug 'tpope/vim-rhubarb'                                           " Github extention for fugitive
+    Plug 'airblade/vim-gitgutter'                                      " for: ]h [h
     Plug 'itchyny/lightline.vim'
     Plug 'airblade/vim-rooter'
-    Plug 'tpope/vim-dispatch'
     Plug 'fatih/vim-go'
-    Plug 'tpope/vim-fugitive'
+    " Plug 'tpope/vim-fugitive'
     call plug#end()
 endif
 "}}}1 ===========================================================Vundle setup done
