@@ -114,7 +114,6 @@ set wildmode=longest,full                                                       
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set wildignore+=*/node_modules/*
 set wildignorecase                                                              " ignore case while filename complete
-set title                                                                       " change the terminal's title
 set visualbell                                                                  " don't beep
 set noerrorbells                                                                " don't beep
 set showcmd                                                                     " show (partial) command at right bottom; this also shows visual selection info

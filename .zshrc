@@ -68,7 +68,7 @@ setopt HIST_BEEP                 # Beep when accessing non-existent history.
 source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # Set title as the last command
-preexec () { print -Pn "\e]0;$1\a" }
+# preexec () { print -Pn "\e]0;$1\a" }
 
 [ -f "$HOME/.completions.zsh" ] && source "$HOME/.completions.zsh"
 
