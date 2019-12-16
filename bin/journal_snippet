@@ -1,0 +1,15 @@
+#!/bin/bash
+echo "
+[[journal.journal_entry]]
+dateiso8601 = \"$(date -Im)\"
+date_human = \"$(date +"%F, %T, %a")\"
+entry=\"\"\"
+\"\"\"
+[journal.journal_entry.dont_break_the_chain]
+codechef_long_challenge = true
+desgining_data_intensive_applications = true
+kaggle = true
+leetcode = true
+operating_system = true
+varsity_zerodha = true
+"

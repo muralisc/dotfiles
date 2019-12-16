@@ -10,7 +10,7 @@ set nocompatible                                                     " not compa
 " vim-plug setup {{{1
 if filereadable(expand("~/.vim/autoload/plug.vim"))
     call plug#begin('~/.vim/plugged')
-    Plug 'scrooloose/nerdtree'                                         " Folder navigation ? C u r cd CD                             *  *
+    Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD                             *  *
     Plug 'w0rp/ale'                                                    " Async Syntax checking (with cpp, rust,shellcheck)                *  *  *  *  *
     Plug 'mileszs/ack.vim'                                             " search files                                                *  *  *  *  *
     Plug 'powerman/vim-plugin-viewdoc'                                 " for viewing help files                                      *  *  *  *  *
@@ -25,9 +25,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'christoomey/vim-tmux-navigator'                              "                                                             *  *  *  *  *
     Plug 'airblade/vim-gitgutter'                                      " for: ]h [h
     Plug 'itchyny/lightline.vim'
+    Plug 'cespare/vim-toml'
     Plug 'airblade/vim-rooter'
     Plug 'fatih/vim-go'
-    " Plug 'tpope/vim-fugitive'
     call plug#end()
 endif
 "}}}1 ===========================================================Vundle setup done
@@ -230,7 +230,7 @@ vnoremap // y/<C-R>"<CR>
 " Dont move your fingers from the home row OR use ctrl-[ instead `
 inoremap jj <Esc>
 " normal mappings {{{
-inoremap <F5> <C-R>=strftime("# %F, %r, %a")<CR>
+inoremap <F5> <C-R>=strftime("%F, %T, %a")<CR>
 nnoremap <F6> :redraw!<CR>
 " Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
