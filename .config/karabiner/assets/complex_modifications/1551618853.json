@@ -1,5 +1,5 @@
 {
-  "title": "Capslock Enhancement",
+  "title": "Conditional caps lock + Awesome WM mappings",
   "author": "Vonng(fengruohang@outlook.com)",
   "homepage": "https://github.com/Vonng/Capslock",
   "hostpage": "https://pqrs.org/osx/karabiner/complex_modifications/",
@@ -566,7 +566,7 @@
       ]
     },
     {
-      "description": "Conditional Caps lock",
+      "description": "Capslock acts as command or ctrl depending on application",
       "manipulators": [
         {
           "from": {
