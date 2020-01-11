@@ -78,7 +78,7 @@ source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # nvm
-load_nvm() {
+nvmload() {
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
