@@ -106,7 +106,7 @@ set noswapfile                                                                  
 set undofile                                                                    " keep an undo file (undo changes after closing)
 set undodir=~/.vim/vimundo
 set directory=~/.vim/.tmp,/tmp                                                  " store swap files in one of these directories (in case swapfile is ever turned on)
-set viminfo='20,\"80                                                            " read/write a .viminfo file, don't store more than 80 lines of registers
+set viminfo='500,<80                                                            " read/write a .viminfo file, don't store more than 80 lines of registers
 set textwidth=132        " not 80 cause helps in vs mode
 " Ease of Use {{{
 set wildmenu                                                                    " tab completion for files/buffers like bash
@@ -230,8 +230,6 @@ vnoremap // y/<C-R>"<CR>
 " Dont move your fingers from the home row OR use ctrl-[ instead `
 inoremap jj <Esc>
 " normal mappings {{{
-inoremap <F5> <C-R>=strftime("%F, %T, %a")<CR>
-nnoremap <F6> :redraw!<CR>
 " Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
@@ -248,12 +246,7 @@ nnoremap <C-c> :cclose<CR>
 " }}}  normal mappings
 " leader mapings {{{
 " Toggle Fold easily
-nnoremap <Leader>a zA
 nnoremap <Leader>du :diffupdate<CR>
-nnoremap <Leader>gl :silent! Glog --<CR>
-" when browsing glog, when you are in diff and want to go back to commit TODO
-nnoremap <Leader>gd :Gdiff<CR>
-nnoremap <leader>gs :Gstatus<CR>
 " Clears the search register
 nnoremap <leader>/ :nohlsearch<CR>
 " with vimgrep, see results in cope(leader+cc) next (]q) previous ([q)
@@ -266,9 +259,6 @@ nnoremap <leader>gr :Rg!
 nnoremap <leader>m :FZF<CR>
 " nnoremap <leader><leader>m :CtrlPMRUFiles <CR>
 nnoremap <leader><leader>m :History <CR>
-" NERD
-nnoremap <leader>n :NERDTreeFind<CR>
-nnoremap <leader><leader>n :NERDTreeToggle<CR>
 " open another file in same dir as current file
 nnoremap <leader>o :e %:h/<C-d>
 " Quit Files with leader + q
@@ -341,8 +331,8 @@ if has('mac')
     nnoremap <silent> ¬ :TmuxNavigateRight<cr>
 endif
 
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
+nnoremap ]h <Plug>GitGutterNextHunk
+nnoremap [h <Plug>GitGutterPrevHunk
 
 let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
 let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
@@ -356,9 +346,12 @@ command! -bang -nargs=* Rg
 
 " Select text for which we need boxes drawn
 " https://github.com/ascii-boxes/boxes
-vmap <leader>db !boxes -d stone -p v1 -a hc -s 80
-vmap <leader>xc !boxes -r<CR>
-vmap y ygv<Esc>|" After yanking in visual mode move cursor to the end of  the selection
+" db - draw box
+vnoremap <leader>db !boxes -d stone -p v1 -a hc -s 80
+" xb - delete box
+vnoremap <leader>xb !boxes -r<CR>
+" Below is a method of writing comment in the same line as a map
+vnoremap y ygv<Esc>|" After yanking in visual mode move cursor to the end of  the selection
 
 let g:lightline = {
       \ 'component_function': {
@@ -369,13 +362,3 @@ function! LightLineFilename()
   " Get shrinked current working directory and filename
   return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
 endfunction
-" Repeat last command in the next tmux pane.
-" https://ricostacruz.com/til/repeat-tmux-from-vim
-function! s:TmuxRepeat()
-  silent! exec "!tmux select-pane -l && tmux send up enter && tmux select-pane -l"
-  redraw!
-endfunction
-noremap  <leader>j :w<CR>:call <SID>TmuxRepeat()<CR>
-" How to write comments on the same line as map in vimrc: https://stackoverflow.com/a/24717020
-" :h map-comments
-" :h map-bar
