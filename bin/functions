@@ -1,0 +1,203 @@
+#!/bin/bash
+#  vim: foldlevel=0:
+
+sanitize_file_name() {
+  [[ -z $1 ]] && perl-rename -n "s/ |\(|\!|&|\)|'|\[|\]/_/g" *
+  [[ -n $1 ]] && perl-rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" *
+}
+
+ms() { # mpc search
+  #mpc search
+  # eg ms year:2000 path::Hindi
+  # eg ms year:..1995 path::Hindi
+  # mpc search filename "`echo $*| sed 's/ /_/g'`"
+  # beet ls -f '$path' last_played:..2016-05 path::OS >! ~/.mpd/playlists/asd.m3u
+
+  beet ls -f '$path' "$@" | sed 's#/home/murali/Dropbox/Songs/##'
+}
+
+mp() { #mpc play
+  mpc clear > /dev/null
+  # mpc search filename "`echo $*| sed 's/ /_/g'`" | mpc add
+  beet ls -f '$path' "$@" | sed 's#/home/murali/Dropbox/Songs/##' | mpc add
+  mpc play
+}
+
+msp() { #mpc search and play
+  ms "$@"
+  echo "Press enter to play selection"
+  read
+  mp "$@"
+}
+
+least_played() {
+  # Print the access time along with the file name
+  # eg : to play songs played before 10 days
+  # least_played -atime +10
+  cd /home/murali/Dropbox/Songs/
+  find -type f "${@}" -iname "*.mp3" -printf "\n%A@ %p" | \
+    sort -nr | awk '{print $2}' | sed 's#./##' | sed '/^$/d' | mpc add
+}
+
+# database update
+mu() { #mpc update Database
+  rm /var/tmp/musiclibrary.blb; beet import -A ~/Dropbox/Songs/ ;
+  mpc update;
+}
+
+# time till
+tt() {
+
+  USAGE="
+  Usage:
+    tt tomorrow5am
+    tt 2:37am
+
+  Spaces require quotes:
+
+    tt 'jan1 3:01am 2019'
+    tt 'tomorrow 3am'
+  "
+
+  if [ $# -eq 0 ];
+  then
+    echo "$USAGE"
+    return 1;
+  fi
+
+  reqInSec=$(date -d "$1" +%s)
+  nowInSec=$(date +%s)
+  format="%yy %mm %dd %Hh %Mmins"
+
+  if [[ $reqInSec -gt $nowInSec ]]; then
+    endTime=$(date -d "$1" -Is)
+    startTime=$(date -Is)
+    format="+ $format"
+  else
+    startTime=$(date -d "$1" -Is)
+    endTime=$(date -Is)
+    format="- $format"
+  fi
+
+  datediff "$startTime" "$endTime" -f "$format"
+}
+
+time_after() {
+  # time after x hours
+  # time_after +7hours30mins
+  # time_after "1months 20days 23hours44minutes"
+  date -d "$@"
+}
+
+# stopwatch_status()
+stopwatch_start(){
+  # urxvtc -geometry 20x1
+  FILENAME=/var/tmp/stopwatch.tmp
+  startDate=$(date +%s);
+  echo $startDate > $FILENAME
+  stopwatch_follow
+}
+stopwatch_follow(){
+  FILENAME=/var/tmp/stopwatch.tmp
+  startDate=$(cat $FILENAME);
+  while true; do
+   currentTime=$(date +%s)
+   diff=$(date -u --date @$((currentTime - $startDate)) +%H:%M:%S)
+   echo -ne "$diff\b\b\b\b\b\b\b\b";
+   sleep 1
+  done
+}
+stopwatch_lap() {
+  FILENAME=/var/tmp/stopwatch.tmp
+  startDate=$(cat $FILENAME);
+  currentTime=$(date +%s)
+  diff=$(date -u --date @$((currentTime - $startDate)) +%H:%M:%S)
+  echo -ne "$diff" | tee >(pbcopy)
+}
+
+# simple calculator
+function c() {
+  noSpaceExpr=`echo $* | sed -e "s/ //g"`
+  awk "BEGIN { print $noSpaceExpr }"
+}
+# alias it for zsh
+if [[ $SHELL =~ "zsh" ]]; then alias c='noglob c'; fi
+
+timeGoogle() {
+  sudo date -s "$(wget -S  "http://www.google.com/" 2>&1 | \
+    grep -E '^[[:space:]]*[dD]ate:'                      | \
+    sed 's/^[[:space:]]*[dD]ate:[[:space:]]*//'          | \
+    head -1l                                             | \
+    awk '{print $1, $3, $2,  $5 ,"GMT", $4 }'            | \
+    sed 's/,//')"
+}
+
+list_custom_defined_functions() {
+  #TODO
+  if [[ $SHELL =~ "zsh" ]]; then
+    # if zsh
+    functions | grep -P "^[^_ \t][^ ]* *\(\)" | grep -vP "^(prompt_|is-)"
+  else
+    # if bash
+    declare -F
+  fi
+}
+
+gen_pass() {
+  length=15
+  gen_pwd=$(LC_ALL=C tr -dc '[:graph:]' < /dev/urandom | head -c $length)
+  grep -P "(?=.*\d)(?=.*[a-zA-Z]).{15,}" <<< $gen_pwd
+}
+
+decimal_to_binary() {
+  export D2B=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})
+  echo "${D2B[  $(($1+1))  ]}"
+  # leading zeros removed
+  echo $(( ${D2B[ $(($1+1)) ]} ))
+}
+binary_to_decimal() {
+  echo $((2#$1))
+}
+
+# create a tmux for the first teminal spawned 
+attach_to_tmux() {
+  export TMUX_SOCKET_NAME=${1:-default}
+  export TMUX_SESSION_NAME=${2:-Main}
+  if [ $(tmux -L $TMUX_SOCKET_NAME list-sessions 2> /dev/null | wc -l) -eq 0 ] ; then
+    # if no tmux session in the machine , create  one and attach
+    tmux -L $TMUX_SOCKET_NAME new-session -s "$TMUX_SESSION_NAME" -d ;
+    tmux -L $TMUX_SOCKET_NAME attach;
+  else
+    # if a session is already there but not attached, then attach
+    if [ $(tmux -L $TMUX_SOCKET_NAME list-clients | wc -l) -eq 0 ]; then
+      tmux -L $TMUX_SOCKET_NAME attach;
+    fi
+    # else do nothing if alredy attached
+  fi
+  alias ta='tmux -L $TMUX_SOCKET_NAME attach'
+  alias tad='tmux -L $TMUX_SOCKET_NAME attach -d'
+}
+
+sister_tmux_session() {
+  # create new session in same group
+  tmux -L $TMUX_SOCKET_NAME new-session -t $TMUX_SESSION_NAME -s `date +%d%b` -d
+}
+
+# https://github.com/junegunn/fzf/wiki/Examples-(completion)#examples
+_fzf_complete_pass() {
+  _fzf_complete '+m' "$@" < <(
+    pwdir=${PASSWORD_STORE_DIR-~/.password-store/}
+    stringsize="${#pwdir}"
+    find "$pwdir" -name "*.gpg" -print |
+        cut -c "$((stringsize + 1))"-  |
+        sed -e 's/\(.*\)\.gpg/\1/'
+  )
+}
+
+update_freedesktop_menu() {
+  xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua
+}
+
+find_older(){
+  find -type f ! -newer $1 | xargs -r ls -lu --sort time --time=acces
+}

@@ -1,0 +1,47 @@
+#!/bin/bash
+#  vim: foldlevel=0:
+# git aliases
+alias gb='git branch'
+alias gco='git checkout'
+alias gcp='git cherry-pick'
+alias gd='git difftool --dir-diff'
+alias gdf='git diff'
+alias gdc='git diff --cached'
+alias gf='git fetch --all'
+alias gl="git log --pretty=tformat:'%C(black)%G? %C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)%Creset' --graph --color | emojify | less -r"
+alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
+alias gp="git push --set-upstream $GIT_UPSTREAM HEAD"
+alias gpl='git pull --rebase' # git pull --rebase origin master
+alias gri='git rebase --autosquash -i'
+alias grhh='git reset HEAD --hard'
+alias gs='git status -sb'
+alias gsp='git stash pop'
+alias gst='git stash'
+alias gsu='git submodule update --init --recursive'
+
+# other aliases
+
+alias exa='exa -la --git'
+alias rsyncopy='rsync --archive --stats --progress --human-readable --compress'
+alias ps='ps -eo pid,pcpu,pmem,comm,maj_flt,min_flt,rss,vsz --sort -rss,-cpu'
+alias less='less -R --follow-name'
+alias lf='ls -F --color'
+alias ll='ls -Fl --color'
+alias la='ls -Fla --color'
+alias grep="grep --color"
+alias fehthumb='feh -t -C /usr/share/fonts/ubuntu -e Ubuntu-R/15 --thumb-width 100 --limit-width 300  --auto-zoom --scale-down --info "exiv2 %f" --index-info ""'
+alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
+alias j='fasd_cd -d'
+alias n='ncmpcpp -S visualizer'
+alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
+alias r='ranger'
+alias ync='yay --noconfirm'
+alias y='yay'
+alias sor="status-of-repos"
+alias led_networth='ledger -f $DOTFILES_LEDGER_FILE bal \^Assets \^Liabilities --cleared -B ; echo "*******" ; ledger -f $DOTFILES_LEDGER_FILE bal \^Funds --cleared -B'
+alias led_permonthExp='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Expenses \^Equity:Adjust'
+alias led_expenseList='ledger -f $DOTFILES_LEDGER_FILE reg \^Expenses \^Equity:Adjust'
+alias led_cashflow='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Income \^Expenses \^Equity:Adjust'
+alias led_check='ledger -f $DOTFILES_LEDGER_FILE b i:sav credit --flat'
+alias led='ledger -f $DOTFILES_LEDGER_FILE'
+
