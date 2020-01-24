@@ -67,18 +67,35 @@ tt() {
 
   reqInSec=$(date -d "$1" +%s)
   nowInSec=$(date +%s)
-  format="%yy %mm %dd %Hh %Mmins"
+  format=" "
 
   if [[ $reqInSec -gt $nowInSec ]]; then
     endTime=$(date -d "$1" -Is)
     startTime=$(date -Is)
-    format="+ $format"
+    format+="+ "
   else
     startTime=$(date -d "$1" -Is)
     endTime=$(date -Is)
-    format="- $format"
+    format+="- "
   fi
-
+  
+  diffSec=$(datediff "$startTime" "$endTime" -f "%S")
+  echo $diffSec
+  if [[ $diffSec -gt 31622400 ]]; then
+    format+="%yy "
+  fi
+  if [[ $diffSec -gt 2678400 ]]; then
+    format+="%mm "
+  fi
+  if [[ $diffSec -gt 86400 ]]; then
+    format+="%dd "
+  fi
+  if [[ $diffSec -gt 3600 ]]; then
+    format+="%Hh "
+  fi
+  if [[ $diffSec -gt 60 ]]; then
+    format+="%Mmins"
+  fi
   datediff "$startTime" "$endTime" -f "$format"
 }
 
@@ -200,4 +217,19 @@ update_freedesktop_menu() {
 
 find_older(){
   find -type f ! -newer $1 | xargs -r ls -lu --sort time --time=acces
+}
+
+rename() {
+  SUBSEXPR=$1
+  shift
+  for i in $@; do mv -i "$i" "$(echo "$i" | sed $SUBSEXPR)"; done
+}
+
+display_colours() {
+  for i in {0..255}; do 
+    printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ;
+    if ! (( ($i + 1 ) % 8 )); then
+      echo ;
+    fi ;
+  done
 }
