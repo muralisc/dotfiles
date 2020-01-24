@@ -237,27 +237,23 @@ vnoremap / /\v
 " never go into Ex mode
 nnoremap Q <nop>
 nnoremap Y y$
-" prevent automatically closing vim
-nnoremap ZZ :close<CR>
 " instead of scorlling to middle .. scroll almost to top
 nnoremap zz zt5<C-y>
-nnoremap <buffer> <Enter> :.cc<CR>:copen<CR>
-nnoremap <C-c> :cclose<CR>
 " }}}  normal mappings
 " leader mapings {{{
-" Toggle Fold easily
-nnoremap <Leader>du :diffupdate<CR>
 " Clears the search register
 nnoremap <leader>/ :nohlsearch<CR>
 " with vimgrep, see results in cope(leader+cc) next (]q) previous ([q)
 nnoremap <leader>co :botright cope<cr>
-" Open vimGrep and put the cursor in the right position
-" nnoremap <leader>gr :Ack! --ignore 'tags' --ignore 'test' <C-r><C-w>
+" Find in files:
+" old map => <leader>gr :Ack! --ignore 'tags' --ignore 'test' <C-r><C-w>
 " Use <c-r>" to get copied item
 nnoremap <leader>gr :Rg!
+nnoremap <leader>gw :Rg!<C-R><C-W>
+nnoremap <leader>gy :Rg!<C-R>"
 " FZF is faster than CtrlP for finding files in Directories
 nnoremap <leader>m :FZF<CR>
-" nnoremap <leader><leader>m :CtrlPMRUFiles <CR>
+" alternate for => :CtrlPMRUFiles <CR>
 nnoremap <leader><leader>m :History <CR>
 " open another file in same dir as current file
 nnoremap <leader>o :e %:h/<C-d>
@@ -268,9 +264,8 @@ nnoremap <leader><leader>q :close!<cr>
 " Close vim itself
 nnoremap <leader><leader><leader>q :wqa!<cr>
 nnoremap <leader>s :sp<CR>
-nnoremap <leader><leader>s :setlocal spell!<CR>
 nnoremap <leader>r :so $MYVIMRC<CR>
-nnoremap <leader>T :Windows<CR>
+nnoremap <leader>t :Windows<CR>
 nnoremap <leader>l :Lines<CR>
 nnoremap <leader>v :vs<CR>
 " Fast saving
@@ -286,9 +281,9 @@ vnoremap <leader>p "_dP
 nnoremap <leader>P "*p
 " paste from the secondary clipboard/ ctrl+c
 nnoremap <leader><leader>p "+p
-" yank from the primary clipboard/ selection
+" yank to the primary clipboard/ selection
 nnoremap <leader>Y "*y
-" yank from the secondary clipboard/ ctrl+c
+" yank to the secondary clipboard/ ctrl+c
 nnoremap <leader>y "+y
 " }}} clipboard madness
 " }}}1 Shortcut Mappings
