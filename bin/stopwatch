@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# stopwatch_status()
+stopwatch_start(){
+  # urxvtc -geometry 20x1
+  FILENAME=/var/tmp/stopwatch.tmp
+  startDate=$(date +%s);
+  echo $startDate > $FILENAME
+  stopwatch_follow
+}
+stopwatch_follow(){
+  FILENAME=/var/tmp/stopwatch.tmp
+  startDate=$(cat $FILENAME);
+  while true; do
+   currentTime=$(date +%s)
+   diff=$(date -u --date @$((currentTime - $startDate)) +%H:%M:%S)
+   echo -ne "$diff\b\b\b\b\b\b\b\b";
+   sleep 1
+  done
+}
+stopwatch_lap() {
+  FILENAME=/var/tmp/stopwatch.tmp
+  startDate=$(cat $FILENAME);
+  currentTime=$(date +%s)
+  diff=$(date -u --date @$((currentTime - $startDate)) +%H:%M:%S)
+  echo -ne "$diff" | tee >(pbcopy)
+}
+
+case $1 in
+  start)
+    stopwatch_start
+    ;;
+  follow)
+    stopwatch_follow
+    ;;
+  lap)
+    stopwatch_lap
+    ;;
+  *)
+    echo -e "Usage \n 1. start \n 2. follow\n 3. lap\n"
+    ;;
+esac
