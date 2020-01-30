@@ -1,0 +1,8 @@
+#!/bin/sh
+bar="#[fg=colour231,bg=colour232]|"
+
+STOPWATCH=$(stopwatch lap)
+if [[ ! -z $STOPWATCH ]]; then
+STOPWATCH_STATUS="$bar $STOPWATCH"
+fi
+echo "$STOPWATCH_STATUS"

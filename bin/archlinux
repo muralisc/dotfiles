@@ -260,7 +260,7 @@ y -S ttf-fira-mono
 # most basic stuff
 # unrar is very helpful exp in coverting .cbr to .jpg
 yay -S --noconfirm \
-  perl-rename sed rsync tar gzip unrar feh gawk \
+  perl-rename sed rsync tar gzip unrar feh gawk \ # use custom rename
   gcc gdb gnuplot grep groff openssh unzip
 # monitors
 yay -S --noconfirm htop vnstat
