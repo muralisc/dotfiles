@@ -10,22 +10,21 @@ set nocompatible                                                     " not compa
 " vim-plug setup {{{1
 if filereadable(expand("~/.vim/autoload/plug.vim"))
     call plug#begin('~/.vim/plugged')
-    " Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD                             *  *
-    Plug 'w0rp/ale'                                                    " Async Syntax checking (with cpp, rust,shellcheck)                *  *  *  *  *
-    Plug 'mileszs/ack.vim'                                             " search files                                                *  *  *  *  *
-    Plug 'powerman/vim-plugin-viewdoc'                                 " for viewing help files                                      *  *  *  *  *
-    Plug 'tpope/vim-commentary'                                        " map: gcc                                                    *  *  *  *  *
-    Plug 'tpope/vim-surround'                                          " map: ys [ <{( >)} ] - for no space                           *  *  *  *  *
-    Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                                 *  *  *  *  *
-    Plug 'godlygeek/tabular'                                           " for easily aligning                                         *  *  *  *  *
-    Plug 'vim-scripts/restore_view.vim'                                "                                                             *  *  *  *  *
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " to install fzf in system                                    *  *  *  *  *
-    Plug 'junegunn/fzf.vim'                                            " for :Windows :Lines                                  *  *  *  *  *
-    Plug 'muralisc/vim-colorschemes'                                   "                                                             *  *  *  *  *
-    Plug 'christoomey/vim-tmux-navigator'                              "                                                             *  *  *  *  *
-    " Plug 'airblade/vim-gitgutter'                                      " for: ]h [h
+    " Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD                   
+    Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck) 
+    Plug 'mileszs/ack.vim'                                             " Search files                                      
+    Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files                            
+    Plug 'tpope/vim-commentary'                                        " map: gcc                                          
+    Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space                
+    Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                       
+    Plug 'godlygeek/tabular'                                           " for easily aligning                               
+    Plug 'vim-scripts/restore_view.vim'                                "                                                   
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " to install fzf in system                          
+    Plug 'junegunn/fzf.vim'                                            " for :Windows :Lines                               
+    Plug 'muralisc/vim-colorschemes'                                   " my colorschemes
+    Plug 'christoomey/vim-tmux-navigator'                              "                                                   
+    " Plug 'airblade/vim-gitgutter'                                    " for: ]h [h
     Plug 'itchyny/lightline.vim'
-    " Plug 'cespare/vim-toml'
     Plug 'airblade/vim-rooter'
     Plug 'fatih/vim-go'
     call plug#end()
@@ -242,15 +241,13 @@ nnoremap zz zt5<C-y>
 " }}}  normal mappings
 " leader mapings {{{
 " Clears the search register
-nnoremap <leader>/ :nohlsearch<CR>
+nnoremap <leader>n :nohlsearch<CR>
 " with vimgrep, see results in cope(leader+cc) next (]q) previous ([q)
 nnoremap <leader>co :botright cope<cr>
 " Find in files:
-" old map => <leader>gr :Ack! --ignore 'tags' --ignore 'test' <C-r><C-w>
-" Use <c-r>" to get copied item
-nnoremap <leader>gr :Rg!
-nnoremap <leader>gw :Rg!<C-R><C-W>
-nnoremap <leader>gy :Rg!<C-R>"
+nnoremap <leader>/ :Rg!
+nnoremap <leader><leader>/ :Rg!<C-R><C-W>
+nnoremap <leader>y/ :Rg!<C-R>"
 " FZF is faster than CtrlP for finding files in Directories
 nnoremap <leader>m :FZF<CR>
 " alternate for => :CtrlPMRUFiles <CR>
@@ -266,12 +263,9 @@ nnoremap <leader><leader><leader>q :wqa!<cr>
 nnoremap <leader>s :sp<CR>
 nnoremap <leader>r :so $MYVIMRC<CR>
 nnoremap <leader>t :Windows<CR>
-nnoremap <leader>l :Lines<CR>
 nnoremap <leader>v :vs<CR>
 " Fast saving
 nnoremap <leader>w :w<cr>
-" dont delete useful while searching
-nnoremap <leader>zz :let &scrolloff=999-&scrolloff<CR>
 " }}} leader maping end
 " Clipboard madness {{{
 " replace currently selected text with default register
@@ -357,3 +351,7 @@ function! LightLineFilename()
   " Get shrinked current working directory and filename
   return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
 endfunction
+
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
