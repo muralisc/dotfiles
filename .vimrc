@@ -293,6 +293,7 @@ augroup FTOptions
     autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99
     autocmd Filetype gitcommit                    setlocal spell textwidth=72
     autocmd FileType git,gitcommit                setlocal foldmethod=syntax
+    autocmd Filetype markdown                     setlocal iskeyword+=#
 augroup end
 "}}} Filetype Specific Settings
 " Plugin Specific Settings ====================================================
