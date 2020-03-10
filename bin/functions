@@ -172,11 +172,6 @@ attach_to_tmux() {
   alias tad='tmux -L $TMUX_SOCKET_NAME attach -d'
 }
 
-sister_tmux_session() {
-  # create new session in same group
-  tmux -L $TMUX_SOCKET_NAME new-session -t $TMUX_SESSION_NAME -s `date +%d%b` -d
-}
-
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)#examples
 _fzf_complete_pass() {
   _fzf_complete '+m' "$@" < <(
@@ -190,10 +185,6 @@ _fzf_complete_pass() {
 
 update_freedesktop_menu() {
   xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua
-}
-
-find_older(){
-  find -type f ! -newer $1 | xargs -r ls -lu --sort time --time=acces
 }
 
 dot_rename() {
