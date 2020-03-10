@@ -31,6 +31,8 @@ if [[ $- == *i* ]]; then
   txtrst=$(tput sgr0)
 fi
 
+shopt -s extglob
+
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=10000
 export HISTFILESIZE=10000

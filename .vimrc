@@ -27,6 +27,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'itchyny/lightline.vim'
     Plug 'airblade/vim-rooter'
     Plug 'fatih/vim-go'
+    Plug 'preservim/nerdtree'
     call plug#end()
 endif
 "}}}1 ===========================================================Vundle setup done
