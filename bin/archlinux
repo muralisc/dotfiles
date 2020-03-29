@@ -396,9 +396,6 @@ y -Syy simplescreenrecorder
 # smartmontools
 sudo smartctl -a /dev/sda
 
-https://github.com/fabiospampinato/cliflix
-https://github.com/jpillora/cloud-torrent
-
 y -S dateutils # for datediff
 
 ####### OPENBOX
@@ -409,7 +406,8 @@ y -S dockbarx
 
 
 
-dateutils
+y -S dateutils
+y -S gerbera # upnp, media server
 
 # get mpv script
 curl -o ~/.config/mpv/scripts/delete_file.lua \
