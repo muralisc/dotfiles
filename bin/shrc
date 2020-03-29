@@ -3,7 +3,7 @@
 
 # initililize fasd
 
-if which fasd > /dev/null ; then
+if command -v fasd > /dev/null ; then
   # Use -->,<-- to complete in zsh
   # https://github.com/clvv/fasd#tab-completion
   eval "$(fasd --init auto)"

@@ -48,10 +48,10 @@ sgdisk -p /dev/sda            # print partition table
 dm-crypt # ( cli --> cryptsetup )
 
 # https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption
-cryptsetup -v luksFormat <device>
+cryptsetup -v luksFormat $device_name
 # e.g: cryptsetup -v luksFormat /dev/sdc
 
-cryptsetup open <device> <dm_name>
+cryptsetup open $device_name $dm_name
 # e.g: cryptsetup open /dev/sdc cryptexternal
 
 
@@ -347,10 +347,10 @@ curl https://sh.rustup.rs -sSf | sh
 # check pass in mobile for the password
 gpg --decrypt file.gpg > file.tar
 # Bad session key error is due to wrong password
-tar xf <file>.tar
+tar xf $filename_tar
 gpg --import subkey.gpg
 gpg --list-keys
-gpg --edit-key <key-id> # then trust and quit
+gpg --edit-key $key_id # then trust and quit
 
 # for pass
 REPONAME=""
@@ -404,11 +404,11 @@ y -S archlinux-xdg-menu
 y -S tint2
 y -S dockbarx
 
-
-
 y -S dateutils
 y -S gerbera # upnp, media server
 
 # get mpv script
 curl -o ~/.config/mpv/scripts/delete_file.lua \
 https://raw.githubusercontent.com/zenyd/mpv-scripts/master/delete_file.lua
+
+y -S nnn

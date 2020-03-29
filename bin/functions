@@ -2,8 +2,10 @@
 #  vim: foldlevel=0:
 
 sanitize_file_name() {
-  [[ -z $1 ]] && perl-rename -n "s/ |\(|\!|&|\)|'|\[|\]/_/g" *
-  [[ -n $1 ]] && perl-rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" *
+  if [[ -z $1 ]] ; then 
+    for i in * ; do sed -E "s/ |\(|\!|&|\)|'|\[|\]/_/g" <<< $i; done
+  fi
+  dot_rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" $1
 }
 
 ms() { # mpc search
@@ -124,7 +126,7 @@ timeGoogle() {
     sed 's/,//')"
 }
 
-list_custom_defined_functions() {
+custom_defined_functions() {
   #TODO
   if [[ $SHELL =~ "zsh" ]]; then
     # if zsh
@@ -170,11 +172,6 @@ attach_to_tmux() {
   alias tad='tmux -L $TMUX_SOCKET_NAME attach -d'
 }
 
-sister_tmux_session() {
-  # create new session in same group
-  tmux -L $TMUX_SOCKET_NAME new-session -t $TMUX_SESSION_NAME -s `date +%d%b` -d
-}
-
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)#examples
 _fzf_complete_pass() {
   _fzf_complete '+m' "$@" < <(
@@ -190,14 +187,10 @@ update_freedesktop_menu() {
   xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua
 }
 
-find_older(){
-  find -type f ! -newer $1 | xargs -r ls -lu --sort time --time=acces
-}
-
-rename() {
+dot_rename() {
   SUBSEXPR=$1
   shift
-  for i in $@; do mv -i "$i" "$(echo "$i" | sed $SUBSEXPR)"; done
+  for i in $@; do mv -i "$i" "$(echo "$i" | sed -E $SUBSEXPR)"; done
 }
 
 display_colours() {

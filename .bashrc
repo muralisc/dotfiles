@@ -18,15 +18,20 @@ undcyn='\[\e[4;36m\]' # Cyan
 undwht='\[\e[4;37m\]' # White
 txtrst='\[\e[0m\]'    # Text Reset
 wrap(){ echo '\['"$1"'\]'; }
-txtblk=$(tput setaf 0)  # txtblk='\[\e[0;30m\]' # Black - Regular
-txtred=$(tput setaf 1)  # txtred='\[\e[0;31m\]' # Red
-txtgrn=$(tput setaf 2)  # txtgrn='\[\e[0;32m\]' # Green
-txtylw=$(tput setaf 3)  # txtylw='\[\e[0;33m\]' # Yellow
-txtblu=$(tput setaf 4)  # txtblu='\[\e[0;34m\]' # Blue
-txtpur=$(tput setaf 5)  # txtpur='\[\e[0;35m\]' # Purple
-txtcyn=$(tput setaf 6)  # txtcyn='\[\e[0;36m\]' # Cyan
-txtwht=$(tput setaf 7)  # txtwht='\[\e[0;37m\]' # White
-txtrst=$(tput sgr0)
+if [[ $- == *i* ]]; then
+  # run only if shell is interactive
+  txtblk=$(tput setaf 0)  # txtblk='\[\e[0;30m\]' # Black - Regular
+  txtred=$(tput setaf 1)  # txtred='\[\e[0;31m\]' # Red
+  txtgrn=$(tput setaf 2)  # txtgrn='\[\e[0;32m\]' # Green
+  txtylw=$(tput setaf 3)  # txtylw='\[\e[0;33m\]' # Yellow
+  txtblu=$(tput setaf 4)  # txtblu='\[\e[0;34m\]' # Blue
+  txtpur=$(tput setaf 5)  # txtpur='\[\e[0;35m\]' # Purple
+  txtcyn=$(tput setaf 6)  # txtcyn='\[\e[0;36m\]' # Cyan
+  txtwht=$(tput setaf 7)  # txtwht='\[\e[0;37m\]' # White
+  txtrst=$(tput sgr0)
+fi
+
+shopt -s extglob
 
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=10000
