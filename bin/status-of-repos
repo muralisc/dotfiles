@@ -8,8 +8,12 @@ do
   cd "$REPOROOT"
   NO_OF_MODFILES=`git status -sb | grep -P "^ *(M|R|D)" | wc -l`
   UNSYNCED_BRANCHES=$(git log --branches --not --remotes --simplify-by-decoration --decorate --oneline | wc -l )
+  REMOTE_EXIST=$(git remote)
   BRANCH=$(git branch | grep "\*" | cut -f2 -d' ')
-  if [ $NO_OF_MODFILES -gt 0 ] || [ $UNSYNCED_BRANCHES -gt 0 ] ; then
+  # Evaluates to true if
+  # If modified files are there
+  # or A remote exist and unsynced branches are there
+  if [ $NO_OF_MODFILES -gt 0 ] || { [ $UNSYNCED_BRANCHES -gt 0 ] && [ ! -z $REMOTE_EXIST ]; } ; then
     STATS+="\n"`echo $REPOROOT Mod:$NO_OF_MODFILES unsynced:$UNSYNCED_BRANCHES $BRANCH $(git config user.email) $(git config credential.username)`
     # git diff --stat
   fi
