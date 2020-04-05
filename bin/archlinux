@@ -307,8 +307,8 @@ systemctl --user enable dropbox.service
 vim ~/.config/systemd/user/dropbox@.service  # Add display env
 # sync tools
 y -S syncthing
-# remote tools
-yay -S --noconfirm tigervnc sshfs
+# remote tools ( use tigervnc/barrier instead of KVM switch for keyboard and mouse sharing )
+yay -S --noconfirm tigervnc sshfs barrier
 # i dont like mouse
 yay -S --noconfirm keynav-git
 # i like to type better; keylogger ;)
@@ -406,6 +406,7 @@ y -S dockbarx
 
 y -S dateutils
 y -S gerbera # upnp, media server
+y -S mkvtoolnix # for use with gerbera, mux the srt so that it can be easily shown
 
 # get mpv script
 curl -o ~/.config/mpv/scripts/delete_file.lua \
