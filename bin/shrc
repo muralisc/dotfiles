@@ -20,6 +20,8 @@ export EDITOR=/usr/bin/vim
 export BC_ENV_ARGS=~/.bcrc
 export GOPATH=~/go
 export FZF_DEFAULT_COMMAND='fd --type f'
+# for True Color support
+export TERM=xterm-256color
 
 # add directories to PATH variable
 for custom_path in   \
