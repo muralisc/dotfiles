@@ -21,14 +21,17 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'vim-scripts/restore_view.vim'                                "                                                   
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " to install fzf in system                          
     Plug 'junegunn/fzf.vim'                                            " for :Windows :Lines                               
-    Plug 'muralisc/vim-colorschemes'                                   " my colorschemes
     Plug 'christoomey/vim-tmux-navigator'                              "                                                   
     " Plug 'airblade/vim-gitgutter'                                    " for: ]h [h
     Plug 'itchyny/lightline.vim'
     Plug 'airblade/vim-rooter'
     Plug 'fatih/vim-go'
     Plug 'preservim/nerdtree'
-    Plug 'arcticicestudio/nord-vim'
+    " Colorschemes
+    Plug 'muralisc/vim-colorschemes'                                   " my colorschemes
+    Plug 'joshdick/onedark.vim'
+    Plug 'morhetz/gruvbox'
+    Plug 'dracula/vim'
     call plug#end()
 endif
 "}}}1 ===========================================================Vundle setup done
@@ -151,7 +154,7 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme nord
+silent! colorscheme onedark
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
@@ -272,7 +275,7 @@ nnoremap <leader>/ :Rg!
 nnoremap <leader><leader>/ :Rg!<C-R><C-W>
 nnoremap <leader>y/ :Rg!<C-R>"
 " FZF is faster than CtrlP for finding files in Directories
-nnoremap <leader>m :FZF<CR>
+nnoremap <leader>m :FZF +s --tac<CR>
 " alternate for => :CtrlPMRUFiles <CR>
 nnoremap <leader><leader>m :History <CR>
 " open another file in same dir as current file
@@ -352,7 +355,7 @@ let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-r
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --sort path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   'rg --sortr path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
@@ -367,7 +370,7 @@ vnoremap <leader>xb !boxes -r<CR>
 vnoremap y ygv<Esc>|" After yanking in visual mode move cursor to the end of  the selection
 
 let g:lightline = {
-      \ 'colorscheme': 'nord',
+      \ 'colorscheme': 'onedark',
       \ 'component_function': {
       \   'filename': 'LightLineFilename'
       \ }
