@@ -27,6 +27,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'airblade/vim-rooter'
     Plug 'fatih/vim-go'
     Plug 'preservim/nerdtree'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    Plug 'muralisc/snippets'
     " Colorschemes
     Plug 'muralisc/vim-colorschemes'                                   " my colorschemes
     Plug 'joshdick/onedark.vim'
@@ -380,6 +383,8 @@ function! LightLineFilename()
   return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
 endfunction
 
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_enter = 0
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-tab>"
