@@ -30,6 +30,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
     Plug 'muralisc/snippets'
+    Plug 'bfredl/nvim-miniyank'
     " Colorschemes
     Plug 'muralisc/vim-colorschemes'                                   " my colorschemes
     Plug 'joshdick/onedark.vim'
@@ -297,6 +298,8 @@ nnoremap <leader>v :vs<CR>
 nnoremap <leader>w :w<cr>
 " }}} leader maping end
 " Clipboard madness {{{
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)
 " replace currently selected text with default register
 " without yanking it
 vnoremap <leader>p "_dP

@@ -230,6 +230,12 @@ find_vim() {
   fi
   vim_window=$(awk -F'.' '{print $1}' <<< $vim_window_panes )
   vim_pane=$(awk -F'.' '{print $2}' <<< $vim_window_panes )
-  tmux select-window -t $vim_window && tmux select-pane -t $vim_pane
-  command -v pbcopy > /dev/null && { echo -n "$1" | pbcopy ; }
+  local file_path="$1"
+  if [ "${file_path##$HOME}" != "$file_path" ]; then
+    full_path="$file_path"
+  else
+    full_path="$PWD/$file_path"
+  fi
+  command -v pbcopy > /dev/null && { echo -n "$full_path" | pbcopy ; }
+  tmux select-window -t $vim_window && tmux select-pane -t $vim_pane && tmux send-keys ":e " C-f p Enter
 }
