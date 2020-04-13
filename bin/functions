@@ -200,7 +200,7 @@ display_tmux_bash_256colours() { #8/16bit colors also exist
       echo ;
     fi ;
   done
-  echo "Test TrueColors"
+  echo "\nTest TrueColors (If Terminal supports truecolors a continuous band will be seen below): \n"
   awk 'BEGIN{
       s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
       for (colnum = 0; colnum<77; colnum++) {
@@ -237,5 +237,8 @@ find_vim() {
     full_path="$PWD/$file_path"
   fi
   command -v pbcopy > /dev/null && { echo -n "$full_path" | pbcopy ; }
-  tmux select-window -t $vim_window && tmux select-pane -t $vim_pane && tmux send-keys ":e " C-f p Enter
+
+  tmux select-window -t $vim_window && \
+    tmux select-pane -t $vim_pane && \
+    { [[ ! -z "$file_path" ]] && tmux send-keys ":e " C-f p Enter ; }
 }
