@@ -14,7 +14,17 @@ do
   # If modified files are there
   # or A remote exist and unsynced branches are there
   if [ $NO_OF_MODFILES -gt 0 ] || { [ $UNSYNCED_BRANCHES -gt 0 ] && [ ! -z $REMOTE_EXIST ]; } ; then
-    STATS+="\n"`echo $REPOROOT Mod:$NO_OF_MODFILES unsynced:$UNSYNCED_BRANCHES $BRANCH $(git config user.email) $(git config credential.username)`
+    STATS+="\n"
+    STATS+="$REPOROOT "
+    if [ $NO_OF_MODFILES -gt 0 ]; then
+      STATS+="\x1b[38;2;255;208;0mMod:$NO_OF_MODFILES \x1b[0m"
+    else
+      STATS+="Mod:$NO_OF_MODFILES "
+    fi
+    STATS+="unsynced:$UNSYNCED_BRANCHES "
+    STATS+="$BRANCH "
+    STATS+="$(git config user.email) "
+    STATS+="$(git config credential.username) "
     # git diff --stat
   fi
 done
