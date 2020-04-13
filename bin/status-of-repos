@@ -17,11 +17,15 @@ do
     STATS+="\n"
     STATS+="$REPOROOT "
     if [ $NO_OF_MODFILES -gt 0 ]; then
-      STATS+="\x1b[38;2;255;208;0mMod:$NO_OF_MODFILES \x1b[0m"
+      STATS+="\x1b[38;2;255;208;0m Mod:$NO_OF_MODFILES \x1b[0m"
     else
       STATS+="Mod:$NO_OF_MODFILES "
     fi
-    STATS+="unsynced:$UNSYNCED_BRANCHES "
+    if [ $UNSYNCED_BRANCHES -gt 0 ] ; then
+      STATS+="\x1b[38;2;0;133;255m unsynced:$UNSYNCED_BRANCHES \x1b[0m\n"
+    else
+      STATS+="unsynced:$UNSYNCED_BRANCHES "
+    fi
     STATS+="$BRANCH "
     STATS+="$(git config user.email) "
     STATS+="$(git config credential.username) "
