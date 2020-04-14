@@ -161,7 +161,7 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme gotham
+silent! colorscheme gotham                      " gruvbox gotham onedark dracula gotham base16-*
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
