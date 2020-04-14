@@ -301,7 +301,7 @@ yay -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
 # when friends who use windows comes over
 yay -S --noconfirm ntfs-3g
 # internet tools
-yay -S --noconfirm rtorrent dropbox youtube-dl
+yay -S --noconfirm rtorrent dropbox youtube-dl jackett
 # enable dropbox
 systemctl --user enable dropbox.service
 vim ~/.config/systemd/user/dropbox@.service  # Add display env
