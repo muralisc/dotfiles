@@ -31,11 +31,12 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'honza/vim-snippets'
     Plug 'muralisc/snippets'
     Plug 'bfredl/nvim-miniyank'
-    " Colorschemes
-    Plug 'muralisc/vim-colorschemes'                                   " my colorschemes
-    Plug 'joshdick/onedark.vim'
+    " Colorschemes (Other popular colorschems https://github.com/Kharacternyk/dotcommon#colorschemes)
     Plug 'morhetz/gruvbox'
+    Plug 'joshdick/onedark.vim'
     Plug 'dracula/vim'
+    Plug 'chriskempson/base16-vim'
+    Plug 'whatyouhide/vim-gotham'
     call plug#end()
 endif
 "}}}1 ===========================================================Vundle setup done
@@ -69,6 +70,8 @@ if (empty($TMUX))
   endif
 else
   if (has("termguicolors"))
+      "Set Vim-specific sequences for RGB colors; only seems to be needed for Vim 8 running inside tmux with $TERM=tmux
+      "Found at < https://github.com/vim/vim/issues/993#issuecomment-255651605 >
       let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
       let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
       set termguicolors
@@ -158,7 +161,7 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme onedark
+silent! colorscheme gotham
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
@@ -376,7 +379,7 @@ vnoremap <leader>xb !boxes -r<CR>
 vnoremap y ygv<Esc>|" After yanking in visual mode move cursor to the end of  the selection
 
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'dracula',
       \ 'component_function': {
       \   'filename': 'LightLineFilename'
       \ }
@@ -391,3 +394,5 @@ let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_enter = 0
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-tab>"
+let g:gruvbox_contrast_dark="hard"
+" let g:gruvbox_improved_strings=1
