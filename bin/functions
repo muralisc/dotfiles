@@ -47,7 +47,7 @@ least_played() {
   # least_played -atime +10
   cd /home/murali/Dropbox/Songs/
   find -type f "${@}" -iname "*.mp3" -printf "\n%A@ %p" | \
-    sort -nr | awk '{print $2}' | sed 's#./##' | sed '/^$/d' | mpc add
+    sort -n | awk '{print $2}' | sed 's#./##' | sed '/^$/d' | mpc add
 }
 
 # database update
