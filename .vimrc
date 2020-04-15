@@ -276,7 +276,6 @@ nnoremap zz zt5<C-y>
 " leader mapings {{{
 " Clears the search register
 nnoremap <leader>n :nohlsearch<CR>
-nnoremap <leader>c :make <cr>
 " Find in files:
 nnoremap <leader>/ :Rg!
 nnoremap <leader><leader>/ :Rg!<C-R><C-W>
