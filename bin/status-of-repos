@@ -13,9 +13,22 @@ do
   # Evaluates to true if
   # If modified files are there
   # or A remote exist and unsynced branches are there
+  SEP=","
   if [ $NO_OF_MODFILES -gt 0 ] || { [ $UNSYNCED_BRANCHES -gt 0 ] && [ ! -z $REMOTE_EXIST ]; } ; then
-    STATS+="\n"`echo $REPOROOT Mod:$NO_OF_MODFILES unsynced:$UNSYNCED_BRANCHES $BRANCH $(git config user.email) $(git config credential.username)`
+    STATS+="\n"
+    STATS+="${SEP}$REPOROOT"
+    if [ $NO_OF_MODFILES -gt 0 ]; then
+      STATS+="${SEP}\x1b[38;2;255;208;000m Mod:$NO_OF_MODFILES \x1b[0m"
+    else
+      STATS+="${SEP}\x1b[38;2;150;150;150m Mod:$NO_OF_MODFILES \x1b[0m"
+    fi
+    if [ $UNSYNCED_BRANCHES -gt 0 ] ; then
+      STATS+="${SEP}\x1b[38;2;000;133;255m unsynced:$UNSYNCED_BRANCHES \x1b[0m"
+    else
+      STATS+="${SEP}\x1b[38;2;150;150;150m unsynced:$UNSYNCED_BRANCHES \x1b[0m"
+    fi
+    STATS+="${SEP}$BRANCH "
     # git diff --stat
   fi
 done
-echo -e "$STATS" | column -t
+echo -e "$STATS" | column -s "$SEP" -t

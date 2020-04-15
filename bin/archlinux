@@ -301,7 +301,7 @@ yay -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
 # when friends who use windows comes over
 yay -S --noconfirm ntfs-3g
 # internet tools
-yay -S --noconfirm rtorrent dropbox youtube-dl
+yay -S --noconfirm rtorrent dropbox youtube-dl jackett
 # enable dropbox
 systemctl --user enable dropbox.service
 vim ~/.config/systemd/user/dropbox@.service  # Add display env
@@ -407,6 +407,7 @@ y -S dockbarx
 y -S dateutils
 y -S gerbera # upnp, media server
 y -S mkvtoolnix # for use with gerbera, mux the srt so that it can be easily shown
+y -S clang-format icdiff diff-so-fancy
 
 # get mpv script
 curl -o ~/.config/mpv/scripts/delete_file.lua \

@@ -2,10 +2,19 @@
 #  vim: foldlevel=0:
 
 sanitize_file_name() {
-  if [[ -z $1 ]] ; then 
-    for i in * ; do sed -E "s/ |\(|\!|&|\)|'|\[|\]/_/g" <<< $i; done
+  # Usage:
+  #
+  #     sanitize_file_name -n $file1 $file2 #  dry run
+  #     sanitize_file_name $files $file2    # reaname files
+  #
+  if [[ "f$1" == "f-n" ]] ; then 
+    shift
+    for i in $@ ; do 
+      sed -E "s/ |\(|\!|&|\)|'|\[|\]/_/g" <<< $i; 
+    done
+    return
   fi
-  dot_rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" $1
+  dot_rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" $@
 }
 
 ms() { # mpc search
@@ -38,7 +47,7 @@ least_played() {
   # least_played -atime +10
   cd /home/murali/Dropbox/Songs/
   find -type f "${@}" -iname "*.mp3" -printf "\n%A@ %p" | \
-    sort -nr | awk '{print $2}' | sed 's#./##' | sed '/^$/d' | mpc add
+    sort -n | awk '{print $2}' | sed 's#./##' | sed '/^$/d' | mpc add
 }
 
 # database update
@@ -193,14 +202,91 @@ dot_rename() {
   for i in $@; do mv -i "$i" "$(echo "$i" | sed -E $SUBSEXPR)"; done
 }
 
-display_tmux_bash_256colours() { #8/16bit colors also exist
-  for i in {0..255}; do 
-    printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ;
+colortest() { #8/16bit colors also exist
+
+#   Daniel Crisman's ANSI color chart script from
+#   The Bash Prompt HOWTO: 6.1. Colours
+#   http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
+#  
+#   This function echoes a bunch of color codes to the 
+#   terminal to demonstrate what's available.  Each 
+#   line is the color code of one forground color,
+#   out of 17 (default + 16 escapes), followed by a 
+#   test use of that color on all nine background 
+#   colors (default + 8 escapes).
+ 
+  T='•••'   # The text for the color test
+  
+  echo -e "\n         def     40m     41m     42m     43m     44m     45m     46m     47m";
+  
+  for FGs in '    m' '   1m' '  30m' '1;30m' '  31m' '1;31m' '  32m' \
+             '1;32m' '  33m' '1;33m' '  34m' '1;34m' '  35m' '1;35m' \
+             '  36m' '1;36m' '  37m' '1;37m';
+  
+    do FG=${FGs// /}
+    echo -en " $FGs \033[$FG  $T  "
+    
+    for BG in 40m 41m 42m 43m 44m 45m 46m 47m;
+      do echo -en "$EINS \033[$FG\033[$BG  $T  \033[0m";
+    done
+    echo;
+  done
+  echo
+
+# Tmux Color Test 256 colors
+  echo 'Following can be used as color${num} in tmux'
+
+  echo 'System colors:'
+  for i in {0..15}; do 
+    printf "\x1b[38;5;${i}m %-3i\x1b[0m" $i ;
     if ! (( ($i + 1 ) % 8 )); then
       echo ;
     fi ;
   done
-  echo "Test TrueColors"
+  echo 'Color cube, 6x6x6:'
+  for i in {16..231}; do 
+    printf "\x1b[38;5;${i}m %-3i\x1b[0m" $i ;
+    if ! (( ($i + 3 ) % 6 )); then
+      printf " ";
+    fi ;
+    if ! (( ($i -15) % 36 )); then
+      echo ;
+    fi
+  done
+  echo 'Grayscale ramp:'
+  for i in {232..255}; do 
+    printf "\x1b[38;5;${i}m %-3i\x1b[0m" $i ;
+  done
+  echo ;
+
+
+  echo 'System colors:'
+  for i in {0..15}; do 
+    printf "\x1b[48;5;${i}m  \x1b[0m";
+    if ! (( ($i + 1 ) % 8 )); then
+      echo ;
+    fi ;
+  done
+  echo 'Color cube, 6x6x6:'
+  for green in {0..5}; do
+    for red in {0..5}; do
+      for blue in {0..5}; do
+        color=$((16 + (red * 36) + (green * 6) + blue ))
+        printf "\x1b[48;5;${color}m  \x1b[0m";
+      done
+      printf "\x1b[0m ";
+    done
+    echo ;
+  done
+  echo 'Grayscale ramp:'
+  for i in {232..255}; do 
+    printf "\x1b[48;5;${i}m  \x1b[0m";
+  done
+  echo ;
+
+# True Color Test
+
+  echo "\nTest TrueColors (If Terminal supports truecolors a continuous band will be seen below): "
   awk 'BEGIN{
       s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
       for (colnum = 0; colnum<77; colnum++) {
@@ -215,4 +301,30 @@ display_tmux_bash_256colours() { #8/16bit colors also exist
       printf "\n";
   }'
 
+}
+
+find_vim() {
+  # find vim in tmux and send keys to open the file
+  vim_window_panes=$(tmux list-panes -a -F "#{window_index}.#{pane_index} #{pane_current_command}" | grep vim | awk '{print $1}')
+  if [[ -z $vim_window_panes ]]; then
+    nvim $1
+    return
+  fi
+  if [[ $(wc -l <<< "$vim_window_panes" ) -gt 1 ]]; then
+    echo "Multiple vims open at: $vim_window_panes"
+    return
+  fi
+  vim_window=$(awk -F'.' '{print $1}' <<< $vim_window_panes )
+  vim_pane=$(awk -F'.' '{print $2}' <<< $vim_window_panes )
+  local file_path="$1"
+  if [ "${file_path##$HOME}" != "$file_path" ]; then
+    full_path="$file_path"
+  else
+    full_path="$PWD/$file_path"
+  fi
+  command -v pbcopy > /dev/null && { echo -n "$full_path" | pbcopy ; }
+
+  tmux select-window -t $vim_window && \
+    tmux select-pane -t $vim_pane && \
+    { [[ ! -z "$file_path" ]] && tmux send-keys ":e " C-f p Enter ; }
 }

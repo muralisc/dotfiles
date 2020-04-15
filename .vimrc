@@ -21,14 +21,22 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'vim-scripts/restore_view.vim'                                "                                                   
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " to install fzf in system                          
     Plug 'junegunn/fzf.vim'                                            " for :Windows :Lines                               
-    Plug 'muralisc/vim-colorschemes'                                   " my colorschemes
     Plug 'christoomey/vim-tmux-navigator'                              "                                                   
     " Plug 'airblade/vim-gitgutter'                                    " for: ]h [h
     Plug 'itchyny/lightline.vim'
     Plug 'airblade/vim-rooter'
     Plug 'fatih/vim-go'
     Plug 'preservim/nerdtree'
-    Plug 'arcticicestudio/nord-vim'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    Plug 'muralisc/snippets'
+    Plug 'bfredl/nvim-miniyank'
+    " Colorschemes (Other popular colorschems https://github.com/Kharacternyk/dotcommon#colorschemes)
+    Plug 'morhetz/gruvbox'
+    Plug 'joshdick/onedark.vim'
+    Plug 'dracula/vim'
+    Plug 'chriskempson/base16-vim'
+    Plug 'whatyouhide/vim-gotham'
     call plug#end()
 endif
 "}}}1 ===========================================================Vundle setup done
@@ -62,6 +70,8 @@ if (empty($TMUX))
   endif
 else
   if (has("termguicolors"))
+      "Set Vim-specific sequences for RGB colors; only seems to be needed for Vim 8 running inside tmux with $TERM=tmux
+      "Found at < https://github.com/vim/vim/issues/993#issuecomment-255651605 >
       let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
       let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
       set termguicolors
@@ -151,7 +161,7 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme nord
+silent! colorscheme gotham                      " gruvbox gotham onedark dracula gotham base16-*
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
@@ -266,13 +276,12 @@ nnoremap zz zt5<C-y>
 " leader mapings {{{
 " Clears the search register
 nnoremap <leader>n :nohlsearch<CR>
-nnoremap <leader>c :make <cr>
 " Find in files:
 nnoremap <leader>/ :Rg!
 nnoremap <leader><leader>/ :Rg!<C-R><C-W>
 nnoremap <leader>y/ :Rg!<C-R>"
 " FZF is faster than CtrlP for finding files in Directories
-nnoremap <leader>m :FZF<CR>
+nnoremap <leader>m :FZF +s --tac<CR>
 " alternate for => :CtrlPMRUFiles <CR>
 nnoremap <leader><leader>m :History <CR>
 " open another file in same dir as current file
@@ -291,6 +300,8 @@ nnoremap <leader>v :vs<CR>
 nnoremap <leader>w :w<cr>
 " }}} leader maping end
 " Clipboard madness {{{
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)
 " replace currently selected text with default register
 " without yanking it
 vnoremap <leader>p "_dP
@@ -309,7 +320,7 @@ augroup FTOptions
     autocmd!
     autocmd filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
     autocmd FileType xdefaults                    setlocal commentstring=!\ %s
-    autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k
+    autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k shiftwidth=2
     autocmd FileType liquid,text,txt,tex          setlocal complete+=k textwidth=80
     autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help
     autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
@@ -352,7 +363,7 @@ let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-r
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --sort path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   'rg --sortr path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
@@ -367,7 +378,7 @@ vnoremap <leader>xb !boxes -r<CR>
 vnoremap y ygv<Esc>|" After yanking in visual mode move cursor to the end of  the selection
 
 let g:lightline = {
-      \ 'colorscheme': 'nord',
+      \ 'colorscheme': 'dracula',
       \ 'component_function': {
       \   'filename': 'LightLineFilename'
       \ }
@@ -377,6 +388,10 @@ function! LightLineFilename()
   return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
 endfunction
 
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_enter = 0
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-tab>"
+let g:gruvbox_contrast_dark="hard"
+" let g:gruvbox_improved_strings=1

@@ -24,4 +24,5 @@ $if mode=vi
     # expand aliases
     "\C-\M-e": shell-expand-line
     "\e.":insert-last-argument
+    "\C-g*": glob-expand-word
 $endif 
