@@ -2,10 +2,19 @@
 #  vim: foldlevel=0:
 
 sanitize_file_name() {
-  if [[ -z $1 ]] ; then 
-    for i in * ; do sed -E "s/ |\(|\!|&|\)|'|\[|\]/_/g" <<< $i; done
+  # Usage:
+  #
+  #     sanitize_file_name -n $file1 $file2 #  dry run
+  #     sanitize_file_name $files $file2    # reaname files
+  #
+  if [[ "f$1" == "f-n" ]] ; then 
+    shift
+    for i in $@ ; do 
+      sed -E "s/ |\(|\!|&|\)|'|\[|\]/_/g" <<< $i; 
+    done
+    return
   fi
-  dot_rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" $1
+  dot_rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" $@
 }
 
 ms() { # mpc search
