@@ -3,8 +3,8 @@
 " Courtsey :
 " Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
 " Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
+" junegunn: https://github.com/junegunn/dotfiles/blob/master/vimrc
 " and Vim User Manual
-" The commands are are anged in the order encountered in vim user manual
 let g:loaded_matchparen = 1
 set nocompatible                                                     " not compatible with the old-fashion vi mode
 " vim-plug setup {{{1
@@ -12,6 +12,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     call plug#begin('~/.vim/plugged')
     " Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD                   
     Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck) 
+    let g:ale_lint_on_text_changed = 'normal'
+    let g:ale_lint_on_insert_leave = 1
+    let g:ale_lint_on_enter = 0
     Plug 'mileszs/ack.vim'                                             " Search files                                      
     Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files                            
     Plug 'tpope/vim-commentary'                                        " map: gcc                                          
@@ -19,20 +22,31 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                       
     Plug 'godlygeek/tabular'                                           " for easily aligning                               
     Plug 'vim-scripts/restore_view.vim'                                "                                                   
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " to install fzf in system                          
-    Plug 'junegunn/fzf.vim'                                            " for :Windows :Lines                               
-    Plug 'christoomey/vim-tmux-navigator'                              "                                                   
-    " Plug 'airblade/vim-gitgutter'                                    " for: ]h [h
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+        command! -bang -nargs=* Rg
+        \ call fzf#vim#grep(
+        \   'rg --sortr path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+        \   <bang>0 ? fzf#vim#with_preview('up:60%')
+        \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \   <bang>0)
+    Plug 'christoomey/vim-tmux-navigator'
     Plug 'itchyny/lightline.vim'
     Plug 'airblade/vim-rooter'
-    Plug 'fatih/vim-go'
-    Plug 'preservim/nerdtree'
     Plug 'SirVer/ultisnips'
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsListSnippets="<c-tab>"
     Plug 'honza/vim-snippets'
     Plug 'muralisc/snippets'
     Plug 'bfredl/nvim-miniyank'
-    " Colorschemes (Other popular colorschems https://github.com/Kharacternyk/dotcommon#colorschemes)
+    " Language Specific
+    Plug 'fatih/vim-go'
+    " Non-essential
+    Plug 'junegunn/rainbow_parentheses.vim'
+    Plug 'tpope/vim-vinegar'
+    " Colorschemes
     Plug 'morhetz/gruvbox'
+    let g:gruvbox_contrast_dark="hard"
     Plug 'joshdick/onedark.vim'
     Plug 'dracula/vim'
     Plug 'chriskempson/base16-vim'
@@ -355,18 +369,9 @@ if has('mac')
     nnoremap <silent> ¬ :TmuxNavigateRight<cr>
 endif
 
-nnoremap ]h <Plug>GitGutterNextHunk
-nnoremap [h <Plug>GitGutterPrevHunk
-
 let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
 let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
 
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --sortr path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
 
 " Select text for which we need boxes drawn
 " https://github.com/ascii-boxes/boxes
@@ -388,10 +393,3 @@ function! LightLineFilename()
   return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
 endfunction
 
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_enter = 0
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsListSnippets="<c-tab>"
-let g:gruvbox_contrast_dark="hard"
-" let g:gruvbox_improved_strings=1
