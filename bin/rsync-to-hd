@@ -15,15 +15,29 @@ mkdir -p $BACKUP_PATH
 BLUE=$(tput setaf 4)
 echo -e "Doing a dry run from ${BLUE}${SOURCE_PATH}$(tput sgr0) to ${BLUE}${BACKUP_PATH}$(tput sgr0)"
 echo '.*' >> /tmp/exclude_file.txt
+# Explanation of below command
+# SYNC_COMMAND="
+# rsync
+#   --archive                               # self exp
+#   --human-readable                        # show in GB and MB
+#   --itemize-changes                       # show current file being txfered
+#   --partial
+#   --delete
+#   --stats
+#   --info=progress2                        # VVI show overall % , does not work with -v
+#   --exclude-from=/tmp/exclude_file.txt    # Specified .* to exclude dotfiles
+#   --cvs-exclude
+#   $SOURCE_PATH ${BACKUP_PATH}
+# "
 SYNC_COMMAND="
 rsync
   --archive
-  -vv
   --human-readable
   --itemize-changes
   --partial
   --delete
   --stats
+  --info=progress2
   --exclude-from=/tmp/exclude_file.txt
   --cvs-exclude
   $SOURCE_PATH ${BACKUP_PATH}
