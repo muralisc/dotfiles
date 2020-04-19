@@ -4,7 +4,7 @@
 $DEST_DIR=$1
 shift
 for filename in $@ ; do
-    ffmpeg -i $filename                           \
+    time ffmpeg -i $filename                      \
         -copy_unknown                             \  # Copy Unknown streams
         -map_metadata 0                           \  # map metadat from inp file
         -codec copy                               \  # copy data streams
