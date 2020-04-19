@@ -104,7 +104,7 @@ set nowrap                                                                      
 set tabstop=4                                                                   " a tab is four spaces
 set softtabstop=4                                                               " when hitting <BS>, delete 4 spaces insted of 1
 set expandtab                                                                   " expand tabs by default (overloadable per file type later)
-set shiftwidth=2                                                                " number of spaces to use for autoindenting
+set shiftwidth=4                                                                " number of spaces to use for autoindenting
 set autoindent                                                                  " always set autoindenting on
 set copyindent                                                                  " copy the previous indentation on autoindenting
 set clipboard=unnamedplus
@@ -336,7 +336,7 @@ augroup FTOptions
   autocmd FileType xdefaults                    setlocal commentstring=!\ %s
   autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k shiftwidth=2
   autocmd FileType liquid,text,txt,tex          setlocal complete+=k textwidth=80
-  autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help
+  autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help shiftwidth=2
   autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
   autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99
   autocmd Filetype gitcommit                    setlocal spell textwidth=72
