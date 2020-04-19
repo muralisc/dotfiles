@@ -3,41 +3,55 @@
 " Courtsey :
 " Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
 " Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
+" junegunn: https://github.com/junegunn/dotfiles/blob/master/vimrc
 " and Vim User Manual
-" The commands are are anged in the order encountered in vim user manual
 let g:loaded_matchparen = 1
 set nocompatible                                                     " not compatible with the old-fashion vi mode
 " vim-plug setup {{{1
 if filereadable(expand("~/.vim/autoload/plug.vim"))
-    call plug#begin('~/.vim/plugged')
-    " Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD                   
-    Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck) 
-    Plug 'mileszs/ack.vim'                                             " Search files                                      
-    Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files                            
-    Plug 'tpope/vim-commentary'                                        " map: gcc                                          
-    Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space                
-    Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                       
-    Plug 'godlygeek/tabular'                                           " for easily aligning                               
-    Plug 'vim-scripts/restore_view.vim'                                "                                                   
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " to install fzf in system                          
-    Plug 'junegunn/fzf.vim'                                            " for :Windows :Lines                               
-    Plug 'christoomey/vim-tmux-navigator'                              "                                                   
-    " Plug 'airblade/vim-gitgutter'                                    " for: ]h [h
-    Plug 'itchyny/lightline.vim'
-    Plug 'airblade/vim-rooter'
-    Plug 'fatih/vim-go'
-    Plug 'preservim/nerdtree'
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
-    Plug 'muralisc/snippets'
-    Plug 'bfredl/nvim-miniyank'
-    " Colorschemes (Other popular colorschems https://github.com/Kharacternyk/dotcommon#colorschemes)
-    Plug 'morhetz/gruvbox'
-    Plug 'joshdick/onedark.vim'
-    Plug 'dracula/vim'
-    Plug 'chriskempson/base16-vim'
-    Plug 'whatyouhide/vim-gotham'
-    call plug#end()
+  call plug#begin('~/.vim/plugged')
+  " Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD                   
+  Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck) 
+  let g:ale_lint_on_text_changed = 'normal'
+  let g:ale_lint_on_insert_leave = 1
+  let g:ale_lint_on_enter = 0
+  Plug 'mileszs/ack.vim'                                             " Search files                                      
+  Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files                            
+  Plug 'tpope/vim-commentary'                                        " map: gcc                                          
+  Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space                
+  Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                       
+  Plug 'godlygeek/tabular'                                           " for easily aligning                               
+  Plug 'vim-scripts/restore_view.vim'                                "                                                   
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  command! -bang -nargs=* Rg
+        \ call fzf#vim#grep(
+        \   'rg --sortr path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+        \   <bang>0 ? fzf#vim#with_preview('up:60%')
+        \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \   <bang>0)
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'itchyny/lightline.vim'
+  Plug 'airblade/vim-rooter'
+  Plug 'SirVer/ultisnips'
+  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsListSnippets="<c-tab>"
+  Plug 'honza/vim-snippets'
+  Plug 'muralisc/snippets'
+  Plug 'bfredl/nvim-miniyank'
+  " Language Specific
+  Plug 'fatih/vim-go'
+  " Non-essential
+  Plug 'junegunn/rainbow_parentheses.vim'
+  Plug 'tpope/vim-vinegar'
+  " Colorschemes
+  Plug 'morhetz/gruvbox'
+  let g:gruvbox_contrast_dark="hard"
+  Plug 'joshdick/onedark.vim'
+  Plug 'dracula/vim'
+  Plug 'chriskempson/base16-vim'
+  Plug 'whatyouhide/vim-gotham'
+  call plug#end()
 endif
 "}}}1 ===========================================================Vundle setup done
 set guioptions-=m  "remove menu bar
@@ -70,11 +84,11 @@ if (empty($TMUX))
   endif
 else
   if (has("termguicolors"))
-      "Set Vim-specific sequences for RGB colors; only seems to be needed for Vim 8 running inside tmux with $TERM=tmux
-      "Found at < https://github.com/vim/vim/issues/993#issuecomment-255651605 >
-      let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-      let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-      set termguicolors
+    "Set Vim-specific sequences for RGB colors; only seems to be needed for Vim 8 running inside tmux with $TERM=tmux
+    "Found at < https://github.com/vim/vim/issues/993#issuecomment-255651605 >
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
   endif
 endif
 
@@ -90,7 +104,7 @@ set nowrap                                                                      
 set tabstop=4                                                                   " a tab is four spaces
 set softtabstop=4                                                               " when hitting <BS>, delete 4 spaces insted of 1
 set expandtab                                                                   " expand tabs by default (overloadable per file type later)
-set shiftwidth=4                                                                " number of spaces to use for autoindenting
+set shiftwidth=2                                                                " number of spaces to use for autoindenting
 set autoindent                                                                  " always set autoindenting on
 set copyindent                                                                  " copy the previous indentation on autoindenting
 set clipboard=unnamedplus
@@ -101,7 +115,7 @@ if has("unix")
   endif
 endif
 if has('mac')
-    set guifont=Hack:h14
+  set guifont=Hack:h14
 endif
 " }}}
 set shiftround                                                                  " use multiple of shiftwidth when indenting with '<' and '>'
@@ -161,7 +175,7 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme gotham                      " gruvbox gotham onedark dracula gotham base16-*
+silent! colorscheme gotham                      " gruvbox onedark dracula gotham base16-*
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
@@ -171,23 +185,23 @@ set foldlevel=99                                                                
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
 " http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
 fu! CustomFoldText()
-    "get first non-blank line
-    let fs = v:foldstart
-    while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
-    endwhile
-    if fs > v:foldend
-        let line = getline(v:foldstart)
-    else
-        let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
-    endif
-    let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-    let foldSize = 1 + v:foldend - v:foldstart
-    let foldSizeStr = " " . foldSize . " lines "
-    let foldLevelStr = repeat("+--", v:foldlevel)
-    let lineCount = line("$")
-    let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
-    let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
-    return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+  "get first non-blank line
+  let fs = v:foldstart
+  while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
+  endwhile
+  if fs > v:foldend
+    let line = getline(v:foldstart)
+  else
+    let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+  endif
+  let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+  let foldSize = 1 + v:foldend - v:foldstart
+  let foldSizeStr = " " . foldSize . " lines "
+  let foldLevelStr = repeat("+--", v:foldlevel)
+  let lineCount = line("$")
+  let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
+  let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+  return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
 endf
 set foldtext=CustomFoldText()
 " }}} Folding Rules
@@ -317,17 +331,17 @@ nnoremap <leader>y "+y
 " }}}1 Shortcut Mappings
 " Filetype Specific Settings {{{
 augroup FTOptions
-    autocmd!
-    autocmd filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
-    autocmd FileType xdefaults                    setlocal commentstring=!\ %s
-    autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k shiftwidth=2
-    autocmd FileType liquid,text,txt,tex          setlocal complete+=k textwidth=80
-    autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help
-    autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
-    autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99
-    autocmd Filetype gitcommit                    setlocal spell textwidth=72
-    autocmd FileType git,gitcommit                setlocal foldmethod=syntax
-    autocmd Filetype markdown                     setlocal iskeyword+=#
+  autocmd!
+  autocmd filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
+  autocmd FileType xdefaults                    setlocal commentstring=!\ %s
+  autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k shiftwidth=2
+  autocmd FileType liquid,text,txt,tex          setlocal complete+=k textwidth=80
+  autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help
+  autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
+  autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99
+  autocmd Filetype gitcommit                    setlocal spell textwidth=72
+  autocmd FileType git,gitcommit                setlocal foldmethod=syntax
+  autocmd Filetype markdown                     setlocal iskeyword+=#
 augroup end
 "}}} Filetype Specific Settings
 " Plugin Specific Settings ====================================================
@@ -355,18 +369,9 @@ if has('mac')
     nnoremap <silent> ¬ :TmuxNavigateRight<cr>
 endif
 
-nnoremap ]h <Plug>GitGutterNextHunk
-nnoremap [h <Plug>GitGutterPrevHunk
-
 let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
 let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
 
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --sortr path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
 
 " Select text for which we need boxes drawn
 " https://github.com/ascii-boxes/boxes
@@ -388,10 +393,3 @@ function! LightLineFilename()
   return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
 endfunction
 
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_enter = 0
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsListSnippets="<c-tab>"
-let g:gruvbox_contrast_dark="hard"
-" let g:gruvbox_improved_strings=1
