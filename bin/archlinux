@@ -294,7 +294,8 @@ yay -S --noconfirm peek
 # for pdf backup use firefox,even shows comments
 yay -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader
 # for the creative me
-yay -S --noconfirm kdebase-runtime kdenlive inkscape gimp 
+yay -S --noconfirm inkscape gimp
+yay -S --noconfirm shotcut   # alternative to kdenlive, use jsut ffmpeg for go pro convertion, no need for handbrake
 # CHECKOUT OLIVE video editor
 # i love more beauty ; graphics stuff
 yay -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
@@ -394,7 +395,7 @@ https://github.com/tabulapdf/tabula
 y -Syy simplescreenrecorder
 # m17n Multilingualization
 # smartmontools
-sudo smartctl -a /dev/sda
+sudo smartctl -a /dev/sda  # disk tools
 
 y -S dateutils # for datediff
 
@@ -408,6 +409,7 @@ y -S dateutils
 y -S gerbera # upnp, media server
 y -S mkvtoolnix # for use with gerbera, mux the srt so that it can be easily shown
 y -S clang-format icdiff diff-so-fancy
+y -S obs-studio nginx-rtmp-sergey-git
 
 # get mpv script
 curl -o ~/.config/mpv/scripts/delete_file.lua \
