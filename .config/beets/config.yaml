@@ -1,11 +1,11 @@
-directory: ~/Dropbox/Songs/
+directory: ~/Songs/
 format_item: $artist - $composer - $album - $title - $genre - $year - $lyricist - $path
 library: /var/tmp/musiclibrary.blb
 import:
     copy: no
     write: yes
     autotag: no
-plugins: edit info smartplaylist fromfilename play mpdadd ydl
+plugins: edit info smartplaylist fromfilename play mpdadd ydl mpdstats
 lastfm:
     user: muralisc
 smartplaylist:
