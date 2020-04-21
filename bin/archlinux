@@ -294,7 +294,7 @@ yay -S --noconfirm peek
 # for pdf backup use firefox,even shows comments
 yay -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader
 # for the creative me
-yay -S --noconfirm inkscape gimp
+yay -S --noconfirm inkscape gimp qimgv
 yay -S --noconfirm shotcut   # alternative to kdenlive, use jsut ffmpeg for go pro convertion, no need for handbrake
 # CHECKOUT OLIVE video editor
 # i love more beauty ; graphics stuff

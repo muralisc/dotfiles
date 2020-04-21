@@ -52,7 +52,7 @@ least_played() {
 
 # database update
 mu() { #mpc update Database
-  rm /var/tmp/musiclibrary.blb; beet import -A ~/Dropbox/Songs/ ;
+  rm /var/tmp/musiclibrary.blb; beet import -A ~/Songs ;
   mpc update;
 }
 
