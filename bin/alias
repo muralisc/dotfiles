@@ -23,7 +23,11 @@ alias gsu='git submodule update --init --recursive'
 
 alias exa='exa -la --git'
 alias rsyncopy='rsync --archive --stats --progress --human-readable --compress'
-alias ps='ps -eo pid,pcpu,pmem,comm,maj_flt,min_flt,rss,vsz --sort -rss,-cpu'
+if [[ $(uname -s) == "Darwin" ]] ; then
+  alias ps='ps -eo pid,pcpu,pmem,command -r'
+else
+  alias ps='ps -eo pid,pcpu,pmem,comm,maj_flt,min_flt,rss,vsz --sort -rss,-cpu'
+fi
 alias less='less -R --follow-name'
 alias lf='ls -F --color'
 alias ll='ls -Fl --color'
