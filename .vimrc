@@ -13,6 +13,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
   " Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD                   
   Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck) 
+  let g:ale_linters = {'go': ['golangci-lint', 'gofmt', 'go vet']}
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_insert_leave = 1
   let g:ale_lint_on_enter = 0

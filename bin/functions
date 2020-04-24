@@ -17,37 +17,20 @@ sanitize_file_name() {
   dot_rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" $@
 }
 
-ms() { # mpc search
-  #mpc search
-  # eg ms year:2000 path::Hindi
-  # eg ms year:..1995 path::Hindi
+mp() {
+  # music play
+  # eg mp year:2000 path::Hindi
+  # eg mp year:..1995 path::Hindi
   # mpc search filename "`echo $*| sed 's/ /_/g'`"
   # beet ls -f '$path' last_played:..2016-05 path::OS >! ~/.mpd/playlists/asd.m3u
-
-  beet ls -f '$path' "$@" | sed 's#/home/murali/Dropbox/Songs/##'
-}
-
-mp() { #mpc play
+  if ! pgrep beet ; then
+    { beet mpdstats  2>&1 & } 2>&1 > /tmp/beet_mpdstats
+  fi
   mpc clear > /dev/null
+  # Alternate method using mpc: (but less powerfull)
   # mpc search filename "`echo $*| sed 's/ /_/g'`" | mpc add
-  beet ls -f '$path' "$@" | sed 's#/home/murali/Dropbox/Songs/##' | mpc add
+  beet ls -f '$path' "$@" | sed 's#.*Songs/##' | mpc add
   mpc play
-}
-
-msp() { #mpc search and play
-  ms "$@"
-  echo "Press enter to play selection"
-  read
-  mp "$@"
-}
-
-least_played() {
-  # Print the access time along with the file name
-  # eg : to play songs played before 10 days
-  # least_played -atime +10
-  cd /home/murali/Dropbox/Songs/
-  find -type f "${@}" -iname "*.mp3" -printf "\n%A@ %p" | \
-    sort -n | awk '{print $2}' | sed 's#./##' | sed '/^$/d' | mpc add
 }
 
 # database update
@@ -55,68 +38,6 @@ mu() { #mpc update Database
   rm /var/tmp/musiclibrary.blb; beet import -A ~/Songs ;
   mpc update;
 }
-
-# time till
-tt() {
-
-  USAGE="
-  Usage:
-    tt tomorrow5am
-    tt 2:37am
-
-  Spaces require quotes:
-
-    tt 'jan1 3:01am 2019'
-    tt 'tomorrow 3am'
-  "
-
-  if [ $# -eq 0 ];
-  then
-    echo "$USAGE"
-    return 1;
-  fi
-
-  reqInSec=$(date -d "$1" +%s)
-  nowInSec=$(date +%s)
-  format=" "
-
-  if [[ $reqInSec -gt $nowInSec ]]; then
-    endTime=$(date -d "$1" -Is)
-    startTime=$(date -Is)
-    format+="+ "
-  else
-    startTime=$(date -d "$1" -Is)
-    endTime=$(date -Is)
-    format+="- "
-  fi
-  
-  diffSec=$(datediff "$startTime" "$endTime" -f "%S")
-  echo $diffSec
-  if [[ $diffSec -gt 31622400 ]]; then
-    format+="%yy "
-  fi
-  if [[ $diffSec -gt 2678400 ]]; then
-    format+="%mm "
-  fi
-  if [[ $diffSec -gt 86400 ]]; then
-    format+="%dd "
-  fi
-  if [[ $diffSec -gt 3600 ]]; then
-    format+="%Hh "
-  fi
-  if [[ $diffSec -gt 60 ]]; then
-    format+="%Mmins"
-  fi
-  datediff "$startTime" "$endTime" -f "$format"
-}
-
-time_after() {
-  # time after x hours
-  # time_after +7hours30mins
-  # time_after "1months 20days 23hours44minutes"
-  date -d "$@"
-}
-
 
 # simple calculator
 function c() {
