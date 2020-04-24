@@ -4,6 +4,7 @@
 " Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
 " Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
 " junegunn: https://github.com/junegunn/dotfiles/blob/master/vimrc
+" https://github.com/yoshuawuyts/dotfiles
 " and Vim User Manual
 let g:loaded_matchparen = 1
 set nocompatible                                                     " not compatible with the old-fashion vi mode
