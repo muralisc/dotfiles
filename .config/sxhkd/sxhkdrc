@@ -1,0 +1,2 @@
+super + a ; {1,2}
+    {xset dpms 0 0 7200 && notify-send "Keep monitor on", xset dpms 0 0 10 && notify-send "Will turn off monitor"}
