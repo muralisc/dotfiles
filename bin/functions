@@ -24,7 +24,7 @@ mp() {
   # mpc search filename "`echo $*| sed 's/ /_/g'`"
   # beet ls -f '$path' last_played:..2016-05 path::OS >! ~/.mpd/playlists/asd.m3u
   if ! pgrep beet ; then
-    { beet mpdstats  2>&1 & } 2>&1 > /tmp/beet_mpdstats
+    { beet mpdstats  2>&1 & } 2>&1 > /var/tmp/beet_mpdstats
   fi
   mpc clear > /dev/null
   # Alternate method using mpc: (but less powerfull)
