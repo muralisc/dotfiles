@@ -7,6 +7,8 @@
 #
 # Modified from:
 # https://github.com/seebi/dircolors-solarized
+# For alternatives Consult:
+# https://github.com/trapd00r/LS_COLORS
 
 # Term Section
 TERM Eterm
@@ -175,8 +177,8 @@ EXEC 01;38;5;46
 .tiff   00;38;5;136
 .png    00;38;5;136
 .PNG    00;38;5;136
-.svg    00;38;5;136
-.svgz   00;38;5;136
+.svg    00;38;5;130 # vector
+.svgz   00;38;5;130
 .mng    00;38;5;136
 .pcx    00;38;5;136
 .dl     00;38;5;136
