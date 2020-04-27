@@ -21,6 +21,7 @@ fi
 [ ! -f "$HOME/.xinitrc.local" ] || source "$HOME/.xinitrc.local"
 export EDITOR=vim
 udiskie -t &
+sxhkd &
 mpd &
 mpdscribble &
 # dropbox &
