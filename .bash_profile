@@ -5,7 +5,5 @@
 if [ -f /etc/profile ]; then
     source /etc/profile
 fi
-if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-  exec startx
-fi
 source ~/.bashrc
+source ~/bin/check_and_startx
