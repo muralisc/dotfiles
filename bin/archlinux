@@ -84,6 +84,7 @@ reflector --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 
 
 sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
+sudo sed 's/^#MAKEFLAGS.*/MAKEFLAGS="-j'$(nproc)'"/' -i /etc/makepkg.conf
 pacstrap /mnt base base-devel
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
@@ -416,4 +417,4 @@ curl -o ~/.config/mpv/scripts/delete_file.lua \
 https://raw.githubusercontent.com/zenyd/mpv-scripts/master/delete_file.lua
 
 y -S nnn
-y -S sxhkd sxiv feh qimgv
+y -S sxhkd sxiv feh qimgv exiftool
