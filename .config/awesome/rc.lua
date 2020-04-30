@@ -12,9 +12,7 @@ local menubar = require("menubar")
 local vicious = require("vicious")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 awful.util.spawn_with_shell("compton --inactive-dim 0.2 -b")
-awful.util.spawn_with_shell("urxvtd -q -o -f &")
 awful.util.spawn_with_shell("xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua")
-awful.util.spawn_with_shell("xrdb ~/.Xresources")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
