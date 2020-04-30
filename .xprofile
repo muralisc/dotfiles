@@ -1,6 +1,18 @@
 #!/bin/sh
 urxvtd -q -o -f &
-
-
+export EDITOR=vim
+udiskie -t &
+sxhkd &
+mpd &
+mpdscribble &
+beet mpdstats &
+# caps remapped more comprehensively in Xmodmap
+# setxkbmap -option ctrl:nocaps
+xmodmap ~/.Xmodmap
+keynav daemonize
+feh --bg-fill ~/.local/share/wallpaper/wallpaper
+# dont turn off the screen soon, wait 2 hours, change every 60sec
+xset -dpms
+xset s 7200 60
 # ensure that xrandr recognises HDMI and eDP labels
 ~/bin/switch-monitor --auto
