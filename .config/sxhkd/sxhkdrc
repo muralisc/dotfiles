@@ -1,3 +1,23 @@
 # display turn on / off
 super + d ; {1,2}
     {xset dpms 0 0 7200 && notify-send "Keep monitor on", xset dpms 0 0 10 && notify-send "Will turn off monitor"}
+
+super + @space
+    dmenu_run
+
+super + Escape
+    pkill -USR1 -x sxhkd
+
+
+
+#
+# bspwm hotkeys
+#
+
+# quit/restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm -r}
+
+
+super + {h,j,k,l}
+    bspc node -f {west,south,north,east}
