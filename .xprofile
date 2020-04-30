@@ -1,1 +1,6 @@
+#!/bin/sh
 urxvtd -q -o -f &
+
+
+# ensure that xrandr recognises HDMI and eDP labels
+~/bin/switch-monitor --auto
