@@ -251,9 +251,9 @@ find_vim() {
 }
 
 fehhelper() {
-  # pass =t to see thumbnails
+  # pass -t to see thumbnails
   feh \
-    -eDejaVuSans/18 \
+    -eDejaVuSans/28 \
     -C/usr/share/fonts/TTF \
     --thumb-height 200 \
     --thumb-width 200 -r --limit-width 1900  --scale-down -d \
