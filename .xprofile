@@ -1,8 +1,8 @@
 #!/bin/sh
 urxvtd -q -o -f &
 export EDITOR=vim
+picom --config ~/.config/picom/picom.conf -b
 udiskie -t &
-sxhkd &
 mpd &
 mpdscribble &
 beet mpdstats &
