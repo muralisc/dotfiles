@@ -151,7 +151,7 @@ mytextclock:buttons(awful.util.table.join(
 cpuwidgetTimeout = 2
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(50)
-cpuwidget:set_background_color("#494B4F")
+cpuwidget:set_background_color(beautiful.bg_normal)
 cpuwidget:set_border_color("#000000")
 cpuwidget:set_color({ type = "linear",
                         from = { 0, 0 },
@@ -249,7 +249,7 @@ netgraphTimeout = 2
 netgraph = awful.widget.graph()
 netgraph:set_width(50)
 netgraph:set_border_color("#000000")
-netgraph:set_background_color("#494B4F")
+netgraph:set_background_color(beautiful.bg_normal)
 netgraph:set_color("#FF5656")
 netgraph:set_scale(true)   -- auto scale
 netgraph_t = awful.tooltip({ objects = { netgraph },})
