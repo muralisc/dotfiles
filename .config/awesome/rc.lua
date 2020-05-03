@@ -122,7 +122,8 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "screen on", "xset dpms 0 0 7200" },
                                     { "clock", "urxvtc -fn 'xft:UbuntuMono:Regular:size=25' -bg rgba:0000/0000/0000/cccc -e ncmpcpp -s clock" },
                                     { "applications", xdgmenu },
-                                    { "morc_menu", "morc_menu" },
+                                    { "morc_menu", "bash -c 'morc_menu conf='$HOME'/.config/morc_menu/morc_menu_v1.conf'" },
+                                    { "Onscreen keyboard", "urxvtc -fn 'xft:UbuntuMono:Regular:size=35' -bg rgba:0000/0000/0000/cccc -hold -e echo Use xdotool" },
                                     { "shutdown", 'poweroff' },
                                   },
                           theme = { font="Ubuntu 18"; width = 290; height = 30; }
@@ -716,6 +717,7 @@ awful.rules.rules = {
       }, properties = { floating = true }},
     { rule_any = {
         class = {
+          "Onboard", -- on screen keyboard
           "Alacritty",
         }
       }, properties = {
