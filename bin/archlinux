@@ -240,6 +240,12 @@ EOF
 # setup AWESOME WM
 yay -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
 # i love conveniance: alt-tab, lock , menu
+pushd /tmp
+  git clone https://github.com/Boruch-Baum/morc_menu/
+  pushd morc_menu
+  sudo make install
+  popd
+popd
 # install morc_menu from github
 # Read  :  https://wiki.archlinux.org/index.php/xdg-menu#xdg_menu
 yay -S --noconfirm dmenu rofi-git i3lock archlinux-xdg-menu
@@ -418,3 +424,4 @@ https://raw.githubusercontent.com/zenyd/mpv-scripts/master/delete_file.lua
 
 y -S nnn
 y -S sxhkd sxiv feh qimgv exiftool
+y -S xvkbd # on screen keyboard
