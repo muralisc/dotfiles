@@ -1,3 +1,4 @@
+; vim:ft=dosini
 ;==========================================================
 ;
 ;
@@ -40,27 +41,27 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 0
-line-color = #f00
+line-color = #ffffff
 
 border-size = 0
 border-color = #00000000
 
 padding-left = 0
-padding-right = 2
+padding-right = 0
 
-module-margin-left = 1
-module-margin-right = 2
+module-margin-left = 0
+module-margin-right = 0
 
-font-0 = DejaVuSansCondensed:pixelsize=12;1
+font-0 = DejaVuSans:pixelsize=12;1
 font-1 = ubuntu:fontformat=truetype:size=8:antialias=false;0
 font-2 = ubuntu:pixelsize=10;1
 
 modules-left = bspwm
 ; modules-center = mpd
-modules-right = filesystem pulseaudio xkeyboard memory cpu wlan battery temperature date powermenu
+modules-right = filesystem xkeyboard memory cpu wlan battery temperature date pulseaudio
 
 tray-position = right
-tray-padding = 2
+tray-padding = 0
 ;tray-background = #0063ff
 
 ; hide polybar when window goes fullscreen
@@ -86,17 +87,18 @@ label = %title:0:30:...%
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-; format-prefix = "xkey "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
+format-prefix = " | "
+format-suffix= " | "
+format = <label-layout> <label-indicator>
+
+indicator-icon-default = 
+indicator-icon-0 = caps lock;CL;+CL
+indicator-icon-1 = scroll lock;SL;+SL
+indicator-icon-2 = num lock;NL;+NL
+label-indicator-on = +%icon%
+label-indicator-off = -%icon%
 
 label-layout = %layout%
-label-layout-underline = ${colors.secondary}
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
 
 [module/filesystem]
 type = internal/fs
@@ -104,6 +106,9 @@ interval = 2
 
 mount-0 = /
 mount-1 = /home
+
+format-mounted = "<label-mounted>"
+format-unmounted = <label-unmounted>
 
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
@@ -134,26 +139,22 @@ label-empty-padding = 2
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "CPU "
-format-suffix = " "
-format = <label>
+format = CPU <label>
 format-prefix-foreground = ${colors.foreground-alt}
-format-background = #66cc99
-format-foreground = #2a5c45
+format-foreground = #FFFF00
 format-underline = #60eaa5
 format-overline = #60eaa5
-format-padding = 2
+format-padding = 1
 label = %percentage:2%%
 
 [module/memory]
 type = internal/memory
 interval = 2
 format-prefix = "RAM "
-format-suffix = " "
 format-padding = 2
 format-background = #cb66cc
 format-foreground = #ffe3ff
-format-underline = #e58de6
+format-underline = #000000
 format-overline = #e58de6
 label = %percentage_used%%
 
@@ -162,35 +163,30 @@ type = internal/network
 interface = wlp2s0
 interval = 3.0
 
-format-connected = <ramp-signal> <label-connected>
+format-connected-prefix = " | "
+format-connected = <label-connected>
+format-connected-suffix = " | "
 format-connected-underline = #9f78e1
-label-connected = %essid%
+label-connected = %essid% %downspeed:3%
+format-connected-foreground = #5882FA
 
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
-
-ramp-signal-0 = 0
-ramp-signal-1 = 1
-ramp-signal-2 = 2
-ramp-signal-3 = 3
-ramp-signal-4 = 4
-ramp-signal-foreground = ${colors.foreground-alt}
+; format-disconnected =
+format-disconnected = <label-disconnected>
+format-disconnected-underline = ${self.format-connected-underline}
+label-disconnected = %ifname% disconnected
+label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]
 type = internal/date
 interval = 5
 
-date = " %Y-%m-%d"
+date = " %a, %Y %b %d,"
 date-alt = " %Y-%m-%d"
 
-time = %H:%M
+time = " %H:%M:%S"
 time-alt = %H:%M:%S
 
-format-prefix = d
-format-prefix-foreground = ${colors.foreground-alt}
+format-suffix = " | "
 format-underline = #0a6cf5
 
 label = %date% %time%
@@ -199,7 +195,7 @@ label = %date% %time%
 type = internal/pulseaudio
 sink = alsa_output.pci-0000_00_03.0.hdmi-stereo
 format-volume = <label-volume>
-format-volume-prefix = "HDMI "
+format-volume-prefix = "HDMI-Audio "
 format-volume-prefix-foreground = ${colors.foreground-alt}
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
@@ -214,80 +210,36 @@ battery = BAT0
 adapter = AC
 full-at = 98
 
-format-charging = <animation-charging> <label-charging>
+format-full-suffix = " | "
+format-full = <label-full>
+label-full = A/C
+
+format-charging = <label-charging>
 format-charging-underline = #ffb52a
 
-format-discharging = <animation-discharging> <label-discharging>
+format-discharging = <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
 format-full-prefix = "⚡"
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 0
-ramp-capacity-1 = 1
-ramp-capacity-2 = 2
-ramp-capacity-foreground = ${colors.foreground-alt}
-
-animation-charging-0 = 0
-animation-charging-1 = 1
-animation-charging-2 = 2
-animation-charging-foreground = ${colors.foreground-alt}
-animation-charging-framerate = 750
-
-animation-discharging-0 = 0
-animation-discharging-1 = 1
-animation-discharging-2 = 2
-animation-discharging-foreground = ${colors.foreground-alt}
-animation-discharging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
 thermal-zone = 0
 warn-temperature = 60
 
-format = <ramp> <label>
+format = <label>
+format-suffix = " | "
+format-foreground = #aaaa00
 format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
-label = %temperature-c%
+label = " %temperature-c%"
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
-ramp-0 = 0
-ramp-1 = 1
-ramp-2 = 2
-ramp-foreground = ${colors.foreground-alt}
-
-[module/powermenu]
-type = custom/menu
-
-expand-right = true
-
-format-spacing = 1
-
-label-open = poweroff
-label-open-foreground = ${colors.secondary}
-label-close = cancel
-label-close-foreground = ${colors.secondary}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
-
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
-
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
 
 [settings]
 screenchange-reload = true
@@ -300,5 +252,3 @@ screenchange-reload = true
 [global/wm]
 margin-top = 5
 margin-bottom = 5
-
-; vim:ft=dosini
