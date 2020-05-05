@@ -425,3 +425,4 @@ https://raw.githubusercontent.com/zenyd/mpv-scripts/master/delete_file.lua
 y -S nnn
 y -S sxhkd sxiv feh qimgv exiftool
 y -S xvkbd # on screen keyboard
+y -S dunst netdata
