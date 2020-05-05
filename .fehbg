@@ -1,2 +1,2 @@
 #!/bin/sh
-feh  --bg-fill '/tmp/today.jpg' 
+feh --no-fehbg --bg-fill '/home/murali/.local/share/wallpaper/wallpaper' 

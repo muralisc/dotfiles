@@ -249,3 +249,14 @@ find_vim() {
     tmux select-pane -t $vim_pane && \
     { [[ ! -z "$file_path" ]] && tmux send-keys ":e " C-f p Enter ; }
 }
+
+fehhelper() {
+  # pass -t to see thumbnails
+  feh \
+    -eDejaVuSans/28 \
+    -C/usr/share/fonts/TTF \
+    --thumb-height 200 \
+    --thumb-width 200 -r --limit-width 1900  --scale-down -d \
+    --geometry 1900x1000 -Z \
+    --info "exiftool %F  | egrep '(Image Size|Create Date|File Size)'" "$@"
+}

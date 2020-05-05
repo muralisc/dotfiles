@@ -11,10 +11,8 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
-awful.util.spawn_with_shell("compton --inactive-dim 0.2 -b")
-awful.util.spawn_with_shell("urxvtd -q -o -f &")
+awful.util.spawn_with_shell("sxhkd -c ~/.config/sxhkd/sxhkdrc.common")
 awful.util.spawn_with_shell("xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua")
-awful.util.spawn_with_shell("xrdb ~/.Xresources")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -124,7 +122,8 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "screen on", "xset dpms 0 0 7200" },
                                     { "clock", "urxvtc -fn 'xft:UbuntuMono:Regular:size=25' -bg rgba:0000/0000/0000/cccc -e ncmpcpp -s clock" },
                                     { "applications", xdgmenu },
-                                    { "morc_menu", "morc_menu" },
+                                    { "morc_menu", "bash -c 'morc_menu conf='$HOME'/.config/morc_menu/morc_menu_v1.conf'" },
+                                    { "Onscreen keyboard", "urxvtc -fn 'xft:UbuntuMono:Regular:size=35' -bg rgba:0000/0000/0000/cccc -hold -e echo Use xdotool" },
                                     { "shutdown", 'poweroff' },
                                   },
                           theme = { font="Ubuntu 18"; width = 290; height = 30; }
@@ -153,7 +152,7 @@ mytextclock:buttons(awful.util.table.join(
 cpuwidgetTimeout = 2
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(50)
-cpuwidget:set_background_color("#494B4F")
+cpuwidget:set_background_color(beautiful.bg_normal)
 cpuwidget:set_border_color("#000000")
 cpuwidget:set_color({ type = "linear",
                         from = { 0, 0 },
@@ -251,7 +250,7 @@ netgraphTimeout = 2
 netgraph = awful.widget.graph()
 netgraph:set_width(50)
 netgraph:set_border_color("#000000")
-netgraph:set_background_color("#494B4F")
+netgraph:set_background_color(beautiful.bg_normal)
 netgraph:set_color("#FF5656")
 netgraph:set_scale(true)   -- auto scale
 netgraph_t = awful.tooltip({ objects = { netgraph },})
@@ -718,6 +717,7 @@ awful.rules.rules = {
       }, properties = { floating = true }},
     { rule_any = {
         class = {
+          "Onboard", -- on screen keyboard
           "Alacritty",
         }
       }, properties = {

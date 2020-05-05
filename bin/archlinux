@@ -84,7 +84,8 @@ reflector --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 
 
 sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
-pacstrap /mnt base base-devel linux linux-firmware
+sudo sed 's/^#MAKEFLAGS.*/MAKEFLAGS="-j'$(nproc)'"/' -i /etc/makepkg.conf
+pacstrap /mnt base base-devel
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 
@@ -242,6 +243,12 @@ EOF
 # setup AWESOME WM
 yay -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
 # i love conveniance: alt-tab, lock , menu
+pushd /tmp
+  git clone https://github.com/Boruch-Baum/morc_menu/
+  pushd morc_menu
+  sudo make install
+  popd
+popd
 # install morc_menu from github
 git clone https://github.com/Boruch-Baum/morc_menu /tmp/morc_menu
 # Read  :  https://wiki.archlinux.org/index.php/xdg-menu#xdg_menu
@@ -282,7 +289,7 @@ yay -S --noconfirm ranger-git w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
 # MOBILE
 yay -S --noconfirm jmtpfs
 # i love beauty
-yay -S --noconfirm compton-git lxappearance
+yay -S --noconfirm picom lxappearance
 # beautiful icon and mouse
 yay -S --noconfirm adwaita-x-dark-and-light-theme bibata-cursor-theme numix-icon-theme-git
 # for the tinkering me
@@ -422,4 +429,6 @@ https://raw.githubusercontent.com/zenyd/mpv-scripts/master/delete_file.lua
 git clone https://github.com/so-fancy/diff-so-fancy
 
 y -S nnn
-y -S sxhkd sxiv feh qimgv
+y -S sxhkd sxiv feh qimgv exiftool
+y -S xvkbd # on screen keyboard
+y -S dunst netdata

@@ -1,0 +1,224 @@
+occupied; vim:ft=dosini
+[colors]
+background = ${xrdb:background}
+background-wm = ${xrdb:color8}
+background-alt = ${xrdb:color8}
+foreground = ${xrdb:foreground}
+foreground-alt = ${xrdb:color7}
+primary = ${xrdb:color4}
+alert = ${xrdb:color1}
+
+
+[settings]
+format-foreground =
+format-underline = #268bd2
+format-background = ${colors.background-alt}
+format-padding = 1
+format-overline =
+format-spacing =
+format-margin = 0
+format-offset =
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = true
+;throttle-output = 5
+;throttle-output-for = 10
+;throttle-input-for = 30
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[bar/example]
+; monitor = ${env:MONITOR:HDMI1}
+; hide polybar when window goes fullscreen
+wm-restack = bspwm
+enable-ipc = true
+fixed-center = false
+bottom = false
+separator =
+
+width = 100%
+height = 27
+offset-x = 0
+offset-y = 0
+radius = 0.0
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+
+border-size = 0
+border-color = #00000000
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+module-margin-right = 1
+font-0 = DejaVuSans:pixelsize=12;1
+font-1 = Ubuntu:weight=bold:size=14
+font-2 = ubuntu:pixelsize=10;1
+modules-left = bspwm xwindow
+; modules-center = mpd
+modules-right = filesystem xkeyboard memory cpu wlan battery temperature date pulseaudio
+
+tray-position = right
+tray-padding = 0
+tray-background = ${colors.background-alt}
+tray-offset-x = 0
+tray-offset-y = 0
+tray-scale = 1.0
+
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+
+cursor-click = pointer
+cursor-scroll = default
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/xkeyboard]
+type = internal/xkeyboard
+format = <label-layout> <label-indicator>
+indicator-icon-default = 
+indicator-icon-0 = caps lock;;[CL]
+indicator-icon-1 = scroll lock;;[SL]
+indicator-icon-2 = num lock;;[NL]
+label-indicator-on = %icon%
+label-indicator-off = %icon%
+label-layout = %layout%
+
+[module/filesystem]
+type = internal/fs
+interval = 2
+mount-0 = /
+mount-1 = /home
+format-mounted = "<label-mounted>"
+format-unmounted = <label-unmounted>
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/bspwm]
+type = internal/bspwm
+
+label-focused = %index%
+label-focused-background = ${colors.background-wm}
+label-focused-foreground = ${colors.foreground-alt}
+label-focused-underline= ${colors.primary}
+label-focused-font = 2
+label-focused-padding = 1
+
+label-occupied = %index%
+label-occupied-foreground = ${colors.foreground-alt}
+label-occupied-font = 2
+label-occupied-padding = 1
+
+label-urgent = %index%!
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+
+label-empty = %index%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 1
+
+format-underline =
+format-background =
+format-padding =
+
+; Separator in between workspaces
+; label-separator = |
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format = CPU <label>
+format-prefix-foreground = ${colors.foreground-alt}
+format-foreground = #FFFF00
+format-padding = 1
+label = %percentage:2%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "RAM "
+label = %percentage_used%%
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+
+format-connected = <label-connected>
+format-connected-underline = #9f78e1
+label-connected = %essid% %downspeed:3%
+format-connected-foreground = #5882FA
+
+; format-disconnected =
+format-disconnected = <label-disconnected>
+format-disconnected-underline = ${self.format-connected-underline}
+label-disconnected = %ifname% disconnected
+label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 5
+date = " %a, %Y %b %d,"
+date-alt = " %Y-%m-%d"
+time = " %H:%M:%S"
+time-alt = %H:%M:%S
+format-underline = #0a6cf5
+label = %date% %time%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_00_03.0.hdmi-stereo
+format-volume = <label-volume>
+format-volume-prefix = "HDMI-Audio "
+format-volume-prefix-foreground = ${colors.foreground-alt}
+label-volume = %percentage%%
+label-volume-foreground = ${colors.foreground}
+label-muted = muted
+click-right = pavucontrol &
+interval = 5
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-full-suffix = " | "
+format-full = <label-full>
+label-full = A/C
+
+format-charging = <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <label-discharging>
+format-discharging-underline = ${self.format-charging-underline}
+
+format-full-prefix = "⚡"
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
+
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = <label>
+format-foreground = #aaaa00
+format-underline = #f50a4d
+format-warn-underline = ${self.format-underline}
+
+label = " %temperature-c%"
+label-warn = %temperature-c%
+
+

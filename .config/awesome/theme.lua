@@ -7,30 +7,32 @@ theme = {}
 -- Dont use Mono fonts here
 theme.font          = "Ubuntu 12"
 
-theme.bg_normal     = "#222222"
-theme.bg_focus      = "#5882FA"
-theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#444444"
-theme.bg_systray    = theme.bg_normal
+transparency = "ff"
 
-theme.fg_normal     = "#ffffff"
-theme.fg_focus      = "#000000"
-theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
+theme.bg_normal     = "#222222" .. transparency
+theme.bg_focus      = "#5882FA" .. transparency
+theme.bg_urgent     = "#ff0000" .. transparency
+theme.bg_minimize   = "#444444" .. transparency
+theme.bg_systray    = theme.bg_normal .. transparency
+
+theme.fg_normal     = "#ffffff" .. transparency
+theme.fg_focus      = "#000000" .. transparency
+theme.fg_urgent     = "#ffffff" .. transparency
+theme.fg_minimize   = "#ffffff" .. transparency
 
 theme.border_width  = 1
-theme.border_normal = "#222222"
-theme.border_focus  = "#535d6c"
-theme.border_marked = "#91231c"
+theme.border_normal = "#222222" .. transparency
+theme.border_focus  = "#535d6c" .. transparency
+theme.border_marked = "#91231c" .. transparency
 
 -- There are other variable sets
 -- overriding the default one when
 -- defined, the sets are:
 -- taglist_[bg|fg]_[focus|urgent|occupied|empty]
 -- tasklist_[bg|fg]_[focus|urgent]
-theme.tasklist_bg_focus = "#000000"
-theme.tasklist_fg_focus = "#777777"
-theme.tasklist_fg_normal = "#555555"
+theme.tasklist_bg_focus = "#000000" .. transparency
+theme.tasklist_fg_focus = "#777777" .. transparency
+theme.tasklist_fg_normal = "#555555" .. transparency
 theme.tasklist_font = "DejaVuSansCondensed 12"
 -- titlebar_[bg|fg]_[normal|focus]
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
@@ -79,7 +81,8 @@ theme.titlebar_maximized_button_focus_inactive  = "/usr/share/awesome/themes/def
 theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = "/usr/share/awesome/themes/default/background.png"
+-- Using feh in .xprofile
+-- theme.wallpaper = "/usr/share/awesome/themes/default/background.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"

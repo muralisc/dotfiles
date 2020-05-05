@@ -33,7 +33,6 @@ alias lf='ls -F --color'
 alias ll='ls -Fl --color'
 alias la='ls -Fla --color'
 alias grep="grep --color"
-alias fehthumb='feh -t -C /usr/share/fonts/ubuntu -e Ubuntu-R/15 --thumb-width 100 --limit-width 300  --auto-zoom --scale-down --info "exiv2 %f" --index-info ""'
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
 alias j='fasd_cd -d'
 alias n='ncmpcpp -S visualizer'
