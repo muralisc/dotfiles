@@ -20,6 +20,7 @@ URxvt*depth: 32
 
 ! use different color for background
 URxvt*background:       [95]#000000
+*background:            #000000
 *foreground:            S_base0
 
 #define S_yellow        #b58900
