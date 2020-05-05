@@ -41,6 +41,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'honza/vim-snippets'
   Plug 'muralisc/snippets'
   Plug 'bfredl/nvim-miniyank'
+  Plug 'whiteinge/diffconflicts'
   " Language Specific
   Plug 'fatih/vim-go'
   " Non-essential

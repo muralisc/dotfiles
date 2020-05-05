@@ -84,7 +84,7 @@ reflector --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 
 
 sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
-pacstrap /mnt base base-devel
+pacstrap /mnt base base-devel linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 
@@ -99,6 +99,8 @@ bash -c 'echo "LANG=en_US.UTF-8" > /etc/locale.conf'
 bash -c 'echo "KEYMAP=us" > /etc/vconsole.conf'
 
 passwd  # change root password
+# VVVI : network
+pacman -S netctl dhcpcd
 # install pre-req for wifi-menu
 pacman -S dialog wpa_supplicant ifplugd
 # setup wifi (skip this and use wifi-menu to connect if lazy)
@@ -127,8 +129,9 @@ HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lv
 bootctl --path=/boot install
 # make conf file (https://wiki.archlinux.org/index.php/Systemd-boot#Configuration)
 cat <<EOF > /boot/loader/loader.conf
-default  arch
+default  arch.conf
 timeout  4
+console-mode max
 editor   1               # to edit the kernal parameters
 EOF
 # this will help in getting PARTUUID into arch.conf
@@ -163,7 +166,7 @@ sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
 pacman -Syu
 pacman -S sudo
 if [[ $(dmidecode -s bios-version) =~ VirtualBox ]] ; then
-pacman -S virtualbox-guest-modules-arch virtualbox-guest-utils
+pacman -S virtualbox-guest-utils xf86-video-vmware
 cat <<EOF > ~/.xinitrc.local
 VBoxClient-all
 EOF
@@ -240,6 +243,7 @@ EOF
 yay -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
 # i love conveniance: alt-tab, lock , menu
 # install morc_menu from github
+git clone https://github.com/Boruch-Baum/morc_menu /tmp/morc_menu
 # Read  :  https://wiki.archlinux.org/index.php/xdg-menu#xdg_menu
 yay -S --noconfirm dmenu rofi-git i3lock archlinux-xdg-menu
 sudo systemctl reboot
@@ -414,6 +418,8 @@ y -S obs-studio nginx-rtmp-sergey-git
 # get mpv script
 curl -o ~/.config/mpv/scripts/delete_file.lua \
 https://raw.githubusercontent.com/zenyd/mpv-scripts/master/delete_file.lua
+# get diff-so-fancy
+git clone https://github.com/so-fancy/diff-so-fancy
 
 y -S nnn
 y -S sxhkd sxiv feh qimgv
