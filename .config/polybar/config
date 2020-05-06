@@ -60,7 +60,7 @@ module-margin-left = 0
 module-margin-right = 1
 font-0 = DejaVuSans:pixelsize=12;1
 font-1 = Ubuntu:weight=bold:size=14
-font-2 = ubuntu:pixelsize=10;1
+font-2 = FiraMono Nerd Font Mono:pixelsize=14;1
 modules-left = bspwm xwindow
 ; modules-center = mpd
 modules-right = filesystem xkeyboard memory cpu wlan battery temperature date pulseaudio
@@ -137,7 +137,8 @@ format-padding =
 [module/cpu]
 type = internal/cpu
 interval = 2
-format = CPU <label>
+format = <label>
+format-font = 3
 format-prefix-foreground = ${colors.foreground-alt}
 format-foreground = #FFFF00
 format-padding = 1
