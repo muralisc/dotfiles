@@ -216,7 +216,9 @@ vicious.register(       memwidget
                             string.format(" %4d %-5s \n" ,args[6],"swap%"    )..
                             string.format(" %4d %-5s"    ,args[7],"swap "    )
                             )
-                            return args[1].."%"
+                            -- icon used is Font Awsome (f538) https://fontawesome.com/icons/memory?style=solid
+                            return "<span font='Font Awesome 5 Free Solid'> </span>" ..
+                                   "<span font='UbuntuMono 14'>".. args[1].."%" .."</span>"
                         end
                     ,   memwidgetTimeout)
 --}}}

@@ -269,8 +269,12 @@ yay -S --noconfirm ttf-dejavu
 # Another font of choice
 # Fira Mono from firefox
 y -S ttf-fira-mono
-# All fonts patched with some icons(4GB):
-y -S nerd-fonts-complete font-manager # To See font charmap
+# Lot of fonts patched with some icons(4GB), or clone github and just install "FiraCode Nerd Font"
+y -S nerd-fonts-complete
+# Some good icons in here:
+y -S font-awesome
+# To See font charmap
+y -S font-manager
 # most basic stuff
 # unrar is very helpful exp in coverting .cbr to .jpg
 yay -S --noconfirm \

@@ -61,6 +61,7 @@ module-margin-right = 1
 font-0 = DejaVuSans:pixelsize=12;1
 font-1 = Ubuntu:weight=bold:size=14
 font-2 = FiraMono Nerd Font Mono:pixelsize=14;1
+font-3 = Font Awesome 5 Free Solid:style=Solid;1
 modules-left = bspwm xwindow
 ; modules-center = mpd
 modules-right = filesystem xkeyboard memory cpu wlan battery temperature date pulseaudio
@@ -147,7 +148,9 @@ label = %percentage:2%%
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = "RAM "
+# icon used is Font Awsome (f538) https://fontawesome.com/icons/memory?style=solid
+format-prefix = " "
+format-prefix-font = 4
 label = %percentage_used%%
 
 [module/wlan]
