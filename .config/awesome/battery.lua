@@ -35,7 +35,7 @@ function batteryInfo(adapter)
     health = string.format( "<span color='#00B000'> H: %2.0f%% </span>" , math.floor( cap * 100 / des ) )
     if sta == "Full" then
         battery = "A/C"
-        icon = " "
+        icon = "<span font='Font Awesome 5 Free Solid'> </span>"
         percent = " "
     elseif sta:match("Charging") then
         battery = math.floor(cur * 100 / cap)
