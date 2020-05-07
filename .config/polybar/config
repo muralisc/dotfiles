@@ -64,7 +64,7 @@ font-2 = FiraMono Nerd Font Mono:pixelsize=14;1
 font-3 = Font Awesome 5 Free Solid:style=Solid;1
 modules-left = bspwm xwindow
 ; modules-center = mpd
-modules-right = filesystem xkeyboard memory cpu wlan battery temperature date pulseaudio
+modules-right = filesystem xkeyboard memory cpu wlan battery temperature date pulseaudio test menu-apps
 
 tray-position = right
 tray-padding = 0
@@ -78,6 +78,8 @@ scroll-down = bspwm-deskprev
 
 cursor-click = pointer
 cursor-scroll = default
+
+click-right = ~/bin/app-menu
 
 [module/xwindow]
 type = internal/xwindow
@@ -189,6 +191,7 @@ label-volume = %percentage%%
 label-volume-foreground = ${colors.foreground}
 label-muted = muted
 click-right = pavucontrol &
+scroll-up = notify-send --hint=string:x-dunst-stack-tag:test "Summary" "<span font='FiraCode 22'>Hello world$cnt</span>"
 interval = 5
 
 [module/battery]
@@ -225,4 +228,9 @@ format-warn-underline = ${self.format-underline}
 label = " %temperature-c%"
 label-warn = %temperature-c%
 
-
+[module/test]
+type = custom/script
+format = "test <label>"
+label = %output:0:15:...%
+exec = echo "asdf"
+scroll-up = notify-send "hey" "hey" && notify-send "hey" "hey1" 
