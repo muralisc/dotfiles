@@ -1,4 +1,4 @@
-occupied; vim:ft=dosini
+; vim:ft=dosini
 [colors]
 background = ${xrdb:background}
 background-wm = ${xrdb:color8}
@@ -58,17 +58,18 @@ padding-left = 0
 padding-right = 0
 module-margin-left = 0
 module-margin-right = 1
-font-0 = DejaVuSans:pixelsize=12;1
-font-1 = Ubuntu:weight=bold:size=14
+font-0 = DejaVuSansCondensed:pixelsize=12;1
+font-1 = Ubuntu:weight=bold:pixelsize=14
 font-2 = FiraMono Nerd Font Mono:pixelsize=14;1
-font-3 = Font Awesome 5 Free Solid:style=Solid;1
+font-3 = Font Awesome 5 Free Solid:style=Solid;pixelsize=14;1
+font-4 = Crimson Pro:style=Regular;pixelsize=24;0
 modules-left = bspwm xwindow
 ; modules-center = mpd
 modules-right = filesystem xkeyboard memory cpu wlan battery temperature date pulseaudio test menu-apps
 
 tray-position = right
 tray-padding = 0
-tray-background = ${colors.background-alt}
+tray-background = ${colors.background}
 tray-offset-x = 0
 tray-offset-y = 0
 tray-scale = 1.0
@@ -84,6 +85,7 @@ click-right = ~/bin/app-menu
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
+label-font = 5
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -140,7 +142,7 @@ format-padding =
 [module/cpu]
 type = internal/cpu
 interval = 2
-format = <label>
+format = <label>
 format-font = 3
 format-prefix-foreground = ${colors.foreground-alt}
 format-foreground = #FFFF00
@@ -160,9 +162,11 @@ type = internal/network
 interface = wlp2s0
 interval = 3.0
 
+format-connected-prefix = " "
+format-connected-prefix-font = 4
 format-connected = <label-connected>
 format-connected-underline = #9f78e1
-label-connected = %essid% %downspeed:3%
+label-connected = %downspeed%
 format-connected-foreground = #5882FA
 
 ; format-disconnected =
@@ -186,6 +190,7 @@ type = internal/pulseaudio
 sink = alsa_output.pci-0000_00_03.0.hdmi-stereo
 format-volume = <label-volume>
 format-volume-prefix = "HDMI-Audio "
+format-volume-prefix-font = 5
 format-volume-prefix-foreground = ${colors.foreground-alt}
 label-volume = %percentage%%
 label-volume-foreground = ${colors.foreground}
@@ -200,9 +205,10 @@ battery = BAT0
 adapter = AC
 full-at = 98
 
-format-full-suffix = " | "
 format-full = <label-full>
-label-full = A/C
+; icon used is Font Awsome Plug
+label-full = " "
+label-full-font = 4
 
 format-charging = <label-charging>
 format-charging-underline = #ffb52a
@@ -210,9 +216,6 @@ format-charging-underline = #ffb52a
 format-discharging = <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = "⚡"
-format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
 
 
 [module/temperature]
