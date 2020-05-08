@@ -1,7 +1,11 @@
 #! /bin/sh
 
-polybar example &
-sxhkd &
+# Reffer: https://git.sr.ht/~jbauer/dotfiles
+killall -9 sxhkd polybar dunst
+
+dunst &
+polybar --reload example &
+sxhkd -c ~/.config/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc.common &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 

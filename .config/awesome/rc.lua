@@ -11,7 +11,7 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
-awful.util.spawn_with_shell("sxhkd -c ~/.config/sxhkd/sxhkdrc.common")
+awful.util.spawn_with_shell("killall -9 sxhkd && sxhkd -c ~/.config/sxhkd/sxhkdrc.common")
 awful.util.spawn_with_shell("xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua")
 
 -- {{{ Error handling
