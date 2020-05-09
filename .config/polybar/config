@@ -1,41 +1,31 @@
 ; vim:ft=dosini
 [colors]
-background = ${xrdb:background}
-background-wm = ${xrdb:color8}
-background-alt = ${xrdb:color8}
-foreground = ${xrdb:foreground}
-foreground-alt = ${xrdb:color7}
-primary = ${xrdb:color4}
+background = #aa000000
+background-alt = #aa111111
+foreground = #c6c8d1
+foreground-alt = #626784
 alert = ${xrdb:color1}
+red = #e27878
 
 
 [settings]
 format-foreground =
-format-underline = #268bd2
 format-background = ${colors.background-alt}
-format-padding = 1
+format-padding = 0
 format-overline =
 format-spacing =
 format-margin = 0
 format-offset =
 screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-;pseudo-transparency = true
-;throttle-output = 5
-;throttle-output-for = 10
-;throttle-input-for = 30
 
 [global/wm]
 margin-top = 0
 margin-bottom = 0
 
 [bar/example]
-; monitor = ${env:MONITOR:HDMI1}
 ; hide polybar when window goes fullscreen
 wm-restack = bspwm
+override-redirect = false
 enable-ipc = true
 fixed-center = false
 bottom = false
@@ -50,7 +40,7 @@ radius = 0.0
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
+line-size = 1
 
 border-size = 0
 border-color = #00000000
@@ -58,14 +48,12 @@ padding-left = 0
 padding-right = 0
 module-margin-left = 0
 module-margin-right = 1
-font-0 = DejaVuSansCondensed:pixelsize=12;1
-font-1 = Ubuntu:weight=bold:pixelsize=14
+font-0 = Font Awesome 5 Free Solid:style=Solid;size=12;1
+font-1 = Ubuntu:size=12;1
 font-2 = FiraMono Nerd Font Mono:pixelsize=14;1
-font-3 = Font Awesome 5 Free Solid:style=Solid;pixelsize=14;1
-font-4 = Crimson Pro:style=Regular;pixelsize=24;0
 modules-left = bspwm xwindow
 ; modules-center = mpd
-modules-right = filesystem xkeyboard memory cpu wlan battery temperature date pulseaudio test menu-apps
+modules-right = xkeyboard memory cpu wlan battery temperature gputemperature date test
 
 tray-position = right
 tray-padding = 0
@@ -75,6 +63,7 @@ tray-offset-y = 0
 tray-scale = 1.0
 
 scroll-up = bspwm-desknext
+
 scroll-down = bspwm-deskprev
 
 cursor-click = pointer
@@ -82,10 +71,34 @@ cursor-scroll = default
 
 click-right = ~/bin/app-menu
 
+
+[module/mpd]
+type = internal/mpd
+host = 127.0.0.1
+port = 6600
+
+label-song =  %artist% - %title%
+label-offline =  mpd is offline
+label-time = %elapsed% / %total%
+
+format-offline = <label-offline>
+format-online = <label-song>  <toggle>   <bar-progress>   <label-time>
+format-playing = ${self.format-online}
+format-paused = ${self.format-online}
+format-stopped = ${self.format-online}
+
+bar-progress-width = 10
+bar-progress-indicator = |
+bar-progress-fill = ─
+bar-progress-empty = ─
+
+icon-play = 
+icon-pause = 
+
+
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
-label-font = 5
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -112,24 +125,21 @@ label-unmounted-foreground = ${colors.foreground-alt}
 [module/bspwm]
 type = internal/bspwm
 
-label-focused = %index%
-label-focused-background = ${colors.background-wm}
-label-focused-foreground = ${colors.foreground-alt}
-label-focused-underline= ${colors.primary}
-label-focused-font = 2
+label-focused = %name%
+label-focused-background = ${colors.background-alt}
+label-focused-foreground = ${colors.foreground}
 label-focused-padding = 1
 
-label-occupied = %index%
-label-occupied-foreground = ${colors.foreground-alt}
-label-occupied-font = 2
+label-occupied = %name%
+label-occupied-foreground = ${colors.foreground}
 label-occupied-padding = 1
 
-label-urgent = %index%!
+label-urgent = %name%!
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 1
 
-label-empty = %index%
-label-empty-foreground = ${colors.foreground}
+label-empty = %name%
+label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 1
 
 format-underline =
@@ -142,19 +152,28 @@ format-padding =
 [module/cpu]
 type = internal/cpu
 interval = 2
-format = <label>
-format-font = 3
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix = 
+format = <label> <ramp-coreload>
+format-prefix-foreground = #FFFF00
 format-foreground = #FFFF00
 format-padding = 1
 label = %percentage:2%%
+
+ramp-coreload-spacing = 1
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
 
 [module/memory]
 type = internal/memory
 interval = 2
 # icon used is Font Awsome (f538) https://fontawesome.com/icons/memory?style=solid
 format-prefix = " "
-format-prefix-font = 4
 label = %percentage_used%%
 
 [module/wlan]
@@ -163,7 +182,6 @@ interface = wlp2s0
 interval = 3.0
 
 format-connected-prefix = " "
-format-connected-prefix-font = 4
 format-connected = <label-connected>
 format-connected-underline = #9f78e1
 label-connected = %downspeed%
@@ -185,20 +203,6 @@ time-alt = %H:%M:%S
 format-underline = #0a6cf5
 label = %date% %time%
 
-[module/pulseaudio]
-type = internal/pulseaudio
-sink = alsa_output.pci-0000_00_03.0.hdmi-stereo
-format-volume = <label-volume>
-format-volume-prefix = "HDMI-Audio "
-format-volume-prefix-font = 5
-format-volume-prefix-foreground = ${colors.foreground-alt}
-label-volume = %percentage%%
-label-volume-foreground = ${colors.foreground}
-label-muted = muted
-click-right = pavucontrol &
-scroll-up = notify-send --hint=string:x-dunst-stack-tag:test "Summary" "<span font='FiraCode 22'>Hello world$cnt</span>"
-interval = 5
-
 [module/battery]
 type = internal/battery
 battery = BAT0
@@ -207,13 +211,14 @@ full-at = 98
 
 format-full = <label-full>
 ; icon used is Font Awsome Plug
-label-full = " "
-label-full-font = 4
+label-full = ""
 
 format-charging = <label-charging>
+label-charging = "char"
 format-charging-underline = #ffb52a
 
 format-discharging = <label-discharging>
+label-discharging = "dis"
 format-discharging-underline = ${self.format-charging-underline}
 
 
@@ -223,7 +228,7 @@ type = internal/temperature
 thermal-zone = 0
 warn-temperature = 60
 
-format = <label>
+format = <label>
 format-foreground = #aaaa00
 format-underline = #f50a4d
 format-warn-underline = ${self.format-underline}
@@ -231,9 +236,33 @@ format-warn-underline = ${self.format-underline}
 label = " %temperature-c%"
 label-warn = %temperature-c%
 
+[module/gputemperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 95
+hwmon-path = /sys/devices/virtual/hwmon/hwmon3/temp4_input
+
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+
+label =  %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.red}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-foreground = ${colors.red}
+
+
 [module/test]
 type = custom/script
-format = "test <label>"
+format-prefix = " "
+format = "<label>"
 label = %output:0:15:...%
-exec = echo "asdf"
-scroll-up = notify-send "hey" "hey" && notify-send "hey" "hey1" 
+exec = ~/bin/vol-control getVol
+click-left = ~/bin/vol-control toggle
+scroll-up = ~/bin/vol-control louder && notify-send --hint=string:x-dunst-stack-tag:vol "Volume" "<span font='Crimson Pro 22' style='italic'>$(~/bin/vol-control getVol)</span>"
+scroll-down = ~/bin/vol-control softer && notify-send --hint=string:x-dunst-stack-tag:vol "Volume" "<span font='Crimson Pro 22' style='italic'>$(~/bin/vol-control getVol)</span>"
