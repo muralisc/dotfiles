@@ -3,8 +3,8 @@
 #
 
 # terminal emulator
-super + Return
-	urxvtc
+super + {_, shift} + Return
+	{xdo activate -n urxvt ||,_} urxvtc
 
 # program launcher
 super + @space
@@ -12,7 +12,7 @@ super + @space
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd
+	pkill -USR1 -x sxhkd && dunstify "sxhkd" "Reloaded sxhkd"
 
 #
 # bspwm hotkeys
@@ -68,7 +68,11 @@ super + {_,shift + }c
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
+	~/bin/vol-control {softer,louder} && ~/bin/vol-control notify
+# volume
+super + {period,comma}
 	bspc desktop -f {prev,next}.local
+
 
 # focus the last node/desktop
 super + {grave,Tab}
@@ -123,8 +127,19 @@ super + {Left,Down,Up,Right}
 #
 # Custom
 #
+
+# close on middle click
 button2
     bspc node pointed -c
 
+# awesome compat: run arbitrary commands
 super + r
     rofi -show run
+
+# prev, next music
+super + alt + bracket{left,right}
+    mpc {prev, next}
+
+# pause music
+super + backslash
+    mpc toggle
