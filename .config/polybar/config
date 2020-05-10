@@ -1,9 +1,10 @@
 ; vim:ft=dosini
 [colors]
-background = #aa000000
+background = #aa111111
 background-alt = #aa111111
-foreground = #c6c8d1
-foreground-alt = #626784
+foreground = #d4d6dc
+foreground-occupied = #626784
+foreground-unfocused = #22626784
 alert = ${xrdb:color1}
 red = #e27878
 
@@ -48,9 +49,9 @@ padding-left = 0
 padding-right = 0
 module-margin-left = 0
 module-margin-right = 1
-font-0 = Font Awesome 5 Free Solid:style=Solid;size=12;1
-font-1 = Ubuntu:size=12;1
-font-2 = FiraMono Nerd Font Mono:pixelsize=14;1
+font-0 = Font Awesome 5 Free Solid:style=Solid;size=16;1
+font-1 = Ubuntu:size=14;1
+font-2 = FiraCode Nerd Font;size=26;1
 modules-left = bspwm xwindow
 ; modules-center = mpd
 modules-right = xkeyboard memory cpu wlan battery temperature gputemperature date test
@@ -98,7 +99,8 @@ icon-pause = 
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:30:...%
+label = %title%
+label-maxlen = 80
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -120,7 +122,7 @@ format-mounted = "<label-mounted>"
 format-unmounted = <label-unmounted>
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
+label-unmounted-foreground = ${colors.foreground-unfocused}
 
 [module/bspwm]
 type = internal/bspwm
@@ -131,7 +133,7 @@ label-focused-foreground = ${colors.foreground}
 label-focused-padding = 1
 
 label-occupied = %name%
-label-occupied-foreground = ${colors.foreground}
+label-occupied-foreground = ${colors.foreground-occupied}
 label-occupied-padding = 1
 
 label-urgent = %name%!
@@ -139,7 +141,7 @@ label-urgent-background = ${colors.alert}
 label-urgent-padding = 1
 
 label-empty = %name%
-label-empty-foreground = ${colors.foreground-alt}
+label-empty-foreground = ${colors.foreground-unfocused}
 label-empty-padding = 1
 
 format-underline =
@@ -191,7 +193,7 @@ format-connected-foreground = #5882FA
 format-disconnected = <label-disconnected>
 format-disconnected-underline = ${self.format-connected-underline}
 label-disconnected = %ifname% disconnected
-label-disconnected-foreground = ${colors.foreground-alt}
+label-disconnected-foreground = ${colors.foreground-unfocused}
 
 [module/date]
 type = internal/date
@@ -246,6 +248,7 @@ format = <ramp> <label>
 format-warn = <ramp> <label-warn>
 
 label =  %temperature-c%
+label-foreground = ${colors.red}
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.red}
 
@@ -264,5 +267,5 @@ format = "<label>"
 label = %output:0:15:...%
 exec = ~/bin/vol-control getVol
 click-left = ~/bin/vol-control toggle
-scroll-up = ~/bin/vol-control louder && notify-send --hint=string:x-dunst-stack-tag:vol "Volume" "<span font='Crimson Pro 22' style='italic'>$(~/bin/vol-control getVol)</span>"
-scroll-down = ~/bin/vol-control softer && notify-send --hint=string:x-dunst-stack-tag:vol "Volume" "<span font='Crimson Pro 22' style='italic'>$(~/bin/vol-control getVol)</span>"
+scroll-up = ~/bin/vol-control louder && ~/bin/vol-control notify
+scroll-down = ~/bin/vol-control softer && ~/bin/vol-control notify
