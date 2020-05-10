@@ -28,7 +28,8 @@ mp.register_event('file-loaded', function()
     db:execute[[
     CREATE TABLE IF NOT EXISTS generic(
         key varchar(550),
-        value varchar(150)
+        value varchar(150),
+        percentage varchar(150)
     )
     ]]
 end)
@@ -69,7 +70,8 @@ mp.register_event('end-file', function()
 
         print("end-file play_duration: " .. play_duration .. " Duration: ".. total_duration .. " pause_duration:" .. pause_duraton)
         print(("percent played %s\n"):format(play_duration*100/total_duration))
-        local query = "INSERT INTO generic VALUES('" .. filePath.. "', '".. os.date('%d/%b/%y %X') .."')"
+        local query = ("INSERT INTO generic VALUES('" .. filePath.. "', '".. os.time(os.date("!*t")) .."', '%s')"):format(play_duration*100/total_duration)
+        print(query)
         db:execute(query)
 	end
 end)
