@@ -25,8 +25,10 @@ alias exa='exa -la --git'
 alias rsyncopy='rsync --archive --stats --progress --human-readable --compress'
 if [[ $(uname -s) == "Darwin" ]] ; then
   alias ps='ps -eo pid,pcpu,pmem,command -r'
+  alias o='open'
 else
   alias ps='ps -eo pid,pcpu,pmem,maj_flt,min_flt,rss,vsz,command --sort -rss,-cpu'
+  alias o='xdg-open'
 fi
 alias less='less -R --follow-name'
 alias lf='ls -F --color'
