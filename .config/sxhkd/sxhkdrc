@@ -143,3 +143,6 @@ super + alt + bracket{left,right}
 # pause music
 super + backslash
     mpc toggle
+
+super + Print
+    import -window root $HOME/Screeshot_full-`date +%Y-%m-%d_%H-%M-%S`.png && notify-send "Sxhkd" "Screenshot taken"
