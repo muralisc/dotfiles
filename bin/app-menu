@@ -1,0 +1,14 @@
+#!/bin/bash
+chosen=$(echo -e "urxvt\ngimp\nranger" | rofi -p "mu" -dmenu)
+
+case $chosen in
+  urxvt)
+    urxvtc &
+    ;;
+  ranger)
+    urxvtc -fn 'xft:UbuntuMono:Regular:size=25' -e ranger
+    ;;
+  gimp)
+    gimp &
+    ;;
+esac

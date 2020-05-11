@@ -11,7 +11,7 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
-awful.util.spawn_with_shell("sxhkd -c ~/.config/sxhkd/sxhkdrc.common")
+awful.util.spawn_with_shell("killall -9 sxhkd && sxhkd -c ~/.config/sxhkd/sxhkdrc.common")
 awful.util.spawn_with_shell("xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua")
 
 -- {{{ Error handling
@@ -216,7 +216,9 @@ vicious.register(       memwidget
                             string.format(" %4d %-5s \n" ,args[6],"swap%"    )..
                             string.format(" %4d %-5s"    ,args[7],"swap "    )
                             )
-                            return args[1].."%"
+                            -- icon used is Font Awsome (f538) https://fontawesome.com/icons/memory?style=solid
+                            return "<span font='Font Awesome 5 Free Solid'> </span>" ..
+                                   "<span font='UbuntuMono 14'>".. args[1].."%" .."</span>"
                         end
                     ,   memwidgetTimeout)
 --}}}

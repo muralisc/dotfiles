@@ -5,7 +5,7 @@ picom --config ~/.config/picom/picom.conf -b
 udiskie -t &
 mpd &
 mpdscribble &
-beet mpdstats &
+pgrep beet || beet mpdstats &
 # caps remapped more comprehensively in Xmodmap
 # setxkbmap -option ctrl:nocaps
 xmodmap ~/.Xmodmap
