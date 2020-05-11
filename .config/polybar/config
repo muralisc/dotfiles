@@ -148,6 +148,8 @@ format-underline =
 format-background =
 format-padding =
 
+reverse-scroll = false
+
 ; Separator in between workspaces
 ; label-separator = |
 
