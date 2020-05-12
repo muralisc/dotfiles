@@ -222,7 +222,7 @@ label-charging = "char"
 format-charging-underline = #ffb52a
 
 format-discharging = <label-discharging>
-label-discharging = "dis"
+label-discharging = "dis" %percentage%%
 format-discharging-underline = ${self.format-charging-underline}
 
 

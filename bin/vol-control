@@ -100,6 +100,7 @@ case $1 in
      ;;
    notify)
         notify-send \
+          --expire-time 10000 \
           --hint=string:x-dunst-stack-tag:vol \
           "Volume" \
           "<span font='Crimson Pro 30' style='italic'>$(~/bin/vol-control getVol)</span>"
