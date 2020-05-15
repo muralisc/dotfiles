@@ -18,7 +18,7 @@ stopwatch_follow(){
   done
 }
 stopwatch_lap() {
-  [ ! -f $FILENAME ] && return
+  [ ! -f $FILENAME ] && { echo -ne "nil" ; return ; }
   startDate=$(cat $FILENAME);
   currentTime=$(date +%s)
   diff=$(date -u --date @$((currentTime - $startDate)) +%H:%M:%S)
