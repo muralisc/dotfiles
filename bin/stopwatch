@@ -1,15 +1,15 @@
 #!/bin/bash
 
-FILENAME=/var/tmp/stopwatch.tmp
+STOPWATCH_FILENAME=/var/tmp/stopwatch.tmp
 # stopwatch_status()
 stopwatch_start(){
   # urxvtc -geometry 20x1
   startDate=$(date +%s);
-  echo $startDate > $FILENAME
+  echo $startDate > $STOPWATCH_FILENAME
   stopwatch_lap
 }
 stopwatch_follow(){
-  startDate=$(cat $FILENAME);
+  startDate=$(cat $STOPWATCH_FILENAME);
   while true; do
    currentTime=$(date +%s)
    diff=$(date -u --date @$((currentTime - $startDate)) +%H:%M:%S)
@@ -18,14 +18,14 @@ stopwatch_follow(){
   done
 }
 stopwatch_lap() {
-  [ ! -f $FILENAME ] && { echo -ne "nil" ; return ; }
-  startDate=$(cat $FILENAME);
+  [ ! -f $STOPWATCH_FILENAME ] && { echo -ne "nil" ; return ; }
+  startDate=$(cat $STOPWATCH_FILENAME);
   currentTime=$(date +%s)
   diff=$(date -u --date @$((currentTime - $startDate)) +%H:%M:%S)
   echo -ne "$diff"
 }
 stopwatch_stop(){
-  rm -rf $FILENAME
+  rm -rf $STOPWATCH_FILENAME
 }
 
 case $1 in
