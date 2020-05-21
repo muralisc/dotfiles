@@ -23,6 +23,7 @@ mp() {
   # eg mp year:..1995 path::Hindi
   # mpc search filename "`echo $*| sed 's/ /_/g'`"
   # beet ls -f '$path' last_played:..2016-05 path::OS >! ~/.mpd/playlists/asd.m3u
+  # beet ls -f '$path' 'last_played::^$' # never played
   if ! pgrep beet ; then
     { beet mpdstats  2>&1 & } 2>&1 > /var/tmp/beet_mpdstats
   fi
