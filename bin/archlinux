@@ -306,8 +306,6 @@ yay -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 # http://www.integralist.co.uk/posts/security-basics.html
 # https://alexcabal.com/creating-the-perfect-gpg-keypair
 yay -S --noconfirm gnupg pass
-# screen recording
-yay -S --noconfirm peek
 # i love to learn
 # for pdf backup use firefox,even shows comments
 yay -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader
