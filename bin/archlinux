@@ -280,8 +280,11 @@ y -S font-manager
 yay -S --noconfirm \
   perl-rename sed rsync tar gzip unrar gawk \ # use custom rename
   gcc gdb gnuplot grep groff openssh unzip
+# Install lang support
+yay -S --noconfirm nodejs go
 # monitors
 yay -S --noconfirm htop vnstat
+yay -S dunst netdata
 # for terminal git and git-gui
 yay -S --noconfirm tig tk
 # bluetooth wifi
@@ -318,7 +321,10 @@ yay -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
 # when friends who use windows comes over
 yay -S --noconfirm ntfs-3g
 # internet tools
-yay -S --noconfirm rtorrent dropbox youtube-dl jackett
+yay -S --noconfirm dropbox youtube-dl jackett
+# torrent tools
+yay -S --noconfirm rtorrent
+npm install webtorrent-cli -g # sometimes rtorrent is too slow to respond
 # enable dropbox
 systemctl --user enable dropbox.service
 vim ~/.config/systemd/user/dropbox@.service  # Add display env
@@ -423,7 +429,7 @@ y -S dockbarx
 
 y -S dateutils
 y -S gerbera # upnp, media server
-y -S mkvtoolnix # for use with gerbera, mux the srt so that it can be easily shown
+y -S mkvtoolnix # for use with gerbera, mux the srt(subtitle) so that it can be easily shown
 y -S clang-format icdiff diff-so-fancy
 y -S obs-studio nginx-rtmp-sergey-git
 
@@ -433,8 +439,9 @@ https://raw.githubusercontent.com/zenyd/mpv-scripts/master/delete_file.lua
 # get diff-so-fancy
 git clone https://github.com/so-fancy/diff-so-fancy
 
+# easilty see the cumulative size of folders
 y -S nnn
+# view images , manipulate image metadata
 y -S sxhkd sxiv feh qimgv exiftool
 y -S xvkbd # on screen keyboard
-y -S dunst netdata
 
