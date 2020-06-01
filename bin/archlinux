@@ -324,7 +324,9 @@ yay -S --noconfirm ntfs-3g
 yay -S --noconfirm dropbox youtube-dl jackett
 # torrent tools
 yay -S --noconfirm rtorrent
-npm install webtorrent-cli -g # sometimes rtorrent is too slow to respond
+# sometimes rtorrent is too slow to respond
+npm install webtorrent-cli -g
+https://github.com/jpillora/cloud-torrent
 # enable dropbox
 systemctl --user enable dropbox.service
 vim ~/.config/systemd/user/dropbox@.service  # Add display env
