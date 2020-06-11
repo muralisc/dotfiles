@@ -276,6 +276,11 @@ fonttest() {
 }
 
 cash() {
+  symbols='{
+    "INR": "₹",
+    "EUR": "£",
+    "USD": "$"
+  }'
   base="$(tr a-z A-Z <<< $1)"
   filename=${base}$(date +%F).json
   if [[ ! -f /var/tmp/$filename ]]; then
@@ -294,10 +299,11 @@ cash() {
     esac
     shift
   done
-  echo $base: $(LC_NUMERIC=en_US printf "%'.f\n" ${amount}) =
+  val=$(LC_NUMERIC=hi_IN printf "%'.f\n" ${amount})
+  echo $base: $(jq -r ".$base" <<< $symbols )$val
   for cur in $(tr ' ' '\n' <<< $currencies); do
     rate=$(jq ".rates.$cur" /var/tmp/$filename)
     val=$(LC_NUMERIC=en_US printf "%'.f\n" $(c ${amount}*${rate}))
-    echo $cur: $val
+    echo $cur: $(jq -r ".$cur" <<< $symbols )$val
   done
 }
