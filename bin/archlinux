@@ -446,4 +446,3 @@ y -S nnn
 # view images , manipulate image metadata
 y -S sxhkd sxiv feh qimgv exiftool
 y -S xvkbd # on screen keyboard
-

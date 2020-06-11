@@ -274,3 +274,30 @@ fonttest() {
       done
   done; done; done
 }
+
+cash() {
+  base="$(tr a-z A-Z <<< $1)"
+  filename=${base}$(date +%F).json
+  if [[ ! -f /var/tmp/$filename ]]; then
+    curl "https://api.exchangeratesapi.io/latest?base=${base}" -o /var/tmp/$filename
+  fi
+  shift
+  currencies=""
+  while [ $# -ne 0 ] ; do
+    case $1 in
+      [0-9]*)
+        amount=$1
+        ;;
+      *)
+        currencies+=" $(tr a-z A-Z <<< $1)"
+        ;;
+    esac
+    shift
+  done
+  echo $base: $(LC_NUMERIC=en_US printf "%'.f\n" ${amount}) =
+  for cur in $(tr ' ' '\n' <<< $currencies); do
+    rate=$(jq ".rates.$cur" /var/tmp/$filename)
+    val=$(LC_NUMERIC=en_US printf "%'.f\n" $(c ${amount}*${rate}))
+    echo $cur: $val
+  done
+}
