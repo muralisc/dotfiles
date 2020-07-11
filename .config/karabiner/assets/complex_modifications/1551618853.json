@@ -611,6 +611,7 @@
                       "org.vim.MacVim"
                   ],
                   "file_paths": [
+                      "/Applications/kitty.app/Contents/MacOS/kitty",
                       "/Applications/Alacritty.app/Contents/MacOS/alacritty",
                       "/Applications/iTerm.app/Contents/MacOS/iTerm2",
                       "/Applications/MacVim.app/Contents/MacOS/MacVim"
@@ -646,6 +647,7 @@
                       "org.vim.MacVim"
                   ],
                   "file_paths": [
+                      "/Applications/kitty.app/Contents/MacOS/kitty",
                       "/Applications/Alacritty.app/Contents/MacOS/alacritty",
                       "/Applications/iTerm.app/Contents/MacOS/iTerm2",
                       "/Applications/MacVim.app/Contents/MacOS/MacVim"

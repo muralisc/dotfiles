@@ -237,6 +237,7 @@
                                             "org.vim.MacVim"
                                         ],
                                         "file_paths": [
+                                            "/Applications/kitty.app/Contents/MacOS/kitty",
                                             "/Applications/Alacritty.app/Contents/MacOS/alacritty",
                                             "/Applications/MacVim.app/Contents/MacOS/MacVim"
                                         ],

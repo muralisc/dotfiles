@@ -398,3 +398,5 @@ function! LightLineFilename()
   return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
 endfunction
 
+" Delete file
+nnoremap <F5> :call delete(expand('%')) <bar> bdelete! <CR>
