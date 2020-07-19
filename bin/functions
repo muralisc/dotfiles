@@ -239,15 +239,15 @@ find_vim() {
   # find vim in tmux and send keys to open the file
   vim_window_panes=$(tmux list-panes -a -F "#{window_index}.#{pane_index} #{pane_current_command}" | grep vim | awk '{print $1}')
   if [[ -z $vim_window_panes ]]; then
-    nvim $1
+    nvim "$@"
     return
   fi
   if [[ $(wc -l <<< "$vim_window_panes" ) -gt 1 ]]; then
     echo "Multiple vims open at: $vim_window_panes"
     return
   fi
-  vim_window=$(awk -F'.' '{print $1}' <<< $vim_window_panes )
-  vim_pane=$(awk -F'.' '{print $2}' <<< $vim_window_panes )
+  vim_window=$(awk -F'.' '{print $1}' <<< "$vim_window_panes" )
+  vim_pane=$(awk -F'.' '{print $2}' <<< "$vim_window_panes" )
   local file_path="$1"
   if [ "${file_path##$HOME}" != "$file_path" ]; then
     full_path="$file_path"
@@ -256,9 +256,9 @@ find_vim() {
   fi
   command -v pbcopy > /dev/null && { echo -n "$full_path" | pbcopy ; }
 
-  tmux select-window -t $vim_window && \
-    tmux select-pane -t $vim_pane && \
-    { [[ ! -z "$file_path" ]] && tmux send-keys ":e " C-f p Enter ; }
+  tmux select-window -t "$vim_window" && \
+    tmux select-pane -t "$vim_pane" && \
+    { [[ -n "$file_path" ]] && tmux send-keys ":e " C-f p Enter ; }
 }
 
 fehhelper() {
