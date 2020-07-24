@@ -483,6 +483,40 @@
         },
         {
           "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
+                "right_command",
+                "right_option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/bash ~/src/private/bin/timewarrior_helper w"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "right_command",
+                "right_option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/bash ~/src/private/bin/timewarrior_helper l"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "from": {
             "key_code": "return_or_enter",
             "modifiers": {
               "mandatory": [
