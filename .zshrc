@@ -31,7 +31,7 @@ setopt PROMPT_SUBST
 if [ -f ~/.local/shrink-path.plugin.zsh ]; then
   source ~/.local/shrink-path.plugin.zsh
 fi
-PS1='%F{green}%B$(shrink_path -f)%F{white}${PANE_NAME} %F{red}❯%F{green}❯%F{blue}❯%f%b '
+PS1='%F{green}$(shrink_path -f)%F{white}${PANE_NAME} %F{red}❯%F{green}❯%F{blue}❯%f '
 if [[ -n $SSH_CONNECTION ]]; then
     PROMPT="%F{yellow}%n%f@%F{magenta}%m ${PROMPT}"
 fi
