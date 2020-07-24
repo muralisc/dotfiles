@@ -317,3 +317,11 @@ cash() {
     echo $cur: $(jq -r ".$cur" <<< $symbols )$val
   done
 }
+
+set_tmux_pane_title() {
+  printf '\033]2;%s\033' "$*"
+}
+
+print_italics() {
+  echo -e "\e[3m $* \e[23m"
+}
