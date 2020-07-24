@@ -21,19 +21,19 @@ else
 fi
 echo "Contents of Exclude file:"
 echo "-------------------------"
-cat $EXCLUDE_FILE
+cat "$EXCLUDE_FILE"
 echo "$(tput setaf 4)Proceed with the dry run?$(tput sgr0)"
-read
-mkdir -p $BACKUP_PATH
+read -r
+mkdir -p "$BACKUP_PATH"
 BLUE=$(tput setaf 4)
 echo -e "Doing a dry run from ${BLUE}${SOURCE_PATH}$(tput sgr0) to ${BLUE}${BACKUP_PATH}$(tput sgr0)"
 
 
 # create exclude file if it does not exist
-[ -f $EXCLUDE_FILE ] || touch $EXCLUDE_FILE
+[ -f "$EXCLUDE_FILE" ] || touch "$EXCLUDE_FILE"
 # always exclude hidden folders/files
 # Add .* only if not found in file already
-grep '.*' $EXCLUDE_FILE || echo '.*' >> $EXCLUDE_FILE
+grep '.*' "$EXCLUDE_FILE" || echo '.*' >> "$EXCLUDE_FILE"
 # Explanation of below command
 # SYNC_COMMAND="
 # rsync
@@ -64,6 +64,6 @@ rsync
 $SYNC_COMMAND -n | tee /var/log/rsync_dry.log
 
 echo "$(tput setaf 4)Proceed with the sync?$(tput sgr0)"
-read
+read -r
 
 $SYNC_COMMAND | tee /var/log/rsync.log
