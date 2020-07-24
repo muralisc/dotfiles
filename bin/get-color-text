@@ -1,0 +1,15 @@
+#!/bin/bash
+
+print_col() {
+  red=$1
+  green=$2
+  blue=$3
+  txt=$4
+  echo -e "\x1b[38;2;$red;$green;${blue}m${txt}\x1b[0m"
+}
+
+print_256col() {
+  col=$1
+  txt=$2
+  printf "\x1b[38;5;${col}m %s\x1b[0m" $txt ;
+}

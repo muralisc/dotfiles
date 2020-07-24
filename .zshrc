@@ -31,7 +31,7 @@ setopt PROMPT_SUBST
 if [ -f ~/.local/shrink-path.plugin.zsh ]; then
   source ~/.local/shrink-path.plugin.zsh
 fi
-PS1='${SSH_CONNECTION:+ssh }%F{green}$(shrink_path -f)%F{white}${PANE_NAME} %F{red}❯%F{green}❯%F{blue}❯%f%b '
+PS1='${SSH_CONNECTION:+ssh \u@\H}%F{green}$(shrink_path -f)%F{white}${PANE_NAME} %F{red}❯%F{green}❯%F{blue}❯%f%b '
 # vi mode setup
 bindkey -v
 bindkey jj vi-cmd-mode #or use ctrl+[
@@ -63,7 +63,6 @@ setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event i
 setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
 setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
-setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing non-existent history.
 source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 

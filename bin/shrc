@@ -24,11 +24,12 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 export TERM=xterm-256color
 
 # add directories to PATH variable
-for custom_path in   \
-    $HOME/.jenv/bin  \
-    $HOME/.cargo/bin \
-    $GOPATH/bin      \
-    $HOME/bin        \
+for custom_path in        \
+    $HOME/.jenv/bin       \
+    $HOME/.cargo/bin      \
+    $GOPATH/bin           \
+    $HOME/bin             \
+    $HOME/src/private/bin \
     ; do
   [[ ":$PATH:" != *":$custom_path:"* ]] && export PATH="$custom_path:${PATH}"
 done

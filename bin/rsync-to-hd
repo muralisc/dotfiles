@@ -1,15 +1,24 @@
 #!/bin/bash
 
-EXCLUDE_FILE=${1:-/tmp/exclude_file.txt}
-EXTERNALHD_UUID=57dddd4c-88ba-40d5-88ce-ff093119b2be
-EXTERNALHD_MNT=$(findmnt -S UUID=$EXTERNALHD_UUID -rn -o TARGET)
-SOURCE_PATH=${HOME}/
-BACKUP_PATH=${EXTERNALHD_MNT}/mylap/
-if [[ -z $EXTERNALHD_MNT ]] ; then
-  echo Mount point not found
+# This script syncs home folder to a harddisk or a network path
+
+GIVEN_PATH="$1"
+if [[ -z $GIVEN_PATH ]]; then
+  EXCLUDE_FILE=${1:-/tmp/exclude_file.txt}
+  EXTERNALHD_UUID=57dddd4c-88ba-40d5-88ce-ff093119b2be
+  EXTERNALHD_MNT=$(findmnt -S UUID=$EXTERNALHD_UUID -rn -o TARGET)
+fi
+if [[ -z $EXTERNALHD_MNT ]] && [[ -z $GIVEN_PATH ]]; then
+  echo "Mount point is not found, Eitehr a mount point or a path needs to be given"
   exit
 fi
-echo -e "Found mount point for UUID = $EXTERNALHD_UUID at $(tput bold)$EXTERNALHD_MNT$(tput sgr0)"
+SOURCE_PATH=${HOME}/
+if [[ -z "$GIVEN_PATH" ]] ; then
+  echo -e "Found mount point for UUID = $EXTERNALHD_UUID at $(tput bold)$EXTERNALHD_MNT$(tput sgr0)"
+  BACKUP_PATH=${EXTERNALHD_MNT}/mylap/
+else
+  BACKUP_PATH=${GIVEN_PATH}/mylap/
+fi
 echo "Contents of Exclude file:"
 echo "-------------------------"
 cat $EXCLUDE_FILE

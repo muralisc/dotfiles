@@ -300,7 +300,7 @@ nnoremap <leader>/ :Rg!
 nnoremap <leader><leader>/ :Rg!<C-R><C-W>
 nnoremap <leader>y/ :Rg!<C-R>"
 " FZF is faster than CtrlP for finding files in Directories
-nnoremap <leader>m :FZF +s --tac<CR>
+nnoremap <leader>m :FZF! +s --tac <CR>
 " alternate for => :CtrlPMRUFiles <CR>
 nnoremap <leader><leader>m :History <CR>
 " open another file in same dir as current file
@@ -398,3 +398,5 @@ function! LightLineFilename()
   return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
 endfunction
 
+" Delete file
+nnoremap <F5> :call delete(expand('%')) <bar> bdelete! <CR>
