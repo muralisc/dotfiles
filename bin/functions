@@ -334,3 +334,17 @@ print_italics() {
 youtubedl_helper() {
   youtube-dl -x --audio-format mp3 --add-metadata "$1"
 }
+
+test_zsh_prompt() {
+  str=${1:-%n}
+  random="%F{200}$str"
+  black="%F{black}$str"
+  red="%F{red}$str"
+  green="%F{green}$str"
+  yellow="%F{yellow}$str"
+  blue="%F{blue}$str"
+  magenta="%F{magenta}$str"
+  cyan="%F{cyan}$str"
+  white="%F{white}$str"
+  print -P "%B${random}${black}${red}${green}${yellow}${blue}${magenta}${cyan}${white}%b%f"
+}
