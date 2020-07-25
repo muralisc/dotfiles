@@ -286,6 +286,7 @@ fonttest() {
 }
 
 cash() {
+  # cash inr usd eur 200
   symbols='{
     "INR": "₹",
     "EUR": "£",
@@ -310,7 +311,7 @@ cash() {
     shift
   done
   val=$(LC_NUMERIC=hi_IN printf "%'.f\n" ${amount})
-  echo $base: $(jq -r ".$base" <<< $symbols )$val
+  echo "$base:" $(jq -r ".$base" <<< "$symbols" )"$val"
   for cur in $(tr ' ' '\n' <<< $currencies); do
     rate=$(jq ".rates.$cur" /var/tmp/$filename)
     val=$(LC_NUMERIC=en_US printf "%'.f\n" $(c ${amount}*${rate}))
@@ -323,9 +324,13 @@ set_tmux_pane_title() {
 }
 
 print_italics() {
-  echo -e "\e[3m $* \e[23m"
   echo -e "\e[1mbold\e[0m"
   echo -e "\e[3mitalic\e[0m"
+  echo -e "\e[3m\e[1mbolditalic\e[0m"
   echo -e "\e[4munderline\e[0m"
   echo -e "\e[9mstrikethrough\e[0m"
+}
+
+youtubedl_helper() {
+  youtube-dl -x --audio-format mp3 --add-metadata "$1"
 }
