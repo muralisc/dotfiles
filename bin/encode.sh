@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Script to encode multiple files to mp4
+
 # Command details:
 #  time ffmpeg -i $filename                       \
 #      -copy_unknown                              \ # Copy Unknown streams

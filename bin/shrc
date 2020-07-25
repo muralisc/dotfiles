@@ -1,6 +1,8 @@
 #!/bin/bash
 #  vim: foldlevel=0:
 
+# Functions and setting common to both zshrc and bashrc
+
 # initililize fasd
 
 if command -v fasd > /dev/null ; then
