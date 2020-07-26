@@ -31,6 +31,9 @@ setopt PROMPT_SUBST
 if [ -f ~/.local/shrink-path.plugin.zsh ]; then
   source ~/.local/shrink-path.plugin.zsh
 fi
+at_italics=%{$'\e[3m'%}
+at_italicsoff=%{$'\e[23m'%}
+at_normal=%{$'\e[0m'%}
 ARROWS='%B%F{red}❯%F{green}❯%F{blue}❯%f%b'
 DOLLAR='%B%F{blue}$%f%b'
 PS1='%F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} '
