@@ -313,7 +313,6 @@ nnoremap <leader><leader>q :close!<cr>
 nnoremap <leader><leader><leader>q :wqa!<cr>
 nnoremap <leader>s :sp<CR>
 nnoremap <leader>r :so $MYVIMRC<CR>
-nnoremap <leader>t :Windows<CR>
 nnoremap <leader>v :vs<CR>
 " Fast saving
 nnoremap <leader>w :w<cr>
