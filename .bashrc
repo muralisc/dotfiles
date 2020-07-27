@@ -51,7 +51,7 @@ filepath="$(wrap $txtblu)\$SHRINKED_PWD"
 datecolr="$(wrap $bldpur)\D{%F %T}"
 bolddolr="$(wrap $bldgrn)$"
 #PS1='\u@\h:\w\$ '
-export PS1="${SSH_CONNECTION:+ssh }$filepath ${bolddolr} $(wrap $txtrst)"
+export PS1="${SSH_CONNECTION:+\u@\h }$filepath ${bolddolr} $(wrap $txtrst)"
 if [[ $(id -u) == 0 ]]; then PS1="root|$PS1"; fi
 
 # enable programmable completion features

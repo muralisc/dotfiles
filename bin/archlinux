@@ -447,5 +447,9 @@ y -S nnn
 # view images , manipulate image metadata
 y -S sxhkd sxiv feh qimgv exiftool
 y -S xvkbd # on screen keyboard
-# generic coloriszer
+# generic colorizer
 y -S grc
+# task warriors
+y -S taskwarrior timewarrior
+git clone https://github.com/JensErat/task-relative-recur ~/Downloads/task-relative-recur
+
