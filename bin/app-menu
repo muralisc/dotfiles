@@ -1,5 +1,5 @@
 #!/bin/bash
-chosen=$(echo -e "urxvt\ngimp\nranger" | rofi -p "mu" -dmenu)
+chosen=$(echo -e "urxvt\ngimp\nranger\nscreenOff\nscreenOn" | rofi -p "mu" -dmenu)
 
 case $chosen in
   urxvt)
@@ -10,5 +10,11 @@ case $chosen in
     ;;
   gimp)
     gimp &
+    ;;
+  screenOff)
+    xset dpms 0 0 10
+    ;;
+  screenOn)
+    xset dpms 0 0 7200
     ;;
 esac
