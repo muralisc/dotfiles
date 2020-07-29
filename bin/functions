@@ -235,7 +235,7 @@ colortest() { #8/16bit colors also exist
 
 }
 
-find_vim() {
+findvim() {
   # find vim in tmux and send keys to open the file
   vim_window_panes=$(tmux list-panes -a -F "#{window_index}.#{pane_index} #{pane_current_command}" | grep vim | awk '{print $1}')
   if [[ -z $vim_window_panes ]]; then

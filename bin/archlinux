@@ -325,7 +325,6 @@ yay -S --noconfirm dropbox youtube-dl jackett
 # torrent tools
 yay -S --noconfirm rtorrent
 # sometimes rtorrent is too slow to respond
-npm install webtorrent-cli -g
 https://github.com/jpillora/cloud-torrent
 # enable dropbox
 systemctl --user enable dropbox.service
@@ -440,7 +439,7 @@ y -S obs-studio nginx-rtmp-sergey-git
 curl -o ~/.config/mpv/scripts/delete_file.lua \
 https://raw.githubusercontent.com/zenyd/mpv-scripts/master/delete_file.lua
 # get diff-so-fancy
-git clone https://github.com/so-fancy/diff-so-fancy
+git clone https://github.com/so-fancy/diff-so-fancy ~/src/diff-so-fancy
 
 # easilty see the cumulative size of folders
 y -S nnn
@@ -451,5 +450,8 @@ y -S xvkbd # on screen keyboard
 y -S grc
 # task warriors
 y -S taskwarrior timewarrior
-git clone https://github.com/JensErat/task-relative-recur ~/Downloads/task-relative-recur
+git clone https://github.com/JensErat/task-relative-recur ~/src/task-relative-recur
 
+# get
+git clone https://github.com/akinomyoga/ble.sh ~/src/ble.sh
+git clone https://github.com/zsh-users/zsh-autosuggestions
