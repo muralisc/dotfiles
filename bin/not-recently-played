@@ -1,3 +1,4 @@
 #!/bin/bash
 
-find -not -newerat 2020-07-23 | sort --random-sort | head | xargs mpv --loop-playlist=yes
+find $PWD -type f  -not -newerat 2020-07-23 | \
+  sort --random-sort | head | xargs mpv --loop-playlist=yes

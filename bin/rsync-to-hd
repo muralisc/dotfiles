@@ -3,8 +3,8 @@
 # This script syncs home folder to a harddisk or a network path
 
 GIVEN_PATH="$1"
+EXCLUDE_FILE=${2:-/tmp/exclude_file.txt}
 if [[ -z $GIVEN_PATH ]]; then
-  EXCLUDE_FILE=${1:-/tmp/exclude_file.txt}
   EXTERNALHD_UUID=57dddd4c-88ba-40d5-88ce-ff093119b2be
   EXTERNALHD_MNT=$(findmnt -S UUID=$EXTERNALHD_UUID -rn -o TARGET)
 fi
@@ -19,7 +19,7 @@ if [[ -z "$GIVEN_PATH" ]] ; then
 else
   BACKUP_PATH=${GIVEN_PATH}/mylap/
 fi
-echo "Contents of Exclude file:"
+echo "Contents of Exclude file: $EXCLUDE_FILE"
 echo "-------------------------"
 cat "$EXCLUDE_FILE"
 echo "$(tput setaf 4)Proceed with the dry run?$(tput sgr0)"
@@ -61,9 +61,9 @@ rsync
   --cvs-exclude
   $SOURCE_PATH ${BACKUP_PATH}
 "
-$SYNC_COMMAND -n | tee /var/log/rsync_dry.log
+$SYNC_COMMAND -n | tee /var/tmp/rsync_dry.log
 
 echo "$(tput setaf 4)Proceed with the sync?$(tput sgr0)"
 read -r
 
-$SYNC_COMMAND | tee /var/log/rsync.log
+$SYNC_COMMAND | tee /var/tmp/rsync.log
