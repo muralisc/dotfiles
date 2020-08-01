@@ -12,16 +12,20 @@
   (load bootstrap-file nil 'nomessage))
 (straight-use-package 'helm)
 (straight-use-package 'solarized-theme)
+(straight-use-package 'dracula-theme)
 
 ;; Helm settings
 (setq helm-recentf-fuzzy-match t
       helm-buffers-fuzzy-matching t)
 
 ;; Personal Prefs
-(load-theme 'solarized-dark t)
+; (load-theme 'solarized-dark t)
+(load-theme 'dracula t)
 (global-linum-mode 1)
 (show-paren-mode 1)
 (setq vc-follow-symlinks t)  ;; Follow symlinks
+(global-hl-line-mode +1)
+
 
 
 (custom-set-variables
