@@ -50,3 +50,5 @@ alias led_cashflow='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Income \^Expenses
 alias led_check='ledger -f $DOTFILES_LEDGER_FILE b i:sav credit --flat'
 alias led='ledger -f $DOTFILES_LEDGER_FILE'
 
+alias org='emacs --funcall org-agenda-list'
+alias Org='/Applications/Emacs.app/Contents/MacOS/Emacs --funcall org-agenda-list &'

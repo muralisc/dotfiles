@@ -26,6 +26,8 @@
 (setq vc-follow-symlinks t)  ;; Follow symlinks
 (global-hl-line-mode +1)
 
+(add-to-list 'default-frame-alist '(height . 68))
+    (add-to-list 'default-frame-alist '(width . 230))
 
 
 (custom-set-variables
