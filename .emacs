@@ -24,6 +24,8 @@
 
 ;; Org Mode
 (global-set-key "\C-ca" 'org-agenda)
+(with-eval-after-load 'org
+  (add-to-list 'org-modules 'org-habit t))
 
 ;; Access Recent files
 (recentf-mode 1)
