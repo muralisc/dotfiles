@@ -44,6 +44,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/snippets'
   Plug 'bfredl/nvim-miniyank'
   Plug 'whiteinge/diffconflicts'
+  "ORG MODE and Helpers
+  Plug 'mattn/calendar-vim'
+  Plug 'tpope/vim-speeddating'
+  Plug 'jceb/vim-orgmode'
   " Language Specific
   Plug 'fatih/vim-go'
   " Non-essential
@@ -99,6 +103,7 @@ endif
 
 set background=dark
 let mapleader="\<Space>"                                                        " Change the mapleader from \ to
+let maplocalleader="\<Space>"
 set autoread                                                                    " read a changed file on disk
 set showmode                                                                    " always show what mode we're currently editing in
 set nofixendofline

@@ -1,4 +1,4 @@
-# [Created by task 2.5.1 7/7/2020 22:34:45]
+# [Created by task 2.6.0 8/1/2020 19:40:56]
 # Taskwarrior program configuration file.
 # For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
 # 'man task-sync' or 'man taskrc'
@@ -14,35 +14,18 @@
 data.location=~/.task
 
 # Color theme (uncomment one to use)
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/light-16.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/light-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-16.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-red-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-green-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-blue-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-violets-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-yellow-green.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-gray-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-gray-blue-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-dark-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-light-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/no-color.theme
+#include /usr/local/share/doc/task/rc/light-16.theme
+#include /usr/local/share/doc/task/rc/light-256.theme
+#include /usr/local/share/doc/task/rc/dark-16.theme
+#include /usr/local/share/doc/task/rc/dark-256.theme
+#include /usr/local/share/doc/task/rc/dark-red-256.theme
+#include /usr/local/share/doc/task/rc/dark-green-256.theme
+#include /usr/local/share/doc/task/rc/dark-blue-256.theme
+#include /usr/local/share/doc/task/rc/dark-violets-256.theme
+#include /usr/local/share/doc/task/rc/dark-yellow-green.theme
+#include /usr/local/share/doc/task/rc/dark-gray-256.theme
+#include /usr/local/share/doc/task/rc/dark-gray-blue-256.theme
+#include /usr/local/share/doc/task/rc/solarized-dark-256.theme
+#include /usr/local/share/doc/task/rc/solarized-light-256.theme
+#include /usr/local/share/doc/task/rc/no-color.theme
 
-uda.relativeRecurDue.type=duration
-uda.relativeRecurDue.label=Rel. Rec. Due
-uda.relativeRecurWait.type=duration
-uda.relativeRecurWait.label=Rel. Rec. Wait
-
-confirmation=no
-# if i want change to be propagated it will modify the original task
-recurrence.confirmation=no
-
-report.simple.description=Simple list of open tasks by project
-report.simple.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency,relativeRecurDue
-report.simple.sort=urgency-
-report.simple.filter=status:pending limit:page
-
-report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency,relativeRecurDue
-report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg,RelRecDue
-search.case.sensitive=no
