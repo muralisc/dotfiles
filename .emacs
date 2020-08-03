@@ -25,6 +25,7 @@
 (global-linum-mode 1)
 (show-paren-mode 1)
 (setq vc-follow-symlinks t)  ;; Follow symlinks
+(setq org-agenda-show-future-repeats nil)
 (global-hl-line-mode +1)
 
 (add-to-list 'default-frame-alist '(height . 68))
