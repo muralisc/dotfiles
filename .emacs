@@ -28,8 +28,12 @@
 (global-hl-line-mode +1)
 
 (add-to-list 'default-frame-alist '(height . 68))
-    (add-to-list 'default-frame-alist '(width . 230))
+(add-to-list 'default-frame-alist '(width . 230))
 
+(global-set-key (kbd "<C-up>") 'shrink-window)
+(global-set-key (kbd "<C-down>") 'enlarge-window)
+(global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
+(global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -38,7 +42,7 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/shared_folders/minimal/Pensieve/textfiles/journal/Today.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/MurNote.org"))))
+    ("~/shared_folders/minimal/Pensieve/textfiles/journal/Done.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/Today.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/MurNote.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -64,3 +68,4 @@
 
 ;; Easy window access
 (global-set-key (kbd "M-o") 'ace-window)
+

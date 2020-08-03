@@ -14,6 +14,7 @@ sanitize_file_name() {
     done
     return
   fi
+  echo "Renaming: $@"
   dot_rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" $@
 }
 
