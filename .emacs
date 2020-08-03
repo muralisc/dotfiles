@@ -13,6 +13,7 @@
 (straight-use-package 'helm)
 (straight-use-package 'solarized-theme)
 (straight-use-package 'dracula-theme)
+(straight-use-package 'ace-window)
 
 ;; Helm settings
 (setq helm-recentf-fuzzy-match t
@@ -37,8 +38,7 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/shared_folders/minimal/Pensieve/textfiles/journal/MurNote.org")))
- )
+    ("~/shared_folders/minimal/Pensieve/textfiles/journal/Today.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/MurNote.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -50,10 +50,17 @@
 (global-set-key "\C-ca" 'org-agenda)
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
+(setq org-agenda-custom-commands 
+      '(("r" "Routine" agenda "USE" ;; (1) (2) (3) (4)
+         ((org-agenda-files '("~/shared_folders/minimal/Pensieve/textfiles/journal/Routine.org")))
+	 )))
 
 ;; Access Recent files
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
 (setq recentf-max-saved-items 25)
+(setq org-agenda-skip-scheduled-if-done t)
 (global-set-key (kbd "C-x C-r") #'helm-recentf)
 
+;; Easy window access
+(global-set-key (kbd "M-o") 'ace-window)
