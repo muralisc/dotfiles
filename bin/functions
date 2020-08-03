@@ -46,6 +46,10 @@ function c() {
   noSpaceExpr=`echo $* | sed -e "s/ //g"`
   awk "BEGIN { print $noSpaceExpr }"
 }
+function cb() {
+    # Calculate using bc
+    bc -l <<< "scale=2; $*"
+}
 # alias it for zsh
 if [[ $SHELL =~ "zsh" ]]; then alias c='noglob c'; fi
 
@@ -236,7 +240,8 @@ colortest() { #8/16bit colors also exist
 
 }
 
-fvim() {
+alias vim='findvim'
+findvim() {
   # find-vim
   # find vim in tmux and send keys to open the file
   vim_window_panes=$(tmux list-panes -a -F "#{window_index}.#{pane_index} #{pane_current_command}" | grep vim | awk '{print $1}')
