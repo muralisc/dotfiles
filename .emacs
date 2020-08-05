@@ -43,7 +43,7 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/shared_folders/minimal/Pensieve/textfiles/journal/Done.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/Today.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/MurNote.org"))))
+    ("~/shared_folders/minimal/Pensieve/textfiles/journal/WorkNote.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/Done.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/Today.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/MurNote.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -55,11 +55,12 @@
 (global-set-key "\C-ca" 'org-agenda)
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
-(setq org-agenda-custom-commands 
-      '(("r" "Routine" agenda "USE" ;; (1) (2) (3) (4)
-         ((org-agenda-files '("~/shared_folders/minimal/Pensieve/textfiles/journal/Routine.org")))
-	 )))
-
+(setq org-agenda-custom-commands
+      `(;; match those are not scheduled, are not DONE.
+        ("iu" "[u]nscheduled TOTO tasks" tags "-SCHEDULED={.+}/+TODO|+STARTED|+WAITING")
+        ;; match those are not scheduled, are not DONE.
+        ("iU" "[U]nscheduled tasks with no TODO" tags "-SCHEDULED={.+}")
+        ))
 ;; Access Recent files
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)

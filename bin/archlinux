@@ -455,3 +455,6 @@ git clone https://github.com/JensErat/task-relative-recur ~/src/task-relative-re
 # get
 git clone https://github.com/akinomyoga/ble.sh ~/src/ble.sh
 git clone https://github.com/zsh-users/zsh-autosuggestions
+
+# Markdown preview
+npm install -g vmd
