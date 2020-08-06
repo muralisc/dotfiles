@@ -1,16 +1,21 @@
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-(straight-use-package 'dracula-theme)
+;; Set up package.el to work with MELPA
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+(package-refresh-contents)
+
+;; Download Evil
+(unless (package-installed-p 'dracula-theme)
+  (package-install 'dracula-theme))
+(unless (package-installed-p 'helm)
+  (package-install 'helm))
+(unless (package-installed-p 'evil)
+  (package-install 'evil))
+
+;; Enable Evil
+(require 'evil)
+(evil-mode 1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -19,7 +24,8 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/shared_folders/minimal/Pensieve/textfiles/journal/WorkNote.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/Done.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/Today.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/MurNote.org"))))
+    ("~/shared_folders/minimal/Pensieve/textfiles/journal/WorkNote.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/Done.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/Today.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/MurNote.org")))
+ '(package-selected-packages (quote (evil helm dracula-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -30,14 +36,16 @@
 
 
 ;; Personal Preferences
-;; Access Recent files
-(recentf-mode 1)
-(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(global-set-key "\C-x\ \C-r" 'helm-recentf)
+(global-set-key (kbd "M-x") #'helm-M-x)
 (load-theme 'dracula t)
 (global-linum-mode 1)
 (show-paren-mode 1)
 (setq vc-follow-symlinks t)  ;; Follow symlinks
 (global-hl-line-mode +1)
+(setq default-frame-alist '((font . "Fira Mono-14")))
+;; Window Manip
 (global-set-key (kbd "<C-up>") 'shrink-window)
 (global-set-key (kbd "<C-down>") 'enlarge-window)
 (global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
@@ -47,7 +55,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
-;; Common with DOOM
+;; Common Settings with other frameworks like Spacemacs
 (setq org-agenda-show-future-repeats nil)
 (setq org-agenda-skip-scheduled-if-done t)
 (setq-default evil-escape-key-sequence "jj")
