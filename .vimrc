@@ -179,7 +179,6 @@ set showcmd                                                                     
 set modeline                                                                    " enable mode lines
 set ttyfast                                                                     " always use a fast terminal
 set spell spelllang=en_us
-set nospell
 set colorcolumn=80,132                                                          " Github limit
 set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
