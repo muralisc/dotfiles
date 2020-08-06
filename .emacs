@@ -10,31 +10,7 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
-(straight-use-package 'helm)
-(straight-use-package 'solarized-theme)
 (straight-use-package 'dracula-theme)
-(straight-use-package 'ace-window)
-
-;; Helm settings
-(setq helm-recentf-fuzzy-match t
-      helm-buffers-fuzzy-matching t)
-
-;; Personal Prefs
-; (load-theme 'solarized-dark t)
-(load-theme 'dracula t)
-(global-linum-mode 1)
-(show-paren-mode 1)
-(setq vc-follow-symlinks t)  ;; Follow symlinks
-(setq org-agenda-show-future-repeats nil)
-(global-hl-line-mode +1)
-
-(add-to-list 'default-frame-alist '(height . 68))
-(add-to-list 'default-frame-alist '(width . 230))
-
-(global-set-key (kbd "<C-up>") 'shrink-window)
-(global-set-key (kbd "<C-down>") 'enlarge-window)
-(global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
-(global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -51,24 +27,35 @@
  ;; If there is more than one, they won't work right.
  )
 
+
+
+;; Personal Preferences
+;; Access Recent files
+(recentf-mode 1)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+(load-theme 'dracula t)
+(global-linum-mode 1)
+(show-paren-mode 1)
+(setq vc-follow-symlinks t)  ;; Follow symlinks
+(global-hl-line-mode +1)
+(global-set-key (kbd "<C-up>") 'shrink-window)
+(global-set-key (kbd "<C-down>") 'enlarge-window)
+(global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
+(global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
 ;; Org Mode
+;; From org help site:
 (global-set-key "\C-ca" 'org-agenda)
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
+;; Common with DOOM
+(setq org-agenda-show-future-repeats nil)
+(setq org-agenda-skip-scheduled-if-done t)
+(setq-default evil-escape-key-sequence "jj")
+(setq evil-escape-delay 0.4)
 ;; https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 (setq org-agenda-custom-commands
       `(;; match those are not scheduled, are not DONE.
-        ("iu" "[u]nscheduled TOTO tasks" tags "-SCHEDULED={.+}/+TODO|+STARTED|+WAITING")
+        ("iu" "unscheduled TOTO tasks" tags "-SCHEDULED={.+}/+TODO|+STARTED|+WAITING")
         ;; match those are not scheduled, are not DONE.
-        ("iU" "[U]nscheduled tasks with no TODO" tags "-SCHEDULED={.+}-TODO={.+}")
+        ("iU" "Unscheduled tasks with no TODO" tags "-SCHEDULED={.+}-TODO={.+}")
         ))
-;; Access Recent files
-(recentf-mode 1)
-(setq recentf-max-menu-items 25)
-(setq recentf-max-saved-items 25)
-(setq org-agenda-skip-scheduled-if-done t)
-(global-set-key (kbd "C-x C-r") #'helm-recentf)
-
-;; Easy window access
-(global-set-key (kbd "M-o") 'ace-window)
-
