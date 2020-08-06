@@ -55,11 +55,12 @@
 (global-set-key "\C-ca" 'org-agenda)
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
+;; https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 (setq org-agenda-custom-commands
       `(;; match those are not scheduled, are not DONE.
         ("iu" "[u]nscheduled TOTO tasks" tags "-SCHEDULED={.+}/+TODO|+STARTED|+WAITING")
         ;; match those are not scheduled, are not DONE.
-        ("iU" "[U]nscheduled tasks with no TODO" tags "-SCHEDULED={.+}")
+        ("iU" "[U]nscheduled tasks with no TODO" tags "-SCHEDULED={.+}-TODO={.+}")
         ))
 ;; Access Recent files
 (recentf-mode 1)
