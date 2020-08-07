@@ -13,10 +13,13 @@
 
 ;; Download Evil
 (straight-use-package 'dracula-theme)
+(straight-use-package 'zenburn-theme)
+(straight-use-package 'tangotango-theme)
 (straight-use-package 'helm)
 (straight-use-package 'evil)
 (straight-use-package 'evil-escape)
 (straight-use-package 'which-key)
+(straight-use-package 'helpful)
 
 ;; Enable Evil
 (require 'evil)
@@ -32,7 +35,7 @@
  '(org-agenda-files
    (quote
     ("~/shared_folders/minimal/Pensieve/textfiles/journal/WorkNote.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/Done.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/Today.org" "~/shared_folders/minimal/Pensieve/textfiles/journal/MurNote.org")))
- '(package-selected-packages (quote (evil helm dracula-theme))))
+  )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -46,12 +49,14 @@
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
 (global-set-key "\C-x\ \C-r" 'helm-recentf)
 (global-set-key (kbd "M-x") #'helm-M-x)
-(load-theme 'dracula t)
+;; (load-theme 'dracula t)
+;; (load-theme 'zenburn t)
+(load-theme 'tangotango t)
 (global-linum-mode 1)
 (show-paren-mode 1)
 (setq vc-follow-symlinks t)  ;; Follow symlinks
 (global-hl-line-mode +1)
-(setq default-frame-alist '((font . "Fira Mono-12")))
+;; (setq default-frame-alist '((font . "Fira Mono-14")))
 ;; Window Manip
 (global-set-key (kbd "<C-up>") 'shrink-window)
 (global-set-key (kbd "<C-down>") 'enlarge-window)
@@ -77,7 +82,13 @@
 
 (evil-set-leader 'normal " ")
 
+;; Inspiration
 ;; https://github.com/jiaoshijie/emacs.d/blob/b144b78a65127bf8e22eb3881719766bcb917b12/init.el
+;; hide toolbar and scrollbar
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+
+;; https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.el
 (evil-define-key 'normal 'global
   ;; ---- * leader-??? * ---- ;;
   (kbd "<leader>fr") 'helm-recentf
@@ -89,3 +100,6 @@
   (kbd "M-l") 'windmove-right
 
   )
+(global-set-key (kbd "C-h f") #'helpful-callable)
+(global-set-key (kbd "C-h v") #'helpful-variable)
+(global-set-key (kbd "C-h k") #'helpful-key)
