@@ -83,9 +83,9 @@
   (kbd "<leader>fr") 'helm-recentf
   (kbd "<leader>q") 'kill-buffer
   (kbd "<leader>w") 'save-buffer
-  (kbd "M-H") 'windmove-left
-  (kbd "M-J") 'windmove-down
-  (kbd "M-K") 'windmove-up
-  (kbd "M-L") 'windmove-right
+  (kbd "M-h") 'windmove-left
+  (kbd "M-j") 'windmove-down
+  (kbd "M-k") 'windmove-up
+  (kbd "M-l") 'windmove-right
 
   )
