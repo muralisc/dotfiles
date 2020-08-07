@@ -16,11 +16,13 @@
 (straight-use-package 'helm)
 (straight-use-package 'evil)
 (straight-use-package 'evil-escape)
+(straight-use-package 'which-key)
 
 ;; Enable Evil
 (require 'evil)
 (evil-mode 1)
 (evil-escape-mode 1)
+(which-key-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -64,7 +66,7 @@
 (setq org-agenda-show-future-repeats nil)
 (setq org-agenda-skip-scheduled-if-done t)
 (setq-default evil-escape-key-sequence "jj")
-(setq evil-escape-delay 0.4)
+(setq evil-escape-delay 0.15)
 ;; https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 (setq org-agenda-custom-commands
       `(;; match those are not scheduled, are not DONE.
@@ -72,3 +74,18 @@
         ;; match those are not scheduled, are not DONE.
         ("iU" "Unscheduled tasks with no TODO" tags "-SCHEDULED={.+}-TODO={.+}")
         ))
+
+(evil-set-leader 'normal " ")
+
+;; https://github.com/jiaoshijie/emacs.d/blob/b144b78a65127bf8e22eb3881719766bcb917b12/init.el
+(evil-define-key 'normal 'global
+  ;; ---- * leader-??? * ---- ;;
+  (kbd "<leader>fr") 'helm-recentf
+  (kbd "<leader>q") 'kill-buffer
+  (kbd "<leader>w") 'save-buffer
+  (kbd "M-H") 'windmove-left
+  (kbd "M-J") 'windmove-down
+  (kbd "M-K") 'windmove-up
+  (kbd "M-L") 'windmove-right
+
+  )
