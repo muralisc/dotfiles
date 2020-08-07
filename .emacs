@@ -1,21 +1,26 @@
-;; Set up package.el to work with MELPA
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
-(package-refresh-contents)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
 ;; Download Evil
-(unless (package-installed-p 'dracula-theme)
-  (package-install 'dracula-theme))
-(unless (package-installed-p 'helm)
-  (package-install 'helm))
-(unless (package-installed-p 'evil)
-  (package-install 'evil))
+(straight-use-package 'dracula-theme)
+(straight-use-package 'helm)
+(straight-use-package 'evil)
+(straight-use-package 'evil-escape)
 
 ;; Enable Evil
 (require 'evil)
 (evil-mode 1)
+(evil-escape-mode 1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -44,7 +49,7 @@
 (show-paren-mode 1)
 (setq vc-follow-symlinks t)  ;; Follow symlinks
 (global-hl-line-mode +1)
-(setq default-frame-alist '((font . "Fira Mono-14")))
+(setq default-frame-alist '((font . "Fira Mono-12")))
 ;; Window Manip
 (global-set-key (kbd "<C-up>") 'shrink-window)
 (global-set-key (kbd "<C-down>") 'enlarge-window)
