@@ -240,7 +240,6 @@ colortest() { #8/16bit colors also exist
 
 }
 
-alias vim='findvim'
 findvim() {
   # find-vim
   # find vim in tmux and send keys to open the file

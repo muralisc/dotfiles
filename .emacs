@@ -13,10 +13,21 @@
 
 ;;(straight-use-package 'dracula-theme)
 ;; (load-theme 'dracula t)
-;;(straight-use-package 'zenburn-theme)
+;; (straight-use-package 'zenburn-theme)
 ;; (load-theme 'zenburn t)
-(straight-use-package 'tangotango-theme)
-(load-theme 'tangotango t)
+;; (straight-use-package 'solarized-theme)
+;; (load-theme 'solarized-dark t)
+;; (setq solarized-high-contrast-mode-line t)
+;; (straight-use-package 'gotham-theme)
+;; (load-theme 'gotham t)
+(straight-use-package 'doom-themes)
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-one t)
+  (doom-themes-visual-bell-config)
+(doom-themes-org-config)
+;; (straight-use-package 'tangotango-theme)
+;; (load-theme 'tangotango t)
 
 ;; Helm
 (straight-use-package 'helm)
@@ -94,13 +105,13 @@
 ;; hide toolbar and scrollbar
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
-(global-linum-mode 1)
+(global-display-line-numbers-mode)
 (show-paren-mode 1)
 (setq make-backup-files nil)
 ;; Follow symlinks
 (setq vc-follow-symlinks t) 
 (global-hl-line-mode +1)
-(setq default-frame-alist '((font . "Fira Mono-12")))
+(setq default-frame-alist '((font . "Fira Mono-13")))
 ;; Org Mode
 (global-set-key "\C-ca" 'org-agenda)
 (with-eval-after-load 'org
