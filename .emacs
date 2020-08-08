@@ -34,6 +34,7 @@
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
 (global-set-key "\C-x\ \C-r" 'helm-recentf)
 (global-set-key (kbd "M-x") #'helm-M-x)
+(helm-mode 1)
 
 ;; Enable Evil
 (straight-use-package 'evil)
@@ -83,6 +84,17 @@
 (setq key-chord-two-keys-delay 0.2)
 
 
+;; Relative Line Numbers
+(straight-use-package 'nlinum-relative)
+(require 'nlinum-relative)
+(nlinum-relative-setup-evil)
+(add-hook 'prog-mode-hook 'nlinum-relative-mode)
+(setq nlinum-relative-redisplay-delay 0)
+(setq nlinum-relative-current-symbol "")
+(setq nlinum-relative-offset 0)        
+(global-nlinum-relative-mode)
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -105,7 +117,7 @@
 ;; hide toolbar and scrollbar
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
-(global-display-line-numbers-mode)
+;; (global-display-line-numbers-mode)
 (show-paren-mode 1)
 (setq make-backup-files nil)
 ;; Follow symlinks
