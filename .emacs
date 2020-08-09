@@ -67,11 +67,6 @@
   (kbd "M-j") 'windmove-down
   (kbd "M-k") 'windmove-up
   (kbd "M-l") 'windmove-right
-  ;; Window Size
-  (kbd "<up>") 'shrink-window
-  (kbd "<down>") 'enlarge-window
-  (kbd "<left>") 'shrink-window-horizontally
-  (kbd "<right>") 'enlarge-window-horizontally
   )
 
 ;; Evil org
