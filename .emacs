@@ -11,30 +11,44 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-;;(straight-use-package 'dracula-theme)
+;; Theme 1
+;; (straight-use-package 'dracula-theme)
 ;; (load-theme 'dracula t)
+;; Theme 1
 ;; (straight-use-package 'zenburn-theme)
 ;; (load-theme 'zenburn t)
+;; Theme 1
 ;; (straight-use-package 'solarized-theme)
 ;; (load-theme 'solarized-dark t)
 ;; (setq solarized-high-contrast-mode-line t)
+;; Theme 1
 ;; (straight-use-package 'gotham-theme)
 ;; (load-theme 'gotham t)
+;; Theme 1
 (straight-use-package 'doom-themes)
 (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
   (load-theme 'doom-one t)
   (doom-themes-visual-bell-config)
 (doom-themes-org-config)
+;; Theme 1
 ;; (straight-use-package 'tangotango-theme)
 ;; (load-theme 'tangotango t)
+;; Theme 1
+;; (straight-use-package 'spacemacs-theme)
+;; (load-theme 'spacemacs-dark t)
 
 ;; Helm
 (straight-use-package 'helm)
+;; Allow to use Tab completion in Helm
+
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
 (global-set-key "\C-x\ \C-r" 'helm-recentf)
 (global-set-key (kbd "M-x") #'helm-M-x)
 (helm-mode 1)
+(define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
+(define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-z") #'helm-select-action)
 
 ;; Enable Evil
 (straight-use-package 'evil)
@@ -46,6 +60,7 @@
   ;; ---- * leader-??? * ---- ;;
   (kbd "<leader>m") 'helm-recentf
   (kbd "<leader>q") 'kill-buffer
+  (kbd "<leader> SPC q") 'delete-window
   (kbd "<leader>w") 'save-buffer
   (kbd "<leader>v") 'split-window-right
   (kbd "M-h") 'windmove-left
@@ -91,7 +106,7 @@
 (add-hook 'prog-mode-hook 'nlinum-relative-mode)
 (setq nlinum-relative-redisplay-delay 0)
 (setq nlinum-relative-current-symbol "")
-(setq nlinum-relative-offset 0)        
+(setq nlinum-relative-offset 0)
 (global-nlinum-relative-mode)
 
 (custom-set-variables
@@ -108,7 +123,7 @@
 ;; Follow symlinks
 (setq vc-follow-symlinks t) 
 (global-hl-line-mode +1)
-(setq default-frame-alist '((font . "Fira Mono-13")))
+(setq default-frame-alist '((font . "Fira Mono-14")))
 ;; Org Mode
 (global-set-key "\C-ca" 'org-agenda)
 (with-eval-after-load 'org

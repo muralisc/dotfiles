@@ -52,3 +52,4 @@ alias led='ledger -f $DOTFILES_LEDGER_FILE'
 
 alias org='emacs --funcall org-agenda-list'
 alias Org='/Applications/Emacs.app/Contents/MacOS/Emacs --funcall org-agenda-list &'
+alias fv="findvim"
