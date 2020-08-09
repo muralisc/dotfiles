@@ -109,9 +109,8 @@
 (setq nlinum-relative-offset 0)
 (global-nlinum-relative-mode)
 
-(custom-set-variables
- '(org-directory "~/shared_folders/minimal/Pensieve/textfiles/journal/")
- '(org-agenda-files (list org-directory)))
+(setq custom-file "~/.emacs-custom.el")
+     (load custom-file)
 
 ;; Personal Settings which require no packages
 ;; hide toolbar and scrollbar
@@ -136,10 +135,7 @@
         ;; match those are not scheduled, are not DONE.
         ("iU" "Unscheduled tasks with no TODO" tags "-SCHEDULED={.+}-TODO={.+}")
         ))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(setq org-agenda-span 7
+      org-agenda-start-on-weekday nil
+      ;org-agenda-start-day "-3d"
+      )
