@@ -40,8 +40,6 @@
 
 ;; Helm
 (straight-use-package 'helm)
-;; Allow to use Tab completion in Helm
-
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
 (global-set-key "\C-x\ \C-r" 'helm-recentf)
 (global-set-key (kbd "M-x") #'helm-M-x)
@@ -55,9 +53,8 @@
 (require 'evil)
 (evil-mode 1)
 (evil-set-leader 'normal " ")
-;; https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.el
 (evil-define-key 'normal 'global
-  ;; ---- * leader-??? * ---- ;;
+  ;; ---- mimic my vim mappings ----- ;;
   (kbd "<leader>m") 'helm-recentf
   (kbd "<leader>q") 'kill-buffer
   (kbd "<leader> SPC q") 'delete-window
@@ -69,18 +66,11 @@
   (kbd "M-l") 'windmove-right
   )
 
-;; Evil org
-(straight-use-package 'evil-org)
-(require 'evil-org)
-(add-hook 'org-mode-hook 'evil-org-mode)
-(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-(require 'evil-org-agenda)
-(evil-org-agenda-set-keys)
-
 ;; Which Key
 (straight-use-package 'which-key)
 (which-key-mode)
 
+;; Helpful
 (straight-use-package 'helpful)
 (global-set-key (kbd "C-h f") #'helpful-callable)
 (global-set-key (kbd "C-h v") #'helpful-variable)
@@ -111,7 +101,7 @@
 ;; hide toolbar and scrollbar
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
-;; (global-display-line-numbers-mode)
+;; (global-display-line-numbers-mode) ;; Not required if using relative mode
 (show-paren-mode 1)
 (setq make-backup-files nil)
 ;; Follow symlinks
