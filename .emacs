@@ -65,6 +65,22 @@
   (kbd "M-k") 'windmove-up
   (kbd "M-l") 'windmove-right
   )
+;; -- adapted from evil-org-mode -- ;;
+(straight-use-package 'evil-org)
+(require 'evil-org)
+(add-hook 'org-mode-hook 'evil-org-mode)
+(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+(require 'evil-org-agenda)
+(evil-org-agenda-set-keys)
+(add-hook 'org-mode-hook
+ (lambda ()
+   (evil-org-mode)
+   ;; Custom mappings
+   (evil-define-key 'motion org-agenda-mode-map
+     (kbd "M-j") 'org-agenda-date-later-hours
+     (kbd "M-k") 'org-agenda-date-earlier-hours)
+   ))
+
 
 ;; Which Key
 (straight-use-package 'which-key)
@@ -114,6 +130,7 @@
   (add-to-list 'org-modules 'org-habit t))
 (setq org-agenda-show-future-repeats nil)
 (setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-use-time-grid nil)
 (setq org-agenda-custom-commands
       `(;; match those are not scheduled, are not DONE.
         ("iu" "unscheduled TOTO tasks" tags "-SCHEDULED={.+}/+TODO|+STARTED|+WAITING")
