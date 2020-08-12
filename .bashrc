@@ -20,15 +20,15 @@ txtrst='\[\e[0m\]'    # Text Reset
 wrap(){ echo '\['"$1"'\]'; }
 if [[ $- == *i* ]]; then
   # run only if shell is interactive
-  txtblk=$(tput setaf 0)  # txtblk='\[\e[0;30m\]' # Black - Regular
-  txtred=$(tput setaf 1)  # txtred='\[\e[0;31m\]' # Red
-  txtgrn=$(tput setaf 2)  # txtgrn='\[\e[0;32m\]' # Green
-  txtylw=$(tput setaf 3)  # txtylw='\[\e[0;33m\]' # Yellow
-  txtblu=$(tput setaf 4)  # txtblu='\[\e[0;34m\]' # Blue
-  txtpur=$(tput setaf 5)  # txtpur='\[\e[0;35m\]' # Purple
-  txtcyn=$(tput setaf 6)  # txtcyn='\[\e[0;36m\]' # Cyan
-  txtwht=$(tput setaf 7)  # txtwht='\[\e[0;37m\]' # White
-  txtrst=$(tput sgr0)
+  txtblk=$(wrap $(tput setaf 0))  # txtblk='\[\e[0;30m\]' # Black - Regular
+  txtred=$(wrap $(tput setaf 1))  # txtred='\[\e[0;31m\]' # Red
+  txtgrn=$(wrap $(tput setaf 2))  # txtgrn='\[\e[0;32m\]' # Green
+  txtylw=$(wrap $(tput setaf 3))  # txtylw='\[\e[0;33m\]' # Yellow
+  txtblu=$(wrap $(tput setaf 4))  # txtblu='\[\e[0;34m\]' # Blue
+  txtpur=$(wrap $(tput setaf 5))  # txtpur='\[\e[0;35m\]' # Purple
+  txtcyn=$(wrap $(tput setaf 6))  # txtcyn='\[\e[0;36m\]' # Cyan
+  txtwht=$(wrap $(tput setaf 7))  # txtwht='\[\e[0;37m\]' # White
+  txtrst=$(wrap $(tput sgr0))
 fi
 
 shopt -s extglob
@@ -45,13 +45,11 @@ shrink_bash_path () {
   export SHRINKED_PWD="$(echo ${shrinked_prefix}$(basename $(pwd)))"
 }
 export PROMPT_COMMAND="shrink_bash_path; history -a; history -c; history -r; $PROMPT_COMMAND"
-username="$(wrap $bldgrn)\u"
-hostname="$(wrap $txtylw)\h"
-filepath="$(wrap $txtblu)\$SHRINKED_PWD"
-datecolr="$(wrap $bldpur)\D{%F %T}"
-bolddolr="$(wrap $bldgrn)$"
+filepath="$txtblu\$SHRINKED_PWD"
+datecolr="$bldpur \D{%F %T}"
+bolddolr="${bldgrn}$"
 #PS1='\u@\h:\w\$ '
-export PS1="${SSH_CONNECTION:+\u@\h }$filepath ${bolddolr} $(wrap $txtrst)"
+export PS1="${SSH_CONNECTION:+\u@\h }$filepath ${bolddolr} $txtrst"
 if [[ $(id -u) == 0 ]]; then PS1="root|$PS1"; fi
 
 # enable programmable completion features

@@ -80,6 +80,10 @@
      (kbd "M-j") 'org-agenda-date-later-hours
      (kbd "M-k") 'org-agenda-date-earlier-hours)
    ))
+(defun glasser-org-reset-check-on-repeat ()
+  (when (and (org-get-repeat) (member org-state org-done-keywords))
+    (org-reset-checkbox-state-subtree)))
+(add-hook 'org-after-todo-state-change-hook 'glasser-org-reset-check-on-repeat)
 
 
 ;; Which Key
