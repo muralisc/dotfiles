@@ -115,9 +115,12 @@
      (load custom-file)
 
 ;; Personal Settings which require no packages
+;; Maximize Emacs on Startup
+(custom-set-variables
+ '(initial-frame-alist (quote ((fullscreen . maximized)))))
 ;; show cursor position within line
 (column-number-mode 1)
-;; hide toolbar and scrollbar
+;; hide toolbar and scroll bar
 (if (display-graphic-p)
     (progn
       (tool-bar-mode 0)
