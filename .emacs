@@ -32,9 +32,6 @@
   (doom-themes-visual-bell-config)
 (doom-themes-org-config)
 ;; Theme 1
-;; (straight-use-package 'tangotango-theme)
-;; (load-theme 'tangotango t)
-;; Theme 1
 ;; (straight-use-package 'spacemacs-theme)
 ;; (load-theme 'spacemacs-dark t)
 
@@ -118,18 +115,26 @@
      (load custom-file)
 
 ;; Personal Settings which require no packages
+;; show cursor position within line
+(column-number-mode 1)
 ;; hide toolbar and scrollbar
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
+(if (display-graphic-p)
+    (progn
+      (tool-bar-mode 0)
+      (scroll-bar-mode 0)))
 ;; (global-display-line-numbers-mode) ;; Not required if using relative mode
 (show-paren-mode 1)
 (setq make-backup-files nil)
 ;; Follow symlinks
 (setq vc-follow-symlinks t) 
+;; Show current cursor line
 (global-hl-line-mode +1)
+;; Set Font
 (setq default-frame-alist '((font . "Fira Mono-14")))
-;; Org Mode
+;; ORG MODE
 (global-set-key "\C-ca" 'org-agenda)
+;; Org habit column
+(setq org-habit-graph-column 60)
 (with-eval-after-load 'org
   (add-to-list 'org-modules 'org-habit t))
 (setq org-agenda-show-future-repeats nil)
