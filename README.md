@@ -33,7 +33,7 @@ some_function_specific_for_this_machine() {
 }
 ```
 
-### Personal git config
+### Personal git configuration
 
 Create a ~/.extra file to do machine specific steps while installation.
 Got this idea from (mathiasbynens/dotfiles)[https://github.com/mathiasbynens/dotfiles]
