@@ -22,6 +22,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'mileszs/ack.vim'                                             " Search files                                      
   Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files                            
   Plug 'tpope/vim-commentary'                                        " map: gcc                                          
+  Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space                
   Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                       
   Plug 'godlygeek/tabular'                                           " for easily aligning                               
