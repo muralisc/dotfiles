@@ -286,7 +286,7 @@ yay -S --noconfirm nodejs go
 yay -S --noconfirm htop vnstat
 yay -S dunst netdata
 # for terminal git and git-gui
-yay -S --noconfirm tig ungit lazygit tk
+yay -S --noconfirm tig ungit lazygit tk git-cz
 # bluetooth wifi
 yay -S --noconfirm bluez iw blueman-git bluez-utils-compat #  bluez-utils
 # use --experimental in bluetooth service

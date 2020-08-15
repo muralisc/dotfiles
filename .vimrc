@@ -22,7 +22,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'mileszs/ack.vim'                                             " Search files                                      
   Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files                            
   Plug 'tpope/vim-commentary'                                        " map: gcc                                          
-  Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space                
   Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                       
   Plug 'godlygeek/tabular'                                           " for easily aligning                               
@@ -349,8 +348,15 @@ augroup FTOptions
   autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
   autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99
   autocmd Filetype gitcommit                    setlocal spell textwidth=72
-  autocmd FileType git,gitcommit                setlocal foldmethod=syntax
+  autocmd FileType git,gitcommit                setlocal foldmethod=syntax tw=72 cc=+1 spell
   autocmd Filetype markdown                     setlocal iskeyword+=# textwidth=80
+augroup end
+augroup gitsetup
+        autocmd!
+        " Only set these commands up for git commits
+        autocmd FileType gitcommit
+                \ autocmd CursorMoved,CursorMovedI *
+                        \ let &l:textwidth = line('.') == 1 ? 50 : ( line('.') == 2 ? 1 : 72)
 augroup end
 "}}} Filetype Specific Settings
 " Plugin Specific Settings ====================================================
