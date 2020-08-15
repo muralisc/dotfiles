@@ -67,20 +67,22 @@
 (require 'evil-org)
 (add-hook 'org-mode-hook 'evil-org-mode)
 (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-(require 'evil-org-agenda)
+;; Use my custome mappings adapted from:
+;; (require 'evil-org-agenda)
+;; (evil-org-agenda-set-keys)
+(defun evil-org-agenda-set-keys ()
+  "Set motion state keys for `org-agenda'."
+  (evil-set-initial-state 'org-agenda-mode 'motion)
+  (evil-define-key 'motion org-agenda-mode-map
+    (kbd " m") 'helm-recentf
+    "j" 'org-agenda-next-line
+    "k" 'org-agenda-previous-line
+    ))
 (evil-org-agenda-set-keys)
-(add-hook 'org-mode-hook
- (lambda ()
-   (evil-org-mode)
-   ;; Custom mappings
-   (evil-define-key 'motion org-agenda-mode-map
-     (kbd "M-j") 'org-agenda-date-later-hours
-     (kbd "M-k") 'org-agenda-date-earlier-hours)
-   ))
-(defun glasser-org-reset-check-on-repeat ()
+(defun org-reset-check-on-repeat ()
   (when (and (org-get-repeat) (member org-state org-done-keywords))
     (org-reset-checkbox-state-subtree)))
-(add-hook 'org-after-todo-state-change-hook 'glasser-org-reset-check-on-repeat)
+(add-hook 'org-after-todo-state-change-hook 'org-reset-check-on-repeat)
 
 
 ;; Which Key
