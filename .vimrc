@@ -24,6 +24,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'tpope/vim-commentary'                                        " map: gcc                                          
   Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space                
   Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                       
+  Plug 'tpope/vim-fugitive'
   Plug 'godlygeek/tabular'                                           " for easily aligning                               
   Plug 'vim-scripts/restore_view.vim'                                "                                                   
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
