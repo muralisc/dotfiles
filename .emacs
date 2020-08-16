@@ -11,29 +11,16 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+;; Theme 0
+;; (straight-use-package 'doom-themes)
+;; (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;;   (load-theme 'doom-one t)
+;;   (doom-themes-visual-bell-config)
+;; (doom-themes-org-config)
 ;; Theme 1
-;; (straight-use-package 'dracula-theme)
-;; (load-theme 'dracula t)
-;; Theme 1
-;; (straight-use-package 'zenburn-theme)
-;; (load-theme 'zenburn t)
-;; Theme 1
-;; (straight-use-package 'solarized-theme)
-;; (load-theme 'solarized-dark t)
-;; (setq solarized-high-contrast-mode-line t)
-;; Theme 1
-;; (straight-use-package 'gotham-theme)
-;; (load-theme 'gotham t)
-;; Theme 1
-(straight-use-package 'doom-themes)
-(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one t)
-  (doom-themes-visual-bell-config)
-(doom-themes-org-config)
-;; Theme 1
-;; (straight-use-package 'spacemacs-theme)
-;; (load-theme 'spacemacs-dark t)
+(straight-use-package 'zenburn-theme)
+(load-theme 'zenburn t)
 
 ;; Helm
 (straight-use-package 'helm)
@@ -77,6 +64,7 @@
     (kbd " m") 'helm-recentf
     "j" 'org-agenda-next-line
     "k" 'org-agenda-previous-line
+    "t" 'org-agenda-todo
     ))
 (evil-org-agenda-set-keys)
 (defun org-reset-check-on-repeat ()

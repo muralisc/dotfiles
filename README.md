@@ -65,7 +65,6 @@ PANE_NAME
 * `attach_to_tmux` - is a helper function which automatically creates a tmux session if no
 exist, or attaches to existing one if one is already created.
 * `transfer` - Use [https://transfer.sh](https://transfer.sh) to transfer files.
-* `timeGoogle` - Update time in linux from google
 * `ms` - music search for mpd
 * `mp` - music play for mpd
 * `tt` - time till e.g: `tt tomorrow5am`
