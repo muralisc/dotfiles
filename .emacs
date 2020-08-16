@@ -100,13 +100,14 @@
 (global-set-key (kbd "C-h v") #'helpful-variable)
 (global-set-key (kbd "C-h k") #'helpful-key)
 
-;; Key Chord
-(straight-use-package 'key-chord)
-(require 'key-chord)
-(key-chord-mode 1)
-(key-chord-define evil-insert-state-map  "jj" 'evil-normal-state)
-(setq key-chord-two-keys-delay 0.2)
-
+;; Evil Escape
+(straight-use-package 'evil-escape)
+(require 'evil-escape)
+(evil-escape-mode +1)
+(setq evil-escape-excluded-states '(normal visual multiedit emacs motion)
+      evil-escape-excluded-major-modes '(neotree-mode treemacs-mode vterm-mode)
+      evil-escape-key-sequence "jj"
+      evil-escape-delay 0.20)
 
 ;; Relative Line Numbers
 (straight-use-package 'nlinum-relative)
@@ -135,7 +136,7 @@
 (show-paren-mode 1)
 (setq make-backup-files nil)
 ;; Follow symlinks
-(setq vc-follow-symlinks t) 
+(setq vc-follow-symlinks t)
 ;; Show current cursor line
 (global-hl-line-mode +1)
 ;; Set Font
