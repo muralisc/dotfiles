@@ -70,18 +70,11 @@
   (kbd "M-l") 'windmove-right
   )
 ;; -- adapted from evil-org-mode -- ;;
-(straight-use-package 'evil-org)
-(require 'evil-org)
-(add-hook 'org-mode-hook 'evil-org-mode)
-(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-;; Use my custome mappings adapted from:
-;; (require 'evil-org-agenda)
-;; (evil-org-agenda-set-keys)
 (defun evil-org-agenda-set-keys ()
   "Set motion state keys for `org-agenda'."
   (evil-set-initial-state 'org-agenda-mode 'motion)
   (evil-define-key 'motion org-agenda-mode-map
-    (kbd " m") 'helm-recentf
+    (kbd " m") 'counsel-recentf
     "j" 'org-agenda-next-line
     "k" 'org-agenda-previous-line
     "t" 'org-agenda-todo
