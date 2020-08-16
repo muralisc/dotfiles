@@ -23,20 +23,34 @@
 (load-theme 'zenburn t)
 
 ;; Helm
-(straight-use-package 'helm)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
-(global-set-key "\C-x\ \C-r" 'helm-recentf)
-(global-set-key (kbd "M-x") #'helm-M-x)
-(helm-mode 1)
-(define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
-(define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-z") #'helm-select-action)
-;; Helm at bottom only
-(add-to-list 'display-buffer-alist
-                    `(,(rx bos "*helm" (* not-newline) "*" eos)
-                         (display-buffer-in-side-window)
-                         (inhibit-same-window . t)
-                         (window-height . 0.4)))
+;; (straight-use-package 'helm)
+;; (global-set-key (kbd "C-x C-f") #'helm-find-files)
+;; (global-set-key "\C-x\ \C-r" 'helm-recentf)
+;; (global-set-key (kbd "M-x") #'helm-M-x)
+;; (helm-mode 1)
+;; (define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
+;; (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
+;; (define-key helm-map (kbd "C-z") #'helm-select-action)
+;; ;; Helm at bottom only
+;; (add-to-list 'display-buffer-alist
+;;                     `(,(rx bos "*helm" (* not-newline) "*" eos)
+;;                          (display-buffer-in-side-window)
+;;                          (inhibit-same-window . t)
+;;                          (window-height . 0.4)))
+
+;; Ivy
+(straight-use-package 'ivy)
+(straight-use-package 'swiper)
+(straight-use-package 'counsel)
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+;; enable this if you want `swiper' to use it
+;; (setq search-default-mode #'char-fold-to-regexp)
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-x C-r") 'counsel-recentf)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
 
 ;; Enable Evil
 (straight-use-package 'evil)
@@ -45,7 +59,7 @@
 (evil-set-leader 'normal " ")
 (evil-define-key 'normal 'global
   ;; ---- mimic my vim mappings ----- ;;
-  (kbd "<leader>m") 'helm-recentf
+  (kbd "<leader>m") 'counsel-recentf
   (kbd "<leader>q") 'kill-buffer
   (kbd "<leader> SPC q") 'delete-window
   (kbd "<leader>w") 'save-buffer
