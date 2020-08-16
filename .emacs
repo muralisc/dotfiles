@@ -31,6 +31,12 @@
 (define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
 (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-z") #'helm-select-action)
+;; Helm at bottom only
+(add-to-list 'display-buffer-alist
+                    `(,(rx bos "*helm" (* not-newline) "*" eos)
+                         (display-buffer-in-side-window)
+                         (inhibit-same-window . t)
+                         (window-height . 0.4)))
 
 ;; Enable Evil
 (straight-use-package 'evil)
@@ -65,6 +71,10 @@
     "j" 'org-agenda-next-line
     "k" 'org-agenda-previous-line
     "t" 'org-agenda-todo
+    (kbd "M-h") 'windmove-left
+    (kbd "M-j") 'windmove-down
+    (kbd "M-k") 'windmove-up
+    (kbd "M-l") 'windmove-right
     ))
 (evil-org-agenda-set-keys)
 (defun org-reset-check-on-repeat ()
