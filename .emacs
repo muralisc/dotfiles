@@ -116,8 +116,7 @@
 
 ;; Personal Settings which require no packages
 ;; Maximize Emacs on Startup
-(custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 ;; show cursor position within line
 (column-number-mode 1)
 ;; hide toolbar and scroll bar
@@ -133,7 +132,7 @@
 ;; Show current cursor line
 (global-hl-line-mode +1)
 ;; Set Font
-(setq default-frame-alist '((font . "Fira Mono-14")))
+(setq default-frame-alist '((font . "Fira Mono-12")))
 ;; ORG MODE
 (global-set-key "\C-ca" 'org-agenda)
 ;; Org habit column
