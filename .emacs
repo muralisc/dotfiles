@@ -1,3 +1,6 @@
+;;; .emacs --- Custome emacs config of Murali
+;;; Commentary:
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -85,6 +88,7 @@
     ))
 (evil-org-agenda-set-keys)
 (defun org-reset-check-on-repeat ()
+  "When a repeating task is marked todo. Reset all the check boxes."
   (when (and (org-get-repeat) (member org-state org-done-keywords))
     (org-reset-checkbox-state-subtree)))
 (add-hook 'org-after-todo-state-change-hook 'org-reset-check-on-repeat)
