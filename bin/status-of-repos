@@ -1,8 +1,11 @@
 #!/bin/bash
+# Pass Find parameters if required
+
+FIND_PARAMS="$@"
 
 #check if git repos are changed/behind
 STATS=""        # just for printing nicely
-for path in `find $PWD -iname .git`
+for path in $(find $PWD -iname .git $@)
 do
   REPOROOT=${path/%.git/}
   cd "$REPOROOT"
