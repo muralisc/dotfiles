@@ -20,6 +20,9 @@
 (load-theme 'doom-vibrant t)
 (doom-themes-org-config)
 
+;; Add path
+(setq user-emacs-directory "~/.emacs.d")
+(add-to-list 'load-path (concat user-emacs-directory "/mine"))
 ;; Custom faces
 (custom-set-faces
  '(org-scheduled-previously ((t (:foreground "#d74b4b"))))
@@ -114,6 +117,8 @@
 ;; Private Settings
 (setq custom-file "~/.emacs-custom.el")
      (load custom-file)
+;; Custom config files
+(require 'mine-org-late)
 
 ;; Personal Settings which require no packages
 (set-default 'truncate-lines t)
@@ -145,12 +150,18 @@
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-use-time-grid nil)
 (setq org-agenda-custom-commands
-      `(;; match those are not scheduled, are not DONE.
+      '(;; match those are not scheduled, are not DONE.
         ("iu" "unscheduled TOTO tasks" tags "-SCHEDULED={.+}/+TODO|+STARTED|+WAITING")
         ;; match those are not scheduled, are not DONE.
         ("iU" "Unscheduled tasks with no TODO" tags "-SCHEDULED={.+}-TODO={.+}")
+	("O" "Old - No Recent Acitvity"
+         ((tags "-TODO={DONE}"
+                ((org-agenda-overriding-header "Tasks Not acted Upon Recently")
+                 (org-agenda-skip-function '(+org/has-child-and-last-update-before 30)))))
+         nil nil)
         ))
 (setq org-agenda-span 7
       org-agenda-start-on-weekday nil
       ;org-agenda-start-day "-3d"
       )
+
