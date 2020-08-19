@@ -48,7 +48,8 @@
 (evil-set-leader 'normal " ")
 (evil-define-key 'normal 'global
   ;; ---- mimic my vim mappings ----- ;;
-  (kbd "<leader>m") 'counsel-recentf
+  (kbd "<leader>ff") 'counsel-find-file
+  (kbd "<leader>fr") 'counsel-recentf
   (kbd "<leader>q") 'kill-buffer
   (kbd "<leader> SPC q") 'delete-window
   (kbd "<leader>w") 'save-buffer

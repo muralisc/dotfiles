@@ -38,6 +38,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'itchyny/lightline.vim'
   Plug 'airblade/vim-rooter'
+  let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
+  let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
+  let g:rooter_patterns = []
   Plug 'SirVer/ultisnips'
   let g:UltiSnipsExpandTrigger="<tab>"
   let g:UltiSnipsListSnippets="<c-tab>"
@@ -305,11 +308,11 @@ nnoremap <leader>/ :Rg!
 nnoremap <leader><leader>/ :Rg!<C-R><C-W>
 nnoremap <leader>y/ :Rg!<C-R>"
 " FZF is faster than CtrlP for finding files in Directories
-nnoremap <leader>m :FZF! +s --tac <CR>
+nnoremap <leader>pf :GFiles
 " alternate for => :CtrlPMRUFiles <CR>
-nnoremap <leader><leader>m :History <CR>
+nnoremap <leader>fr :History <CR>
 " open another file in same dir as current file
-nnoremap <leader>o :e %:h/<C-d>
+nnoremap <leader>ff :FZF! +s --tac <CR>
 " Quit Files with leader + q
 nnoremap <leader>q :bp\|bd #<cr>
 " Close splits but not last window
@@ -385,8 +388,6 @@ if has('mac')
     nnoremap <silent> ¬ :TmuxNavigateRight<cr>
 endif
 
-let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
-let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
 
 
 " Select text for which we need boxes drawn
