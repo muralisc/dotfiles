@@ -20,6 +20,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   let g:ale_lint_on_insert_leave = 1
   let g:ale_lint_on_enter = 0
   Plug 'mileszs/ack.vim'                                             " Search files                                      
+  if executable('rg')
+        let g:ackprg = 'rg --vimgrep'
+  endif
+  let g:ack_autoclose = 0
   Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files                            
   Plug 'tpope/vim-commentary'                                        " map: gcc                                          
   Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space                
@@ -37,6 +41,16 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
         \   <bang>0)
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'itchyny/lightline.vim'
+  let g:lightline = {
+        \ 'colorscheme': 'dracula',
+        \ 'component_function': {
+        \   'filename': 'LightLineFilename'
+        \ }
+        \ }
+  function! LightLineFilename()
+    " Get shrinked current working directory and filename
+    return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
+  endfunction
   Plug 'airblade/vim-rooter'
   let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
   let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
@@ -48,10 +62,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/snippets'
   Plug 'bfredl/nvim-miniyank'
   Plug 'whiteinge/diffconflicts'
-  "ORG MODE and Helpers
-  Plug 'mattn/calendar-vim'
-  Plug 'tpope/vim-speeddating'
-  Plug 'jceb/vim-orgmode'
   " Language Specific
   Plug 'fatih/vim-go'
   " Non-essential
@@ -285,8 +295,6 @@ nnoremap <Up>    5<c-w>+
 nnoremap <Down>  5<c-w>-
 nnoremap <Right> 5<c-w>>
 nnoremap <Left>  5<c-w><
-" search the text selected in visual mode in entire file
-vnoremap // y/<C-R>"<CR>
 " Dont move your fingers from the home row OR use ctrl-[ instead `
 inoremap jj <Esc>
 " normal mappings {{{
@@ -305,10 +313,9 @@ nnoremap zz zt5<C-y>
 nnoremap <leader>n :nohlsearch<CR>
 " Find in files:
 nnoremap <leader>/ :Rg!
-nnoremap <leader><leader>/ :Rg!<C-R><C-W>
-nnoremap <leader>y/ :Rg!<C-R>"
+nnoremap <leader>* :Rg!<C-R><C-W>
 " FZF is faster than CtrlP for finding files in Directories
-nnoremap <leader>pf :GFiles
+nnoremap <leader>pf :GFiles <CR>
 " alternate for => :CtrlPMRUFiles <CR>
 nnoremap <leader>fr :History <CR>
 " open another file in same dir as current file
@@ -364,10 +371,6 @@ augroup gitsetup
 augroup end
 "}}} Filetype Specific Settings
 " Plugin Specific Settings ====================================================
-if executable('rg')
-      let g:ackprg = 'rg --vimgrep'
-endif
-let g:ack_autoclose = 0
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
 " Plugin Specific Settings ================================================
 if filereadable(glob("~/.vimrc.local"))
@@ -388,27 +391,15 @@ if has('mac')
     nnoremap <silent> ¬ :TmuxNavigateRight<cr>
 endif
 
-
-
 " Select text for which we need boxes drawn
 " https://github.com/ascii-boxes/boxes
 " db - draw box
 vnoremap <leader>db !boxes -d stone -p v1 -a hc -s 80
 " xb - delete box
 vnoremap <leader>xb !boxes -r<CR>
-" Below is a method of writing comment in the same line as a map
-vnoremap y ygv<Esc>|" After yanking in visual mode move cursor to the end of  the selection
+" After yanking in visual mode move cursor to the end of  the selection
+vnoremap y ygv<Esc>
 
-let g:lightline = {
-      \ 'colorscheme': 'dracula',
-      \ 'component_function': {
-      \   'filename': 'LightLineFilename'
-      \ }
-      \ }
-function! LightLineFilename()
-  " Get shrinked current working directory and filename
-  return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
-endfunction
 
 " Delete file
-nnoremap <F5> :call delete(expand('%')) <bar> bdelete! <CR>
+nnoremap <leader>fD :call delete(expand('%')) <bar> bdelete! <CR>

@@ -1,4 +1,4 @@
-;;; .emacs --- Custome emacs config of Murali
+;;; .emacs --- Custom emacs configuration of Murali
 ;;; Commentary:
 
 (defvar bootstrap-version)
