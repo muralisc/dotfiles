@@ -50,10 +50,10 @@
   ;; ---- mimic my vim mappings ----- ;;
   (kbd "<leader>ff") 'counsel-find-file
   (kbd "<leader>fr") 'counsel-recentf
-  (kbd "<leader>q") 'kill-buffer
-  (kbd "<leader> SPC q") 'delete-window
-  (kbd "<leader>w") 'save-buffer
-  (kbd "<leader>v") 'split-window-right
+  (kbd "<leader>fq") 'kill-buffer
+  (kbd "<leader>fs") 'save-buffer
+  (kbd "<leader>wd") 'delete-window
+  (kbd "<leader>wv") 'split-window-right
   (kbd "M-h") 'windmove-left
   (kbd "M-j") 'windmove-down
   (kbd "M-k") 'windmove-up
@@ -115,6 +115,12 @@
 (setq nlinum-relative-offset 0)
 (global-nlinum-relative-mode)
 
+;; Magit
+(straight-use-package 'magit)
+(require 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch)
+
 ;; Private Settings
 (setq custom-file "~/.emacs-custom.el")
      (load custom-file)
@@ -132,6 +138,7 @@
     (progn
       (tool-bar-mode 0)
       (scroll-bar-mode 0)))
+(menu-bar-mode -1)
 ;; (global-display-line-numbers-mode) ;; Not required if using relative mode
 (show-paren-mode 1)
 (setq make-backup-files nil)
