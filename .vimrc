@@ -73,7 +73,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'joshdick/onedark.vim'
   Plug 'dracula/vim'
   Plug 'chriskempson/base16-vim'
-  Plug 'whatyouhide/vim-gotham'
+  set background=dark
   call plug#end()
 endif
 "}}}1 ===========================================================Vundle setup done
@@ -115,7 +115,6 @@ else
   endif
 endif
 
-set background=dark
 let mapleader="\<Space>"                                                        " Change the mapleader from \ to
 let maplocalleader="\<Space>"
 set autoread                                                                    " read a changed file on disk
@@ -198,7 +197,7 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme gotham                      " gruvbox onedark dracula gotham base16-*
+silent! colorscheme base16-solarized-dark                                       " gruvbox onedark dracula gotham base16-*
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
