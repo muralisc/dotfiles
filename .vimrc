@@ -68,8 +68,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'junegunn/rainbow_parentheses.vim'
   Plug 'tpope/vim-vinegar'
   " Colorschemes
-  Plug 'morhetz/gruvbox'
-  let g:gruvbox_contrast_dark="hard"
   Plug 'joshdick/onedark.vim'
   Plug 'chriskempson/base16-vim'
   set background=dark
@@ -196,7 +194,7 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme onedark                                                     " gruvbox onedark base16-*
+silent! colorscheme onedark                                                     " onedark base16-*
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
