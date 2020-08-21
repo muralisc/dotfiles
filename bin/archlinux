@@ -285,8 +285,8 @@ yay -S --noconfirm nodejs go
 # monitors
 yay -S --noconfirm htop vnstat
 yay -S dunst netdata
-# for terminal git and git-gui
-yay -S --noconfirm tig ungit lazygit tk git-cz
+# for terminal git and git-gui, use magit in emacs instead of anything else
+yay -S --noconfirm tk
 # bluetooth wifi
 yay -S --noconfirm bluez iw blueman-git bluez-utils-compat #  bluez-utils
 # use --experimental in bluetooth service
