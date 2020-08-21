@@ -53,3 +53,6 @@ alias led='ledger -f $DOTFILES_LEDGER_FILE'
 alias org='emacs --funcall org-agenda-list'
 alias Org='/Applications/Emacs.app/Contents/MacOS/Emacs --funcall org-agenda-list &'
 alias fv="findvim"
+# These alias is requried to prevent vim colorscheme from getting messed up inside tmux
+alias vim="TERM=screen-256color vim"
+alias vimdiff="TERM=screen-256color vimdiff"
