@@ -42,7 +42,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'itchyny/lightline.vim'
   let g:lightline = {
-        \ 'colorscheme': 'dracula',
+        \ 'colorscheme': 'one',
         \ 'component_function': {
         \   'filename': 'LightLineFilename'
         \ }
@@ -71,7 +71,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'morhetz/gruvbox'
   let g:gruvbox_contrast_dark="hard"
   Plug 'joshdick/onedark.vim'
-  Plug 'dracula/vim'
   Plug 'chriskempson/base16-vim'
   set background=dark
   call plug#end()
@@ -197,7 +196,7 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme base16-solarized-dark                                       " gruvbox onedark dracula gotham base16-*
+silent! colorscheme onedark                                                     " gruvbox onedark base16-*
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
