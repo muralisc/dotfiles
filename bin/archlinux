@@ -272,7 +272,7 @@ y -S ttf-fira-mono ttf-crimson-pro
 # Lot of fonts patched with some icons(4GB), or clone github and just install "FiraCode Nerd Font"
 y -S nerd-fonts-fira-code nerd-fonts-fira-mono
 # Some good icons in here:
-y -S font-awesome
+y -S ttf-font-awesome
 # To See font charmap
 y -S font-manager
 # most basic stuff
@@ -405,7 +405,7 @@ Option "TapButton3" "2"
 cargo install bat exa fd-find rip-grep watchexec
 # icdiff is better than git-delta
 
-y -S alacritty xzoom
+y -S alacritty xzoom rxvt-unicode-truecolor
 
 y -S lib32-nvidia-utils nvidia lib32-nvidia-libgl steam
 
