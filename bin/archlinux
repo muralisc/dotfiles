@@ -322,11 +322,21 @@ yay -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
 # when friends who use windows comes over
 yay -S --noconfirm ntfs-3g
 # internet tools
-yay -S --noconfirm dropbox youtube-dl jackett
+yay -S --noconfirm dropbox youtube-dl
 # torrent tools
 yay -S --noconfirm rtorrent
 # sometimes rtorrent is too slow to respond
-https://github.com/jpillora/cloud-torrent
+docker run -d -p 3000:3000 -v /path/to/my/downloads:/downloads jpillora/cloud-torrent
+docker create \
+  --name=jackett \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Asia/Kolkata \
+  -p 9117:9117 \
+  -v $HOME/.config/jackett:/config \
+  -v $HOME/Downloads:/downloads \
+  --restart unless-stopped \
+  linuxserver/jackett
 # enable dropbox
 systemctl --user enable dropbox.service
 vim ~/.config/systemd/user/dropbox@.service  # Add display env
