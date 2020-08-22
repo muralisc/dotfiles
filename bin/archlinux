@@ -164,6 +164,7 @@ exit # exit chroot
 umount -R /mnt
 # change default boot to HARD DISK
 # systemctl reboot # REBOOT/Vagrant setup start ===========================
+echo "nameserver 192.168.0.1" >> /etc/resolv.conf
 sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
 pacman -Syu
 pacman -S sudo

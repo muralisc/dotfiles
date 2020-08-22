@@ -312,21 +312,22 @@ nnoremap <leader>/ :Rg!
 nnoremap <leader>* :Rg!<C-R><C-W>
 " FZF is faster than CtrlP for finding files in Directories
 nnoremap <leader>pf :GFiles <CR>
+" Delete file
+nnoremap <leader>fD :call delete(expand('%')) <bar> bdelete! <CR>
 " alternate for => :CtrlPMRUFiles <CR>
 nnoremap <leader>fr :History <CR>
 " open another file in same dir as current file
 nnoremap <leader>ff :FZF! +s --tac <CR>
 " Quit Files with leader + q
-nnoremap <leader>q :bp\|bd #<cr>
+nnoremap <leader>bd :bp\|bd #<cr>
 " Close splits but not last window
-nnoremap <leader><leader>q :close!<cr>
+nnoremap <leader>wd :close!<cr>
 " Close vim itself
-nnoremap <leader><leader><leader>q :wqa!<cr>
+nnoremap <leader>qs :wqa!<cr>
 nnoremap <leader>s :sp<CR>
-nnoremap <leader>r :so $MYVIMRC<CR>
 nnoremap <leader>v :vs<CR>
 " Fast saving
-nnoremap <leader>w :w<cr>
+nnoremap <leader>fs :w<cr>
 " }}} leader maping end
 " Clipboard madness {{{
 map p <Plug>(miniyank-autoput)
@@ -397,5 +398,3 @@ vnoremap <leader>xb !boxes -r<CR>
 vnoremap y ygv<Esc>
 
 
-" Delete file
-nnoremap <leader>fD :call delete(expand('%')) <bar> bdelete! <CR>
