@@ -230,61 +230,6 @@ set laststatus=2                                                                
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 
-" Commented for now in favor of lightline
-"" Plugin less Statusline settings {{{3
-"" https://stackoverflow.com/a/10416234
-"" http://got-ravings.blogspot.in/2008/08/vim-pr0n-making-statuslines-that-own.html
-"" http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
-"" https://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
-"" https://gist.github.com/XVilka/8346728
-"function! Status(winnum)
-"  let active = a:winnum == winnr()
-"  let bufnum = winbufnr(a:winnum)
-"  let stat = ''
-"  function! Color(active, num )
-"    if a:active
-"      return '%' . a:num . '*'
-"    else
-"      return '%*'
-"    endif
-"  endfunction
-"  " file name
-"  let stat .= Color( active, 7 )
-"  let stat .= '%<%f%*'
-"  " help? preview? modified? readonly?
-"  let stat .= Color( active, 1 )
-"  let stat .= ' %h%w%m%r%*'
-"  " right side
-"  let stat .= Color( active, 7 )
-"  let stat .= ' %=%*'
-"  " Encoding2
-"  let stat .= Color( active, 5 )
-"  let stat.='%-7(%{&ff}%)%*'
-"  " Encoding
-"  let stat .= Color( active, 3 )
-"  let stat.='%-7(%{&fenc}%)%*'
-"  " filetype
-"  let stat .= Color( active, 2 )
-"  let stat.='%-7(%y%)%*'
-"  " %* leftjustify(col,virtulcol) percentage
-"  let stat .= Color( active, 9 )
-"  let stat.='%-15( %c%V%)%*'
-"  return stat
-"endfunction
-"
-""RefreshStatus is used to updated all the status lines
-"function! s:RefreshStatus()
-"  for nr in range(1, winnr('$'))
-"    call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
-"  endfor
-"endfunction
-"
-"augroup status
-"  autocmd!
-"  autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
-"augroup END
-" }}}3
-
 " Shortcut Mappings {{{1
 " resize
 nnoremap <Up>    5<c-w>+
