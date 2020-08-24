@@ -124,8 +124,6 @@
 ;; Private Settings
 (setq custom-file "~/.emacs-custom.el")
      (load custom-file)
-;; Custom config files
-(require 'mine-org-late)
 
 ;; Personal Settings which require no packages
 (set-default 'truncate-lines t)
