@@ -33,7 +33,7 @@
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
-(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
@@ -68,32 +68,6 @@
     (org-reset-checkbox-state-subtree)))
 (add-hook 'org-after-todo-state-change-hook 'org-reset-check-on-repeat)
 
-;; General
-(straight-use-package 'general)
-(require 'general)
-(general-define-key
- "M-h" 'windmove-left
- "M-j" 'windmove-down
- "M-k" 'windmove-up
- "M-l" 'windmove-right)
-(general-define-key
- :keymaps '(normal insert emacs)
- :prefix "SPC"
- :non-normal-prefix "M-SPC"
- "ff" 'counsel-find-file
- "fr" 'counsel-recentf
- "fs" 'save-buffer
- "fq" 'kill-buffer
-
- "gg" 'magit-status
- "g/" 'magit-dispatch
-
- "SPC" 'counsel-M-x
- "wd" 'delete-window
- "wv" 'split-window-right
- "/"  #'projectile-ripgrep)
-
-
 ;; Which Key
 (straight-use-package 'which-key)
 (which-key-mode)
@@ -103,11 +77,6 @@
 (global-set-key (kbd "C-h f") #'helpful-callable)
 (global-set-key (kbd "C-h v") #'helpful-variable)
 (global-set-key (kbd "C-h k") #'helpful-key)
-(evil-define-key 'normal 'global
-  (kbd "<leader>hf") #'helpful-callable
-  (kbd "<leader>hv") #'helpful-variable
-  (kbd "<leader>hk") #'helpful-key
-  )
 
 ;; Evil Escape
 (straight-use-package 'evil-escape)
@@ -128,10 +97,45 @@
 (setq nlinum-relative-offset 0)
 (global-nlinum-relative-mode)
 
-
 ;; Evil Magit
 (straight-use-package 'evil-magit)
 (require 'evil-magit)
+
+;; General
+(straight-use-package 'general)
+(require 'general)
+
+(evil-set-initial-state 'org-agenda-mode 'normal)
+(general-define-key
+ :keymaps '(global org-agenda-mode-map)
+ :states  '(normal emacs)
+ :prefix "SPC"
+ :non-normal-prefix "M-SPC"
+ "RET"    'org-agenda-switch-to
+ "SPC" 'counsel-M-x
+
+ "ff" 'counsel-find-file
+ "fr" 'counsel-recentf
+ "fs" 'save-buffer
+ "fq" 'kill-buffer
+
+ "gg" 'magit-status
+ "g/" 'magit-dispatch
+
+ "hf" #'helpful-callable
+ "hv" #'helpful-variable
+ "hk" #'helpful-key
+
+ "p"  'projectile-command-map
+
+ "wd" 'delete-window
+ "wh" 'windmove-left
+ "wj" 'windmove-down
+ "wk" 'windmove-up
+ "wl" 'windmove-right
+ "wv" 'split-window-right
+ "/"  #'projectile-ripgrep
+ )
 
 ;; Private Settings
 (setq custom-file "~/.emacs-private.el")
