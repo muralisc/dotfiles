@@ -20,9 +20,6 @@
 (load-theme 'doom-vibrant t)
 (doom-themes-org-config)
 
-;; Add path
-(setq user-emacs-directory "~/.emacs.d")
-(add-to-list 'load-path (concat user-emacs-directory "/mine"))
 ;; Custom faces
 (custom-set-faces
  '(org-scheduled-previously ((t (:foreground "#d74b4b"))))
@@ -41,25 +38,21 @@
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 
+;; Magit
+(straight-use-package 'magit)
+(require 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch)
+
+;; Projectile
+(straight-use-package 'projectile)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
 ;; Enable Evil
 (straight-use-package 'evil)
 (require 'evil)
 (evil-mode 1)
-(evil-set-leader 'normal " ")
-(evil-define-key 'normal 'global
-  ;; ---- mimic my vim mappings ----- ;;
-  (kbd "<leader>ff") 'counsel-find-file
-  (kbd "<leader>fr") 'counsel-recentf
-  (kbd "<leader>fq") 'kill-buffer
-  (kbd "<leader>fs") 'save-buffer
-  (kbd "<leader>wd") 'delete-window
-  (kbd "<leader>wv") 'split-window-right
-  (kbd "M-h") 'windmove-left
-  (kbd "M-j") 'windmove-down
-  (kbd "M-k") 'windmove-up
-  (kbd "M-l") 'windmove-right
-  )
-
 
 ;; Enable evil org
 (straight-use-package 'evil-org)
@@ -68,22 +61,37 @@
 (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
 (require 'evil-org-agenda)
 (evil-org-agenda-set-keys)
-;; -- adapted from evil-org-mode -- ;;
-(defun evil-org-agenda-custom-keys ()
-  "Set motion state keys for `org-agenda'."
-  (evil-set-initial-state 'org-agenda-mode 'motion)
-  (evil-define-key 'motion org-agenda-mode-map
-    (kbd "M-h") 'windmove-left
-    (kbd "M-j") 'windmove-down
-    (kbd "M-k") 'windmove-up
-    (kbd "M-l") 'windmove-right
-    ))
-(evil-org-agenda-custom-keys)
+
 (defun org-reset-check-on-repeat ()
   "When a repeating task is marked todo. Reset all the check boxes."
   (when (and (org-get-repeat) (member org-state org-done-keywords))
     (org-reset-checkbox-state-subtree)))
 (add-hook 'org-after-todo-state-change-hook 'org-reset-check-on-repeat)
+
+;; General
+(straight-use-package 'general)
+(require 'general)
+(general-define-key
+ "M-h" 'windmove-left
+ "M-j" 'windmove-down
+ "M-k" 'windmove-up
+ "M-l" 'windmove-right)
+(general-define-key
+ :keymaps '(normal insert emacs)
+ :prefix "SPC"
+ :non-normal-prefix "M-SPC"
+ "ff" 'counsel-find-file
+ "fr" 'counsel-recentf
+ "fs" 'save-buffer
+ "fq" 'kill-buffer
+
+ "gg" 'magit-status
+ "g/" 'magit-dispatch
+
+ "SPC" 'counsel-M-x
+ "wd" 'delete-window
+ "wv" 'split-window-right
+ "/"  #'projectile-ripgrep)
 
 
 ;; Which Key
@@ -95,6 +103,11 @@
 (global-set-key (kbd "C-h f") #'helpful-callable)
 (global-set-key (kbd "C-h v") #'helpful-variable)
 (global-set-key (kbd "C-h k") #'helpful-key)
+(evil-define-key 'normal 'global
+  (kbd "<leader>hf") #'helpful-callable
+  (kbd "<leader>hv") #'helpful-variable
+  (kbd "<leader>hk") #'helpful-key
+  )
 
 ;; Evil Escape
 (straight-use-package 'evil-escape)
@@ -115,20 +128,20 @@
 (setq nlinum-relative-offset 0)
 (global-nlinum-relative-mode)
 
-;; Magit
-(straight-use-package 'magit)
-(require 'magit)
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x M-g") 'magit-dispatch)
+
+;; Evil Magit
+(straight-use-package 'evil-magit)
+(require 'evil-magit)
 
 ;; Private Settings
-(setq custom-file "~/.emacs-custom.el")
-     (load custom-file)
+(setq custom-file "~/.emacs-private.el")
+(load custom-file)
+;; Shared Settings
+(setq custom-file "~/.emacs.d/.emacs-shared.el")
+(load custom-file)
 
-;; Personal Settings which require no packages
+;; Wrap around
 (set-default 'truncate-lines t)
-;; Maximize Emacs on Startup
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 ;; show cursor position within line
 (column-number-mode 1)
 ;; hide toolbar and scroll bar
@@ -136,38 +149,13 @@
     (progn
       (tool-bar-mode 0)
       (scroll-bar-mode 0)))
+;; No menu bar in command line mode
 (menu-bar-mode -1)
-;; (global-display-line-numbers-mode) ;; Not required if using relative mode
+;; (global-display-line-numbers-mode) ;; Not required if using nlinum-relative
 (show-paren-mode 1)
+;; Dont make backup files
 (setq make-backup-files nil)
-;; Follow symlinks
-(setq vc-follow-symlinks t)
 ;; Show current cursor line
 (global-hl-line-mode +1)
 ;; Set Font
 (setq default-frame-alist '((font . "Fira Mono-12")))
-;; ORG MODE
-(global-set-key "\C-ca" 'org-agenda)
-;; Org habit column
-(setq org-habit-graph-column 80)
-(with-eval-after-load 'org
-  (add-to-list 'org-modules 'org-habit t))
-(setq org-agenda-show-future-repeats nil)
-(setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-use-time-grid nil)
-(setq org-agenda-custom-commands
-      '(;; match those are not scheduled, are not DONE.
-        ("iu" "unscheduled TOTO tasks" tags "-SCHEDULED={.+}/+TODO|+STARTED|+WAITING")
-        ;; match those are not scheduled, are not DONE.
-        ("iU" "Unscheduled tasks with no TODO" tags "-SCHEDULED={.+}-TODO={.+}")
-	("O" "Old - No Recent Acitvity"
-         ((tags "-TODO={DONE}"
-                ((org-agenda-overriding-header "Tasks Not acted Upon Recently")
-                 (org-agenda-skip-function '(+org/has-child-and-last-update-before 30)))))
-         nil nil)
-        ))
-(setq org-agenda-span 7
-      org-agenda-start-on-weekday nil
-      ;org-agenda-start-day "-3d"
-      )
-
