@@ -105,13 +105,11 @@
 (straight-use-package 'general)
 (require 'general)
 
-(evil-set-initial-state 'org-agenda-mode 'normal)
 (general-define-key
- :keymaps '(global org-agenda-mode-map)
+ :keymaps '(global)
  :states  '(normal emacs)
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
- "RET"    'org-agenda-switch-to
  "SPC" 'counsel-M-x
 
  "ff" 'counsel-find-file
