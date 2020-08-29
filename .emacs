@@ -62,12 +62,6 @@
 (require 'evil-org-agenda)
 (evil-org-agenda-set-keys)
 
-(defun org-reset-check-on-repeat ()
-  "When a repeating task is marked todo. Reset all the check boxes."
-  (when (and (org-get-repeat) (member org-state org-done-keywords))
-    (org-reset-checkbox-state-subtree)))
-(add-hook 'org-after-todo-state-change-hook 'org-reset-check-on-repeat)
-
 ;; Which Key
 (straight-use-package 'which-key)
 (which-key-mode)
@@ -86,16 +80,6 @@
       evil-escape-excluded-major-modes '(neotree-mode treemacs-mode vterm-mode)
       evil-escape-key-sequence "jj"
       evil-escape-delay 0.20)
-
-;; nlinum-relative --- Relative Line Numbers
-(straight-use-package 'nlinum-relative)
-(require 'nlinum-relative)
-(nlinum-relative-setup-evil)
-(add-hook 'prog-mode-hook 'nlinum-relative-mode)
-(setq nlinum-relative-redisplay-delay 0)
-(setq nlinum-relative-current-symbol "")
-(setq nlinum-relative-offset 0)
-(global-nlinum-relative-mode)
 
 ;; Evil Magit
 (straight-use-package 'evil-magit)
@@ -142,6 +126,8 @@
 (setq custom-file "~/.emacs.d/.emacs-shared.el")
 (load custom-file)
 
+;; No need for startup
+(setq inhibit-startup-screen t)
 ;; Wrap around
 (set-default 'truncate-lines t)
 ;; show cursor position within line
@@ -153,7 +139,9 @@
       (scroll-bar-mode 0)))
 ;; No menu bar in command line mode
 (menu-bar-mode -1)
-;; (global-display-line-numbers-mode) ;; Not required if using nlinum-relative
+;; Use line numbers
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
 (show-paren-mode 1)
 ;; Dont make backup files
 (setq make-backup-files nil)
