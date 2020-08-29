@@ -1,5 +1,7 @@
 ;;; .emacs --- Custom emacs configuration of Murali
 ;;; Commentary:
+;;;
+;;; Code:
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -16,9 +18,15 @@
 
 (straight-use-package 'doom-themes)
 (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
 (load-theme 'doom-vibrant t)
 (doom-themes-org-config)
+
+;; Smart Mode Line
+(straight-use-package 'smart-mode-line)
+(setq sml/theme 'respectful)
+(setq sml/no-confirm-load-theme t)
+(sml/setup)
 
 ;; Custom faces
 (custom-set-faces
@@ -26,12 +34,17 @@
  '(org-scheduled-today ((t (:foreground "#fffaf9" :italic t))))
  '(org-upcoming-deadline ((t (:foreground "#8595ff")))))
 
+;; Undo Tree
+(straight-use-package 'undo-tree)
+(global-undo-tree-mode)
+(setq undo-tree-auto-save-history t)
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+
 ;; For getting correct path
 (straight-use-package 'exec-path-from-shell)
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 (straight-use-package 'lsp-ivy)
-
 
 ;; Flycheck
 (straight-use-package 'flycheck)
@@ -45,12 +58,6 @@
 (straight-use-package 'treemacs)
 (straight-use-package 'lsp-treemacs)
 (lsp-treemacs-sync-mode 1)
-
-
-;; Doom Modeline
-(straight-use-package 'doom-modeline)
-(require 'doom-modeline)
-(doom-modeline-mode 1)
 
 ;; Ivy
 (straight-use-package 'ivy)
@@ -102,8 +109,8 @@
 (straight-use-package 'evil-escape)
 (require 'evil-escape)
 (evil-escape-mode +1)
-(setq evil-escape-excluded-states '(normal visual multiedit emacs motion)
-      evil-escape-excluded-major-modes '(neotree-mode treemacs-mode vterm-mode)
+(setq evil-escape-excluded-states '(normal visual evilified emacs motion)
+      evil-escape-excluded-major-modes '(treemacs-mode)
       evil-escape-key-sequence "jj"
       evil-escape-delay 0.20)
 
@@ -127,8 +134,8 @@
  "fs" 'save-buffer
  "fq" 'kill-buffer
 
- "gg" 'magit-status
- "g/" 'magit-dispatch
+ "gs" 'magit-status
+ "gm" 'magit-dispatch
 
  "hf" #'helpful-callable
  "hv" #'helpful-variable
@@ -152,26 +159,3 @@
 (setq custom-file "~/.emacs.d/.emacs-shared.el")
 (load custom-file)
 
-;; No need for startup
-(setq inhibit-startup-screen t)
-;; Wrap around
-(set-default 'truncate-lines t)
-;; show cursor position within line
-(column-number-mode 1)
-;; hide toolbar and scroll bar
-(if (display-graphic-p)
-    (progn
-      (tool-bar-mode 0)
-      (scroll-bar-mode 0)))
-;; No menu bar in command line mode
-(menu-bar-mode -1)
-;; Use line numbers
-(setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode t)
-(show-paren-mode 1)
-;; Dont make backup files
-(setq make-backup-files nil)
-;; Show current cursor line
-(global-hl-line-mode +1)
-;; Set Font
-(setq default-frame-alist '((font . "Fira Mono-12")))
