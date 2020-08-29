@@ -26,6 +26,32 @@
  '(org-scheduled-today ((t (:foreground "#fffaf9" :italic t))))
  '(org-upcoming-deadline ((t (:foreground "#8595ff")))))
 
+;; For getting correct path
+(straight-use-package 'exec-path-from-shell)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+(straight-use-package 'lsp-ivy)
+
+
+;; Flycheck
+(straight-use-package 'flycheck)
+(global-flycheck-mode)
+;; LSP
+(straight-use-package 'lsp-mode)
+(require 'lsp-mode)
+(setq gc-cons-threshold 100000000)
+(add-hook 'c-mode-hook 'lsp)
+(add-hook 'c++-mode-hook 'lsp)
+(straight-use-package 'treemacs)
+(straight-use-package 'lsp-treemacs)
+(lsp-treemacs-sync-mode 1)
+
+
+;; Doom Modeline
+(straight-use-package 'doom-modeline)
+(require 'doom-modeline)
+(doom-modeline-mode 1)
+
 ;; Ivy
 (straight-use-package 'ivy)
 (straight-use-package 'swiper)
