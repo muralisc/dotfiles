@@ -28,12 +28,6 @@
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
 
-;; Custom faces
-(custom-set-faces
- '(org-scheduled-previously ((t (:foreground "#d74b4b"))))
- '(org-scheduled-today ((t (:foreground "#fffaf9" :italic t))))
- '(org-upcoming-deadline ((t (:foreground "#8595ff")))))
-
 ;; Undo Tree
 (straight-use-package 'undo-tree)
 (global-undo-tree-mode)
