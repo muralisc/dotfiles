@@ -1,4 +1,8 @@
-#!./bin/lua
+#!/bin/lua
+
+-- y -S luarocks
+-- luarocks install luasql-sqlite3
+-- sudo luarocks --lua-version 5.2  install luasql-sqlite3
 
 local driver = require('luasql.sqlite3')
 local env = driver.sqlite3()
