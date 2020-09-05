@@ -143,7 +143,7 @@
  "wk" 'windmove-up
  "wl" 'windmove-right
  "wv" 'split-window-right
- "/"  #'projectile-ripgrep
+ "/"  #'projectile-grep
  )
 
 ;; Private Settings

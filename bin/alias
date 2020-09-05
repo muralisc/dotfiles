@@ -8,7 +8,7 @@ alias gd='git difftool --dir-diff'
 alias gdf='git diff'
 alias gdc='git diff --cached'
 alias gf='git fetch --all'
-alias gl="git log --pretty=tformat:'%C(black)%G? %C(yellow)%h%C(auto)%d %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)%Creset' --graph --color "
+alias gl="git log --pretty=tformat:'%C(black)%G? %C(yellow)%h%C(auto)%d %an %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)%Creset' --graph --color "
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
 alias gp="git push --set-upstream $GIT_UPSTREAM HEAD"
 alias gpl='git pull --rebase' # git pull --rebase origin master
