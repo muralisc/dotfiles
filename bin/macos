@@ -1,1 +1,3 @@
 brew cask install bitbar
+https://github.com/Caldis/Mos
+brew update && brew cask install stretchly

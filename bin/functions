@@ -294,8 +294,9 @@ fonttest() {
 cash() {
   # cash inr usd eur 200
   symbols='{
+    "EUR": "€",
     "INR": "₹",
-    "EUR": "£",
+    "GBP": "£",
     "USD": "$"
   }'
   base="$(tr a-z A-Z <<< $1)"
