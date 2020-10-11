@@ -182,7 +182,7 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlan0
+interface = wlp2s0
 interval = 3.0
 
 format-connected-prefix = " "

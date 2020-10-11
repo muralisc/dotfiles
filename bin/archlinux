@@ -71,7 +71,7 @@ mkswap /dev/sda2
 swapon /dev/sda2
 
 # SETUP NETWORK
-# wifi-menu         # use it to connect to wifi if needed
+# Use iwctl to setup wifi
 
 # use reflector to fix the mirrorlist
 pacman -S reflector
@@ -102,19 +102,12 @@ bash -c 'echo "KEYMAP=us" > /etc/vconsole.conf'
 
 passwd  # change root password
 # VVVI : network
-pacman -S netctl dhcpcd
-# install pre-req for wifi-menu
+pacman -S networkmanager network-manager-applet dhcpcd
+# install pre-req for NetworkManager
 pacman -S dialog wpa_supplicant ifplugd
-# setup wifi (skip this and use wifi-menu to connect if lazy)
-# https://wiki.archlinux.org/index.php/Netctl # arch project
-ip link #check interface names
-cp /etc/netctl/examples/wireless-wpa /etc/netctl/wireless-wpa_home_wifi
-cp /etc/netctl/examples/wireless-wpa /etc/netctl/wireless-wpa_mobile_hotspot
-# EDIT
-systemctl enable netctl-auto@<interface/wlp2s0>.service
-# NOTE:
-# no need to enable indiviudal profile using 
-# netctl enable <>
+systemctl enable networkmanager
+systemctl enable wpa_supplicant
+nm-applet
 
 # for encrypted initramfs:
 # https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Unlocking_the_root_partition_at_boot
