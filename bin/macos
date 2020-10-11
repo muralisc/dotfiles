@@ -1,3 +1,9 @@
 brew cask install bitbar
+Karabiner
 https://github.com/Caldis/Mos
-brew update && brew cask install stretchly
+https://github.com/tom-james-watson/breaktimer-app
+# Dont use mouse
+    Some default keyboard shotcuts
+    vimac
+    Xeasymotion - keynav for mac
+    rectangle
