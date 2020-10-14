@@ -33,12 +33,12 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'vim-scripts/restore_view.vim'                                "                                                   
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
-  command! -bang -nargs=* Rg
-        \ call fzf#vim#grep(
-        \   'rg --sortr path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-        \   <bang>0 ? fzf#vim#with_preview('up:60%')
-        \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-        \   <bang>0)
+  " command! -bang -nargs=* Rg
+  "       \ call fzf#vim#grep(
+  "       \   'rg --sortr path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  "       \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  "       \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  "       \   <bang>0)
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'itchyny/lightline.vim'
   let g:lightline = {
@@ -54,7 +54,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'airblade/vim-rooter'
   let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
   let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
-  let g:rooter_patterns = []
   Plug 'SirVer/ultisnips'
   let g:UltiSnipsExpandTrigger="<tab>"
   let g:UltiSnipsListSnippets="<c-tab>"
@@ -114,6 +113,8 @@ endif
 
 let mapleader="\<Space>"                                                        " Change the mapleader from \ to
 let maplocalleader="\<Space>"
+let g:netrw_preview = 1                                                         " Split Vertical
+let g:netrw_winsize = 15
 set autoread                                                                    " read a changed file on disk
 set showmode                                                                    " always show what mode we're currently editing in
 set nofixendofline
@@ -256,13 +257,13 @@ nnoremap <leader>n :nohlsearch<CR>
 nnoremap <leader>/ :Rg!
 nnoremap <leader>* :Rg!<C-R><C-W>
 " FZF is faster than CtrlP for finding files in Directories
-nnoremap <leader>pf :GFiles <CR>
+nnoremap <leader>pf :FZF! +s --tac <CR>
 " Delete file
 nnoremap <leader>fD :call delete(expand('%')) <bar> bdelete! <CR>
 " alternate for => :CtrlPMRUFiles <CR>
 nnoremap <leader>fr :History <CR>
 " open another file in same dir as current file
-nnoremap <leader>ff :FZF! +s --tac <CR>
+nnoremap <leader>ff :e %:h/<C-d>
 " Quit Files with leader + q
 nnoremap <leader>bd :bp\|bd #<cr>
 " Close splits but not last window
