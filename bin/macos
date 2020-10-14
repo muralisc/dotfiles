@@ -1,7 +1,7 @@
 brew cask install bitbar
 Karabiner
 https://github.com/Caldis/Mos
-https://github.com/tom-james-watson/breaktimer-app
+hovancik/stretchly
 # Dont use mouse
     Some default keyboard shotcuts
     vimac
