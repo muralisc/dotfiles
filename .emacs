@@ -40,6 +40,10 @@
   (exec-path-from-shell-initialize))
 (straight-use-package 'lsp-ivy)
 
+;;Ledger
+(straight-use-package 'ledger-mode)
+(require 'ledger-mode)
+
 ;; Flycheck
 (straight-use-package 'flycheck)
 (global-flycheck-mode)
