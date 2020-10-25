@@ -24,6 +24,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
         let g:ackprg = 'rg --vimgrep'
   endif
   let g:ack_autoclose = 0
+  Plug 'ledger/vim-ledger'
   Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files                            
   Plug 'tpope/vim-commentary'                                        " map: gcc                                          
   Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space                
