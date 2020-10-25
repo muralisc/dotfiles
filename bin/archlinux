@@ -179,15 +179,15 @@ netctl enable ethernet
 ping google.com
 
 # USER CREATION
-useradd -m -g users -s /bin/bash murali
-gpasswd -a murali wheel
+# https://github.com/jasonh9/codeetuts/wiki/Creating-users-on-Arch-Linux
+visudo
+# uncomment `%wheel ALL=(ALL) ALL` -> Make members of group wheel sudoers
+useradd -m -G wheel -s /bin/bash murali
+# Add user to group `users`
+gpasswd -a murali users
 passwd murali
-echo " see edit from 2:00 - 2:20 "
 ln -s /usr/share/zoneinfo/Reginon/City /etc/localtime
 hwclock --systohc
-echo "visudo /etc/sudoers"
-echo "dulpicate root ..murali ALL"
-echo "give permission to wheel group by uncommenting the line below"
 # to make pacman and yay work behind proxy
 sudo sh -c 'echo Defaults env_keep += \"http_proxy https_proxy ftp_proxy\" >> /etc/sudoers'
 
