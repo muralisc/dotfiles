@@ -18,8 +18,8 @@ fi
 session=$1
 echo session: $session
 case $session in
-  bspwm) exec bspwm ;;
-  *) exec awesome ;;
+  awesome) exec awesome ;;
+  *) exec bspwm ;;
 esac
 # exec bspwm
 
