@@ -71,7 +71,7 @@ mkswap /dev/sda2
 swapon /dev/sda2
 
 # SETUP NETWORK
-# wifi-menu         # use it to connect to wifi if needed
+# Use iwctl to setup wifi
 
 # use reflector to fix the mirrorlist
 pacman -S reflector
@@ -102,19 +102,12 @@ bash -c 'echo "KEYMAP=us" > /etc/vconsole.conf'
 
 passwd  # change root password
 # VVVI : network
-pacman -S netctl dhcpcd
-# install pre-req for wifi-menu
+pacman -S networkmanager network-manager-applet dhcpcd
+# install pre-req for NetworkManager
 pacman -S dialog wpa_supplicant ifplugd
-# setup wifi (skip this and use wifi-menu to connect if lazy)
-# https://wiki.archlinux.org/index.php/Netctl # arch project
-ip link #check interface names
-cp /etc/netctl/examples/wireless-wpa /etc/netctl/wireless-wpa_home_wifi
-cp /etc/netctl/examples/wireless-wpa /etc/netctl/wireless-wpa_mobile_hotspot
-# EDIT
-systemctl enable netctl-auto@<interface/wlp2s0>.service
-# NOTE:
-# no need to enable indiviudal profile using 
-# netctl enable <>
+systemctl enable networkmanager
+systemctl enable wpa_supplicant
+nm-applet
 
 # for encrypted initramfs:
 # https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Unlocking_the_root_partition_at_boot
@@ -186,15 +179,15 @@ netctl enable ethernet
 ping google.com
 
 # USER CREATION
-useradd -m -g users -s /bin/bash murali
-gpasswd -a murali wheel
+# https://github.com/jasonh9/codeetuts/wiki/Creating-users-on-Arch-Linux
+visudo
+# uncomment `%wheel ALL=(ALL) ALL` -> Make members of group wheel sudoers
+useradd -m -G wheel -s /bin/bash murali
+# Add user to group `users`
+gpasswd -a murali users
 passwd murali
-echo " see edit from 2:00 - 2:20 "
 ln -s /usr/share/zoneinfo/Reginon/City /etc/localtime
 hwclock --systohc
-echo "visudo /etc/sudoers"
-echo "dulpicate root ..murali ALL"
-echo "give permission to wheel group by uncommenting the line below"
 # to make pacman and yay work behind proxy
 sudo sh -c 'echo Defaults env_keep += \"http_proxy https_proxy ftp_proxy\" >> /etc/sudoers'
 
