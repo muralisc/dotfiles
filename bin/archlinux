@@ -481,3 +481,6 @@ npm install -g vmd
 y -S --noconfirm fasd
 https://github.com/cantino/mcfly
 electrum
+
+# show keys pressed screen record 
+y -S key-mon

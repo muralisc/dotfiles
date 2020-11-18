@@ -52,7 +52,7 @@ Environment variables
 Populate in ~/.env.local
 ```
 DOTFILES_ALARM_MEDIA
-DOTFILES_LEDGER_FILE
+LEDGER_FILE
 DOTFILES_HABBITS
 PANE_NAME
 ```

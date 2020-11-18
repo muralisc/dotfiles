@@ -70,6 +70,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " Colorschemes
   Plug 'joshdick/onedark.vim'
   Plug 'chriskempson/base16-vim'
+  Plug 'axvr/org.vim'
+  let g:org_clean_folds = 1
   set background=dark
   call plug#end()
 endif

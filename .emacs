@@ -43,6 +43,7 @@
 ;;Ledger
 (straight-use-package 'ledger-mode)
 (require 'ledger-mode)
+(setq ledger-post-auto-align t)
 
 ;; Flycheck
 (straight-use-package 'flycheck)
@@ -119,6 +120,11 @@
 ;; General
 (straight-use-package 'general)
 (require 'general)
+
+;; company-mode
+(straight-use-package 'company)
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
 
 (general-define-key
  :keymaps '(global)
