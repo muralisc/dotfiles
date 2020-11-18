@@ -10,9 +10,6 @@ alias gdc='git diff --cached'
 alias gf='git fetch --all'
 alias gl="git log --pretty=tformat:'%C(black)%G? %C(yellow)%h%C(auto)%d %an %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)%Creset' --graph --color "
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
-alias gp="git push --set-upstream $GIT_UPSTREAM HEAD"
-alias gpl='git pull --rebase' # git pull --rebase origin master
-alias gri='git rebase --autosquash -i'
 alias grhh='git reset HEAD --hard'
 alias gs='git status -sb'
 alias gsp='git stash pop'
@@ -43,12 +40,11 @@ alias r='ranger'
 alias ync='yay --noconfirm'
 alias y='yay'
 alias sor="status-of-repos"
-alias led_networth='ledger -f $DOTFILES_LEDGER_FILE bal \^Assets \^Liabilities --cleared -B ; echo "*******" ; ledger -f $DOTFILES_LEDGER_FILE bal \^Funds --cleared -B'
-alias led_permonthExp='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Expenses \^Equity:Adjust'
-alias led_expenseList='ledger -f $DOTFILES_LEDGER_FILE reg \^Expenses \^Equity:Adjust'
-alias led_cashflow='ledger -f $DOTFILES_LEDGER_FILE -MAn reg \^Income \^Expenses \^Equity:Adjust'
-alias led_check='ledger -f $DOTFILES_LEDGER_FILE b i:sav credit --flat'
-alias led='ledger -f $DOTFILES_LEDGER_FILE'
+alias led_networth='ledger bal \^Assets \^Liabilities \^VirtFunds --cleared -B'
+alias led_permonthExp='ledger -MAn reg \^Expenses \^Equity:Adjust'
+alias led_expenseList='ledger reg \^Expenses \^Equity:Adjust'
+alias led_cashflow='ledger -MAn reg \^Income \^Expenses \^Equity:Adjust'
+alias led_ensureZero='ledger b  -H -X INR --real'
 
 alias org='emacs --funcall org-agenda-list'
 alias Org='/Applications/Emacs.app/Contents/MacOS/Emacs --funcall org-agenda-list &'

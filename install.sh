@@ -19,6 +19,7 @@ vim_setup() {
 }
 
 git_setup() {
+  git config --global core.whitespace "tab-in-indent"
   git config --global credential.helper 'cache --timeout=80000'
   git config --global diff.tool 'meld'
   git config --global user.useConfigOnly true
