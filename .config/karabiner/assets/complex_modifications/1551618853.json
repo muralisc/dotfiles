@@ -10,6 +10,7 @@
       "description": "Awesome WM mappings using Left Command",
       "manipulators": [
         {
+          "description": "CMD + [ => volume decrement",
           "from": {
             "key_code": "open_bracket",
             "modifiers": {
@@ -26,6 +27,7 @@
           "type": "basic"
         },
         {
+          "description": "CMD + ] => volume increment",
           "from": {
             "key_code": "close_bracket",
             "modifiers": {
@@ -42,6 +44,7 @@
           "type": "basic"
         },
         {
+          "description": "CMD + j => CMD + TAB",
           "from": {
             "key_code": "j",
             "modifiers": {
@@ -61,6 +64,7 @@
           "type": "basic"
         },
         {
+          "description": "CMD + k => CMD + TAB",
           "from": {
             "key_code": "k",
             "modifiers": {
@@ -81,7 +85,7 @@
           "type": "basic"
         },
         {
-          "description": "Shift+hyper+c -> close window",
+          "description": "Shift + CMD +c -> close window",
           "from": {
             "key_code": "c",
             "modifiers": {
@@ -102,6 +106,7 @@
           "type": "basic"
         },
         {
+          "description": "CMD + - -> Brightness Reduce",
           "from": {
             "key_code": "hyphen",
             "modifiers": {
@@ -118,6 +123,7 @@
           "type": "basic"
         },
         {
+          "description": "CMD + = -> Brightness Increase",
           "from": {
             "key_code": "equal_sign",
             "modifiers": {
@@ -129,40 +135,6 @@
           "to": [
             {
               "key_code": "display_brightness_increment"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "w",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "/usr/local/bin/bash ~/src/private/bin/timewarrior_helper w"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "l",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "/usr/local/bin/bash ~/src/private/bin/timewarrior_helper l"
             }
           ],
           "type": "basic"
@@ -294,6 +266,7 @@
                   "bundle_identifiers": [
                       "io.alacritty",
                       "com.googlecode.iterm2",
+                      "net.kovidgoyal.kitty",
                       "org.vim.MacVim"
                   ],
                   "file_paths": [
@@ -331,6 +304,7 @@
                   "bundle_identifiers": [
                       "io.alacritty",
                       "com.googlecode.iterm2",
+                      "net.kovidgoyal.kitty",
                       "org.vim.MacVim"
                   ],
                   "file_paths": [
