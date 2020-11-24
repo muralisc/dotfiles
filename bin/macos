@@ -1,8 +1,11 @@
+# custom shell out on mac bar
 brew cask install bitbar
-Karabiner
+# custome keymaps
+Karabiner && hammerspoon
+# better mouse
 https://github.com/Caldis/Mos
 # Dont use mouse
-    Some default keyboard shotcuts
     vimac
     Xeasymotion - keynav for mac
+# Take breaks
 hovancik/stretchly

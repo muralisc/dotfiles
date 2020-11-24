@@ -477,3 +477,5 @@ electrum
 
 # show keys pressed screen record 
 y -S key-mon
+xournalpp
+xkeysnail

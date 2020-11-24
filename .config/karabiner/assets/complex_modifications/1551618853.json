@@ -7,357 +7,10 @@
   "import_url": "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/Vonng/Capslock/master/mac/capslock.json",
   "rules": [
     {
-      "description": "Left Command to Hyper/Left Command",
-      "manipulators": [
-        {
-          "description": "Left Command to Hyper if a modifier is pressed else it Left Command",
-          "from": {
-            "key_code": "left_command",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "right_shift",
-              "modifiers": [
-                "right_command",
-                "right_control",
-                "right_option"
-              ]
-            }
-          ],
-          "to_if_alone": [
-            {
-              "key_code": "left_command"
-            }
-          ],
-          "type": "basic"
-        }
-      ]
-    },
-    {
-      "description": "Awesome WM mappings using Hyper",
-      "manipulators": [
-        {
-          "from": {
-            "description": "Left Command(Hyper) + [ = vol dec",
-            "key_code": "open_bracket",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "volume_decrement"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "description": "Left Command(Hyper) + ] = vol inc",
-          "from": {
-            "key_code": "close_bracket",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "volume_increment"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "j",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "tab",
-              "modifiers": [
-                "left_command"
-              ]
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "k",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "tab",
-              "modifiers": [
-                "left_command",
-                "left_shift"
-              ]
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "description": "Shift+hyper+c -> close window",
-          "from": {
-            "key_code": "c",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "q",
-              "modifiers": [
-                "left_command"
-              ]
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "description": "Left Command(Hyper) + c = copy",
-            "key_code": "c",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "c",
-              "modifiers": [
-                "left_command"
-              ]
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "description": "Left Command(Hyper) + v = paste",
-            "key_code": "v",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "v",
-              "modifiers": [
-                "left_command"
-              ]
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "description": "Left Command(Hyper) + w = close tab",
-            "key_code": "w",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "w",
-              "modifiers": [
-                "left_command"
-              ]
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "hyphen",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "display_brightness_decrement"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "equal_sign",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "display_brightness_increment"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "open_bracket",
-            "modifiers": {
-              "mandatory": [
-                "left_option",
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "rewind"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "backslash",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "play_or_pause"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "backslash",
-            "modifiers": {
-              "mandatory": [
-                "right_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "play_or_pause"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "close_bracket",
-            "modifiers": {
-              "mandatory": [
-                "left_option",
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "fastforward"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "f10",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_control",
-                "right_shift",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "mute"
-            }
-          ],
-          "type": "basic"
-        }
-
-      ]
-    },
-    {
       "description": "Awesome WM mappings using Left Command",
       "manipulators": [
         {
+          "description": "CMD + [ => volume decrement",
           "from": {
             "key_code": "open_bracket",
             "modifiers": {
@@ -374,6 +27,7 @@
           "type": "basic"
         },
         {
+          "description": "CMD + ] => volume increment",
           "from": {
             "key_code": "close_bracket",
             "modifiers": {
@@ -390,6 +44,7 @@
           "type": "basic"
         },
         {
+          "description": "CMD + j => CMD + TAB",
           "from": {
             "key_code": "j",
             "modifiers": {
@@ -409,6 +64,7 @@
           "type": "basic"
         },
         {
+          "description": "CMD + k => CMD + TAB",
           "from": {
             "key_code": "k",
             "modifiers": {
@@ -429,7 +85,7 @@
           "type": "basic"
         },
         {
-          "description": "Shift+hyper+c -> close window",
+          "description": "Shift + CMD +c -> close window",
           "from": {
             "key_code": "c",
             "modifiers": {
@@ -450,6 +106,7 @@
           "type": "basic"
         },
         {
+          "description": "CMD + - -> Brightness Reduce",
           "from": {
             "key_code": "hyphen",
             "modifiers": {
@@ -466,6 +123,7 @@
           "type": "basic"
         },
         {
+          "description": "CMD + = -> Brightness Increase",
           "from": {
             "key_code": "equal_sign",
             "modifiers": {
@@ -477,40 +135,6 @@
           "to": [
             {
               "key_code": "display_brightness_increment"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "w",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "/usr/local/bin/bash ~/src/private/bin/timewarrior_helper w"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "l",
-            "modifiers": {
-              "mandatory": [
-                "right_command",
-                "right_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "/usr/local/bin/bash ~/src/private/bin/timewarrior_helper l"
             }
           ],
           "type": "basic"
@@ -642,6 +266,7 @@
                   "bundle_identifiers": [
                       "io.alacritty",
                       "com.googlecode.iterm2",
+                      "net.kovidgoyal.kitty",
                       "org.vim.MacVim"
                   ],
                   "file_paths": [
@@ -679,6 +304,7 @@
                   "bundle_identifiers": [
                       "io.alacritty",
                       "com.googlecode.iterm2",
+                      "net.kovidgoyal.kitty",
                       "org.vim.MacVim"
                   ],
                   "file_paths": [
