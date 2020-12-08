@@ -161,7 +161,7 @@ format = <label> <ramp-coreload>
 format-prefix-foreground = #FFFF00
 format-foreground = #FFFF00
 format-padding = 1
-label = %percentage:2%%
+label = %percentage:02%%
 
 ramp-coreload-spacing = 1
 ramp-coreload-0 = ▁
@@ -188,7 +188,7 @@ interval = 3.0
 format-connected-prefix = " "
 format-connected = <label-connected>
 format-connected-underline = #9f78e1
-label-connected = %downspeed:9%
+label-connected = %downspeed:08% ^%upspeed:08:9:...%
 format-connected-foreground = #5882FA
 
 ; format-disconnected =
@@ -239,8 +239,8 @@ format-warn = <label-warn>
 format-warn-foreground = #aa9999
 format-warn-underline = ${self.format-underline}
 
-label = " %temperature-c%"
-label-warn = %temperature-c%
+label = " %temperature-c:05%"
+label-warn = %temperature-c:05%
 
 [module/gputemperature]
 type = internal/temperature
