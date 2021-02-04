@@ -19,10 +19,16 @@ $if mode=vi
     "jj": vi-movement-mode
     # C-f is used for going forward; since very rarely used bind to c-x-e used more frequnetly
     "\C-f":edit-and-execute-command
+    # up arrow
     "\e[A":history-substring-search-backward
+    # down arrow
     "\e[B":history-substring-search-forward
     # expand aliases
     "\C-\M-e": shell-expand-line
     "\e.":insert-last-argument
     "\C-g*": glob-expand-word
-$endif 
+$else
+    # Use up and down arrows to search history
+    "\e[A": history-substring-search-backward
+    "\e[B": history-substring-search-forward
+$endif

@@ -1,7 +1,7 @@
 #!/bin/bash
 git clone https://github.com/ronilaukkarinen/weed ~/.irssi
-mkdir -p ~/.irssi/scripts
-pushd ~/.irssi/scripts
+mkdir -p ~/.irssi/scripts/autorun
+pushd ~/.irssi/scripts/autorun
 wget https://raw.githubusercontent.com/irssi/scripts.irssi.org/master/scripts/adv_windowlist.pl
 popd
 FREENODE_USERNAME=nick
@@ -19,7 +19,7 @@ alias irssi='TERM=screen-256color irssi' # allow proper scrolling inside tmux
 /network add -nick trippyrooster freenode
 /channel add -auto #archlinux freenode
 
-/server add -auto -tls -tls_verify -network mozilla -port 6697 irc.mozilla.org
+/server add -auto -tls -tls_verify -network mozilla irc.mozilla.org ${port:-6697} $password
 /network add -nick trippyrooster mozilla
 /channel add -auto #rust-beginners mozilla
 /channel add -auto #kerala mozilla
@@ -39,7 +39,7 @@ alias irssi='TERM=screen-256color irssi' # allow proper scrolling inside tmux
 
 /CONNECT mozilla
 
-/script load adv-windowlist.pl
+/run adv-windowlist.pl
 
 /join #servo
 /join #cargo
