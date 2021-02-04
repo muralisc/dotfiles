@@ -355,3 +355,11 @@ test_zsh_prompt() {
   white="%F{white}$str"
   print -P "%B${random}${black}${red}${green}${yellow}${blue}${magenta}${cyan}${white}%b%f"
 }
+
+start_clipboard_server() {
+  # https://github.com/wincent/clipper
+  while (true); do 
+    nc -l 5556 | pbcopy; 
+    echo "$(date) :-> $(pbpaste)"
+  done
+}
