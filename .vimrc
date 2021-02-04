@@ -67,12 +67,12 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " Non-essential
   Plug 'junegunn/rainbow_parentheses.vim'
   Plug 'tpope/vim-vinegar'
-  " Colorschemes
-  Plug 'joshdick/onedark.vim'
-  Plug 'chriskempson/base16-vim'
   Plug 'axvr/org.vim'
   let g:org_clean_folds = 1
+  " Colorschemes
+  Plug 'joshdick/onedark.vim'
   set background=dark
+  Plug 'chriskempson/base16-vim'
   call plug#end()
 endif
 "}}}1 ===========================================================Vundle setup done
@@ -281,17 +281,8 @@ nnoremap <leader>fs :w<cr>
 " Clipboard madness {{{
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
-" replace currently selected text with default register
-" without yanking it
+" replace currently selected text with default register without yanking it
 vnoremap <leader>p "_dP
-" paste from the primary clipboard/ selection
-nnoremap <leader>P "*p
-" paste from the secondary clipboard/ ctrl+c
-nnoremap <leader><leader>p "+p
-" yank to the primary clipboard/ selection
-nnoremap <leader>Y "*y
-" yank to the secondary clipboard/ ctrl+c
-nnoremap <leader>y "+y
 " }}} clipboard madness
 " }}}1 Shortcut Mappings
 " Filetype Specific Settings {{{
@@ -345,5 +336,3 @@ vnoremap <leader>db !boxes -d stone -p v1 -a hc -s 80
 vnoremap <leader>xb !boxes -r<CR>
 " After yanking in visual mode move cursor to the end of  the selection
 vnoremap y ygv<Esc>
-
-
