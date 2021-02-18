@@ -9,13 +9,29 @@
 let g:loaded_matchparen = 1
 set nocompatible                                                     " not compatible with the old-fashion vi mode
 " vim-plug setup {{{1
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
   " Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD                   
+  Plug 'derekwyatt/vim-fswitch'
+    let g:ale_completion_enabled = 1
   Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck) 
+    let g:ale_fix_on_save = 1
+    let g:ale_fixers = {
+    \    '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \    'cpp': ['clang-format'],
+    \}
   let g:ale_cpp_clang_options = '-std=c++17 -Wall'
   let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++1z'
-  let g:ale_linters = {'c': ['clang'], 'cpp': ['clang', 'gcc'],'go': ['golangci-lint', 'gofmt', 'go vet']}
+  let g:ale_linters = {
+        \'c': ['clang'], 
+        \'cpp': ['clang', 'gcc'],
+        \'go': ['golangci-lint', 'gofmt', 'go vet']
+  \}
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_insert_leave = 1
   let g:ale_lint_on_enter = 0
@@ -26,13 +42,13 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   let g:ack_autoclose = 0
   Plug 'ledger/vim-ledger'
   Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files                            
-  Plug 'tpope/vim-commentary'                                        " map: gcc                                          
+  Plug 'tpope/vim-commentary'                                        " map: gcc
   Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space                
   Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                       
   Plug 'tpope/vim-fugitive'
   Plug 'godlygeek/tabular'                                           " for easily aligning                               
   Plug 'vim-scripts/restore_view.vim'                                "                                                   
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
   Plug 'junegunn/fzf.vim'
   " command! -bang -nargs=* Rg
   "       \ call fzf#vim#grep(
@@ -42,16 +58,16 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   "       \   <bang>0)
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'itchyny/lightline.vim'
-  let g:lightline = {
+    let g:lightline = {
         \ 'colorscheme': 'one',
         \ 'component_function': {
         \   'filename': 'LightLineFilename'
         \ }
         \ }
-  function! LightLineFilename()
-    " Get shrinked current working directory and filename
-    return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
-  endfunction
+    function! LightLineFilename()
+      " Get shrinked current working directory and filename
+      return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
+    endfunction
   Plug 'airblade/vim-rooter'
   let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
   let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
@@ -72,7 +88,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " Colorschemes
   Plug 'joshdick/onedark.vim'
   Plug 'altercation/vim-colors-solarized'
-  set background=dark
+    set background=dark
   Plug 'chriskempson/base16-vim'
   call plug#end()
 endif
