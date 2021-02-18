@@ -71,6 +71,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   let g:org_clean_folds = 1
   " Colorschemes
   Plug 'joshdick/onedark.vim'
+  Plug 'altercation/vim-colors-solarized'
   set background=dark
   Plug 'chriskempson/base16-vim'
   call plug#end()
@@ -89,8 +90,7 @@ filetype plugin on                                                              
 syntax on                                                                       " syntax highlight
 set vb t_vb=                                                                    " prevent screen flasing on multiple esc
 set t_Co=256                                                                    " set 256 colors in vim
-"Credit joshdick
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"{{{ Use 24-bit (true-color) mode in Vim/Neovim when outside tmux :  Credit joshdick
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 if (empty($TMUX))
@@ -113,9 +113,11 @@ else
     set termguicolors
   endif
 endif
+" }}}
 
 let mapleader="\<Space>"                                                        " Change the mapleader from \ to
 let maplocalleader="\<Space>"
+" https://shapeshed.com/vim-netrw/
 let g:netrw_preview = 1                                                         " Split Vertical
 let g:netrw_winsize = 15
 set autoread                                                                    " read a changed file on disk
@@ -282,7 +284,7 @@ nnoremap <leader>fs :w<cr>
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
 " replace currently selected text with default register without yanking it
-vnoremap <leader>p "_dP
+vnoremap <leader>P "_dP
 " }}} clipboard madness
 " }}}1 Shortcut Mappings
 " Filetype Specific Settings {{{
