@@ -16,10 +16,11 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  " Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD                   
+  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+  " Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD
   Plug 'derekwyatt/vim-fswitch'
     let g:ale_completion_enabled = 1
-  Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck) 
+  Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck)
     let g:ale_fix_on_save = 1
     let g:ale_fixers = {
     \    '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -28,26 +29,26 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   let g:ale_cpp_clang_options = '-std=c++17 -Wall'
   let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++1z'
   let g:ale_linters = {
-        \'c': ['clang'], 
+        \'c': ['clang'],
         \'cpp': ['clang', 'gcc'],
         \'go': ['golangci-lint', 'gofmt', 'go vet']
   \}
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_insert_leave = 1
   let g:ale_lint_on_enter = 0
-  Plug 'mileszs/ack.vim'                                             " Search files                                      
+  Plug 'mileszs/ack.vim'                                             " Search files
   if executable('rg')
         let g:ackprg = 'rg --vimgrep'
   endif
   let g:ack_autoclose = 0
   Plug 'ledger/vim-ledger'
-  Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files                            
+  Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files
   Plug 'tpope/vim-commentary'                                        " map: gcc
-  Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space                
-  Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                       
+  Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space
+  Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |
   Plug 'tpope/vim-fugitive'
-  Plug 'godlygeek/tabular'                                           " for easily aligning                               
-  Plug 'vim-scripts/restore_view.vim'                                "                                                   
+  Plug 'godlygeek/tabular'                                           " for easily aligning
+  Plug 'vim-scripts/restore_view.vim'                                "
   Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
   Plug 'junegunn/fzf.vim'
   " command! -bang -nargs=* Rg

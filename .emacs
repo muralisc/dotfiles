@@ -133,6 +133,8 @@
  :non-normal-prefix "M-SPC"
  "SPC" 'counsel-M-x
 
+ "a"  'org-agenda
+ "c"  'org-capture
  "ff" 'counsel-find-file
  "fr" 'counsel-recentf
  "fs" 'save-buffer
