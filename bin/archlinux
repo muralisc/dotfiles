@@ -137,7 +137,7 @@ cat <<EOF > /boot/loader/entries/arch.conf
 title Arch Linux
 linux /vmlinuz-linux
 initrd /initramfs-linux.img
-options cryptdevice=PARTUUID=<device-UUID>:cryptroot cryptkey=/dev/sdb1:vfat:/keys/secretkey root=/dev/mapper/cryptroot 
+options cryptdevice=PARTUUID=<device-UUID>:cryptroot cryptkey=/dev/sdb1:vfat:/keys/secretkey root=/dev/mapper/cryptroot
 # for non encrypted
 # options root=LABEL=arch_os rw
 # options root=PARTUUID=xxxx-xxx rw
@@ -403,7 +403,7 @@ yay -S --noconfirm polo pcmanfm thunar
 xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua
 
 # enable touch pad clicks
-# From terminal 
+# From terminal
 # 1 left clicnk
 # 2 middle click
 # 3 right click
@@ -415,7 +415,7 @@ Option "TapButton3" "2"
 Option "TapButton2" "3"
 Option "TapButton3" "2"
 
-cargo install bat exa fd-find rip-grep watchexec
+cargo install bat exa fd-find rip-grep watchexec du-dust
 # icdiff is better than git-delta
 
 y -S alacritty xzoom rxvt-unicode-truecolor
@@ -475,7 +475,7 @@ y -S --noconfirm fasd
 https://github.com/cantino/mcfly
 electrum
 
-# show keys pressed screen record 
+# show keys pressed screen record
 y -S key-mon
 xournalpp
 xkeysnail
