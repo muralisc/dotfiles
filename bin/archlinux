@@ -309,6 +309,7 @@ yay -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader
 # for the creative me
 yay -S --noconfirm inkscape gimp qimgv
 yay -S --noconfirm kdenlive kdebase-runtime
+# for icons use oxygen theme in kdenlive menu > settings > icon theme
 # CHECKOUT OLIVE video editor
 # i love more beauty ; graphics stuff
 yay -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
