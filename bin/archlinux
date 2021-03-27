@@ -137,7 +137,7 @@ cat <<EOF > /boot/loader/entries/arch.conf
 title Arch Linux
 linux /vmlinuz-linux
 initrd /initramfs-linux.img
-options cryptdevice=PARTUUID=<device-UUID>:cryptroot cryptkey=/dev/sdb1:vfat:/keys/secretkey root=/dev/mapper/cryptroot 
+options cryptdevice=PARTUUID=<device-UUID>:cryptroot cryptkey=/dev/sdb1:vfat:/keys/secretkey root=/dev/mapper/cryptroot
 # for non encrypted
 # options root=LABEL=arch_os rw
 # options root=PARTUUID=xxxx-xxx rw
@@ -309,6 +309,7 @@ yay -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader
 # for the creative me
 yay -S --noconfirm inkscape gimp qimgv
 yay -S --noconfirm kdenlive kdebase-runtime
+# for icons use oxygen theme in kdenlive menu > settings > icon theme
 # CHECKOUT OLIVE video editor
 # i love more beauty ; graphics stuff
 yay -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
@@ -403,7 +404,7 @@ yay -S --noconfirm polo pcmanfm thunar
 xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua
 
 # enable touch pad clicks
-# From terminal 
+# From terminal
 # 1 left clicnk
 # 2 middle click
 # 3 right click
@@ -475,7 +476,7 @@ y -S --noconfirm fasd
 https://github.com/cantino/mcfly
 electrum
 
-# show keys pressed screen record 
+# show keys pressed screen record
 y -S key-mon
 xournalpp
 xkeysnail
