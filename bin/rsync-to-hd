@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# This script syncs home folder to a harddisk or a network path
+# This script by default syncs
+# HOME folder /users/murali to
+# HD /media/mount_path/murali
 
 GIVEN_PATH="$1"
 EXCLUDE_FILE=${2:-/tmp/exclude_file.txt}
@@ -9,15 +11,15 @@ if [[ -z $GIVEN_PATH ]]; then
   EXTERNALHD_MNT=$(findmnt -S UUID=$EXTERNALHD_UUID -rn -o TARGET)
 fi
 if [[ -z $EXTERNALHD_MNT ]] && [[ -z $GIVEN_PATH ]]; then
-  echo "Mount point is not found, Eitehr a mount point or a path needs to be given"
+  echo "Mount point is not found, Either a mount point or a path needs to be given"
   exit
 fi
 SOURCE_PATH=${HOME}/
 if [[ -z "$GIVEN_PATH" ]] ; then
   echo -e "Found mount point for UUID = $EXTERNALHD_UUID at $(tput bold)$EXTERNALHD_MNT$(tput sgr0)"
-  BACKUP_PATH=${EXTERNALHD_MNT}/mylap/
+  BACKUP_PATH=${EXTERNALHD_MNT}/murali/
 else
-  BACKUP_PATH=${GIVEN_PATH}/mylap/
+  BACKUP_PATH=${GIVEN_PATH}/
 fi
 echo "Contents of Exclude file: $EXCLUDE_FILE"
 echo "-------------------------"
