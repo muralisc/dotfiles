@@ -1,41 +1,75 @@
 #!/bin/bash
 
-# This script by default syncs
-# HOME folder /users/murali to
-# HD /media/mount_path/murali
+help() {
+  if [[ "$1" == "-h" ]] || [[ "$1" == "help" ]] || [[ "$1" == "--help" ]] ; then
+    echo "Usage:"
+    echo "  $0 \$SRC \$DST"
+    echo ""
+    echo "  $0 /media/bonjikka/57dddd4c-88ba-40d5-88ce-ff093119b2be/murali/ /media/bonjikka/toshiba1tb/murali/"
+    exit 0
+  fi
+}
 
-GIVEN_PATH="$1"
-EXCLUDE_FILE=${2:-/tmp/exclude_file.txt}
-if [[ -z $GIVEN_PATH ]]; then
+get_mount() {
   EXTERNALHD_UUID=57dddd4c-88ba-40d5-88ce-ff093119b2be
   EXTERNALHD_MNT=$(findmnt -S UUID=$EXTERNALHD_UUID -rn -o TARGET)
-fi
-if [[ -z $EXTERNALHD_MNT ]] && [[ -z $GIVEN_PATH ]]; then
-  echo "Mount point is not found, Either a mount point or a path needs to be given"
-  exit
-fi
-SOURCE_PATH=${HOME}/
-if [[ -z "$GIVEN_PATH" ]] ; then
-  echo -e "Found mount point for UUID = $EXTERNALHD_UUID at $(tput bold)$EXTERNALHD_MNT$(tput sgr0)"
-  BACKUP_PATH=${EXTERNALHD_MNT}/murali/
-else
-  BACKUP_PATH=${GIVEN_PATH}/
-fi
-echo "Contents of Exclude file: $EXCLUDE_FILE"
-echo "-------------------------"
-cat "$EXCLUDE_FILE"
-echo "$(tput setaf 4)Proceed with the dry run?$(tput sgr0)"
-read -r
-mkdir -p "$BACKUP_PATH"
+  echo "$EXTERNALHD_MNT"
+}
+
+get_default_src() {
+  if [[ -z $SRC ]] ; then
+    SRC="$(get_mount)"
+  fi
+}
+get_default_dst() {
+  if [[ -z $DST ]]; then
+    DST="/media/bonjikka/toshiba1tb/murali/"
+  fi
+}
+
+ensure_source_dest() {
+  get_default_src
+  get_default_dst
+  if [[ -z $SRC ]] || [[ -z $DST ]] ; then
+    echo "Source or destination is absent"
+    echo "Src:$SRC"
+    echo "Dst:$DST"
+    exit
+  fi
+}
+
+run_rsync() {
+ensure_source_dest
+SOURCE_PATH="$SRC"
+BACKUP_PATH="$DST"
+EXCLUDE_FILE="/tmp/exclude_file.txt"
+INCLUDE_FILE="/tmp/include_file.txt"
 BLUE=$(tput setaf 4)
+
 echo -e "Doing a dry run from ${BLUE}${SOURCE_PATH}$(tput sgr0) to ${BLUE}${BACKUP_PATH}$(tput sgr0)"
+read
 
+# include and exclude is done in the order given
+# so provide --include-from/--include as many times as needed
+# before --exclue-from/--exclude
+# adding just path in INCLUDE_FILE will not add it
+# as parent directories are excluded due to subsequent'*' in EXCLUDE_FILE
+# so add */ to include all directories and
+# use --prune-empty-dirs
 
-# create exclude file if it does not exist
-[ -f "$EXCLUDE_FILE" ] || touch "$EXCLUDE_FILE"
-# always exclude hidden folders/files
-# Add .* only if not found in file already
-grep '.*' "$EXCLUDE_FILE" || echo '.*' >> "$EXCLUDE_FILE"
+cat << EOF > "$INCLUDE_FILE"
+*/
+Videos/notForKids/videos/forsorting/new/**
+pictures/Photos**
+Videos/**
+home/**
+EOF
+
+cat << EOF > "$EXCLUDE_FILE"
+.*
+*
+EOF
+
 # Explanation of below command
 # SYNC_COMMAND="
 # rsync
@@ -59,13 +93,26 @@ rsync
   --delete
   --stats
   --info=progress2
+  --include-from=$INCLUDE_FILE
   --exclude-from=$EXCLUDE_FILE
+  --prune-empty-dirs
   --cvs-exclude
   $SOURCE_PATH ${BACKUP_PATH}
 "
 $SYNC_COMMAND -n | tee /var/tmp/rsync_dry.log
 
-echo "$(tput setaf 4)Proceed with the sync?$(tput sgr0)"
+echo -e "\n${BLUE}For deatils on how to interpet the rsync output"
+echo "https://stackoverflow.com/a/36851784"
+echo "man -P 'less -p "^ *-i, --itemize-changes$"' rsync"
+
+echo "${BLUE} Proceed with the sync?$(tput sgr0)"
 read -r
 
 $SYNC_COMMAND | tee /var/tmp/rsync.log
+}
+
+
+SRC="$1"
+DST="$2"
+help $*
+run_rsync
