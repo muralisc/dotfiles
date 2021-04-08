@@ -240,11 +240,11 @@
       ]
     },
     {
-      "description": "Capslock acts as command or ctrl depending on application",
+      "description": "Capslock -> CMD on certain application",
       "manipulators": [
         {
           "from": {
-            "description": "Caps lock is Command in all app except listed",
+            "description": "Caps lock is Command in (Chrome) all app except Emacs, Kitty, alacritty, iterm2, MacVim",
             "key_code": "caps_lock",
             "modifiers": {
               "optional": [
@@ -275,6 +275,57 @@
                       "/Applications/Alacritty.app/Contents/MacOS/alacritty",
                       "/Applications/iTerm.app/Contents/MacOS/iTerm2",
                       "/Applications/MacVim.app/Contents/MacOS/MacVim"
+                  ]
+              }
+          ],
+          "type": "basic"
+        },
+        {
+          "from": {
+            "description": "RemmapedCMD TAB = CMD TAB",
+            "key_code": "tab",
+            "modifiers": {
+              "mandatory": [
+                "left_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": [
+                "left_command"
+              ]
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "from": {
+            "description": "Left CMD is ctrl in Chrome to encorage use of CapsLock",
+            "key_code": "left_command",
+            "modifiers": {
+              "optional": [
+                "left_command",
+                "left_control",
+                "left_shift",
+                "left_option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_control"
+            }
+          ],
+          "conditions": [
+              {
+                  "type": "frontmost_application_if",
+                  "bundle_identifiers": [
+                      "com.google.Chrome"
+                  ],
+                  "file_paths": [
+                      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
                   ]
               }
           ],
