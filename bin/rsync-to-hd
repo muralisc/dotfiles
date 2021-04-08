@@ -18,7 +18,7 @@ get_mount() {
 
 get_default_src() {
   if [[ -z $SRC ]] ; then
-    SRC="$(get_mount)"
+    SRC="$(get_mount)/murali/"
   fi
 }
 get_default_dst() {
