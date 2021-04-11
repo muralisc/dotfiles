@@ -49,8 +49,12 @@ filepath="$txtblu\$SHRINKED_PWD"
 datecolr="$bldpur \D{%F %T}"
 bolddolr="${bldgrn}$"
 #PS1='\u@\h:\w\$ '
-export PS1="${SSH_CONNECTION:+\u@\h }$filepath ${bolddolr} $txtrst"
+export PS1="${SSH_CONNECTION:+\u@\h }$filepath ${bolddolr} $bldylw"
 if [[ $(id -u) == 0 ]]; then PS1="root|$PS1"; fi
+# Use PS0 to color bash input to separate color
+# the terminal now looks like a conversaion between you and
+# computer
+export PS0="$txtrst"
 
 # enable programmable completion features
 if [ -f /usr/share/bash-completion/bash_completion ]; then

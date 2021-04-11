@@ -36,10 +36,14 @@ at_italicsoff=%{$'\e[23m'%}
 at_normal=%{$'\e[0m'%}
 ARROWS='%B%F{red}❯%F{green}❯%F{blue}❯%f%b'
 DOLLAR=' %B%F{blue}$%f%b'
-PS1='%F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} '
+# Add color at end for giving color to user input
+PS1='%F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} %F{white}%B'
+# Reset so that command output is set to default colors
+preexec () { echo -ne "\e[0m" }
 if [[ -n $SSH_CONNECTION ]]; then
     PROMPT="%F{yellow}%n%f@%F{magenta}%m ${PROMPT}"
 fi
+PS0="test"
 # vi mode setup
 bindkey -v
 bindkey jj vi-cmd-mode #or use ctrl+[
