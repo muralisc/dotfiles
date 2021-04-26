@@ -23,7 +23,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck)
     let g:ale_fix_on_save = 1
     let g:ale_fixers = {
-    \    '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \    '*': ['trim_whitespace'],
     \    'cpp': ['clang-format'],
     \}
   let g:ale_cpp_clang_options = '-std=c++17 -Wall'
@@ -50,6 +50,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'godlygeek/tabular'                                           " for easily aligning
   Plug 'vim-scripts/restore_view.vim'                                "
   Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
+  let g:fzf_preview_window = ['right:50%', 'ctrl-/']
   Plug 'junegunn/fzf.vim'
   " command! -bang -nargs=* Rg
   "       \ call fzf#vim#grep(
@@ -91,6 +92,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'altercation/vim-colors-solarized'
     set background=dark
   Plug 'chriskempson/base16-vim'
+  Plug 'morhetz/gruvbox'
   call plug#end()
 endif
 "}}}1 ===========================================================Vundle setup done
