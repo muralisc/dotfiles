@@ -10,5 +10,6 @@
 
 #min  hour   dom  Mon  dow
 # timelapse screenshots
-#*    *      *    *    *      DISPLAY=:0 ~/bin/timelapse.sh
-0 9 * * * crontab -l | gzip > ~/shared_folders/transfer/'crontab-'$(date +"\%Y\%m\%d-\%H\%M\%S")'.gz'
+#*   *       *   *   *      DISPLAY=:0 ~/bin/timelapse.sh
+0   9       *   *   *   crontab -l | gzip > ~/shared_folders/transfer/'crontab-'$(date +"\%Y\%m\%d-\%H\%M\%S")'.gz'
+0   9,21    *   *   *   bash ~/ticker_trigger.sh

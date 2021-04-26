@@ -57,6 +57,17 @@ read
 # so add */ to include all directories and
 # use --prune-empty-dirs
 
+create_include_exclude_to_include_all() {
+cat << EOF > "$INCLUDE_FILE"
+*
+EOF
+
+cat << EOF > "$EXCLUDE_FILE"
+.*
+EOF
+}
+
+create_include_exclude_to_selectively_include_exclude_everything_else() {
 cat << EOF > "$INCLUDE_FILE"
 */
 Videos/notForKids/videos/forsorting/new/**
@@ -69,6 +80,7 @@ cat << EOF > "$EXCLUDE_FILE"
 .*
 *
 EOF
+}
 
 # Explanation of below command
 # SYNC_COMMAND="
@@ -115,4 +127,6 @@ $SYNC_COMMAND | tee /var/tmp/rsync.log
 SRC="$1"
 DST="$2"
 help $*
+create_include_exclude_to_include_all
+# create_include_exclude_to_selectively_include_exclude_everything_else
 run_rsync
