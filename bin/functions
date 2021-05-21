@@ -89,6 +89,17 @@ attach_to_tmux() {
   alias tad='tmux -L $TMUX_SOCKET_NAME attach -d'
 }
 
+setup_tmux_windows() {
+  # if Number of windows less than 3, add 3 windows
+  while (( $(tmux list-windows | wc -l) < 3)) ; do
+    tmux new-window -d
+  done
+  # mysession:mywindow.pane-id
+  tmux rename-window -t 1 "Notes-in-Vim"
+  tmux rename-window -t 2 "devserver"
+  tmux rename-window -t 3 "local-shell"
+}
+
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)#examples
 _fzf_complete_pass() {
   _fzf_complete '+m' "$@" < <(

@@ -23,7 +23,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck)
     let g:ale_fix_on_save = 1
     let g:ale_fixers = {
-    \    '*': ['trim_whitespace'],
     \    'cpp': ['clang-format'],
     \}
   let g:ale_cpp_clang_options = '-std=c++17 -Wall'
@@ -44,6 +43,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'ledger/vim-ledger'
   Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files
   Plug 'tpope/vim-commentary'                                        " map: gcc
+  Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space
   Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |
   Plug 'tpope/vim-fugitive'
