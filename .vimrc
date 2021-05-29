@@ -61,7 +61,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'itchyny/lightline.vim'
     let g:lightline = {
-        \ 'colorscheme': 'one',
         \ 'component_function': {
         \   'filename': 'LightLineFilename'
         \ }
@@ -70,6 +69,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
       " Get shrinked current working directory and filename
       return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
     endfunction
+  " Plug 'octol/vim-cpp-enhanced-highlight'
   Plug 'airblade/vim-rooter'
   let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
   let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
@@ -87,14 +87,26 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'tpope/vim-vinegar'
   Plug 'axvr/org.vim'
   let g:org_clean_folds = 1
+  Plug 'vim-scripts/DoxygenToolkit.vim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   " Colorschemes
-  Plug 'joshdick/onedark.vim'
   Plug 'altercation/vim-colors-solarized'
     set background=dark
   Plug 'chriskempson/base16-vim'
   Plug 'morhetz/gruvbox'
+  Plug 'romainl/Apprentice'
   call plug#end()
 endif
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { "java", "python" },  -- list of language that will be disabled
+  },
+}
+EOF
 "}}}1 ===========================================================Vundle setup done
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
@@ -109,30 +121,6 @@ filetype plugin on                                                              
 syntax on                                                                       " syntax highlight
 set vb t_vb=                                                                    " prevent screen flasing on multiple esc
 set t_Co=256                                                                    " set 256 colors in vim
-"{{{ Use 24-bit (true-color) mode in Vim/Neovim when outside tmux :  Credit joshdick
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-else
-  if (has("termguicolors"))
-    "Set Vim-specific sequences for RGB colors; only seems to be needed for Vim 8 running inside tmux with $TERM=tmux
-    "Found at < https://github.com/vim/vim/issues/993#issuecomment-255651605 >
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-  endif
-endif
-" }}}
 
 let mapleader="\<Space>"                                                        " Change the mapleader from \ to
 let maplocalleader="\<Space>"
@@ -219,7 +207,10 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme onedark                                                     " onedark base16-*
+silent! colorscheme gruvbox                                                   " base16-* solarized gruvbox apprentice
+if &diff
+    colorscheme gruvbox
+endif
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding

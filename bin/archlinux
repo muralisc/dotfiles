@@ -416,7 +416,7 @@ Option "TapButton3" "2"
 Option "TapButton2" "3"
 Option "TapButton3" "2"
 
-cargo install bat exa fd-find rip-grep watchexec du-dust
+cargo install bat exa fd-find rip-grep watchexec du-dust git-delta
 # icdiff is better than git-delta
 
 y -S alacritty xzoom rxvt-unicode-truecolor
