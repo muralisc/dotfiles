@@ -48,7 +48,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |
   Plug 'tpope/vim-fugitive'
   Plug 'godlygeek/tabular'                                           " for easily aligning
-  Plug 'vim-scripts/restore_view.vim'                                "
   Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
   let g:fzf_preview_window = ['right:50%', 'ctrl-/']
   Plug 'junegunn/fzf.vim'
@@ -80,14 +79,11 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/snippets'
   Plug 'bfredl/nvim-miniyank'
   Plug 'whiteinge/diffconflicts'
-  " Language Specific
-  Plug 'fatih/vim-go'
   " Non-essential
   Plug 'junegunn/rainbow_parentheses.vim'
   Plug 'tpope/vim-vinegar'
   Plug 'axvr/org.vim'
   let g:org_clean_folds = 1
-  Plug 'vim-scripts/DoxygenToolkit.vim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   " Colorschemes
   Plug 'altercation/vim-colors-solarized'
@@ -97,6 +93,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'romainl/Apprentice'
   call plug#end()
 endif
+if has("nvim")
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -107,6 +104,7 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+endif
 "}}}1 ===========================================================Vundle setup done
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
@@ -284,7 +282,6 @@ nnoremap <leader>bd :bp\|bd #<cr>
 " Close splits but not last window
 nnoremap <leader>wd :close!<cr>
 " Close vim itself
-nnoremap <leader>qs :wqa!<cr>
 nnoremap <leader>s :sp<CR>
 nnoremap <leader>v :vs<CR>
 " Fast saving
