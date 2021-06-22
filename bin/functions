@@ -96,7 +96,7 @@ setup_tmux_windows() {
   done
   # mysession:mywindow.pane-id
   tmux rename-window -t 1 "Notes-in-Vim"
-  tmux rename-window -t 2 "devserver"
+  tmux rename-window -t 2 "et-devserver"
   tmux rename-window -t 3 "local-shell"
 }
 

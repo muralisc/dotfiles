@@ -16,8 +16,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-  " Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD
+  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }           " <leader>d to generate doc for function
+  Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD
   Plug 'derekwyatt/vim-fswitch'
     let g:ale_completion_enabled = 1
   Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck)
@@ -49,6 +49,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'tpope/vim-fugitive'
   Plug 'godlygeek/tabular'                                           " for easily aligning
   Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
+  Plug 'wincent/vim-clipper'
+  let g:ClipperPort=5556
   let g:fzf_preview_window = ['right:50%', 'ctrl-/']
   Plug 'junegunn/fzf.vim'
   " command! -bang -nargs=* Rg
@@ -58,6 +60,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   "       \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   "       \   <bang>0)
   Plug 'christoomey/vim-tmux-navigator'
+  Plug 'chazy/cscope_maps'
   Plug 'itchyny/lightline.vim'
     let g:lightline = {
         \ 'component_function': {
@@ -81,7 +84,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'whiteinge/diffconflicts'
   " Non-essential
   Plug 'junegunn/rainbow_parentheses.vim'
-  Plug 'tpope/vim-vinegar'
   Plug 'axvr/org.vim'
   let g:org_clean_folds = 1
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -96,11 +98,11 @@ endif
 if has("nvim")
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  ensure_installed = "maintained",
+  ignore_install = { "javascript", "verilog" },
   highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = { "java", "python" },  -- list of language that will be disabled
+    enable = true,
+    disable = { "java", "verilog" },  -- list of language that will be disabled
   },
 }
 EOF
