@@ -27,6 +27,7 @@ $if mode=vi
     "\C-\M-e": shell-expand-line
     "\e.":insert-last-argument
     "\C-g*": glob-expand-word
+    "Tab": menu-complete
 $else
     # Use up and down arrows to search history
     "\e[A": history-substring-search-backward
