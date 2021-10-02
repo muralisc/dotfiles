@@ -38,17 +38,10 @@ ensure_source_dest() {
   fi
 }
 
-run_rsync() {
-ensure_source_dest
-SOURCE_PATH="$SRC"
-BACKUP_PATH="$DST"
+
 EXCLUDE_FILE="/tmp/exclude_file.txt"
 INCLUDE_FILE="/tmp/include_file.txt"
-BLUE=$(tput setaf 4)
-
-echo -e "Doing a dry run from ${BLUE}${SOURCE_PATH}$(tput sgr0) to ${BLUE}${BACKUP_PATH}$(tput sgr0)"
-read
-
+create_include_exclude_to_include_all() {
 # include and exclude is done in the order given
 # so provide --include-from/--include as many times as needed
 # before --exclue-from/--exclude
@@ -57,7 +50,6 @@ read
 # so add */ to include all directories and
 # use --prune-empty-dirs
 
-create_include_exclude_to_include_all() {
 cat << EOF > "$INCLUDE_FILE"
 *
 EOF
@@ -81,6 +73,16 @@ cat << EOF > "$EXCLUDE_FILE"
 *
 EOF
 }
+
+
+run_rsync() {
+ensure_source_dest
+SOURCE_PATH="$SRC"
+BACKUP_PATH="$DST"
+BLUE=$(tput setaf 4)
+
+echo -e "Doing a dry run from ${BLUE}${SOURCE_PATH}$(tput sgr0) to ${BLUE}${BACKUP_PATH}$(tput sgr0)"
+read
 
 # Explanation of below command
 # SYNC_COMMAND="
