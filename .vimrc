@@ -43,7 +43,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'ledger/vim-ledger'
   Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files
   Plug 'tpope/vim-commentary'                                        " map: gcc
-  Plug 'tpope/vim-dispatch'
+  Plug 'skywind3000/asyncrun.vim'
   Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space
   Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |
   Plug 'tpope/vim-fugitive'
@@ -87,6 +87,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'axvr/org.vim'
   let g:org_clean_folds = 1
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'neovim/nvim-lspconfig'
   " Colorschemes
   Plug 'altercation/vim-colors-solarized'
     set background=dark
@@ -96,6 +97,13 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#end()
 endif
 if has("nvim")
+
+lua <<EOF
+require'lspconfig'.clangd.setup{
+  cmd =  { "sourcerepo/third-party-buck/platform009/build/llvm-fb/bin/clangd", "--background-index" }
+}
+EOF
+
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
