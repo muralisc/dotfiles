@@ -4,9 +4,9 @@ autoload -z edit-command-line
 compinit
 # for refreshing vi mode prompt
 function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%F{magenta}[% NORMAL]%"
-    INS_PROMPT="%F{black}[% INSERT]%"
-    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/$INS_PROMPT}"
+    VIM_PROMPT="%F{magenta}[% N]"
+    INS_PROMPT="%F{black}[% I]"
+    VIMODE="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/$INS_PROMPT}"
     zle reset-prompt
 }
 zle -N zle-line-init
@@ -37,7 +37,7 @@ at_normal=%{$'\e[0m'%}
 ARROWS='%B%F{red}❯%F{green}❯%F{blue}❯%f%b'
 DOLLAR=' %B%F{blue}$%f%b'
 # Add color at end for giving color to user input
-PS1='%F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} %F{white}%B'
+PS1='${VIMODE} %F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} %F{white}%B'
 # Reset so that command output is set to default colors
 preexec () { echo -ne "\e[0m" }
 if [[ -n $SSH_CONNECTION ]]; then
