@@ -3,12 +3,12 @@
 #
 
 # terminal emulator
-super + {_, shift} + Return
-	{xdo activate -n urxvt ||,_} urxvtc
+super + Return
+	urxvt
 
 # program launcher
 super + @space
-	dmenu_run
+	dmenu_run -fn 'Ubuntu Mono-19'
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -66,13 +66,13 @@ super + {p,b,comma,period}
 super + {_,shift + }c
 	bspc node -f {next,prev}.local
 
-# focus the next/previous desktop in the current monitor
+# volume
 super + bracket{left,right}
 	~/bin/vol-control {softer,louder} && ~/bin/vol-control notify
-# volume
+
+# focus the next/previous desktop in the current monitor
 super + {period,comma}
 	bspc desktop -f {prev,next}.local
-
 
 # focus the last node/desktop
 super + {grave,Tab}
