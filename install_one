@@ -1,0 +1,4 @@
+file=$1
+homepath="${HOME}/$( sed "s#$PWD##" <<< $file )"
+mkdir -p $(dirname $homepath)
+ln -vs --backup=numbered $PWD/$file $homepath
