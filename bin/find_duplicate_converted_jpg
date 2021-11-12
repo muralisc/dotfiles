@@ -1,5 +1,7 @@
 #!/bin/bash
-# This script is used to find the jpg which is converted, which could be deleted
+# This script is used to find the jpg which is also converted into jpg 
+# along with cr3 raw files
+# The duplicate jpg files can be deleted if the size they consume is high
 
 # e.g:
 #   bash ~/src/dotfiles/bin/find_duplicate_converted_jpg ~/data/footage/2021

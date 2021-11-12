@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# this script is used to move footage from camera to 
+# a destination folder with sub folders defined by
+# yyyy-mm-dd/camera-model/file.jpg
+
 # e.g: bash ~/src/dotfiles/bin/copy-footage.sh ~/data/footage/2021/2021_01_murali_mobile ~/data/footage/2021
 
 
