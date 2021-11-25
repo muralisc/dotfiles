@@ -144,7 +144,8 @@ label-focused-foreground = ${colors.foreground}
 label-focused-padding = 1
 
 label-occupied = %name%
-label-occupied-foreground = ${colors.foreground-occupied}
+label-occupied-foreground = ${colors.foreground-unfocused}
+label-occupied-underline = ${colors.foreground-occupied}
 label-occupied-padding = 1
 
 label-urgent = %name%!
