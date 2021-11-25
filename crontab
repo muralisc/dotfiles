@@ -13,6 +13,6 @@
 #*  *       *   *   *      DISPLAY=:0 ~/bin/timelapse.sh
 #0  9       *   *   *   crontab -l | gzip > ~/shared_folders/transfer/'crontab-'$(date +"\%Y\%m\%d-\%H\%M\%S")'.gz'
 0   9       *   *   *   crontab -l > ~/src/dotfiles/crontab
-0   9-21/2  *   *   *   bash ~/src/dotfiles/bin/ticker_trigger.sh
+0   9-21/2  *   *   *   bash ~/src/private/bin/ticker_trigger.sh
 05  11      *   *   *   bash ~/shared_folders/minimal/Pensieve/textfiles/ledger/graphs/plot_ledger_projection.sh 2>&1 > ~/var/log/ledger_cron_output.log
 15  */1     *   *   *   bash ~/src/private/bin/ledger/send_to_prometheus.sh > ~/var/log/'send-log-'$(date +"\%Y-\%m-\%d_\%H:\%M:\%S")'.log'
