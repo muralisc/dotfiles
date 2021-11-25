@@ -1,9 +1,11 @@
-#!/bin/bash
+!/bin/bash
 # Commands to get an arch linux up and running.
 # For Virtual box : ENABLE EFI BOOT IN VIRTUAL BOX SETTINGS.
 
 # setup install env
 loadkeys us
+
+timedatectl set-ntp true
 
 # setup Disk
 # 1.
@@ -30,7 +32,7 @@ sgdisk -t 2:8300
 # FOR bare metal
 sgdisk -o /dev/sda
 sgdisk -n 0:0:+512M /dev/sda  # /boot partition
-sgdisk -n 0:0:+16G  /dev/sda  # SWAP partition
+sgdisk -n 0:0:+16G  /dev/sda  # SWAP partition : 2*RAM
 sgdisk -n 0:0:+100G /dev/sda  # / partition
 sgdisk -n 0:0:0     /dev/sda  # /home partition
 sgdisk -L
@@ -53,7 +55,6 @@ cryptsetup -v luksFormat $device_name
 
 cryptsetup open $device_name $dm_name
 # e.g: cryptsetup open /dev/sdc cryptexternal
-
 
 boot=/dev/sda1
 root=/dev/sda3   # /dev/mapper/cryptroot in encrypted system
@@ -86,12 +87,14 @@ reflector --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
 sudo sed 's/^#MAKEFLAGS.*/MAKEFLAGS="-j'$(nproc)'"/' -i /etc/makepkg.conf
 # also PKGEXT='.pkg.tar' to not compress
-pacstrap /mnt base base-devel
+pacstrap /mnt base base-devel linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 
 # Set timezone
 ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+# e.g: ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
+# e.g: ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 
 # uncomment en_US in locale.gen
 sed -r -i'.bak' 's/#(en_US.*)/\1/' /etc/locale.gen
@@ -105,7 +108,7 @@ passwd  # change root password
 pacman -S networkmanager network-manager-applet dhcpcd
 # install pre-req for NetworkManager
 pacman -S dialog wpa_supplicant ifplugd
-systemctl enable networkmanager
+systemctl enable NetworkManager
 systemctl enable wpa_supplicant
 nm-applet
 
@@ -174,8 +177,9 @@ hostnamectl set-hostname rivnedell
 cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/ethernet
 sed -i 's/eth0/enp0s3/' /etc/netctl/ethernet
 # edit ethernet link name
-netctl start ethernet
-netctl enable ethernet
+systemctl start NetworkManager
+nmcli device wifi list
+nmcli device wiki connect $SSID password $pass
 ping google.com
 
 # USER CREATION
@@ -190,6 +194,35 @@ ln -s /usr/share/zoneinfo/Reginon/City /etc/localtime
 hwclock --systohc
 # to make pacman and yay work behind proxy
 sudo sh -c 'echo Defaults env_keep += \"http_proxy https_proxy ftp_proxy\" >> /etc/sudoers'
+
+
+# BTRFS
+# -----
+# Use raid1 for both data and metadata
+mkfs.btrfs -m raid1 -d raid1 /dev/sdb /dev/sdc
+mount -t btrfs -o subvol=/ /dev/sdb /data
+# default subvolume
+btrfs subvolume show /data
+sudo btrfs filesystem show #no arg required
+
+# How to create subvolume
+btrfs subvolume create /data/murali
+
+# mout subvolume or snapshot
+mount -t btrfs -o subvol=murali /dev/sdb /home/murali/data
+chown murali:murali -R /home/murali/data
+genfstab -U / > /tmp/genfstab.tmp
+
+sudo btrfs subvolume list /data
+
+
+# df for brtfs
+btrfs filesystem usage /data
+# one more (what is difference) ?
+btrfs filesystem df /data
+# more
+btrfs device usage /data
+btrfs filesystem du /data
 
 
 # setup basic utilities
@@ -221,8 +254,22 @@ tar zxvf yay.tar.gz
 cd yay && makepkg
 sudo pacman -U yay*.pkg.tar.xz --noconfirm
 mkdir ~/repositories && cd ~/repositories
+
+# Option 1 : get all your confing in one shot
 git clone 'https://github.com/muralisc/dotfiles'
 ./dotfiles/install.sh
+# Option 2: test awesomewm
+sudo pacman -S awesome
+echo "exec awesome" > .xinitrc
+startx
+# Option 3:
+install -Dm755 /usr/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/bspwmrc
+install -Dm644 /usr/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc
+echo "exec bspwm" > .xinitrc
+startx
+
+# Change virtual terminal
+chvt
 
 # enable auto-login
 sudo systemctl edit getty@tty1
@@ -344,11 +391,13 @@ docker run -d --name=netdata \
 systemctl --user enable dropbox.service
 vim ~/.config/systemd/user/dropbox@.service  # Add display env
 # sync tools
-y -S syncthing
+y -S syncthing syncthing-gtk
 # remote tools ( use tigervnc/barrier instead of KVM switch for keyboard and mouse sharing )
 yay -S --noconfirm tigervnc sshfs barrier
 # i dont like mouse
 yay -S --noconfirm keynav-git
+# but for gaming mouse is needed, add solar for connecting logitech unifying mouse
+yay -S --noconfirm solaar
 # i like to type better; keylogger ;)
 yay -S --noconfirm logkeys-git
 # accessibility when i am sitting faar away
@@ -396,7 +445,7 @@ git clone https://bitbucket.org/muralisc/$REPONAME
 mv $REPONAME .password-store
 
 # A filemanager
-yay -S --noconfirm polo pcmanfm thunar
+yay -S --noconfirm pcmanfm thunar #didnt like pcmanfm
 
 
 # use xdg_menu for archmenu.lua for awesoem wm
