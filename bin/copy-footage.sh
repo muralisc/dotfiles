@@ -24,6 +24,7 @@ for file_name in $(find $SRC_FOLDER -type f); do
   # if strptime is not successfull, break
   STRPTIME_RETURN=$?
   if [[ $STRPTIME_RETURN -ne 0 ]]; then
+    echo "Processing $file_name failed"
     echo strptime return : $STRPTIME_RETURN
     exit 1
   fi
