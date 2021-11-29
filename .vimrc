@@ -9,30 +9,49 @@
 let g:loaded_matchparen = 1
 set nocompatible                                                     " not compatible with the old-fashion vi mode
 " vim-plug setup {{{1
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  " Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD                   
-  Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck) 
+  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }           " <leader>d to generate doc for function
+  Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD
+  Plug 'derekwyatt/vim-fswitch'
+    let g:ale_completion_enabled = 1
+  Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck)
+    let g:ale_fix_on_save = 1
+    let g:ale_fixers = {
+    \    'cpp': ['clang-format'],
+    \}
   let g:ale_cpp_clang_options = '-std=c++17 -Wall'
   let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++1z'
-  let g:ale_linters = {'c': ['clang'], 'cpp': ['clang', 'gcc'],'go': ['golangci-lint', 'gofmt', 'go vet']}
+  let g:ale_linters = {
+        \'c': ['clang'],
+        \'cpp': ['clang', 'gcc'],
+        \'go': ['golangci-lint', 'gofmt', 'go vet']
+  \}
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_insert_leave = 1
   let g:ale_lint_on_enter = 0
-  Plug 'mileszs/ack.vim'                                             " Search files                                      
+  Plug 'mileszs/ack.vim'                                             " Search files
   if executable('rg')
         let g:ackprg = 'rg --vimgrep'
   endif
   let g:ack_autoclose = 0
   Plug 'ledger/vim-ledger'
-  Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files                            
-  Plug 'tpope/vim-commentary'                                        " map: gcc                                          
-  Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space                
-  Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |                       
+  Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files
+  Plug 'tpope/vim-commentary'                                        " map: gcc
+  Plug 'skywind3000/asyncrun.vim'
+  Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space
+  Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |
   Plug 'tpope/vim-fugitive'
-  Plug 'godlygeek/tabular'                                           " for easily aligning                               
-  Plug 'vim-scripts/restore_view.vim'                                "                                                   
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'godlygeek/tabular'                                           " for easily aligning
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
+  "Plug 'wincent/vim-clipper'
+  let g:ClipperPort=5556
+  let g:fzf_preview_window = ['right:50%', 'ctrl-/']
   Plug 'junegunn/fzf.vim'
   " command! -bang -nargs=* Rg
   "       \ call fzf#vim#grep(
@@ -41,17 +60,18 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   "       \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   "       \   <bang>0)
   Plug 'christoomey/vim-tmux-navigator'
+  Plug 'chazy/cscope_maps'
   Plug 'itchyny/lightline.vim'
-  let g:lightline = {
-        \ 'colorscheme': 'one',
+    let g:lightline = {
         \ 'component_function': {
         \   'filename': 'LightLineFilename'
         \ }
         \ }
-  function! LightLineFilename()
-    " Get shrinked current working directory and filename
-    return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
-  endfunction
+    function! LightLineFilename()
+      " Get shrinked current working directory and filename
+      return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
+    endfunction
+  " Plug 'octol/vim-cpp-enhanced-highlight'
   Plug 'airblade/vim-rooter'
   let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
   let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
@@ -62,18 +82,38 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'muralisc/snippets'
   Plug 'bfredl/nvim-miniyank'
   Plug 'whiteinge/diffconflicts'
-  " Language Specific
-  Plug 'fatih/vim-go'
   " Non-essential
   Plug 'junegunn/rainbow_parentheses.vim'
-  Plug 'tpope/vim-vinegar'
-  " Colorschemes
-  Plug 'joshdick/onedark.vim'
-  Plug 'chriskempson/base16-vim'
   Plug 'axvr/org.vim'
   let g:org_clean_folds = 1
-  set background=dark
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'neovim/nvim-lspconfig'
+  " Colorschemes
+  Plug 'altercation/vim-colors-solarized'
+    set background=dark
+  Plug 'chriskempson/base16-vim'
+  Plug 'morhetz/gruvbox'
+  Plug 'romainl/Apprentice'
   call plug#end()
+endif
+if has("nvim")
+
+lua <<EOF
+require'lspconfig'.clangd.setup{
+  cmd =  { "sourcerepo/third-party-buck/platform009/build/llvm-fb/bin/clangd", "--background-index" }
+}
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  ignore_install = { "javascript", "verilog" },
+  highlight = {
+    enable = true,
+    disable = { "java", "verilog" },  -- list of language that will be disabled
+  },
+}
+EOF
 endif
 "}}}1 ===========================================================Vundle setup done
 set guioptions-=m  "remove menu bar
@@ -89,33 +129,10 @@ filetype plugin on                                                              
 syntax on                                                                       " syntax highlight
 set vb t_vb=                                                                    " prevent screen flasing on multiple esc
 set t_Co=256                                                                    " set 256 colors in vim
-"Credit joshdick
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-else
-  if (has("termguicolors"))
-    "Set Vim-specific sequences for RGB colors; only seems to be needed for Vim 8 running inside tmux with $TERM=tmux
-    "Found at < https://github.com/vim/vim/issues/993#issuecomment-255651605 >
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-  endif
-endif
 
 let mapleader="\<Space>"                                                        " Change the mapleader from \ to
 let maplocalleader="\<Space>"
+" https://shapeshed.com/vim-netrw/
 let g:netrw_preview = 1                                                         " Split Vertical
 let g:netrw_winsize = 15
 set autoread                                                                    " read a changed file on disk
@@ -198,7 +215,10 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme onedark                                                     " onedark base16-*
+silent! colorscheme gruvbox                                                   " base16-* solarized gruvbox apprentice
+if &diff
+    colorscheme gruvbox
+endif
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
@@ -272,7 +292,6 @@ nnoremap <leader>bd :bp\|bd #<cr>
 " Close splits but not last window
 nnoremap <leader>wd :close!<cr>
 " Close vim itself
-nnoremap <leader>qs :wqa!<cr>
 nnoremap <leader>s :sp<CR>
 nnoremap <leader>v :vs<CR>
 " Fast saving
@@ -281,17 +300,8 @@ nnoremap <leader>fs :w<cr>
 " Clipboard madness {{{
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
-" replace currently selected text with default register
-" without yanking it
-vnoremap <leader>p "_dP
-" paste from the primary clipboard/ selection
-nnoremap <leader>P "*p
-" paste from the secondary clipboard/ ctrl+c
-nnoremap <leader><leader>p "+p
-" yank to the primary clipboard/ selection
-nnoremap <leader>Y "*y
-" yank to the secondary clipboard/ ctrl+c
-nnoremap <leader>y "+y
+" replace currently selected text with default register without yanking it
+vnoremap <leader>P "_dP
 " }}} clipboard madness
 " }}}1 Shortcut Mappings
 " Filetype Specific Settings {{{
@@ -345,5 +355,3 @@ vnoremap <leader>db !boxes -d stone -p v1 -a hc -s 80
 vnoremap <leader>xb !boxes -r<CR>
 " After yanking in visual mode move cursor to the end of  the selection
 vnoremap y ygv<Esc>
-
-

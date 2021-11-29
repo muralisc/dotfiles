@@ -4,6 +4,9 @@ clear lock
 clear control
 ! map CapsLock Key to Control
 keycode 66 = Control_L
-! map CapsLock Key to Menu
+! Another popular choice is to map CapsLock Key to Menu:
 ! keycode 66 = Menu
-add Control = Control_L Control_R
+
+! Add back control which has been cleared in the begining
+! When either Control_L or Control_R is pressed activate control modifier
+add control = Control_L Control_R

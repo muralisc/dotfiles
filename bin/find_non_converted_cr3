@@ -1,0 +1,19 @@
+#!/bin/bash
+# This script is used to find the raw photos which are not converted
+
+# e.g:
+#   bash ~/src/dotfiles/bin/find_non_converted_cr3 ~/data/footage/2021
+
+SRC_DIR=$1
+for file_path in $(find $SRC_DIR -iname "*CR3"); do
+  root_path=$(dirname $file_path)
+  cr3_filename=$(basename $file_path)
+  cr3_filename_nosuffix=$(basename $file_path .CR3)
+  converted_file="converted/${cr3_filename_nosuffix}.jpg"
+  if [[ -f $root_path/$converted_file ]] ; then
+    #echo "Converted File found for :" $file_path
+    :
+  else
+    echo "Converted File not found for :" $file_path
+  fi
+done

@@ -44,7 +44,7 @@ alias led_networth='ledger bal \^Assets \^Liabilities \^VirtFunds --cleared -B'
 alias led_permonthExp='ledger -MAn reg \^Expenses \^Equity:Adjust'
 alias led_expenseList='ledger reg \^Expenses \^Equity:Adjust'
 alias led_cashflow='ledger -MAn reg \^Income \^Expenses \^Equity:Adjust'
-alias led_ensureZero='ledger b  -H -X INR --real'
+alias led_ensureZero='ledger b  -H -X INR --real --price-db pricedb.txt'
 
 alias org='emacs --funcall org-agenda-list'
 alias Org='/Applications/Emacs.app/Contents/MacOS/Emacs --funcall org-agenda-list &'
@@ -52,3 +52,4 @@ alias fv="findvim"
 # These alias is requried to prevent vim colorscheme from getting messed up inside tmux
 alias vim="TERM=screen-256color vim"
 alias vimdiff="TERM=screen-256color vimdiff"
+alias rg='rg --glob "!*svg"'

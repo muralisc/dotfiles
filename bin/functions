@@ -7,10 +7,10 @@ sanitize_file_name() {
   #     sanitize_file_name -n $file1 $file2 #  dry run
   #     sanitize_file_name $files $file2    # reaname files
   #
-  if [[ "f$1" == "f-n" ]] ; then 
+  if [[ "f$1" == "f-n" ]] ; then
     shift
-    for i in $@ ; do 
-      sed -E "s/ |\(|\!|&|\)|'|\[|\]/_/g" <<< $i; 
+    for i in $@ ; do
+      sed -E "s/ |\(|\!|&|\)|'|\[|\]/_/g" <<< $i;
     done
     return
   fi
@@ -70,7 +70,7 @@ gen_pass() {
   grep -P "(?=.*\d)(?=.*[a-zA-Z]).{15,}" <<< $gen_pwd
 }
 
-# create a tmux for the first teminal spawned 
+# create a tmux for the first teminal spawned
 attach_to_tmux() {
   export TMUX_SOCKET_NAME=${1:-default}
   export TMUX_SESSION_NAME=${2:-Main}
@@ -87,6 +87,17 @@ attach_to_tmux() {
   fi
   alias ta='tmux -L $TMUX_SOCKET_NAME attach'
   alias tad='tmux -L $TMUX_SOCKET_NAME attach -d'
+}
+
+setup_tmux_windows() {
+  # if Number of windows less than 3, add 3 windows
+  while (( $(tmux list-windows | wc -l) < 3)) ; do
+    tmux new-window -d
+  done
+  # mysession:mywindow.pane-id
+  tmux rename-window -t 1 "Notes-in-Vim"
+  tmux rename-window -t 2 "et-devserver"
+  tmux rename-window -t 3 "local-shell"
 }
 
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)#examples
@@ -144,25 +155,25 @@ colortest() { #8/16bit colors also exist
 #   Daniel Crisman's ANSI color chart script from
 #   The Bash Prompt HOWTO: 6.1. Colours
 #   http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
-#  
-#   This function echoes a bunch of color codes to the 
-#   terminal to demonstrate what's available.  Each 
+#
+#   This function echoes a bunch of color codes to the
+#   terminal to demonstrate what's available.  Each
 #   line is the color code of one forground color,
-#   out of 17 (default + 16 escapes), followed by a 
-#   test use of that color on all nine background 
+#   out of 17 (default + 16 escapes), followed by a
+#   test use of that color on all nine background
 #   colors (default + 8 escapes).
- 
+
   T='•••'   # The text for the color test
-  
+
   echo -e "\n         def     40m     41m     42m     43m     44m     45m     46m     47m";
-  
+
   for FGs in '    m' '   1m' '  30m' '1;30m' '  31m' '1;31m' '  32m' \
              '1;32m' '  33m' '1;33m' '  34m' '1;34m' '  35m' '1;35m' \
              '  36m' '1;36m' '  37m' '1;37m';
-  
+
     do FG=${FGs// /}
     echo -en " $FGs \033[$FG  $T  "
-    
+
     for BG in 40m 41m 42m 43m 44m 45m 46m 47m;
       do echo -en "$EINS \033[$FG\033[$BG  $T  \033[0m";
     done
@@ -174,14 +185,14 @@ colortest() { #8/16bit colors also exist
   echo 'Following can be used as color${num} in tmux'
 
   echo 'System colors:'
-  for i in {0..15}; do 
+  for i in {0..15}; do
     printf "\x1b[38;5;${i}m %-3i\x1b[0m" $i ;
     if ! (( ($i + 1 ) % 8 )); then
       echo ;
     fi ;
   done
   echo 'Color cube, 6x6x6:'
-  for i in {16..231}; do 
+  for i in {16..231}; do
     printf "\x1b[38;5;${i}m %-3i\x1b[0m" $i ;
     if ! (( ($i + 3 ) % 6 )); then
       printf " ";
@@ -191,14 +202,14 @@ colortest() { #8/16bit colors also exist
     fi
   done
   echo 'Grayscale ramp:'
-  for i in {232..255}; do 
+  for i in {232..255}; do
     printf "\x1b[38;5;${i}m %-3i\x1b[0m" $i ;
   done
   echo ;
 
 
   echo 'System colors:'
-  for i in {0..15}; do 
+  for i in {0..15}; do
     printf "\x1b[48;5;${i}m  \x1b[0m";
     if ! (( ($i + 1 ) % 8 )); then
       echo ;
@@ -216,7 +227,7 @@ colortest() { #8/16bit colors also exist
     echo ;
   done
   echo 'Grayscale ramp:'
-  for i in {232..255}; do 
+  for i in {232..255}; do
     printf "\x1b[48;5;${i}m  \x1b[0m";
   done
   echo ;
@@ -267,15 +278,26 @@ findvim() {
     { [[ -n "$file_path" ]] && tmux send-keys ":e " C-f p Enter ; }
 }
 
-fehhelper() {
-  # pass -t to see thumbnails
+fehthumb() {
+  # hack1: set --index-info "" to prevent the display of filenames
+  # hack2: set font size to 0 to minimize the display of filenames
   feh \
-    -eDejaVuSans/28 \
-    -C/usr/share/fonts/TTF \
+    -t \
+    --cache-thumbnails \
     --thumb-height 200 \
     --thumb-width 200 \
     -r --limit-width 1900  --scale-down -d \
     --geometry 1900x1000 -Z \
+    --index-info "" "$@"
+}
+
+fehall() {
+  feh \
+    --font /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf/28 \
+    -r --limit-width 1900 \
+    --scale-down \
+    --draw-filename \
+    --geometry 1900x1000 --auto-zoom \
     --info "exiftool %F  | egrep '(Image Size|Create Date|File Size)'" "$@"
 }
 
@@ -354,4 +376,12 @@ test_zsh_prompt() {
   cyan="%F{cyan}$str"
   white="%F{white}$str"
   print -P "%B${random}${black}${red}${green}${yellow}${blue}${magenta}${cyan}${white}%b%f"
+}
+
+start_clipboard_server() {
+  # https://github.com/wincent/clipper
+  while (true); do
+    nc -l 5556 | pbcopy;
+    echo "$(date) :-> $(pbpaste)"
+  done
 }

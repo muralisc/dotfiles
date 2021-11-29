@@ -7,3 +7,5 @@ if [ -f /etc/profile ]; then
 fi
 source ~/.bashrc
 source ~/bin/check_and_startx
+
+#CHEF.NO.SOURCE

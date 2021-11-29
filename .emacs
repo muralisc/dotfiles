@@ -91,8 +91,8 @@
 (require 'evil-org)
 (add-hook 'org-mode-hook 'evil-org-mode)
 (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-(require 'evil-org-agenda)
-(evil-org-agenda-set-keys)
+;; (require 'evil-org-agenda) Deactivating as follow mode does not work
+(setq org-agenda-start-with-follow-mode t)
 
 ;; Which Key
 (straight-use-package 'which-key)
@@ -133,6 +133,8 @@
  :non-normal-prefix "M-SPC"
  "SPC" 'counsel-M-x
 
+ "a"  'org-agenda
+ "c"  'org-capture
  "ff" 'counsel-find-file
  "fr" 'counsel-recentf
  "fs" 'save-buffer
