@@ -49,7 +49,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'tpope/vim-fugitive'
   Plug 'godlygeek/tabular'                                           " for easily aligning
   Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
-  Plug 'wincent/vim-clipper'
+  "Plug 'wincent/vim-clipper'
   let g:ClipperPort=5556
   let g:fzf_preview_window = ['right:50%', 'ctrl-/']
   Plug 'junegunn/fzf.vim'
