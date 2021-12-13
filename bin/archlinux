@@ -497,6 +497,8 @@ y -S gerbera # upnp, media server
 y -S mkvtoolnix # for use with gerbera, mux the srt(subtitle) so that it can be easily shown
 y -S clang-format icdiff diff-so-fancy
 y -S obs-studio nginx-rtmp-sergey-git
+# Connect camera to linux as web cam
+# https://www.crackedthecode.co/how-to-use-your-dslr-as-a-webcam-in-linux/
 
 # get mpv script
 curl -o ~/.config/mpv/scripts/delete_file.lua \

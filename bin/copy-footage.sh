@@ -16,9 +16,13 @@ for file_name in $(find $SRC_FOLDER -type f); do
 
   EXIF_INFO=$(exiftool -j $file_name)
   CREATE_DATE=$(jq -r '.[0].CreateDate' <<< "$EXIF_INFO")
-  CAMERA_NAME=$(jq -r '.[0].Model' <<< "$EXIF_INFO" | tr ' ' '_')
-  if [[ $CAMERA_NAME = "null" ]]; then
-    CAMERA_NAME="NoModelName"
+  CAMERA_MAKE=$(jq -r '.[0].Make' <<< "$EXIF_INFO" | tr ' ' '_')
+  CAMERA_MODEL_NAME=$(jq -r '.[0].Model' <<< "$EXIF_INFO" | tr ' ' '_')
+  if [[ $CAMERA_MODEL_NAME = "null" ]]; then
+    CAMERA_MODEL_NAME="NoModelName"
+  fi
+  if ! grep $CAMERA_MAKE <<< $CAMERA_MODEL_NAME > /dev/null ; then
+    CAMERA_MODEL_NAME=${CAMERA_MAKE}-${CAMERA_MODEL_NAME}
   fi
   FOLDER_DATE=$(strptime --input-format "%Y:%m:%d %H:%M:%S%Z" "$CREATE_DATE" --format "%Y_%m_%d")
   # if strptime is not successfull, break
@@ -29,8 +33,8 @@ for file_name in $(find $SRC_FOLDER -type f); do
     exit 1
   fi
 
-  DST_PATH="${DST_FOLDER}/${FOLDER_DATE}/${CAMERA_NAME}/$PHOTO_PATH"
-  mkdir -p "${DST_FOLDER}/${FOLDER_DATE}/${CAMERA_NAME}"
+  DST_PATH="${DST_FOLDER}/${FOLDER_DATE}/${CAMERA_MODEL_NAME}/$PHOTO_PATH"
+  mkdir -p "${DST_FOLDER}/${FOLDER_DATE}/${CAMERA_MODEL_NAME}"
   echo mv $file_name $DST_PATH
   if [[ $DRY_RUN != true ]]; then
     mv $file_name $DST_PATH

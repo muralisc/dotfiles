@@ -43,10 +43,12 @@ Got this idea from (mathiasbynens/dotfiles)[https://github.com/mathiasbynens/dot
 GIT_AUTHOR_NAME="Murali Suresh"
 GIT_AUTHOR_EMAIL="murali@mailinator.com"
 GIT_USERNAME="muralisc"
-git config --global user.name "$GIT_AUTHOR_NAME"
-git config --global user.email "$GIT_AUTHOR_EMAIL"
-git config --global credential.https://github.com.username "$GIT_USERNAME"
-git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
+git config --local user.name "$GIT_AUTHOR_NAME"
+git config --local user.email "$GIT_AUTHOR_EMAIL"
+# set approperiate username in each repo so the libsecret can use it
+# more info: https://my-take-on.tech/2019/08/23/safely-storing-git-credentials/
+git config --local credential.https://github.com.username "$GIT_USERNAME"
+git config --local credential.helper /usr/lib/git-core/git-credential-libsecret
 ```
 
 Environment variables
