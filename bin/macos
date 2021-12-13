@@ -9,8 +9,8 @@ Karabiner && hammerspoon
 # better mouse
 https://github.com/Caldis/Mos
 # Dont use mouse
-    vimac
-    Xeasymotion - keynav for mac
+vimac
+Xeasymotion - keynav for mac
 # Take breaks
 hovancik/stretchly
 clipper # https://github.com/wincent/clipper (Remote clipboard)
