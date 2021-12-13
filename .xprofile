@@ -15,4 +15,4 @@ feh --bg-fill ~/.local/share/wallpaper/wallpaper
 xset -dpms
 xset s 7200 60
 # ensure that xrandr recognises HDMI and eDP labels
-~/bin/switch-monitor --auto
+# ~/bin/switch-monitor --auto

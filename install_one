@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# This file is used to install only one of the dotfile
+# this is helpful when only a subset of dotfiles needs to be used
+
+# usage:
+#     bash install_one .config/bspwm/bspwmrc
+#     bash install_one .config/kitty/kitty.conf
+
+
+file=$1
+homepath="${HOME}/$( sed "s#$PWD##" <<< $file )"
+mkdir -p $(dirname $homepath)
+ln -vs --backup=numbered $PWD/$file $homepath

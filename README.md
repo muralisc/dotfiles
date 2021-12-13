@@ -46,6 +46,7 @@ GIT_USERNAME="muralisc"
 git config --global user.name "$GIT_AUTHOR_NAME"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
 git config --global credential.https://github.com.username "$GIT_USERNAME"
+git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
 ```
 
 Environment variables

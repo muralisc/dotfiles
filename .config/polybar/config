@@ -1,10 +1,14 @@
+; Inspiration
+; 1: https://github.com/ThiloU/dotfiles/blob/master/.config/polybar/config
+; 2: https://github.com/ilikefoodonly/my-bspwm-config/blob/main/polybar/launch.sh
+;
 ; vim:ft=dosini
 [colors]
 background = #aa111111
 background-alt = #aa111111
 foreground = #d4d6dc
 foreground-occupied = #626784
-foreground-unfocused = #22626784
+foreground-unfocused = #fa626784
 alert = ${xrdb:color1}
 red = #e27878
 
@@ -30,7 +34,7 @@ override-redirect = false
 enable-ipc = true
 fixed-center = false
 bottom = false
-separator =
+separator = "%{F#63ff93} |  %{F-}"
 
 width = 100%
 height = 27
@@ -52,9 +56,9 @@ module-margin-right = 1
 font-0 = Font Awesome 5 Free Solid:style=Solid;size=16;1
 font-1 = Ubuntu:size=14;1
 font-2 = FiraCode Nerd Font;size=26;1
-modules-left = bspwm xwindow
+modules-left = mod favorites bspwm xwindow
 ; modules-center = mpd
-modules-right = xkeyboard memory cpu wlan battery temperature gputemperature date test
+modules-right = xkeyboard memory cpu wlan battery temperature date volume
 
 tray-position = right
 tray-padding = 0
@@ -124,6 +128,13 @@ label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-unfocused}
 
+[module/favorites]
+type = custom/text
+;content-underline = ${colors.favoritesAccent}
+;using action formatting tag to define clickable areas
+content = "%{A1:alacritty&:}%{A}  %{A1:thunar&:}%{A}  %{A1:xfce4-settings-manager&:}%{A}  %{A1:firefox&:}%{A}  %{A1:lutris&:}%{A} "
+
+
 [module/bspwm]
 type = internal/bspwm
 
@@ -133,7 +144,8 @@ label-focused-foreground = ${colors.foreground}
 label-focused-padding = 1
 
 label-occupied = %name%
-label-occupied-foreground = ${colors.foreground-occupied}
+label-occupied-foreground = ${colors.foreground-unfocused}
+label-occupied-underline = ${colors.foreground-occupied}
 label-occupied-padding = 1
 
 label-urgent = %name%!
@@ -157,21 +169,11 @@ reverse-scroll = false
 type = internal/cpu
 interval = 2
 format-prefix = 
-format = <label> <ramp-coreload>
+format = <label>
 format-prefix-foreground = #FFFF00
 format-foreground = #FFFF00
 format-padding = 1
 label = %percentage:02%%
-
-ramp-coreload-spacing = 1
-ramp-coreload-0 = ▁
-ramp-coreload-1 = ▂
-ramp-coreload-2 = ▃
-ramp-coreload-3 = ▄
-ramp-coreload-4 = ▅
-ramp-coreload-5 = ▆
-ramp-coreload-6 = ▇
-ramp-coreload-7 = █
 
 [module/memory]
 type = internal/memory
@@ -182,7 +184,7 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlp2s0
+interface = wlo1
 interval = 3.0
 
 format-connected-prefix = " "
@@ -200,10 +202,10 @@ label-disconnected-foreground = ${colors.foreground-unfocused}
 [module/date]
 type = internal/date
 interval = 5
-date = " %a, %Y %b %d,"
+date = " %a, %b %d,"
 date-alt = " %Y-%m-%d"
-time = " %H:%M:%S"
-time-alt = %H:%M:%S
+time = " %H:%M"
+time-alt = %H:%M
 format-underline = #0a6cf5
 label = %date% %time%
 
@@ -242,34 +244,27 @@ format-warn-underline = ${self.format-underline}
 label = " %temperature-c:05%"
 label-warn = %temperature-c:05%
 
-[module/gputemperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 95
-hwmon-path = /sys/devices/virtual/hwmon/hwmon3/temp4_input
-
-format = <ramp> <label>
-format-warn = <ramp> <label-warn>
-
-label =  %temperature-c%
-label-foreground = ${colors.red}
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.red}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-3 = 
-ramp-4 = 
-ramp-foreground = ${colors.red}
-
-
-[module/test]
+[module/volume]
 type = custom/script
 format-prefix = " "
-format = "<label>"
+format = "<label> "
 label = %output:0:15:...%
 exec = ~/bin/vol-control getVol
 click-left = ~/bin/vol-control toggle
 scroll-up = ~/bin/vol-control louder && ~/bin/vol-control notify
 scroll-down = ~/bin/vol-control softer && ~/bin/vol-control notify
+
+[module/mod]
+type = internal/bspwm
+format = <label-mode>
+format-background = ${color.YELLOW}
+format-foreground = ${color.BACKGROUND}
+format-padding = 1
+label-monocle = "Monocle"
+label-tiled = "Tiled"
+label-floating = ", Float"
+label-pseudotiled = ", Pseudo"
+label-fullscreen = ", Full"
+label-locked = " | Locked"
+label-sticky = " | Sticky"
+label-private = " | Private"

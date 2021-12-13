@@ -20,9 +20,10 @@ w warp
 t windowzoom
 c cursorzoom 300 300
 e end
-1 click 1
-2 click 2
-3 click 3
+1 warp,click 1
+2 warp,click 2
+3 warp,click 3
+4 warp,doubleclick 1
 ctrl+h cut-left
 ctrl+j cut-down
 ctrl+k cut-up

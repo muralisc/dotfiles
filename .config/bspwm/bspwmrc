@@ -1,11 +1,9 @@
 #! /bin/sh
 
 # Reffer: https://git.sr.ht/~jbauer/dotfiles
-killall -9 sxhkd polybar dunst
-
-dunst &
-polybar --reload example &
-sxhkd -c ~/.config/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc.common &
+pgrep -x sxhkd > /dev/null || sxhkd -c ~/.config/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc.common &
+pgrep -x dunst > /dev/null || dunst &
+pgrep -x polybar > /dev/null || polybar --reload example &
 
 bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 
