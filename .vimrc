@@ -88,6 +88,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   let g:org_clean_folds = 1
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'neovim/nvim-lspconfig'
+  Plug 'akinsho/toggleterm.nvim'
+  "Plug 'TaDaa/vimade'
   " Colorschemes
   Plug 'altercation/vim-colors-solarized'
     set background=dark
@@ -102,9 +104,6 @@ lua <<EOF
 require'lspconfig'.clangd.setup{
   cmd =  { "sourcerepo/third-party-buck/platform009/build/llvm-fb/bin/clangd", "--background-index" }
 }
-EOF
-
-lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
   ignore_install = { "javascript", "verilog" },
@@ -113,6 +112,32 @@ require'nvim-treesitter.configs'.setup {
     disable = { "java", "verilog" },  -- list of language that will be disabled
   },
 }
+require("toggleterm").setup{
+  size = function(term)
+    if term.direction == "horizontal" then
+      return 15
+    elseif term.direction == "vertical" then
+      return vim.o.columns * 0.5
+    end
+  end,
+  open_mapping = [[<c-t>]],
+  shade_terminals = true,
+  shading_factor = 9,
+  persist_size = true,
+  direction = 'vertical',
+  start_in_insert = false,
+}
+function _G.set_terminal_keymaps()
+  local opts = {noremap = true}
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-h>', [[<C-\><C-n><C-W>h]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-j>', [[<C-\><C-n><C-W>j]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-k>', [[<C-\><C-n><C-W>k]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-l>', [[<C-\><C-n><C-W>l]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 EOF
 endif
 "}}}1 ===========================================================Vundle setup done
@@ -156,7 +181,7 @@ if has("unix")
   endif
 endif
 if has('mac')
-  set guifont=Hack:h14
+  set guifont=FreeMono:h16
 endif
 " }}}
 set shiftround                                                                  " use multiple of shiftwidth when indenting with '<' and '>'
@@ -307,13 +332,13 @@ vnoremap <leader>P "_dP
 " Filetype Specific Settings {{{
 augroup FTOptions
   autocmd!
-  autocmd filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
+  autocmd Filetype xml,xsd,html,javascript,yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2 nostartofline
   autocmd FileType xdefaults                    setlocal commentstring=!\ %s
-  autocmd filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k shiftwidth=2
+  autocmd Filetype c,cpp,java,go                setlocal foldmethod=syntax foldlevel=99 complete-=k shiftwidth=2
   autocmd FileType liquid,text,txt,tex          setlocal complete+=k textwidth=80
-  autocmd filetype vim                          setlocal foldmethod=marker keywordprg=:help shiftwidth=2
-  autocmd filetype sh                           setlocal keywordprg=man shiftwidth=2
-  autocmd filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99
+  autocmd Filetype vim                          setlocal foldmethod=marker keywordprg=:help shiftwidth=2
+  autocmd Filetype sh                           setlocal keywordprg=man shiftwidth=2
+  autocmd Filetype xml,sh,vim,tex,html,lua      setlocal foldmethod=marker foldlevel=99
   autocmd Filetype gitcommit                    setlocal spell textwidth=72
   autocmd FileType git,gitcommit                setlocal foldmethod=syntax tw=72 cc=+1 spell
   autocmd Filetype markdown                     setlocal iskeyword+=# textwidth=80
@@ -338,14 +363,19 @@ augroup numbertoggle
     autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 augroup END
 
+hi ActiveTerminal ctermbg=232 ctermfg=251
+augroup WindowManagement
+  autocmd!
+  autocmd TermEnter * call Handle_Win_Enter()
+augroup END
+" Change highlight group of terminal window
+function! Handle_Win_Enter()
+  setlocal winhighlight=Normal:ActiveTerminal
+endfunction
+
 " For compatability with tmux
 " Using Meta-[hjkl] mappings in tmux to move panes
-if has('mac')
-    nnoremap <silent> ˙ :TmuxNavigateLeft<cr>
-    nnoremap <silent> ∆ :TmuxNavigateDown<cr>
-    nnoremap <silent> ˚ :TmuxNavigateUp<cr>
-    nnoremap <silent> ¬ :TmuxNavigateRight<cr>
-endif
+let g:tmux_navigator_no_mappings = 0
 
 " Select text for which we need boxes drawn
 " https://github.com/ascii-boxes/boxes
