@@ -28,6 +28,7 @@ else
   alias o='xdg-open'
 fi
 alias less='less -R --follow-name'
+alias ls='ls --color'
 alias lf='ls -F --color'
 alias ll='ls -Fl --color'
 alias la='ls -Fla --color'
