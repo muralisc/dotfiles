@@ -6,7 +6,6 @@
 " junegunn: https://github.com/junegunn/dotfiles/blob/master/vimrc
 " https://github.com/yoshuawuyts/dotfiles
 " and Vim User Manual
-let g:loaded_matchparen = 1
 set nocompatible                                                     " not compatible with the old-fashion vi mode
 " vim-plug setup {{{1
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -71,7 +70,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
       " Get shrinked current working directory and filename
       return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
     endfunction
-  " Plug 'octol/vim-cpp-enhanced-highlight'
   Plug 'airblade/vim-rooter'
   let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
   let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
@@ -84,8 +82,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'whiteinge/diffconflicts'
   " Non-essential
   Plug 'junegunn/rainbow_parentheses.vim'
-  Plug 'axvr/org.vim'
-  let g:org_clean_folds = 1
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'neovim/nvim-lspconfig'
   Plug 'akinsho/toggleterm.nvim'
