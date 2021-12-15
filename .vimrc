@@ -64,7 +64,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     let g:lightline = {
         \ 'component_function': {
         \   'filename': 'LightLineFilename'
-        \ }
+        \ },
+        \ 'colorscheme': 'one'
         \ }
     function! LightLineFilename()
       " Get shrinked current working directory and filename
@@ -89,9 +90,12 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " Colorschemes
   Plug 'altercation/vim-colors-solarized'
     set background=dark
+  " let g:solarized_termtrans=1
+  " let g:solarized_termcolors=256
   Plug 'chriskempson/base16-vim'
   Plug 'morhetz/gruvbox'
   Plug 'romainl/Apprentice'
+  Plug 'catppuccin/nvim'
   call plug#end()
 endif
 if has("nvim")
@@ -236,9 +240,9 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme gruvbox                                                   " base16-* solarized gruvbox apprentice
+silent! colorscheme catppuccin                                                   " base16-* solarized gruvbox apprentice catppuccin
 if &diff
-    colorscheme gruvbox
+    colorscheme catppuccin
 endif
 "}}} Basic Settings
 " Folding Rules {{{
@@ -359,15 +363,17 @@ augroup numbertoggle
     autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 augroup END
 
-hi ActiveTerminal ctermbg=232 ctermfg=251
-augroup WindowManagement
-  autocmd!
-  autocmd TermEnter * call Handle_Win_Enter()
-augroup END
-" Change highlight group of terminal window
-function! Handle_Win_Enter()
-  setlocal winhighlight=Normal:ActiveTerminal
-endfunction
+if has("nvim")
+  hi ActiveTerminal ctermbg=232 ctermfg=251
+  augroup WindowManagement
+    autocmd!
+    autocmd TermOpen * call Handle_Win_Enter()
+  augroup END
+  " Change highlight group of terminal window
+  function! Handle_Win_Enter()
+    setlocal winhighlight=Normal:ActiveTerminal
+  endfunction
+end
 
 " For compatability with tmux
 " Using Meta-[hjkl] mappings in tmux to move panes
