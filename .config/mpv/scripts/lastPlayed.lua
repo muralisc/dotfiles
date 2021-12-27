@@ -70,6 +70,7 @@ mp.register_event('end-file', function()
 
         print("end-file play_duration: " .. play_duration .. " Duration: ".. total_duration .. " pause_duration:" .. pause_duraton)
         print(("percent played %s\n"):format(play_duration*100/total_duration))
+        -- path , last played time, percent_played
         local query = ("INSERT INTO generic VALUES('" .. filePath.. "', '".. os.time(os.date("!*t")) .."', '%s')"):format(play_duration*100/total_duration)
         print(query)
         db:execute(query)
