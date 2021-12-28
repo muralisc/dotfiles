@@ -18,6 +18,18 @@ sanitize_file_name() {
   dot_rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" $@
 }
 
+note_search() {
+  grep \
+    -ri \
+    "$1" \
+    ~/src/dotfiles \
+    ~/shared_folders/minimal/Pensieve/textfiles/cheatsheets \
+    ~/shared_folders/minimal/Pensieve/textfiles/journal \
+    --exclude-dir=images \
+    --exclude-dir=.git \
+    --exclude-dir=images
+}
+
 mp() {
   # music play
   # eg mp year:2000 path::Hindi
@@ -62,12 +74,6 @@ custom_defined_functions() {
     # if bash
     declare -F
   fi
-}
-
-gen_pass() {
-  length=15
-  gen_pwd=$(LC_ALL=C tr -dc '[:graph:]' < /dev/urandom | head -c $length)
-  grep -P "(?=.*\d)(?=.*[a-zA-Z]).{15,}" <<< $gen_pwd
 }
 
 # create a tmux for the first teminal spawned
@@ -311,41 +317,6 @@ fonttest() {
           echo -en "\u${x[$a]}${x[$b]}${x[$c]}${x[$d]}"
       done
   done; done; done
-}
-
-cash() {
-  # cash inr usd eur 200
-  symbols='{
-    "EUR": "€",
-    "INR": "₹",
-    "GBP": "£",
-    "USD": "$"
-  }'
-  base="$(tr a-z A-Z <<< $1)"
-  filename=${base}$(date +%F).json
-  if [[ ! -f /var/tmp/$filename ]]; then
-    curl "https://api.exchangeratesapi.io/latest?base=${base}" -o /var/tmp/$filename
-  fi
-  shift
-  currencies=""
-  while [ $# -ne 0 ] ; do
-    case $1 in
-      [0-9]*)
-        amount=$1
-        ;;
-      *)
-        currencies+=" $(tr a-z A-Z <<< $1)"
-        ;;
-    esac
-    shift
-  done
-  val=$(LC_NUMERIC=hi_IN printf "%'.f\n" ${amount})
-  echo "$base:" $(jq -r ".$base" <<< "$symbols" )"$val"
-  for cur in $(tr ' ' '\n' <<< $currencies); do
-    rate=$(jq ".rates.$cur" /var/tmp/$filename)
-    val=$(LC_NUMERIC=en_US printf "%'.f\n" $(c ${amount}*${rate}))
-    echo $cur: $(jq -r ".$cur" <<< $symbols )$val
-  done
 }
 
 set_tmux_pane_title() {
