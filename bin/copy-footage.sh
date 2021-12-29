@@ -15,6 +15,13 @@ if [[ -z $SRC_FOLDER ]]; then
   echo "Source folder is empty"
   exit
 fi
+if [[ -z $COPY_COMMAND ]]; then
+  echo "Copy command is empty"
+  echo "     dryrun - for dry run"
+  echo "     cp - for copy"
+  echo "     mv - for move"
+  exit
+fi
 
 for file_name in $(find $SRC_FOLDER -type f); do
   # path for the photo from the SRC_FOLDER
@@ -42,9 +49,9 @@ for file_name in $(find $SRC_FOLDER -type f); do
   DST_PATH="${DST_FOLDER}/${FOLDER_DATE}/${CAMERA_MODEL_NAME}/$PHOTO_PATH"
   mkdir -p "${DST_FOLDER}/${FOLDER_DATE}/${CAMERA_MODEL_NAME}"
   echo $COPY_COMMAND $file_name $DST_PATH
-  if [[ -z $DRY_RUN ]]; then
+  if [[ $COPY_COMMAND != "dryrun" ]]; then
     $COPY_COMMAND $file_name $DST_PATH
   else
-    echo "COPY_COMMAND not specified Dry running: No move performed"
+    echo "$COPY_COMMAND is dryrun, Dry running: No move performed"
   fi
 done
