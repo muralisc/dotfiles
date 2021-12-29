@@ -1,11 +1,11 @@
-directory: ~/Songs/
+directory: ~/data/Songs/
 format_item: $artist - $composer - $album - $title - $genre - $year - $lyricist - $path
 library: /var/tmp/musiclibrary.blb
 import:
     copy: no
     write: yes
     autotag: no
-plugins: edit info smartplaylist fromfilename play mpdadd ydl mpdstats
+plugins: edit info smartplaylist fromfilename play mpdadd mpdstats
 lastfm:
     user: muralisc
 smartplaylist:

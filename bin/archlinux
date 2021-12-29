@@ -335,6 +335,7 @@ yay -S --noconfirm bluez iw blueman-git bluez-utils-compat #  bluez-utils
 yay -S --noconfirm pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa pulseaudio-bluetooth
 # movies tv songs, mp3 tag
 yay -S --noconfirm mpd mpc ncmpcpp mpv exfalso beets
+systemctl --user start mpd
 # RANGER STUFF
 yay -S --noconfirm ranger-git w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
 # MOBILE
@@ -536,7 +537,9 @@ rawtherapee   # Choosing rawtherapee for now, alternative darktable
 rmlint # remove duplicate files
 
 # photomanagement
-photonix # ( because it lets me keep the folder structure )
+# Tried
+#   photonix # ( because it lets me keep the folder structure )
          # browser app is not good, videos are not indexed :(
-# OR 
-photoprism
+#   AND
+#   photoprism # keeps crashing :(
+Using pigallery2 from https://github.com/pluja/Selfhosted-Google-Photos-Alternative
