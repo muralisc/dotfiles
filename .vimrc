@@ -101,9 +101,9 @@ endif
 if has("nvim")
 
 lua <<EOF
-require'lspconfig'.clangd.setup{
-  cmd =  { "sourcerepo/third-party-buck/platform009/build/llvm-fb/bin/clangd", "--background-index" }
-}
+-- require'lspconfig'.clangd.setup{
+--   cmd =  { "sourcerepo/third-party-buck/platform009/build/llvm-fb/bin/clangd", "--background-index" }
+-- }
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
   ignore_install = { "javascript", "verilog" },
@@ -240,9 +240,9 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme catppuccin                                                   " base16-* solarized gruvbox apprentice catppuccin
+silent! colorscheme gruvbox                                                      " base16-* solarized gruvbox apprentice catppuccin
 if &diff
-    colorscheme catppuccin
+    colorscheme gruvbox
 endif
 "}}} Basic Settings
 " Folding Rules {{{

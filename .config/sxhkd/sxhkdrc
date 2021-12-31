@@ -144,6 +144,7 @@ super + alt + bracket{left,right}
 super + backslash
     mpc toggle
 
+# create screenshot
 super + Print
     import -window root $HOME/Screeshot_full-`date +%Y-%m-%d_%H-%M-%S`.png && notify-send "Sxhkd" "Screenshot taken"
 
