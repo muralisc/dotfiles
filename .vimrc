@@ -240,9 +240,9 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme catppuccin                                                   " base16-* solarized gruvbox apprentice catppuccin
+silent! colorscheme gruvbox                                                      " base16-* solarized gruvbox apprentice catppuccin
 if &diff
-    colorscheme catppuccin
+    colorscheme gruvbox
 endif
 "}}} Basic Settings
 " Folding Rules {{{
