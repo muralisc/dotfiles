@@ -102,7 +102,7 @@ if has("nvim")
 
 lua <<EOF
 require'lspconfig'.clangd.setup{
-  cmd =  { "sourcerepo/third-party-buck/platform009/build/llvm-fb/bin/clangd", "--background-index" }
+  cmd =  { "clangd", "--background-index" }
 }
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
