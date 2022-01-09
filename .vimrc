@@ -190,7 +190,7 @@ set ignorecase                                                                  
 " Visual {{{
 " set showmatch                                                                   " set show matching parenthesis
 set number                                                                      " always show line numbers
-set rnu                                                                         " relative number
+" set rnu                                                                         " relative number, dissabling use search instead of relative number
 set termencoding=utf-8
 set encoding=utf-8
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
@@ -232,7 +232,7 @@ set visualbell                                                                  
 set noerrorbells                                                                " don't beep
 set showcmd                                                                     " show (partial) command at right bottom; this also shows visual selection info
 " }}} Ease of Use "
-set modeline                                                                    " enable mode lines
+set modeline
 set ttyfast                                                                     " always use a fast terminal
 set nospell spelllang=en_us
 set colorcolumn=80,132                                                          " Github limit
@@ -276,7 +276,6 @@ set foldtext=CustomFoldText()
 " Editor Layout {{{
 set lazyredraw                                                                  " don't update the display while executing macros
 set laststatus=2                                                                " always put a status line even if one window
-set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 
 " Shortcut Mappings {{{1
