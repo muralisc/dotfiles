@@ -224,6 +224,10 @@ btrfs filesystem df /data
 btrfs device usage /data
 btrfs filesystem du /data
 
+# FYI to convert btrfs back to single(FYI not required during setup)
+btrfs balance start -f -sconvert=single -mconvert=single -dconvert=single <mount>
+btrfs device remove <drive> <mount>
+
 
 # setup basic utilities
 # INSTALL BASIC STUFF TMUX VIM ZSH etc`

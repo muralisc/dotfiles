@@ -136,6 +136,10 @@ button2
 super + r
     rofi -show run
 
+# seek music
+super + shift + bracket{left,right}
+    mpc seek {-5, +5}
+
 # prev, next music
 super + alt + bracket{left,right}
     mpc {prev, next}
