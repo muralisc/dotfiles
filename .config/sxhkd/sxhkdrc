@@ -136,6 +136,10 @@ button2
 super + r
     rofi -show run
 
+# seek music
+super + shift + bracket{left,right}
+    mpc seek {-5, +5}
+
 # prev, next music
 super + alt + bracket{left,right}
     mpc {prev, next}
@@ -144,6 +148,7 @@ super + alt + bracket{left,right}
 super + backslash
     mpc toggle
 
+# create screenshot
 super + Print
     import -window root $HOME/Screeshot_full-`date +%Y-%m-%d_%H-%M-%S`.png && notify-send "Sxhkd" "Screenshot taken"
 

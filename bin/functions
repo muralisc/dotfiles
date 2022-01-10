@@ -49,7 +49,7 @@ mp() {
 
 # database update
 mu() { #mpc update Database
-  rm /var/tmp/musiclibrary.blb; beet import -A ~/Songs ;
+  rm /var/tmp/musiclibrary.blb; beet import -A ~/data/Songs ;
   mpc update;
 }
 

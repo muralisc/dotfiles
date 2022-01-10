@@ -14,6 +14,7 @@ fi
 [[ -f ~/.env.local ]] && source ~/.env.local
 [ -f "$HOME/bin/alias" ] && source "$HOME/bin/alias"
 [ -f "$HOME/bin/functions" ] && source "$HOME/bin/functions"
+[ -f "$HOME/bin/git-repo-config-helpers" ] && source "$HOME/bin/git-repo-config-helpers"
 
 # LANG is required for applications like tmux to figure out that UTF8 is supported
 export LANG=en_US.UTF-8
