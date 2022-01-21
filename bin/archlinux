@@ -518,9 +518,6 @@ y -S sxhkd sxiv feh qimgv exiftool
 y -S xvkbd # on screen keyboard
 # generic colorizer
 y -S grc
-# task warriors
-y -S taskwarrior timewarrior
-git clone https://github.com/JensErat/task-relative-recur ~/src/task-relative-recur
 
 # get
 git clone https://github.com/akinomyoga/ble.sh ~/src/ble.sh

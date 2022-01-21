@@ -28,10 +28,13 @@ else
   alias o='xdg-open'
 fi
 alias less='less -R --follow-name'
-alias ls='ls --color'
-alias lf='ls -F --color'
-alias ll='ls -Fl --color'
-alias la='ls -Fla --color'
+# LS aliases
+# Always classify(-F), 
+#        list 1 per line for all alias apart from ls
+alias ls='ls -F --color'        # -F = --classify
+alias lf='ls -F1 --color'
+alias ll='ls -Fla --color'
+alias la='ls -F1a --color'
 alias grep="grep --color"
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
 alias j='fasd_cd -d'

@@ -44,68 +44,6 @@
           "type": "basic"
         },
         {
-          "description": "CMD + j => CMD + TAB",
-          "from": {
-            "key_code": "j",
-            "modifiers": {
-              "mandatory": [
-                "left_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "tab",
-              "modifiers": [
-                "left_command"
-              ]
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "description": "CMD + k => CMD + TAB",
-          "from": {
-            "key_code": "k",
-            "modifiers": {
-              "mandatory": [
-                "left_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "tab",
-              "modifiers": [
-                "left_command",
-                "left_shift"
-              ]
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "description": "Shift + CMD +c -> close window",
-          "from": {
-            "key_code": "c",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "left_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "q",
-              "modifiers": [
-                "left_command"
-              ]
-            }
-          ],
-          "type": "basic"
-        },
-        {
           "description": "CMD + - -> Brightness Reduce",
           "from": {
             "key_code": "hyphen",
@@ -138,109 +76,11 @@
             }
           ],
           "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "return_or_enter",
-            "modifiers": {
-              "mandatory": [
-                "left_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "open -a 'Kitty'"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "open_bracket",
-            "modifiers": {
-              "mandatory": [
-                "left_option",
-                "left_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "rewind"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "backslash",
-            "modifiers": {
-              "mandatory": [
-                "left_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "play_or_pause"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "backslash",
-            "modifiers": {
-              "mandatory": [
-                "left_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "play_or_pause"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "close_bracket",
-            "modifiers": {
-              "mandatory": [
-                "left_option",
-                "left_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "fastforward"
-            }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
-            "key_code": "f10",
-            "modifiers": {
-              "mandatory": [
-                "left_command"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "mute"
-            }
-          ],
-          "type": "basic"
         }
       ]
     },
     {
-      "description": "Capslock -> CMD on certain application",
+      "description": "Capslock -> CMD on certain applications",
       "manipulators": [
         {
           "from": {
@@ -282,7 +122,7 @@
         },
         {
           "from": {
-            "description": "RemmapedCMD TAB = CMD TAB",
+            "description": "Remmaped Ctrl TAB = CMD TAB, this is to compensate cmd being control in chrome",
             "key_code": "tab",
             "modifiers": {
               "mandatory": [
