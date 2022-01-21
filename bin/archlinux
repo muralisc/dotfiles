@@ -547,3 +547,9 @@ rmlint # remove duplicate files
 #   AND
 #   photoprism # keeps crashing :(
 Using pigallery2 from https://github.com/pluja/Selfhosted-Google-Photos-Alternative
+    # - https://github.com/bpatrik/pigallery2#11-install-and-run-with-docker-recommended
+    # - personal repository: 
+    # - https://github.com/muralisc/pigallery2-photos
+
+# git ui -> FredrikNoren/ungit
+sudo npm install -g ungit
