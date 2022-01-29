@@ -130,6 +130,7 @@ type = internal/bspwm
 label-focused = %name%
 label-focused-background = ${colors.background-alt}
 label-focused-foreground = ${colors.foreground}
+label-focused-underline = ${colors.foreground}
 label-focused-padding = 1
 
 label-occupied = %name%
