@@ -95,7 +95,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'chriskempson/base16-vim'
   Plug 'morhetz/gruvbox'
   Plug 'romainl/Apprentice'
-  Plug 'catppuccin/nvim'
   call plug#end()
 endif
 if has("nvim")
@@ -240,7 +239,10 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-silent! colorscheme gruvbox                                                   " base16-* solarized gruvbox apprentice catppuccin
+" Adding details for rejected colorschemes here for posterity
+" base16-* solarized gruvbox apprentice
+" catppuccin - visual highlighting is not easily visible
+silent! colorscheme gruvbox
 if &diff
     colorscheme gruvbox
 endif
@@ -356,11 +358,6 @@ let g:ViewDoc_DEFAULT = 'ViewDoc_help'
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
-augroup numbertoggle
-    autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
-    autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
-augroup END
 
 if has("nvim")
   hi ActiveTerminal ctermbg=232 ctermfg=251

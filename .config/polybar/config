@@ -58,7 +58,7 @@ font-1 = Ubuntu:size=14;1
 font-2 = FiraCode Nerd Font;size=26;1
 modules-left = mod favorites bspwm xwindow
 ; modules-center = mpd
-modules-right = xkeyboard memory cpu wlan battery temperature date volume
+modules-right = memory cpu wlan battery temperature date volume
 
 tray-position = right
 tray-padding = 0
@@ -106,17 +106,6 @@ type = internal/xwindow
 label = %title%
 label-maxlen = 80
 
-[module/xkeyboard]
-type = internal/xkeyboard
-format = <label-layout> <label-indicator>
-indicator-icon-default = 
-indicator-icon-0 = caps lock;;[CL]
-indicator-icon-1 = scroll lock;;[SL]
-indicator-icon-2 = num lock;;[NL]
-label-indicator-on = %icon%
-label-indicator-off = %icon%
-label-layout = %layout%
-
 [module/filesystem]
 type = internal/fs
 interval = 2
@@ -141,6 +130,7 @@ type = internal/bspwm
 label-focused = %name%
 label-focused-background = ${colors.background-alt}
 label-focused-foreground = ${colors.foreground}
+label-focused-underline = ${colors.foreground}
 label-focused-padding = 1
 
 label-occupied = %name%
