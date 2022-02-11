@@ -1,9 +1,21 @@
 #!/bin/bash
-chosen=$(echo -e "urxvt\ngimp\nranger\nscreenOff\nscreenOn" | rofi -p "mu" -dmenu)
+chosen=$(echo -e "urxvt\nfirefox\n\
+kitty\n\
+thunar\n\
+gimp\nranger\nscreenOff\nscreenOn" | rofi -p "mu" -dmenu)
 
 case $chosen in
   urxvt)
     urxvtc &
+    ;;
+  firefox)
+    firefox &
+    ;;
+  kitty)
+    kitty &
+    ;;
+  thunar)
+    thunar &
     ;;
   ranger)
     urxvtc -fn 'xft:UbuntuMono:Regular:size=25' -e ranger
