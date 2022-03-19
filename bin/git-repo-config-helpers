@@ -25,14 +25,15 @@ git_repo_show_configs() {
 }
 
 git_repo_status() {
+BLUE=$(tput setaf 4)
 for dir in $(find -not -ipath '*qmk_firmware*' -iname '.git'); do
   gitd=$(dirname $dir);
   pushd $gitd > /dev/null
     if git status -sb | grep ahead > /dev/null ; then
-      echo $PWD
+      echo "${BLUE} $PWD $(tput sgr0)"
       git status -sb;
     elif (( $(git status -sb | wc -l) > 1)) ; then
-      echo $PWD
+      echo "${BLUE} $PWD $(tput sgr0)"
       git status -sb;
     fi
   popd > /dev/null ;

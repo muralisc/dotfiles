@@ -543,6 +543,8 @@ rmlint # remove duplicate files
          # browser app is not good, videos are not indexed :(
 #   AND
 #   photoprism # keeps crashing :(
+#
+#   TRYING github.com/photoview/photoview
 Using pigallery2 from https://github.com/pluja/Selfhosted-Google-Photos-Alternative
     # - https://github.com/bpatrik/pigallery2#11-install-and-run-with-docker-recommended
     # - personal repository: 
@@ -550,3 +552,5 @@ Using pigallery2 from https://github.com/pluja/Selfhosted-Google-Photos-Alternat
 
 # git ui -> FredrikNoren/ungit
 sudo npm install -g ungit
+
+inxi
