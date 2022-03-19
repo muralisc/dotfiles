@@ -29,6 +29,7 @@ for file_name in $(find $SRC_FOLDER -type f); do
 
   EXIF_INFO=$(exiftool -j $file_name)
   CREATE_DATE=$(jq -r '.[0].CreateDate' <<< "$EXIF_INFO")
+  FILE_MODIFY_DATE=$(jq -r '.[0].FileModifyDate' <<< "$EXIF_INFO")
   CAMERA_MAKE=$(jq -r '.[0].Make' <<< "$EXIF_INFO" | tr ' ' '_')
   CAMERA_MODEL_NAME=$(jq -r '.[0].Model' <<< "$EXIF_INFO" | tr ' ' '_')
   if [[ $CAMERA_MODEL_NAME = "null" ]]; then
@@ -41,7 +42,14 @@ for file_name in $(find $SRC_FOLDER -type f); do
   # if strptime is not successfull, break
   STRPTIME_RETURN=$?
   if [[ $STRPTIME_RETURN -ne 0 ]]; then
-    echo "Processing $file_name failed"
+    echo "Processing $file_name failed as CREATE_DATE (val: $CREATE_DATE) is not correct format"
+    echo strptime return : $STRPTIME_RETURN
+    echo "Trying with FileModifyDate"
+  fi
+  FOLDER_DATE=$(strptime --input-format "%Y:%m:%d %H:%M:%S%Z" "$FILE_MODIFY_DATE" --format "%Y_%m_%d")
+  STRPTIME_RETURN=$?
+  if [[ $STRPTIME_RETURN -ne 0 ]]; then
+    echo "Processing $file_name failed as CREATE_DATE (val: $CREATE_DATE) is not correct format"
     echo strptime return : $STRPTIME_RETURN
     exit 1
   fi
@@ -52,6 +60,6 @@ for file_name in $(find $SRC_FOLDER -type f); do
   if [[ $COPY_COMMAND != "dryrun" ]]; then
     $COPY_COMMAND $file_name $DST_PATH
   else
-    echo "$COPY_COMMAND is dryrun, Dry running: No move performed"
+    echo "Copy command is $COPY_COMMAND, Dry running: No move performed"
   fi
 done
