@@ -58,7 +58,7 @@ for file_name in $(find $SRC_FOLDER -type f); do
   mkdir -p "${DST_FOLDER}/${FOLDER_DATE}/${CAMERA_MODEL_NAME}"
   echo $COPY_COMMAND $file_name $DST_PATH
   if [[ $COPY_COMMAND != "dryrun" ]]; then
-    $COPY_COMMAND $file_name $DST_PATH
+    $COPY_COMMAND -v $file_name $DST_PATH
   else
     echo "Copy command is $COPY_COMMAND, Dry running: No move performed"
   fi
