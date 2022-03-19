@@ -58,7 +58,7 @@ font-1 = Ubuntu:size=14;1
 font-2 = FiraCode Nerd Font;size=26;1
 modules-left = mod favorites bspwm xwindow
 ; modules-center = mpd
-modules-right = memory cpu wlan battery temperature date volume
+modules-right = date-la date-india memory cpu wlan battery temperature date volume
 
 tray-position = right
 tray-padding = 0
@@ -188,6 +188,16 @@ format-disconnected = <label-disconnected>
 format-disconnected-underline = ${self.format-connected-underline}
 label-disconnected = %ifname% disconnected
 label-disconnected-foreground = ${colors.foreground-unfocused}
+
+[module/date-india]
+type = custom/script
+exec = TZ=Asia/Kolkata date +"KL %H:%M"
+interval = 30
+
+[module/date-la]
+type = custom/script
+exec = TZ=America/LosAngeles date +"LA %H:%M"
+interval = 30
 
 [module/date]
 type = internal/date
