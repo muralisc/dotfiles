@@ -553,4 +553,7 @@ Using pigallery2 from https://github.com/pluja/Selfhosted-Google-Photos-Alternat
 # git ui -> FredrikNoren/ungit
 sudo npm install -g ungit
 
-inxi
+# get system configuration
+y -S inxi
+# store system secrets
+yay -S libsecret seahorse
