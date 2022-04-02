@@ -73,6 +73,12 @@ swapon /dev/sda2
 
 # SETUP NETWORK
 # Use iwctl to setup wifi
+# iwctl
+# [iwd] help
+# [iwd] device list
+# [iwd] station device(wlan0) scan
+# [iwd] station device(wlan0) get-networks
+# [iwd] station device(wlan0) connect SSID
 
 # use reflector to fix the mirrorlist
 pacman -S reflector
@@ -162,6 +168,12 @@ umount -R /mnt
 # systemctl reboot # REBOOT/Vagrant setup start ===========================
 echo "nameserver 192.168.0.1" >> /etc/resolv.conf
 sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
+
+# connect to internet
+systemctl start NetworkManager
+nmcli device wifi list
+nmcli device wifi connect $SSID_or_BSSID password $PASSWORD
+
 pacman -Syu
 pacman -S sudo
 if [[ $(dmidecode -s bios-version) =~ VirtualBox ]] ; then
@@ -172,14 +184,11 @@ EOF
 fi
 bash -c 'echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf'
 # echo "rivendell" > /etc/hostname
-hostnamectl set-hostname rivnedell
-# enable network through netctl
+hostnamectl set-hostname (rivnedell-laptop) (mirkwood-london) (thanal-home) (bonjikka-nuc)
+# enable wired-network through netctl if necesary
 cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/ethernet
 sed -i 's/eth0/enp0s3/' /etc/netctl/ethernet
 # edit ethernet link name
-systemctl start NetworkManager
-nmcli device wifi list
-nmcli device wiki connect $SSID password $pass
 ping google.com
 
 # USER CREATION
@@ -238,7 +247,7 @@ sudo pacman --noconfirm -S \
 # INSTALL BASIC XSERVER WITH AWESOME
 sudo pacman --noconfirm -S \
   alsa-utils xorg-server xorg-xinit xorg-apps mesa awesome \
-  xf86-video-vesa xterm rxvt-unicode xsel xclip xf86-input-synaptics xf86-video-intel \
+  xf86-video-vesa xterm kitty rxvt-unicode xsel xclip xf86-input-synaptics xf86-video-intel \
   xf86-input-libinput
 sudo modprobe -a vboxguest vboxsf vboxvideo # or
 cat <<EOF > /usr/lib/modules-load.d/virtualbox.conf
@@ -275,16 +284,9 @@ startx
 # Change virtual terminal
 chvt
 
-# enable auto-login
-sudo systemctl edit getty@tty1
-sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
-USERNAME=vagrant
-sudo sh -c 'cat << EOF >> /etc/systemd/system/getty@tty1.service.d/override.conf
-[Service]
-ExecStart=
-ExecStart=-/usr/bin/agetty --autologin '$USERNAME' --noclear %I $TERM
-EOF
-'
+# enable auto-login - use sddm
+yay -S sddm
+systemctl enable sddm.service
 
 # setup AWESOME WM
 yay -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
@@ -370,32 +372,8 @@ yay -S --noconfirm ntfs-3g
 # internet tools
 yay -S --noconfirm dropbox youtube-dl
 # torrent tools
-yay -S --noconfirm rtorrent
-# sometimes rtorrent is too slow to respond
 docker run -d -p 3000:3000 -v /path/to/my/downloads:/downloads jpillora/cloud-torrent
-docker create \
-  --name=jackett \
-  -e PUID=1000 \
-  -e PGID=1000 \
-  -e TZ=Asia/Kolkata \
-  -p 9117:9117 \
-  -v $HOME/.config/jackett:/config \
-  -v $HOME/Downloads:/downloads \
-  --restart unless-stopped \
-  linuxserver/jackett
-docker run -d --name=netdata \
-  -p 19999:19999 \
-  -v /proc:/host/proc:ro \
-  -v /sys:/host/sys:ro \
-  -v /var/run/docker.sock:/var/run/docker.sock:ro \
-  -e TZ=Asia/Kolkata \
-  --cap-add SYS_PTRACE \
-  --security-opt apparmor=unconfined \
-  netdata/netdata
-# enable dropbox
-systemctl --user enable dropbox.service
-vim ~/.config/systemd/user/dropbox@.service  # Add display env
-# sync tools
+# enable syncthing
 y -S syncthing syncthing-gtk
 # remote tools ( use tigervnc/barrier instead of KVM switch for keyboard and mouse sharing )
 yay -S --noconfirm tigervnc sshfs barrier
@@ -478,9 +456,8 @@ y -S alacritty xzoom rxvt-unicode-truecolor
 y -S lib32-nvidia-utils nvidia lib32-nvidia-libgl steam
 
 y -S redshift
-y -S masterpdfeditor
 
-y -S ncdu # -- command line fize size analyse
+y -S dua # -- command line fize size analyse
 # parse pdf table ; useful for getting tables from
 https://github.com/tabulapdf/tabula
 # screen recorder
@@ -497,8 +474,6 @@ y -S archlinux-xdg-menu
 y -S tint2
 y -S dockbarx
 
-y -S dateutils
-y -S gerbera # upnp, media server
 y -S mkvtoolnix # for use with gerbera, mux the srt(subtitle) so that it can be easily shown
 y -S clang-format icdiff diff-so-fancy
 y -S obs-studio nginx-rtmp-sergey-git
@@ -511,8 +486,6 @@ https://raw.githubusercontent.com/zenyd/mpv-scripts/master/delete_file.lua
 # get diff-so-fancy
 git clone https://github.com/so-fancy/diff-so-fancy ~/src/diff-so-fancy
 
-# easilty see the cumulative size of folders
-y -S nnn
 # view images , manipulate image metadata
 y -S sxhkd sxiv feh qimgv exiftool
 y -S xvkbd # on screen keyboard
@@ -526,7 +499,6 @@ git clone https://github.com/zsh-users/zsh-autosuggestions
 # Markdown preview
 npm install -g vmd
 y -S --noconfirm fasd
-https://github.com/cantino/mcfly
 electrum
 
 # show keys pressed screen record

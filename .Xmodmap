@@ -2,7 +2,7 @@
 ! https://wiki.archlinux.org/index.php/Xmodmap
 clear lock
 clear control
-! map CapsLock Key to Control
+! map CapsLock Key(66) to Control
 keycode 66 = Control_L
 ! Another popular choice is to map CapsLock Key to Menu:
 ! keycode 66 = Menu
@@ -10,3 +10,7 @@ keycode 66 = Control_L
 ! Add back control which has been cleared in the begining
 ! When either Control_L or Control_R is pressed activate control modifier
 add control = Control_L Control_R
+! Left control(37)
+! set 37 as a special modifier (ISO_Level3_Shift), 
+! which corresponds to the third entry in the /usr/share/X11/xkb/symbols/us file for the hjkl mappings.
+keycode 37 = ISO_Level3_Shift
