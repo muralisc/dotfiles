@@ -58,7 +58,7 @@ font-1 = Ubuntu:size=14;1
 font-2 = FiraCode Nerd Font;size=26;1
 modules-left = mod favorites bspwm xwindow
 ; modules-center = mpd
-modules-right = xkeyboard memory cpu wlan battery temperature date volume
+modules-right = date-la date-india memory cpu wlan battery temperature date volume
 
 tray-position = right
 tray-padding = 0
@@ -106,17 +106,6 @@ type = internal/xwindow
 label = %title%
 label-maxlen = 80
 
-[module/xkeyboard]
-type = internal/xkeyboard
-format = <label-layout> <label-indicator>
-indicator-icon-default = 
-indicator-icon-0 = caps lock;;[CL]
-indicator-icon-1 = scroll lock;;[SL]
-indicator-icon-2 = num lock;;[NL]
-label-indicator-on = %icon%
-label-indicator-off = %icon%
-label-layout = %layout%
-
 [module/filesystem]
 type = internal/fs
 interval = 2
@@ -132,7 +121,7 @@ label-unmounted-foreground = ${colors.foreground-unfocused}
 type = custom/text
 ;content-underline = ${colors.favoritesAccent}
 ;using action formatting tag to define clickable areas
-content = "%{A1:alacritty&:}%{A}  %{A1:thunar&:}%{A}  %{A1:xfce4-settings-manager&:}%{A}  %{A1:firefox&:}%{A}  %{A1:lutris&:}%{A} "
+content = "%{A1:kitty&:}%{A}  %{A1:thunar&:}%{A}  %{A1:firefox&:}%{A}"
 
 
 [module/bspwm]
@@ -141,6 +130,7 @@ type = internal/bspwm
 label-focused = %name%
 label-focused-background = ${colors.background-alt}
 label-focused-foreground = ${colors.foreground}
+label-focused-underline = ${colors.foreground}
 label-focused-padding = 1
 
 label-occupied = %name%
@@ -198,6 +188,16 @@ format-disconnected = <label-disconnected>
 format-disconnected-underline = ${self.format-connected-underline}
 label-disconnected = %ifname% disconnected
 label-disconnected-foreground = ${colors.foreground-unfocused}
+
+[module/date-india]
+type = custom/script
+exec = TZ=Asia/Kolkata date +"KL %H:%M"
+interval = 30
+
+[module/date-la]
+type = custom/script
+exec = TZ=America/LosAngeles date +"LA %H:%M"
+interval = 30
 
 [module/date]
 type = internal/date

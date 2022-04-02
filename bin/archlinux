@@ -32,9 +32,9 @@ sgdisk -t 2:8300
 # FOR bare metal
 sgdisk -o /dev/sda
 sgdisk -n 0:0:+512M /dev/sda  # /boot partition
-sgdisk -n 0:0:+16G  /dev/sda  # SWAP partition : 2*RAM
-sgdisk -n 0:0:+100G /dev/sda  # / partition
-sgdisk -n 0:0:0     /dev/sda  # /home partition
+sgdisk -n 0:0:+16G  /dev/sda  # SWAP partition : 2*RAM (not needed if you have enough ram)
+sgdisk -n 0:0:+100G /dev/sda  # / partition (50GB looks very fine here)
+sgdisk -n 0:0:0     /dev/sda  # /home partition remaining space (make sure atleast 50GB)
 sgdisk -L
 sgdisk -t 1:ef00 /dev/sda
 sgdisk -t 2:8200 /dev/sda
@@ -515,4 +515,17 @@ rmlint # remove duplicate files
          # browser app is not good, videos are not indexed :(
 #   AND
 #   photoprism # keeps crashing :(
+#
+#   TRYING github.com/photoview/photoview
 Using pigallery2 from https://github.com/pluja/Selfhosted-Google-Photos-Alternative
+    # - https://github.com/bpatrik/pigallery2#11-install-and-run-with-docker-recommended
+    # - personal repository: 
+    # - https://github.com/muralisc/pigallery2-photos
+
+# git ui -> FredrikNoren/ungit
+sudo npm install -g ungit
+
+# get system configuration
+y -S inxi
+# store system secrets
+yay -S libsecret seahorse
