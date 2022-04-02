@@ -10,10 +10,10 @@
 
 #min  hour   dom  Mon  dow
 # timelapse screenshots
-#*  *       *   *   *     DISPLAY=:0 ~/bin/timelapse.sh
-#0  9       *   *   *     crontab -l | gzip > ~/shared_folders/transfer/'crontab-'$(date +"\%Y\%m\%d-\%H\%M\%S")'.gz'
-0   9       *   *   *     crontab -l > ~/src/dotfiles/crontab
-0   12      *   *   *     bash ~/src/private/bin/ticker_trigger.sh
-0   12      *   *   *     bash ~/src/private/bin/time_since_pushbullet.sh
-00  19      *   *   *     bash ~/shared_folders/minimal/Pensieve/textfiles/ledger/graphs/1plot_ledger_projection.sh 2>&1 > /var/tmp/ledger_cron_output_`date +\%Y_\%m_\%d-\%H\%M\%S`.log
-00  20      *   *   0,4   bash ~/shared_folders/minimal/Pensieve/textfiles/ledger/graphs/1send_projection_to_influx.sh
+#*     *       *   *   *     DISPLAY=:0 ~/bin/timelapse.sh
+#0     9       *   *   *     crontab -l | gzip > ~/shared_folders/transfer/'crontab-'$(date +"\%Y\%m\%d-\%H\%M\%S")'.gz'
+0      9       *   *   *     crontab -l > ~/src/dotfiles/crontab
+0      9-20/4  *   *   *     bash ~/src/private/bin/ticker_trigger.sh
+0      12      *   *   *     bash ~/src/private/bin/time_since_date_via_pushbullet.sh
+00     19      *   *   *     bash ~/shared_folders/minimal/Pensieve/textfiles/ledger/graphs/1plot_ledger_projection.sh 2>&1 > /var/tmp/ledger_cron_output_`date +\%Y_\%m_\%d-\%H\%M\%S`.log
+00     20      *   *   0,4   bash ~/shared_folders/minimal/Pensieve/textfiles/ledger/graphs/1send_projection_to_influx.sh
