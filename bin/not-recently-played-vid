@@ -7,7 +7,7 @@
 
 # $1 - do copy or dry run
 SONGS_FOLDER="${2:-$HOME/data/Songs/Malayalam}"
-DEST_FOLDER="${3:-$HOME/shared_folders/transfer_private/cron_songs/}"
+DEST_FOLDER="${3:-$HOME/shared_folders/transfer_private/songs/cron_songs/}"
 FIND_EXCLUDE='${4:- -not -ipath "*1960*"}'
 THIRTY_DAYS_BEFORE_DATE=2022-03-28
 

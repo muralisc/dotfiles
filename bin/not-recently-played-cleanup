@@ -1,0 +1,22 @@
+#!/bin/python
+import os
+
+def process_line(copy_path_parts):
+    cleaned_path = copy_path_parts[2].replace("'","")
+    cleaned_source_path = copy_path_parts[0].replace("'","")
+    if os.path.exists(cleaned_path):
+      # if file exists , just delete copy (i.e in the shared_folder)
+      print("Removing local", cleaned_path)
+      # os.remove(cleaned_path)
+    else:
+      # if file do not exist, delete the source as well
+      print("WILL REMOVE SOURCE", cleaned_source_path)
+      os.remove(cleaned_source_path)
+
+
+file1 = open('/home/murali/shared_folders/transfer_private/vids/copy_paths.log', 'r')
+lines = file1.readlines()
+for line in lines:
+    copy_path_parts = line.strip().split(' ')
+    process_line(copy_path_parts)
+
