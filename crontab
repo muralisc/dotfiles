@@ -8,9 +8,14 @@
 
 # =======================================================
 
+
+01 22          *   *   *     logrotate /etc/logrotate.conf --state ~/shared_folders/thanal_murali_share/logrotate.state
+
 #min  hour   dom  Mon  dow
+
 # timelapse screenshots
 #*     *       *   *   *     DISPLAY=:0 ~/bin/timelapse.sh
+
 #0     9       *   *   *     crontab -l | gzip > ~/shared_folders/transfer/'crontab-'$(date +"\%Y\%m\%d-\%H\%M\%S")'.gz'
 0      9       *   *   *     crontab -l > ~/src/dotfiles/crontab
 0      9-20/4  *   *   *     bash ~/src/private/bin/ticker_trigger.sh
