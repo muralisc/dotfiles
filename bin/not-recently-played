@@ -3,7 +3,7 @@
 # Usage:
 # $0 copy - do copy
 # $0      - print the dry run 
-# bash bin/not-recently-played-vid dry ~/data/Media/videos/forsorting/ ~/shared_folders/transfer_private/vids
+# bash bin/not-recently-played dry ~/data/Media/videos/forsorting/ ~/shared_folders/transfer_private/vids
 
 # $1 - do copy or dry run
 SONGS_FOLDER="${2:-$HOME/data/Songs/Malayalam}"

@@ -36,12 +36,12 @@ case $chosen in
     xset dpms 0 0 7200
     ;;
   copyVids)
-    bash ~/src/dotfiles/bin/not-recently-played-vid copy ~/data/Media/notForKids/videos/forsorting/ ~/shared_folders/transfer_private/vids
+    bash ~/src/dotfiles/bin/not-recently-played copy ~/data/Media/notForKids/videos/forsorting/ ~/shared_folders/transfer_private/vids
     ;;
   clearVids)
     python ~/src/dotfiles/bin/not-recently-played-cleanup
     ;;
   copySongs)
-    bash ~/src/dotfiles/bin/not-recently-played-vid copy
+    bash ~/src/dotfiles/bin/not-recently-played copy
     ;;
 esac
