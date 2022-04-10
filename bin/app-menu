@@ -7,7 +7,6 @@ ranger\n\
 screenOff\n\
 screenOn\n\
 copyVids\n\
-clearVids\n\
 copySongs\n" | rofi -p "mu" -dmenu)
 
 case $chosen in
@@ -36,10 +35,11 @@ case $chosen in
     xset dpms 0 0 7200
     ;;
   copyVids)
-    bash ~/src/dotfiles/bin/not-recently-played copy ~/data/Media/notForKids/videos/forsorting/ ~/shared_folders/transfer_private/vids
-    ;;
-  clearVids)
-    python ~/src/dotfiles/bin/not-recently-played-cleanup
+    bash \
+	    ~/src/dotfiles/bin/not-recently-played \
+	    copy \
+	    ~/data/Media/notForKids/videos/forsorting/ \
+	    ~/shared_folders/transfer_private/vids > ~/shared_folders/transfer_private/vids/copy_script.log
     ;;
   copySongs)
     bash ~/src/dotfiles/bin/not-recently-played copy

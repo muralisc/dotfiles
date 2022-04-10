@@ -16,7 +16,8 @@ if [[ "$1" != "copy" ]]; then
 		shuf |\
 		head -5 
 else 
-	rm -rf $DEST_FOLDER/*
+	echo "$(date -Is) Running Cleanup script"
+	python ~/src/dotfiles/bin/not-recently-played-cleanup $DEST_FOLDER
 	eval "find $SONGS_FOLDER -type f -not -newerat ${THIRTY_DAYS_BEFORE_DATE} $FIND_EXCLUDE " |\
 		shuf |\
 		head -5 |\
