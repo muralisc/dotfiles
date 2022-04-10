@@ -470,8 +470,15 @@ Option "TapButton3" "2"
 Option "TapButton2" "3"
 Option "TapButton3" "2"
 
-cargo install bat exa fd-find rip-grep watchexec du-dust git-delta
+cargo install bat exa fd-find rip-grep watchexec git-delta
 # icdiff is better than git-delta
+
+# DISK DATA ANALYSERS
+cargo install dua-cli # du-dust is not reccursive
+y -S nnn ncdu
+# ncdu as backup
+# nnn -T a  -> same purpose as `dua i`
+# in ranger -> `vdcv` to get size in folder and `os` to sort by size
 
 y -S alacritty xzoom rxvt-unicode-truecolor
 
@@ -494,6 +501,7 @@ y -S dateutils # for datediff
 ####### OPENBOX
 
 y -S archlinux-xdg-menu
+y -S xdg-utils-mimeo
 y -S tint2
 y -S dockbarx
 
@@ -515,7 +523,8 @@ git clone https://github.com/so-fancy/diff-so-fancy ~/src/diff-so-fancy
 y -S nnn
 # view images , manipulate image metadata
 y -S sxhkd sxiv feh qimgv exiftool
-y -S xvkbd # on screen keyboard
+y -S onboard # on screen keyboard
+go install -tags portal,x11 github.com/unrud/remote-touchpad@latest
 # generic colorizer
 y -S grc
 
