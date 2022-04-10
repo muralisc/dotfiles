@@ -6,7 +6,8 @@
 # e.g:
 #   bash ~/src/dotfiles/bin/find_duplicate_converted_jpg ~/data/footage/2021
 
-SRC_DIR=$1
+SRC_DIR=${1:-~/data/footage/2021}
+echo "Using source : $SRC_DIR"
 
 COST="0"
 for file_path in $(find $SRC_DIR -iname "*jpg" -not -ipath "*converted*"); do
@@ -27,4 +28,4 @@ for file_path in $(find $SRC_DIR -iname "*jpg" -not -ipath "*converted*"); do
     :
   fi
 done
-echo $COST | bc | numfmt --to=iec
+echo "Duplicate file cost:" $COST | bc | numfmt --to=iec

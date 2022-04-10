@@ -1,0 +1,28 @@
+#!/bin/python
+import os
+import sys
+from rich import print as rprint
+
+def process_line(copy_path_parts):
+    cleaned_path = copy_path_parts[2].replace("'","")
+    cleaned_source_path = copy_path_parts[0].replace("'","")
+    if os.path.exists(cleaned_path):
+      # if file exists , just delete copy (i.e in the shared_folder)
+      rprint("[blue] Removing local {}".format( cleaned_path))
+      os.remove(cleaned_path)
+    else:
+      # if file do not exist, delete the source as well
+      rprint("[bold red] WILL REMOVE SOURCE [yellow] {}".format(cleaned_source_path))
+      os.remove(cleaned_source_path)
+
+
+print(sys.argv)
+copy_log_path =sys.argv[1] + '/copy_paths.log'
+if not os.path.exists(copy_log_path):
+    sys.exit("EXITING !!! Copylog file do not exit in path: " + copy_log_path)
+file1 = open(copy_log_path, 'r')
+lines = file1.readlines()
+for line in lines:
+    copy_path_parts = line.strip().split(' ')
+    process_line(copy_path_parts)
+

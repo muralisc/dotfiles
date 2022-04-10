@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Usage:
+# $0 copy - do copy
+# $0      - print the dry run 
+# bash bin/not-recently-played dry ~/data/Media/videos/forsorting/ ~/shared_folders/transfer_private/vids
+
+# $1 - do copy or dry run
+SONGS_FOLDER="${2:-$HOME/data/Songs/Malayalam}"
+DEST_FOLDER="${3:-$HOME/shared_folders/transfer_private/songs/cron_songs/}"
+FIND_EXCLUDE='${4:- -not -ipath "*1960*"}'
+THIRTY_DAYS_BEFORE_DATE=2022-03-28
+
+if [[ "$1" != "copy" ]]; then
+	eval "find $SONGS_FOLDER -type f -not -newerat ${THIRTY_DAYS_BEFORE_DATE} $FIND_EXCLUDE " |\
+		shuf |\
+		head -5 
+else 
+	echo "$(date -Is) Running Cleanup script"
+	python ~/src/dotfiles/bin/not-recently-played-cleanup $DEST_FOLDER
+	eval "find $SONGS_FOLDER -type f -not -newerat ${THIRTY_DAYS_BEFORE_DATE} $FIND_EXCLUDE " |\
+		shuf |\
+		head -5 |\
+		xargs -I'{}' cp -v '{}' $DEST_FOLDER | tee $DEST_FOLDER/copy_paths.log
+
+	find $DEST_FOLDER \
+		-type f \
+		-printf "%AY-%Am-%Ad %AH:%AM:%AS %p\n" > $DEST_FOLDER/access_times.log
+fi
+

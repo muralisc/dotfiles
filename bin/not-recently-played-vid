@@ -1,6 +1,0 @@
-#!/bin/bash
-
-find $PWD -type f  -not -newerat 2020-07-23 | \
-  sort --random-sort | head | xargs mpv --loop-playlist=yes
-
-\ls | shuf | head -5 | xargs -I'{}' cp '{}' ~/shared_folders/transfer_private/

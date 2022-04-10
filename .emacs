@@ -40,6 +40,10 @@
   (exec-path-from-shell-initialize))
 (straight-use-package 'lsp-ivy)
 
+;;Org Journal
+(straight-use-package 'org-journal)
+(require 'org-journal)
+
 ;;Ledger
 (straight-use-package 'ledger-mode)
 (require 'ledger-mode)

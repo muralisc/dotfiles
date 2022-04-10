@@ -2,7 +2,12 @@
 chosen=$(echo -e "urxvt\nfirefox\n\
 kitty\n\
 thunar\n\
-gimp\nranger\nscreenOff\nscreenOn" | rofi -p "mu" -dmenu)
+gimp\n\
+ranger\n\
+screenOff\n\
+screenOn\n\
+copyVids\n\
+copySongs\n" | rofi -p "mu" -dmenu)
 
 case $chosen in
   urxvt)
@@ -28,5 +33,15 @@ case $chosen in
     ;;
   screenOn)
     xset dpms 0 0 7200
+    ;;
+  copyVids)
+    bash \
+	    ~/src/dotfiles/bin/not-recently-played \
+	    copy \
+	    ~/data/Media/notForKids/videos/forsorting/ \
+	    ~/shared_folders/transfer_private/vids > ~/shared_folders/transfer_private/vids/copy_script.log
+    ;;
+  copySongs)
+    bash ~/src/dotfiles/bin/not-recently-played copy
     ;;
 esac
