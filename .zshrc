@@ -87,9 +87,6 @@ source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 [ -f "$HOME/bin/shrc" ] && source "$HOME/bin/shrc"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-if [[ -r "/usr/local/opt/mcfly/mcfly.zsh" ]]; then
-  source "/usr/local/opt/mcfly/mcfly.zsh"
-fi
 
 # source local file
 [ ! -f "$HOME/.shrc.local" ] || source "$HOME/.shrc.local"

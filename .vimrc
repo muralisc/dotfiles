@@ -15,8 +15,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
+  Plug 'preservim/nerdtree'                                          " Alternative use ]f [f with netrw to move to next file in directory
   Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }           " <leader>d to generate doc for function
-  Plug 'tpope/vim-vinegar'                                         " Folder navigation ? C u r cd CD
+  Plug 'tpope/vim-vinegar'                                           " Folder navigation ? C u r cd CD
   Plug 'derekwyatt/vim-fswitch'
     let g:ale_completion_enabled = 1
   Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck)
@@ -62,10 +63,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'chazy/cscope_maps'
   Plug 'itchyny/lightline.vim'
     let g:lightline = {
+        \ 'colorscheme': 'ayu_dark',
         \ 'component_function': {
         \   'filename': 'LightLineFilename'
         \ },
-        \ 'colorscheme': 'one'
         \ }
     function! LightLineFilename()
       " Get shrinked current working directory and filename
