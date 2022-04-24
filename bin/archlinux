@@ -11,6 +11,8 @@ timedatectl set-ntp true
 # 1.
 # fdisk can handle all parittion tables
 # fdisk /dev/sda # check 'm' for 'g', 'n' , 't',  and set EFI
+# 1.5 For Fomating USB
+# fdisk /dev/sda # check m for defintions, sequence is 'g' 'n' 't' 20, mkfs.ntfs /dev/sdx
 # 2.
 # gdisk is specifically for GPT so lets use gdisk
 # gdisk /dev/sda  # enter console
@@ -325,8 +327,10 @@ y -S font-manager
 # most basic stuff
 # unrar is very helpful exp in coverting .cbr to .jpg
 yay -S --noconfirm \
-  perl-rename sed rsync tar gzip unrar gawk \ # use custom rename
+  sed rsync tar gzip unrar gawk \ # use custom rename
   gcc gdb gnuplot grep groff openssh unzip
+# For easy file renaming
+y -S --noconfirm perl-rename vimv
 # Install lang support
 yay -S --noconfirm nodejs go
 # monitors
@@ -343,7 +347,9 @@ yay -S --noconfirm pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa pu
 yay -S --noconfirm mpd mpc ncmpcpp mpv exfalso beets
 systemctl --user start mpd
 # RANGER STUFF
-yay -S --noconfirm ranger-git w3m ffmpeg ffmpegthumbnailer imagemagick mediainfo
+yay -S --noconfirm \
+	ranger-git w3m ffmpeg ffmpegthumbnailer \
+	imagemagick mediainfo ueberzug
 # MOBILE
 yay -S --noconfirm jmtpfs
 # i love beauty

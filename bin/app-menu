@@ -7,7 +7,7 @@ ranger\n\
 screenOff\n\
 screenOn\n\
 copyVids\n\
-copySongs\n" | rofi -p "mu" -dmenu)
+copySongs\n" | rofi -p "mu" -dmenu -font 'Ubuntu mono 42')
 
 case $chosen in
   urxvt)

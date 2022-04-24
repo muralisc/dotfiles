@@ -43,6 +43,7 @@
 ;;Org Journal
 (straight-use-package 'org-journal)
 (require 'org-journal)
+(setq org-journal-file-type 'yearly)
 
 ;;Ledger
 (straight-use-package 'ledger-mode)
