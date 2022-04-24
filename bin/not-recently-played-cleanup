@@ -13,6 +13,7 @@ def process_line(copy_path_parts):
     else:
       # if file do not exist, delete the source as well
       rprint("[bold red] WILL REMOVE SOURCE [yellow] {}".format(cleaned_source_path))
+      input("Press Enter to continue...")
       os.remove(cleaned_source_path)
 
 
