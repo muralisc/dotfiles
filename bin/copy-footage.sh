@@ -42,16 +42,17 @@ for file_name in $(find $SRC_FOLDER -type f); do
   # if strptime is not successfull, break
   STRPTIME_RETURN=$?
   if [[ $STRPTIME_RETURN -ne 0 ]]; then
-    echo "Processing $file_name failed as CREATE_DATE (val: $CREATE_DATE) is not correct format"
+    echo "$(tput setaf 2)Processing $file_name failed as CREATE_DATE (val: $CREATE_DATE) is not correct format$(tput sgr0)"
     echo strptime return : $STRPTIME_RETURN
     echo "Trying with FileModifyDate"
-  fi
-  FOLDER_DATE=$(strptime --input-format "%Y:%m:%d %H:%M:%S%Z" "$FILE_MODIFY_DATE" --format "%Y_%m_%d")
-  STRPTIME_RETURN=$?
-  if [[ $STRPTIME_RETURN -ne 0 ]]; then
-    echo "Processing $file_name failed as CREATE_DATE (val: $CREATE_DATE) is not correct format"
-    echo strptime return : $STRPTIME_RETURN
-    exit 1
+
+    FOLDER_DATE=$(strptime --input-format "%Y:%m:%d %H:%M:%S%Z" "$FILE_MODIFY_DATE" --format "%Y_%m_%d")
+    STRPTIME_RETURN=$?
+    if [[ $STRPTIME_RETURN -ne 0 ]]; then
+      echo "$(tput setaf 1)Processing $file_name failed as FILE_MODIFY_DATE (val: $FILE_MODIFY_DATE) is not correct format$(tput sgr0)"
+      echo strptime return : $STRPTIME_RETURN
+      exit 1
+    fi
   fi
 
   DST_PATH="${DST_FOLDER}/${FOLDER_DATE}/${CAMERA_MODEL_NAME}/$PHOTO_PATH"

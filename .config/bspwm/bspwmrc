@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Reffer: https://git.sr.ht/~jbauer/dotfiles
-pgrep -x sxhkd > /dev/null || sxhkd -c ~/.config/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc.common &
+pgrep -x sxhkd > /dev/null || sxhkd -r /tmp/sxhkd.log -c ~/.config/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc.common &
 pgrep -x dunst > /dev/null || dunst &
 pgrep -x polybar > /dev/null || polybar --reload example &
 
@@ -15,9 +15,10 @@ bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Gimp state=floating follow=on
 bspc rule -a Chromium desktop='^2'
 bspc rule -a mpv state=floating
+bspc rule -a Onboard state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 bspc rule -a Emacs state=tiled

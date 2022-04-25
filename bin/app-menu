@@ -2,12 +2,12 @@
 chosen=$(echo -e "urxvt\nfirefox\n\
 kitty\n\
 thunar\n\
-gimp\n\
+vlc\n\
 ranger\n\
 screenOff\n\
 screenOn\n\
 copyVids\n\
-copySongs\n" | rofi -p "mu" -dmenu)
+copySongs\n" | rofi -p "mu" -dmenu -font 'Ubuntu mono 42')
 
 case $chosen in
   urxvt)
@@ -25,8 +25,8 @@ case $chosen in
   ranger)
     urxvtc -fn 'xft:UbuntuMono:Regular:size=25' -e ranger
     ;;
-  gimp)
-    gimp &
+  vlc)
+    vlc &
     ;;
   screenOff)
     xset dpms 0 0 10

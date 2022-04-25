@@ -18,8 +18,8 @@ fi
 
 # LANG is required for applications like tmux to figure out that UTF8 is supported
 export LANG=en_US.UTF-8
-export VISUAL="vi"
-export EDITOR="vi"
+export VISUAL="nvim"
+export EDITOR="nvim"
 export BC_ENV_ARGS=~/.bcrc
 export GOPATH=~/go
 export FZF_DEFAULT_COMMAND='fd --type f'

@@ -104,7 +104,7 @@ icon-pause = 
 [module/xwindow]
 type = internal/xwindow
 label = %title%
-label-maxlen = 80
+label-maxlen = 30
 
 [module/filesystem]
 type = internal/fs
@@ -121,7 +121,7 @@ label-unmounted-foreground = ${colors.foreground-unfocused}
 type = custom/text
 ;content-underline = ${colors.favoritesAccent}
 ;using action formatting tag to define clickable areas
-content = "%{A1:kitty&:}%{A}  %{A1:thunar&:}%{A}  %{A1:firefox&:}%{A}"
+content = "%{A1:onboard&:} %{A} %{A1:kitty&:}%{A}  %{A1:thunar&:}%{A}  %{A1:firefox&:}%{A} %{A1:~/bin/app-menu&:}   %{A}"
 
 
 [module/bspwm]
