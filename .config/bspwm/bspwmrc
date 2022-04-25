@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Reffer: https://git.sr.ht/~jbauer/dotfiles
-pgrep -x sxhkd > /dev/null || sxhkd -c ~/.config/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc.common &
+pgrep -x sxhkd > /dev/null || sxhkd -r /tmp/sxhkd.log -c ~/.config/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc.common &
 pgrep -x dunst > /dev/null || dunst &
 pgrep -x polybar > /dev/null || polybar --reload example &
 

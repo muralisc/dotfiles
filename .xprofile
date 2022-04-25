@@ -8,7 +8,14 @@ mpdscribble &
 pgrep beet || beet mpdstats 2>&1 >> /var/tmp/beet_mpdstats &
 # caps remapped more comprehensively in Xmodmap
 # setxkbmap -option ctrl:nocaps
-xmodmap ~/.Xmodmap
+
+# Note on why xmodmap is commented,
+# xmodmap is used to map caps to ctrl, however once 
+# monitor goes to sleep this is reset.
+# To reset it we used a key map in sxhkd to retrigger the mapping
+# However this mapping fails to function if xmodmap is called 
+# prior to executing sxhkd
+# xmodmap ~/.Xmodmap
 keynav daemonize
 feh --bg-fill ~/.local/share/wallpaper/wallpaper
 # dont turn off the screen soon, wait 2 hours, change every 60sec

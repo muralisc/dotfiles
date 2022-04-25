@@ -166,7 +166,87 @@
 ;; Private Settings
 (setq custom-file "~/.emacs-private.el")
 (load custom-file)
-;; Shared Settings
-(setq custom-file "~/.emacs.d/.emacs-shared.el")
-(load custom-file)
 
+(setq org-capture-templates
+'(("t" "Todo" entry (file+headline org-default-notes-file "Tasks")
+    "* TODO %?\n  SCHEDULED: %^t\n")
+("w" "Work")
+("wj" "WorkJournal" entry (file+datetree org-default-work-file "Work")
+ "* %<%H:%M>  %?\n %i\n")
+("wt" "WorkTodo" entry (file+datetree org-default-work-file "Work")
+    "* TODO %<%H:%M>  %?\n %i\n")))
+
+
+
+;; The below settings may be shared between other emacs distros ====================
+
+;; No need for startup
+(setq inhibit-startup-screen t)
+;; Wrap around
+(set-default 'truncate-lines t)
+;; show cursor position within line
+(column-number-mode 1)
+;; hide toolbar and scroll bar
+(if (display-graphic-p)
+    (progn
+      (tool-bar-mode 0)
+      (scroll-bar-mode 0)))
+;; No menu bar in command line mode
+(menu-bar-mode -1)
+;; Use relative line numbers the respects fold
+(defvar display-line-numbers-type)
+(setq display-line-numbers-type 'visual)
+(global-display-line-numbers-mode t)
+;; Show matching paranthesis
+(show-paren-mode 1)
+;; Dont make backup files
+(setq make-backup-files nil)
+;; Show current cursor line
+(global-hl-line-mode +1)
+;; Set Font
+(setq default-frame-alist '((font . "Fira Mono-14")))
+;; Maximize Emacs on Startup
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+;; Follow symlinks
+(setq vc-follow-symlinks t)
+
+;; Evil Escape settings
+(setq evil-escape-excluded-states '(normal visual evilified emacs motion)
+      evil-escape-excluded-major-modes '(treemacs-mode)
+      evil-escape-key-sequence "jj"
+      evil-escape-delay 0.20)
+;; Complete Filenames using TAB
+(setq completion-at-point-functions '(elisp-completion-at-point comint-dynamic-complete-filename t))
+
+(defalias 'yes-or-no-p 'y-or-n-p)
+;; ORG MODE
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(setq org-habit-graph-column 70)
+(setq org-agenda-tags-column -110)
+(setq org-agenda-show-future-repeats nil)
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-use-time-grid t)
+(setq org-agenda-custom-commands
+      '(("q" . "Custom Queries")
+	;; match those are not scheduled, are not DONE.
+        ("qu" "unscheduled TODO tasks" tags "-SCHEDULED={.+}/+TODO|+STARTED|+WAITING")
+        ;; match those are not scheduled, are not DONE.
+        ("qU" "Unscheduled tasks with no TODO" tags "-SCHEDULED={.+}-TODO={.+}")
+	;; Show only work todos
+        ("qw" "Show only work todos" todo "TODO"
+	 ((org-agenda-files '("~/shared_folders/minimal/Pensieve/textfiles/journal/WorkNote.org")))
+	 )
+        ))
+(setq org-agenda-span 7
+      org-agenda-start-on-weekday nil
+      ;org-agenda-start-day "-3d"
+      )
+(setq org-agenda-prefix-format '(
+  ;; (agenda  . "  • %(let ((scheduled (org-get-scheduled-time (point)))) (if scheduled (format-time-string \"%Y-%m-%d\" scheduled) \"\")) s")
+  (agenda  . " %i %-4(org-get-repeat) %-12:c%?-12t% s") ;; file name + org-agenda-entry-type
+  (timeline  . "  % s")
+  (todo  . " %i %-12:c")
+  (tags  . " %i %-12:c")
+  (search . " %i %-12:c")))
