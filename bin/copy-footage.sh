@@ -4,12 +4,13 @@
 # a destination folder with sub folders defined by
 # yyyy-mm-dd/camera-model/file.jpg
 
-# e.g: bash ~/src/dotfiles/bin/copy-footage.sh ~/data/footage/2021/2021_01_murali_mobile ~/data/footage/2021
+# e.g: bash ~/src/dotfiles/bin/copy-footage.sh ~/data/footage/2021/2021_01_murali_mobile ~/data/footage/2021 "DefaultCameraName"
 
 
 SRC_FOLDER=$1
 DST_FOLDER=${2:-.}
 COPY_COMMAND=${3} #dry run if not specified
+DEFAULT_CAMERA_MAKE="${4:-NoModelName}"
 
 if [[ -z $SRC_FOLDER ]]; then
   echo "Source folder is empty"
@@ -33,7 +34,7 @@ for file_name in $(find $SRC_FOLDER -type f); do
   CAMERA_MAKE=$(jq -r '.[0].Make' <<< "$EXIF_INFO" | tr ' ' '_')
   CAMERA_MODEL_NAME=$(jq -r '.[0].Model' <<< "$EXIF_INFO" | tr ' ' '_')
   if [[ $CAMERA_MODEL_NAME = "null" ]]; then
-    CAMERA_MODEL_NAME="NoModelName"
+    CAMERA_MODEL_NAME=$DEFAULT_CAMERA_MAKE
   fi
   if ! grep $CAMERA_MAKE <<< $CAMERA_MODEL_NAME > /dev/null ; then
     CAMERA_MODEL_NAME=${CAMERA_MAKE}-${CAMERA_MODEL_NAME}
