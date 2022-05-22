@@ -310,9 +310,9 @@ nnoremap <leader>* :Rg!<C-R><C-W>
 nnoremap <leader>pf :FZF! +s --tac <CR>
 " Delete file
 nnoremap <leader>fD :call delete(expand('%')) <bar> bdelete! <CR>
-" alternate for => :CtrlPMRUFiles <CR>
+" alternate for => :CtrlPMRUFiles <CR>, Using keymaps from spacemacs
 nnoremap <leader>fr :History <CR>
-" open another file in same dir as current file
+" open another file in same dir as current file, Using keymaps from spacemacs
 nnoremap <leader>ff :e %:h/<C-d>
 " Quit Files with leader + q
 nnoremap <leader>bd :bp\|bd #<cr>
