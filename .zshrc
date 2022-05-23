@@ -49,6 +49,7 @@ bindkey -v
 bindkey jj vi-cmd-mode #or use ctrl+[
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
+bindkey "^w" backward-kill-word
 bindkey "^X^E" edit-command-line
 # Alt+.
 bindkey -M viins '\e.' insert-last-word

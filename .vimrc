@@ -6,7 +6,8 @@
 " junegunn: https://github.com/junegunn/dotfiles/blob/master/vimrc
 " https://github.com/yoshuawuyts/dotfiles
 " and Vim User Manual
-set nocompatible                                                     " not compatible with the old-fashion vi mode
+" set as 'not compatible' with the old-fashion vi mode
+set nocompatible
 " vim-plug setup {{{1
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -15,9 +16,12 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  Plug 'preservim/nerdtree'                                          " Alternative use ]f [f with netrw to move to next file in directory
-  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }           " <leader>d to generate doc for function
-  Plug 'tpope/vim-vinegar'                                           " Folder navigation ? C u r cd CD
+  " Nerdtree: I need to browse files in folder, Using 'go' to see the files
+  "     Alternative: use ]f [f with netrw to move to next file in directory
+  Plug 'preservim/nerdtree'
+  " vim-doge: <leader>d to generate doc for function
+  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+  " fswitch - Switch between .cpp and .h files
   Plug 'derekwyatt/vim-fswitch'
     let g:ale_completion_enabled = 1
   Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck)
@@ -44,15 +48,24 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files
   Plug 'tpope/vim-commentary'                                        " map: gcc
   Plug 'skywind3000/asyncrun.vim'
-  Plug 'tpope/vim-surround'                                          " map: ys[ <{( >)} ] - for no space
-  Plug 'tpope/vim-unimpaired'                                        " yon | yor | yow | ]q | [q |
+  " Surround :help surround
+  "     cs'"  - change ' around text to "
+  "     ysiW) - add ) around word
+  Plug 'tpope/vim-surround'
+  " vim-unimpaired: Awesome bracket maps
+  "     [q ]q :cprevious :cnext
+  "     [n ]n Go to git/hg confict marker
+  "     yow - toggle wrap
+  Plug 'tpope/vim-unimpaired'
   Plug 'tpope/vim-fugitive'
-  Plug 'godlygeek/tabular'                                           " for easily aligning
+  " tabular - Massively useful plugin for easily aligning
+  Plug 'godlygeek/tabular'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
   "Plug 'wincent/vim-clipper'
   let g:ClipperPort=5556
   let g:fzf_preview_window = ['right:50%', 'ctrl-/']
   Plug 'junegunn/fzf.vim'
+  let g:fzf_preview_window = []
   " command! -bang -nargs=* Rg
   "       \ call fzf#vim#grep(
   "       \   'rg --sortr path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
@@ -148,10 +161,13 @@ set guioptions-=L
 au FocusLost * :set norelativenumber
 au FocusGained * :set relativenumber
 " Basic Settings {{{
-filetype on                                                                     " Enable filetype detection
-filetype indent on                                                              " Enable filetype-specific indenting
+" Enable filetype detection
+filetype on
+" Enable filetype-specific indenting
+filetype indent on
 filetype plugin on                                                              " Enable filetype-specific plugins
-syntax on                                                                       " syntax highlight
+" syntax highlight
+syntax on
 set vb t_vb=                                                                    " prevent screen flasing on multiple esc
 set t_Co=256                                                                    " set 256 colors in vim
 
@@ -188,9 +204,12 @@ set shiftround                                                                  
 set backspace=indent,eol,start                                                  " allow backspacing over everything in insert mode
 set ignorecase                                                                  " ignore case when searching
 " Visual {{{
-" set showmatch                                                                   " set show matching parenthesis
-set number                                                                      " always show line numbers
-" set rnu                                                                         " relative number, dissabling use search instead of relative number
+" set show matching parenthesis
+set showmatch
+" always show line numbers
+set number
+" relative number, dissabling use search instead of relative number
+" set rnu
 set termencoding=utf-8
 set encoding=utf-8
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
@@ -279,6 +298,7 @@ set foldtext=CustomFoldText()
 " Editor Layout {{{
 set lazyredraw                                                                  " don't update the display while executing macros
 set laststatus=2                                                                " always put a status line even if one window
+set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 
 " Shortcut Mappings {{{1
