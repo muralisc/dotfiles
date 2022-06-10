@@ -44,7 +44,6 @@
 (straight-use-package 'org-journal)
 (require 'org-journal)
 (setq org-journal-file-type 'yearly)
-(setq org-journal-dir "~/shared_folders/transfer/")
 
 ;;Ledger
 (straight-use-package 'ledger-mode)
