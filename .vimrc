@@ -93,12 +93,16 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   let g:UltiSnipsListSnippets="<c-tab>"
   Plug 'honza/vim-snippets'
   Plug 'muralisc/snippets'
+  " 'bfredl/nvim-miniyank' block paste fix for nvim
   Plug 'bfredl/nvim-miniyank'
+  " whiteinge/diffconflicts - easily address diffconfilicts in nvim :DiffConflicts
   Plug 'whiteinge/diffconflicts'
   " Non-essential
   Plug 'junegunn/rainbow_parentheses.vim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'neovim/nvim-lspconfig'
+  " akinsho/toggleterm.nvim (c-t, esc:c-j)
+  "     Default Alternative :sp term://zsh or :vs term://zsh esc:<c-\><c-n>
   Plug 'akinsho/toggleterm.nvim'
   "Plug 'TaDaa/vimade'
   " Colorschemes
@@ -158,8 +162,8 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L
-au FocusLost * :set norelativenumber
-au FocusGained * :set relativenumber
+"au FocusLost * :set norelativenumber
+"au FocusGained * :set relativenumber
 " Basic Settings {{{
 " Enable filetype detection
 filetype on
