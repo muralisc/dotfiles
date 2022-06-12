@@ -93,12 +93,16 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   let g:UltiSnipsListSnippets="<c-tab>"
   Plug 'honza/vim-snippets'
   Plug 'muralisc/snippets'
+  " 'bfredl/nvim-miniyank' block paste fix for nvim
   Plug 'bfredl/nvim-miniyank'
+  " whiteinge/diffconflicts - easily address diffconfilicts in nvim :DiffConflicts
   Plug 'whiteinge/diffconflicts'
   " Non-essential
   Plug 'junegunn/rainbow_parentheses.vim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'neovim/nvim-lspconfig'
+  " akinsho/toggleterm.nvim (c-t, esc:c-j)
+  "     Default Alternative :sp term://zsh or :vs term://zsh esc:<c-\><c-n>
   Plug 'akinsho/toggleterm.nvim'
   "Plug 'TaDaa/vimade'
   " Colorschemes
@@ -211,8 +215,9 @@ set showmatch
 set number
 " relative number, dissabling use search instead of relative number
 " set rnu
-au FocusLost * :set norelativenumber
-au FocusGained * :set relativenumber
+" Switch between relative and non relative numbers when focus is changed
+" au FocusLost * :set norelativenumber
+" au FocusGained * :set relativenumber
 set termencoding=utf-8
 set encoding=utf-8
 set cursorline                                                                  " underline the current line, for quick orientation
