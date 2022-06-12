@@ -171,8 +171,6 @@ syntax on
 set vb t_vb=                                                                    " prevent screen flasing on multiple esc
 set t_Co=256                                                                    " set 256 colors in vim
 
-let mapleader="\<Space>"                                                        " Change the mapleader from \ to
-let maplocalleader="\<Space>"
 " https://shapeshed.com/vim-netrw/
 let g:netrw_preview = 1                                                         " Split Vertical
 let g:netrw_winsize = 15
@@ -300,6 +298,9 @@ nnoremap Y y$
 nnoremap zz zt5<C-y>
 " }}}  normal mappings
 " leader mapings {{{
+" Change the mapleader from \ to
+let mapleader="\<Space>"
+let maplocalleader="\<Space>"
 " Clears the search register
 nnoremap <leader>n :nohlsearch<CR>
 " Find in files:
