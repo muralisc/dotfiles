@@ -158,8 +158,6 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L
-au FocusLost * :set norelativenumber
-au FocusGained * :set relativenumber
 " Basic Settings {{{
 " Enable filetype detection
 filetype on
@@ -174,13 +172,18 @@ set t_Co=256                                                                    
 " https://shapeshed.com/vim-netrw/
 let g:netrw_preview = 1                                                         " Split Vertical
 let g:netrw_winsize = 15
-set autoread                                                                    " read a changed file on disk
+" set autoread: read a changed file on disk
+set autoread
 set showmode                                                                    " always show what mode we're currently editing in
 set nofixendofline
 set timeoutlen=1200 " A little bit more time for macros
 set ttimeoutlen=50  " Make Esc work faster
 set nowrap                                                                      " don't wrap lines
 " Editing {{{
+" show invisible charecters
+set list
+" If 'set list' is enabled, the invisible characters are show using listchars
+set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
 set tabstop=4                                                                   " a tab is four spaces
 set softtabstop=4                                                               " when hitting <BS>, delete 4 spaces insted of 1
 set expandtab                                                                   " expand tabs by default (overloadable per file type later)
@@ -208,11 +211,10 @@ set showmatch
 set number
 " relative number, dissabling use search instead of relative number
 " set rnu
+au FocusLost * :set norelativenumber
+au FocusGained * :set relativenumber
 set termencoding=utf-8
 set encoding=utf-8
-set list                                                                        " show invisible charecters
-" If 'set list' is enabled, the invisible characters are show using listchars
-set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
 set cursorline                                                                  " underline the current line, for quick orientation
 set cursorcolumn                                                                " have a vertical line marking the cursor column
 set scrolloff=0                                                                 " keep 4 lines off the edges of the screen when scrolling
