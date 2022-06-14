@@ -86,19 +86,6 @@
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-;; Enable Evil
-(straight-use-package 'evil)
-(require 'evil)
-(evil-mode 1)
-
-;; Enable evil org
-(straight-use-package 'evil-org)
-(require 'evil-org)
-(add-hook 'org-mode-hook 'evil-org-mode)
-(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-;; (require 'evil-org-agenda) Deactivating as follow mode does not work
-(setq org-agenda-start-with-follow-mode t)
-
 ;; Which Key
 (straight-use-package 'which-key)
 (which-key-mode)
@@ -108,19 +95,6 @@
 (global-set-key (kbd "C-h f") #'helpful-callable)
 (global-set-key (kbd "C-h v") #'helpful-variable)
 (global-set-key (kbd "C-h k") #'helpful-key)
-
-;; Evil Escape
-(straight-use-package 'evil-escape)
-(require 'evil-escape)
-(evil-escape-mode +1)
-(setq evil-escape-excluded-states '(normal visual evilified emacs motion)
-      evil-escape-excluded-major-modes '(treemacs-mode)
-      evil-escape-key-sequence "jj"
-      evil-escape-delay 0.20)
-
-;; Evil Magit
-(straight-use-package 'evil-magit)
-(require 'evil-magit)
 
 ;; General
 (straight-use-package 'general)
@@ -211,11 +185,6 @@
 ;; Follow symlinks
 (setq vc-follow-symlinks t)
 
-;; Evil Escape settings
-(setq evil-escape-excluded-states '(normal visual evilified emacs motion)
-      evil-escape-excluded-major-modes '(treemacs-mode)
-      evil-escape-key-sequence "jj"
-      evil-escape-delay 0.20)
 ;; Complete Filenames using TAB
 (setq completion-at-point-functions '(elisp-completion-at-point comint-dynamic-complete-filename t))
 
