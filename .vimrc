@@ -110,6 +110,14 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     set background=dark
   " let g:solarized_termtrans=1
   " let g:solarized_termcolors=256
+  " Some colorschemes tested and conclusion
+  " gotham                   - bad for diff highlight
+  " dracula                  - bad for types
+  " nord                     - bad for diff highlight
+  " onedark                  - GOOD
+  " base16-solarized-dark    - GOOD
+  " jellybeans               - bad for diff
+  " base16-summerfruit-dark  - GOOD
   Plug 'chriskempson/base16-vim'
   Plug 'morhetz/gruvbox'
   Plug 'romainl/Apprentice'

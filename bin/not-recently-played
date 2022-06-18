@@ -10,8 +10,9 @@ echo "	bash ~/bin/not-recently-played dry ~//data/Songs/Malayalam ~/shared_folde
 fi
 
 alias np="bash ~/src/dotfiles/bin/not-recently-played cp ~/data/Media/notForKids/videos/forsorting/ ~/shared_folders/transfer_private/x_copy"
-alias nm="bash ~/src/dotfiles/bin/not-recently-played cp ~/data/Songs/Malayalam ~/shared_folders/transfer_london_home/songs/cron_songs"
-alias nf="bash ~/src/dotfiles/bin/not-recently-played cp ~/data/footage/2021/ ~/shared_folders/transfer_london_home/footage_copy/ 2022-05-01 10"
+alias nm="bash ~/src/dotfiles/bin/not-recently-played cp ~/data/Songs/Malayalam  ~/shared_folders/transfer_london_home/songs/cron_songs"
+alias nf="bash ~/src/dotfiles/bin/not-recently-played cp ~/data/footage/2021/ ~/shared_folders/transfer_london_home/footage_copy/photos 2022-05-01 10"
+alias nf="bash ~/src/dotfiles/bin/not-recently-played cp ~/data/footage/2021/ ~/shared_folders/transfer_london_home/footage_copy/videos 2022-05-01 10"
 
 # $1 - do copy or dry run
 copy_command=${1:-echo}
