@@ -38,7 +38,6 @@
 (straight-use-package 'exec-path-from-shell)
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
-(straight-use-package 'lsp-ivy)
 
 ;;Org Journal
 (straight-use-package 'org-journal)
@@ -50,9 +49,10 @@
 (require 'ledger-mode)
 (setq ledger-post-auto-align t)
 
-;; Flycheck
+;; Flycheck : Syntax checking for Emacs
 (straight-use-package 'flycheck)
 (global-flycheck-mode)
+
 ;; LSP
 (straight-use-package 'lsp-mode)
 (require 'lsp-mode)
@@ -63,7 +63,7 @@
 (straight-use-package 'lsp-treemacs)
 (lsp-treemacs-sync-mode 1)
 
-;; Ivy
+;; Ivy, Counsel, Swiper : https://github.com/abo-abo/swiper
 (straight-use-package 'ivy)
 (straight-use-package 'swiper)
 (straight-use-package 'counsel)
@@ -81,12 +81,7 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch)
 
-;; Projectile
-(straight-use-package 'projectile)
-(projectile-mode +1)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
-;; Which Key
+;; Which Key : show avaialble keybindings for currently entered incomplete command
 (straight-use-package 'which-key)
 (which-key-mode)
 
@@ -99,17 +94,8 @@
 ;; General
 (straight-use-package 'general)
 (require 'general)
-
-;; company-mode
-(straight-use-package 'company)
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-
 (general-define-key
- :keymaps '(global)
- :states  '(normal emacs)
- :prefix "SPC"
- :non-normal-prefix "M-SPC"
+ :prefix "C-c"
  "SPC" 'counsel-M-x
 
  "a"  'org-agenda
@@ -136,6 +122,11 @@
  "wv" 'split-window-right
  "/"  #'projectile-grep
  )
+
+;; company-mode
+(straight-use-package 'company)
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;; Private Settings
 (setq custom-file "~/.emacs-private.el")
@@ -167,9 +158,7 @@
       (scroll-bar-mode 0)))
 ;; No menu bar in command line mode
 (menu-bar-mode -1)
-;; Use relative line numbers the respects fold
-(defvar display-line-numbers-type)
-(setq display-line-numbers-type 'visual)
+;; Display line numbers
 (global-display-line-numbers-mode t)
 ;; Show matching paranthesis
 (show-paren-mode 1)
