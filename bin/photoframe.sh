@@ -17,6 +17,5 @@ while true ; do
 	  echo "$(date): Pressing Escape..."
 	  xdotool key Escape
 	  pkill feh
-	  # mpv --loop-playlist=no --osd-level=3 --fs ~/shared_folders/transfer_london_home/footage_copy/videos/*{mp4,MP4}
   fi
 done
