@@ -8,9 +8,11 @@ while true ; do
 	  echo "$(date) Sleeping for 1 hour during night..."
 	  sleep $((1*60*60))
   elif false ; then # TODO: files changed
+          echo "$(date) killing feh as new files are added..."
 	  pkill feh
   else
 	  if ! pgrep feh ; then
+                  echo "$(date) No running instance of feh starting..."
 		  feh \
 		    --slideshow-delay $default_delay \
 		    --auto-rotate \
@@ -20,8 +22,7 @@ while true ; do
 	  fi
 	  echo "$(date): Sleeping for $keypress_interval_sec sec..."
 	  sleep $keypress_interval_sec
-	  echo "$(date): Pressing Escape to prevent screen off..."
-	  xdotool key Escape
-	  pkill feh
+	  echo "$(date): Pressing Return to prevent screen off..."
+	  xdotool key Return
   fi
 done

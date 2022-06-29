@@ -11,7 +11,7 @@ super + @space
 	dmenu_run -fn 'Ubuntu Mono-19'
 
 # make sxhkd reload its configuration files:
-super + Escape
+super + shift + Escape
 	dunstify "sxhkd" "Reloaded sxhkd" && pkill -USR1 -x sxhkd
 
 #
