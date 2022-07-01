@@ -1,13 +1,28 @@
 while true ; do
-  image_cnt=$(ls ~/shared_folders/transfer_london_home/footage_copy/*jpg | wc -l)
-  default_delay=3
-
-  feh \
-    --action 'printf "%%s\n" %F | xsel -b' \
-    --font /usr/share/fonts/TTF/DejaVuSans.ttf/22 \
-    --info "exiftool %F  | egrep '(Modification Date|Create Date)'" \
-    --slideshow-delay $default_delay -F -. --draw-filename ~/shared_folders/transfer_london_home/footage_copy/*jpg &
-  sleep $((default_delay*image_cnt+default_delay))
-  pkill feh
-  mpv --loop-playlist=no --osd-level=3 --fs ~/shared_folders/transfer_london_home/footage_copy/*{mp4,MP4}
+  image_count=$(ls ~/shared_folders/transfer_london_home/footage_copy/photos/*{jpg,JPG} | wc -l)
+  default_delay=5
+  keypress_interval_sec=25
+  currenttime=$(date +%H:%M)
+  if [[ "$currenttime" > "22:00" ]] || [[ "$currenttime" < "06:30" ]]; then
+	  pkill feh
+	  echo "$(date) Sleeping for 1 hour during night..."
+	  sleep $((1*60*60))
+  elif false ; then # TODO: files changed
+          echo "$(date) killing feh as new files are added..."
+	  pkill feh
+  else
+	  if ! pgrep feh ; then
+                  echo "$(date) No running instance of feh starting..."
+		  feh \
+		    --slideshow-delay $default_delay \
+		    --auto-rotate \
+		    -F \
+		    --scale-down \
+		    ~/shared_folders/transfer_london_home/footage_copy/photos/*{jpg,JPG} &
+	  fi
+	  echo "$(date): Sleeping for $keypress_interval_sec sec..."
+	  sleep $keypress_interval_sec
+	  echo "$(date): Pressing Return to prevent screen off..."
+	  xdotool key Return
+  fi
 done

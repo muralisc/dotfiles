@@ -16,12 +16,12 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  " Nerdtree: I need to browse files in folder, Using 'go' to see the files
+  " preservim/nerdtree: I need to browse files in folder, Using 'go' to see the files
   "     Alternative: use ]f [f with netrw to move to next file in directory
   Plug 'preservim/nerdtree'
   " vim-doge: <leader>d to generate doc for function
   Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-  " fswitch - Switch between .cpp and .h files
+  " fswitch: Switch between .cpp and .h files
   Plug 'derekwyatt/vim-fswitch'
     let g:ale_completion_enabled = 1
   Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck)
@@ -113,6 +113,14 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
     set background=dark
   " let g:solarized_termtrans=1
   " let g:solarized_termcolors=256
+  " Some colorschemes tested and conclusion
+  " gotham                   - bad for diff highlight
+  " dracula                  - bad for types
+  " nord                     - bad for diff highlight
+  " onedark                  - GOOD
+  " base16-solarized-dark    - GOOD
+  " jellybeans               - bad for diff
+  " base16-summerfruit-dark  - GOOD
   Plug 'chriskempson/base16-vim'
   Plug 'morhetz/gruvbox'
   Plug 'romainl/Apprentice'
@@ -165,8 +173,6 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L
-"au FocusLost * :set norelativenumber
-"au FocusGained * :set relativenumber
 " Basic Settings {{{
 " Enable filetype detection
 filetype on
@@ -178,18 +184,21 @@ syntax on
 set vb t_vb=                                                                    " prevent screen flasing on multiple esc
 set t_Co=256                                                                    " set 256 colors in vim
 
-let mapleader="\<Space>"                                                        " Change the mapleader from \ to
-let maplocalleader="\<Space>"
 " https://shapeshed.com/vim-netrw/
 let g:netrw_preview = 1                                                         " Split Vertical
 let g:netrw_winsize = 15
-set autoread                                                                    " read a changed file on disk
+" set autoread: read a changed file on disk
+set autoread
 set showmode                                                                    " always show what mode we're currently editing in
 set nofixendofline
 set timeoutlen=1200 " A little bit more time for macros
 set ttimeoutlen=50  " Make Esc work faster
 set nowrap                                                                      " don't wrap lines
 " Editing {{{
+" show invisible charecters
+set list
+" If 'set list' is enabled, the invisible characters are show using listchars
+set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
 set tabstop=4                                                                   " a tab is four spaces
 set softtabstop=4                                                               " when hitting <BS>, delete 4 spaces insted of 1
 set expandtab                                                                   " expand tabs by default (overloadable per file type later)
@@ -217,9 +226,11 @@ set showmatch
 set number
 " relative number, dissabling use search instead of relative number
 " set rnu
+" Switch between relative and non relative numbers when focus is changed
+" au FocusLost * :set norelativenumber
+" au FocusGained * :set relativenumber
 set termencoding=utf-8
 set encoding=utf-8
-set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
 set cursorline                                                                  " underline the current line, for quick orientation
 set cursorcolumn                                                                " have a vertical line marking the cursor column
 set scrolloff=0                                                                 " keep 4 lines off the edges of the screen when scrolling
@@ -230,8 +241,6 @@ set smarttab                                                                    
 set virtualedit=block                                                           " allow the cursor to go in to 'invalid' places
 set incsearch                                                                   " show search matches as you type
 set gdefault                                                                    " search/replace 'globally' (on a line) by default
-" set nolist                                                                    " don't show invisible characters by default
-set list                                                                        " show invisible charecters
 " set pastetoggle=<F2>                                                          " Use normal mode paste from "+y (press <F2> to go to 'paste' mode,( prevent auto indenting ))
 set mouse=a                                                                     " enable using the mouse if terminal emulator supports it (xterm does)
 set fileformats="unix,dos,mac"
@@ -280,27 +289,6 @@ set foldcolumn=0                                                                
 set foldmethod=marker                                                           " detect triple-{ style fold markers [marker indent]
 set foldlevel=99                                                                " 0-foldall 99-unfoldall
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
-" http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
-fu! CustomFoldText()
-  "get first non-blank line
-  let fs = v:foldstart
-  while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
-  endwhile
-  if fs > v:foldend
-    let line = getline(v:foldstart)
-  else
-    let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
-  endif
-  let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-  let foldSize = 1 + v:foldend - v:foldstart
-  let foldSizeStr = " " . foldSize . " lines "
-  let foldLevelStr = repeat("+--", v:foldlevel)
-  let lineCount = line("$")
-  let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
-  let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
-  return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
-endf
-set foldtext=CustomFoldText()
 " }}} Folding Rules
 " Editor Layout {{{
 set lazyredraw                                                                  " don't update the display while executing macros
@@ -328,6 +316,9 @@ nnoremap Y y$
 nnoremap zz zt5<C-y>
 " }}}  normal mappings
 " leader mapings {{{
+" Change the mapleader from \ to
+let mapleader="\<Space>"
+let maplocalleader="\<Space>"
 " Clears the search register
 nnoremap <leader>n :nohlsearch<CR>
 " Find in files:
