@@ -15,7 +15,7 @@ sanitize_file_name() {
     return
   fi
   echo "Renaming: $@"
-  dot_rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" $@
+  sed_rename "s/ |\(|\!|&|\)|'|\[|\]/_/g" $@
 }
 
 note_search() {
@@ -60,7 +60,7 @@ function c() {
 }
 function cb() {
     # Calculate using bc
-    bc -l <<< "scale=2; $*"
+    bc --mathlib <<< "scale=2; $*"
 }
 # alias it for zsh
 if [[ $SHELL =~ "zsh" ]]; then alias c='noglob c'; fi
@@ -121,7 +121,7 @@ update_freedesktop_menu() {
   xdg_menu --format awesome --root-menu /etc/xdg/menus/arch-applications.menu >~/.config/awesome/archmenu.lua
 }
 
-dot_rename() {
+sed_rename() {
   SUBSEXPR=$1
   shift
   for i in $@; do mv -i "$i" "$(echo "$i" | sed -E $SUBSEXPR)"; done

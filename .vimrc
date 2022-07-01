@@ -102,7 +102,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'neovim/nvim-lspconfig'
   " akinsho/toggleterm.nvim (c-t, esc:c-j)
-  "     Default Alternative :sp term://zsh or :vs term://zsh esc:<c-\><c-n>
+  "     Default Alternative 
+  "         :sp term://zsh or 
+  "         :vs term://zsh 
+  "         ESC -> <c-\><c-n>
   Plug 'akinsho/toggleterm.nvim'
   "Plug 'TaDaa/vimade'
   " Colorschemes
@@ -330,7 +333,7 @@ nnoremap <leader>n :nohlsearch<CR>
 " Find in files:
 nnoremap <leader>/ :Rg!
 nnoremap <leader>* :Rg!<C-R><C-W>
-" FZF is faster than CtrlP for finding files in Directories
+" FZF is faster than CtrlP for finding files in Directories (pf - after projectile find, using same as spacemacs)
 nnoremap <leader>pf :FZF! +s --tac <CR>
 " Delete file
 nnoremap <leader>fD :call delete(expand('%')) <bar> bdelete! <CR>
