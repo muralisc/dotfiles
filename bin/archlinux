@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 # Commands to get an arch linux up and running.
 # For Virtual box : ENABLE EFI BOOT IN VIRTUAL BOX SETTINGS.
 
@@ -544,3 +544,5 @@ sudo npm install -g ungit
 y -S inxi
 # store system secrets
 yay -S libsecret seahorse
+
+https://github.com/restic/restic backup to s3
