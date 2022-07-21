@@ -544,3 +544,5 @@ sudo npm install -g ungit
 y -S inxi
 # store system secrets
 yay -S libsecret seahorse
+yay -S radeon-profile
+yay -S netdata
