@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 # Commands to get an arch linux up and running.
 # For Virtual box : ENABLE EFI BOOT IN VIRTUAL BOX SETTINGS.
 
@@ -546,3 +546,4 @@ y -S inxi
 yay -S libsecret seahorse
 yay -S radeon-profile
 yay -S netdata
+https://github.com/restic/restic backup to s3
