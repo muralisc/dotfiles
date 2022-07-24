@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export DISPLAY=:0
+xdotool key Return
+vlc ~/shared_folders/transfer_london_home/songs/new_songs/
+echo "sleep $((1*60*60))"
+sleep $((1*60*60))

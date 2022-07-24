@@ -547,5 +547,6 @@ yay -S libsecret seahorse
 yay -S radeon-profile
 yay -S netdata
 https://github.com/restic/restic # backup to s3
-https://github.com/opf/openproject-deploy vs https://github.com/dixudx/trac-docker
+https://github.com/opf/openproject-deploy # trac user management is tricy
+    docker-compose -p openproject up -d
 https://github.com/muralisc/personal_metrics.git
