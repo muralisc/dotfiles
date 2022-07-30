@@ -1,0 +1,17 @@
+.thunar { 
+    font-size: 16pt 
+}
+
+.thunar toolbar{ 
+    font-size: 12pt 
+}
+
+.thunar .sidebar .view {
+    font-size: 12pt 
+}
+
+/*
+window.thunar {
+    font-size: 18pt 
+}
+*/

@@ -544,8 +544,12 @@ sudo npm install -g ungit
 y -S inxi
 # store system secrets
 yay -S libsecret seahorse
-
-https://github.com/restic/restic backup to s3
+yay -S radeon-profile
+yay -S netdata
+https://github.com/restic/restic # backup to s3
+https://github.com/opf/openproject-deploy # trac user management is tricy
+    docker-compose -p openproject up -d
+https://github.com/muralisc/personal_metrics.git
 
 # preview files using fzf (even images in ssh)
 # $ fzf --header 'E to edit' --preview='pistol {}' --bind 'E:execute(vi {})'

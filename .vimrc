@@ -133,7 +133,7 @@ require'lspconfig'.clangd.setup{
   cmd =  { "clangd", "--background-index" }
 }
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = { "c", "cpp", "lua", "rust", "python" },
   ignore_install = { "javascript", "verilog" },
   highlight = {
     enable = true,
