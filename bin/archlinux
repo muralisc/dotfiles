@@ -546,3 +546,8 @@ y -S inxi
 yay -S libsecret seahorse
 
 https://github.com/restic/restic backup to s3
+
+# preview files using fzf (even images in ssh)
+# $ fzf --header 'E to edit' --preview='pistol {}' --bind 'E:execute(vi {})'
+yay -S chafa pistol-git
+yay -S lnav
