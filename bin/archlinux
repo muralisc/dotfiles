@@ -362,7 +362,7 @@ yay -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 # https://2buntu.com/articles/1503/pgp-and-ssh-keys-generate-export-backup-and-restore
 # http://www.integralist.co.uk/posts/security-basics.html
 # https://alexcabal.com/creating-the-perfect-gpg-keypair
-yay -S --noconfirm gnupg pass
+yay -S --noconfirm gnupg pass # try https://github.com/keepassxreboot/keepassxc
 # i love to learn
 # for pdf backup use firefox,even shows comments
 yay -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader
