@@ -549,3 +549,4 @@ yay -S netdata
 https://github.com/restic/restic # backup to s3
 https://github.com/opf/openproject-deploy vs https://github.com/dixudx/trac-docker
 https://github.com/muralisc/personal_metrics.git
+https://github.com/trailofbits/algo
