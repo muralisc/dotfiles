@@ -362,7 +362,7 @@ yay -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 # https://2buntu.com/articles/1503/pgp-and-ssh-keys-generate-export-backup-and-restore
 # http://www.integralist.co.uk/posts/security-basics.html
 # https://alexcabal.com/creating-the-perfect-gpg-keypair
-yay -S --noconfirm gnupg pass
+yay -S --noconfirm gnupg pass # try https://github.com/keepassxreboot/keepassxc
 # i love to learn
 # for pdf backup use firefox,even shows comments
 yay -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader
@@ -528,14 +528,15 @@ rmlint # remove duplicate files
 # Tried
 #   photonix # ( because it lets me keep the folder structure )
          # browser app is not good, videos are not indexed :(
-#   AND
 #   photoprism # keeps crashing :(
-#
-#   TRYING github.com/photoview/photoview
-Using pigallery2 from https://github.com/pluja/Selfhosted-Google-Photos-Alternative
+# current:
+github.com/photoview/photoview # - for fast access + indexing
+pigallery2 # for folder acceess, also used by memory script
+    # from https://github.com/pluja/Selfhosted-Google-Photos-Alternative)
     # - https://github.com/bpatrik/pigallery2#11-install-and-run-with-docker-recommended
     # - personal repository: 
     # - https://github.com/muralisc/pigallery2-photos
+librephotos # has object tagging (not tried yest)
 
 # git ui -> FredrikNoren/ungit
 sudo npm install -g ungit
@@ -547,6 +548,11 @@ yay -S libsecret seahorse
 yay -S radeon-profile
 yay -S netdata
 https://github.com/restic/restic # backup to s3
-https://github.com/opf/openproject-deploy vs https://github.com/dixudx/trac-docker
+https://github.com/opf/openproject-deploy # trac user management is tricy
+    docker-compose -p openproject up -d
 https://github.com/muralisc/personal_metrics.git
 https://github.com/trailofbits/algo
+
+# preview files using fzf (even images in ssh)
+# $ fzf --header 'E to edit' --preview='pistol {}' --bind 'E:execute(vi {})'
+yay -S chafa pistol-git

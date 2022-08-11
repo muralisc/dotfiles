@@ -1,6 +1,7 @@
 #!/bin/bash
 # custom shell out on mac bar
 # https://github.com/matryer/xbar
+mos
 brew cask install xbar && \
     wget https://gist.githubusercontent.com/muralisc/087c33657d66e4813d6517dc273028e7/raw/6d917ebc447fbd7804eeb3a4e5787d49349af476/countdown_timer_2.1s.py
     plugin Timezone by Toni Hoffmann
