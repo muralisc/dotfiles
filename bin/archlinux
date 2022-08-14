@@ -327,10 +327,11 @@ y -S font-manager
 # most basic stuff
 # unrar is very helpful exp in coverting .cbr to .jpg
 yay -S --noconfirm \
-  sed rsync tar gzip unrar gawk \ # use custom rename
+  sed rsync tar gzip unrar gawk \
   gcc gdb gnuplot grep groff openssh unzip
 # For easy file renaming
-y -S --noconfirm perl-rename vimv
+y -S --noconfirm perl-rename vimv nomino # See other renamers in https://github.com/yaa110/nomino/wiki/Benchmark
+
 # Install lang support
 yay -S --noconfirm nodejs go
 # monitors
