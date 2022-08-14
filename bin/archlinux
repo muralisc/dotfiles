@@ -327,10 +327,11 @@ y -S font-manager
 # most basic stuff
 # unrar is very helpful exp in coverting .cbr to .jpg
 yay -S --noconfirm \
-  sed rsync tar gzip unrar gawk \ # use custom rename
+  sed rsync tar gzip unrar gawk \
   gcc gdb gnuplot grep groff openssh unzip
 # For easy file renaming
-y -S --noconfirm perl-rename vimv
+y -S --noconfirm perl-rename vimv nomino # See other renamers in https://github.com/yaa110/nomino/wiki/Benchmark
+
 # Install lang support
 yay -S --noconfirm nodejs go
 # monitors
@@ -362,7 +363,7 @@ yay -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 # https://2buntu.com/articles/1503/pgp-and-ssh-keys-generate-export-backup-and-restore
 # http://www.integralist.co.uk/posts/security-basics.html
 # https://alexcabal.com/creating-the-perfect-gpg-keypair
-yay -S --noconfirm gnupg pass
+yay -S --noconfirm gnupg pass # try https://github.com/keepassxreboot/keepassxc
 # i love to learn
 # for pdf backup use firefox,even shows comments
 yay -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader

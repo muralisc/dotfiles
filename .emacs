@@ -43,6 +43,7 @@
 (straight-use-package 'org-journal)
 (require 'org-journal)
 (setq org-journal-file-type 'yearly)
+(setq org-journal-file-format "%Y_journal.org")
 
 ;;Ledger
 (straight-use-package 'ledger-mode)
@@ -135,11 +136,8 @@
 (setq org-capture-templates
 '(("t" "Todo" entry (file+headline org-default-notes-file "Tasks")
     "* TODO %?\n  SCHEDULED: %^t\n")
-("w" "Work")
-("wj" "WorkJournal" entry (file+datetree org-default-work-file "Work")
- "* %<%H:%M>  %?\n %i\n")
-("wt" "WorkTodo" entry (file+datetree org-default-work-file "Work")
-    "* TODO %<%H:%M>  %?\n %i\n")))
+("j" "Journal" entry (file+datetree org-not-org-journal-file "ScratchJournal") ;; Not used
+ "* %<%H:%M>  %?\n %i\n")))
 
 
 
