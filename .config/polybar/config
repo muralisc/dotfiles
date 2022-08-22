@@ -7,7 +7,7 @@
 background = #aa111111
 background-alt = #aa111111
 foreground = #d4d6dc
-foreground-occupied = #626784
+foreground-occupied = #8a8eff
 foreground-unfocused = #fa626784
 alert = ${xrdb:color1}
 red = #e27878
@@ -181,7 +181,7 @@ format-connected-prefix = " "
 format-connected = <label-connected>
 format-connected-underline = #9f78e1
 label-connected = %downspeed:08% ^%upspeed:08:9:...%
-format-connected-foreground = #5882FA
+format-connected-foreground = #bbbbff
 
 ; format-disconnected =
 format-disconnected = <label-disconnected>
