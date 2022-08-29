@@ -3,7 +3,7 @@
 export DISPLAY=:0
 export XDG_RUNTIME_DIR="/run/user/1000"
 xdotool key Return
-vlc ~/shared_folders/transfer_london_home/songs/new_songs/ &
+vlc ~/shared_folders/transfer_london_home/songs/new_songs/
 # press xdotool every 19 mins
 COUNT=0
 while true; do

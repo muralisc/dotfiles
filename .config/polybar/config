@@ -7,7 +7,7 @@
 background = #aa111111
 background-alt = #aa111111
 foreground = #d4d6dc
-foreground-occupied = #626784
+foreground-occupied = #8a8eff
 foreground-unfocused = #fa626784
 alert = ${xrdb:color1}
 red = #e27878
