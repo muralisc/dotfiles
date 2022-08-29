@@ -11,7 +11,8 @@ echo "	bash ~/bin/not-recently-played dry ~/data/Songs/ ~/shared_folders/transfe
 fi
 
 copy_command=${1:-echo}
-SONGS_FOLDER="${2:-$HOME/data/Songs/Malayalam}" # TODO comma separated source folders
+SONGS_FOLDERS="${2:-$HOME/data/Songs/Malayalam}"
+SONGS_FOLDER="$(tr ',' ' ' <<< $SONGS_FOLDERS)"
 DEST_FOLDER="${3:-$HOME/shared_folders/transfer_private/songs/cron_songs/}"
 LAST_ACCESS_DATE="${4:-2022-03-28}"
 NO_OF_FILES_TO_COPY="${5:-5}"
