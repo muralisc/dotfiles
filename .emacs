@@ -76,6 +76,8 @@
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 
+(straight-use-package 'htmlize)
+
 ;; Magit
 (straight-use-package 'magit)
 (require 'magit)
@@ -184,16 +186,21 @@
 (setq org-agenda-show-future-repeats nil)
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-use-time-grid t)
+(setq org-columns-default-format
+      "%25ITEM %TODO %3PRIORITY %SCHEDULED")
 (setq org-agenda-custom-commands
-      '(("q" . "Custom Queries")
+      '(
+        ("c" "Todo view for exporting" todo "" ((org-agenda-view-columns-initially t)) ("~/public_html/all-todos.html") )
+        ("X" agenda "" nil ("~/public_html/agenda.html" "~/public_html/agenda.txt"))
+        ("q" . "Custom Queries")
 	;; match those are not scheduled, are not DONE.
         ("qu" "unscheduled TODO tasks" tags "-SCHEDULED={.+}/+TODO|+STARTED|+WAITING")
         ;; match those are not scheduled, are not DONE.
         ("qU" "Unscheduled tasks with no TODO" tags "-SCHEDULED={.+}-TODO={.+}")
 	;; Show only work todos
         ("qw" "Show only work todos" todo "TODO"
-	 ((org-agenda-files '("~/shared_folders/minimal/Pensieve/textfiles/journal/WorkNote.org")))
-	 )
+            ((org-agenda-files '("~/shared_folders/minimal/Pensieve/textfiles/journal/WorkNote.org")))
+        )
         ))
 (setq org-agenda-span 7
       org-agenda-start-on-weekday nil
