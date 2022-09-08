@@ -190,8 +190,8 @@
       "%25ITEM %TODO %3PRIORITY %SCHEDULED")
 (setq org-agenda-custom-commands
       '(
-        ("c" "Todo view for exporting" todo "" ((org-agenda-view-columns-initially t)) ("~/public_html/all-todos.html") )
-        ("X" agenda "" nil ("~/public_html/agenda.html" "~/public_html/agenda.txt"))
+        ("c" "Todo view for exporting" todo "" ((org-agenda-view-columns-initially t)) ("~/public_html/emacs/all-todos.txt") )
+        ("X" agenda "" nil ("~/public_html/emacs/agenda.html" "~/public_html/emacs/agenda.txt"))
         ("q" . "Custom Queries")
 	;; match those are not scheduled, are not DONE.
         ("qu" "unscheduled TODO tasks" tags "-SCHEDULED={.+}/+TODO|+STARTED|+WAITING")

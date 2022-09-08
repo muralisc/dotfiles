@@ -14,4 +14,3 @@
 
 3      9       *   *   *     DISPLAY=:0 ~/src/dotfiles/bin/play_songs_cron
 0      9       *   *   *     crontab -l > ~/src/dotfiles/crontab.bonjikka
-0      21      *   *   *     DISPLAY=:0 emacs -nw -eval "(org-batch-store-agenda-views)" -kill
