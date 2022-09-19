@@ -557,3 +557,6 @@ https://github.com/muralisc/personal_metrics.git
 # $ fzf --header 'E to edit' --preview='pistol {}' --bind 'E:execute(vi {})'
 yay -S chafa pistol-git
 yay -S lnav
+
+# email clients
+yay -S neomutt
