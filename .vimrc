@@ -16,6 +16,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
+  " ggandor/leap.nvim
+  Plug 'ggandor/leap.nvim'
   " preservim/nerdtree: I need to browse files in folder, Using 'go' to see the files
   "     Alternative: use ]f [f with netrw to move to next file in directory
   Plug 'preservim/nerdtree'
@@ -107,13 +109,11 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   "         :vs term://zsh 
   "         ESC -> <c-\><c-n>
   Plug 'akinsho/toggleterm.nvim'
-  "Plug 'TaDaa/vimade'
-  " Colorschemes
-  Plug 'altercation/vim-colors-solarized'
-    set background=dark
-  " let g:solarized_termtrans=1
-  " let g:solarized_termcolors=256
-  " Some colorschemes tested and conclusion
+  " Colorscheme
+  " Some colorscheme tested and conclusion
+  " solarized                - Good
+  " gruvbox                  - Good
+  " apprentice               - Good
   " gotham                   - bad for diff highlight
   " dracula                  - bad for types
   " nord                     - bad for diff highlight
@@ -121,6 +121,11 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " base16-solarized-dark    - GOOD
   " jellybeans               - bad for diff
   " base16-summerfruit-dark  - GOOD
+  " catppuccin               - visual highlighting is not easily visible
+  Plug 'altercation/vim-colors-solarized'
+    set background=dark
+  " let g:solarized_termtrans=1
+  " let g:solarized_termcolors=256
   Plug 'chriskempson/base16-vim'
   Plug 'morhetz/gruvbox'
   Plug 'romainl/Apprentice'
@@ -275,13 +280,16 @@ set diffopt+=vertical                                                           
 set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
 set viewoptions-=options                                                        " to make restore_view work well
-" Adding details for rejected colorschemes here for posterity
-" base16-* solarized gruvbox apprentice
-" catppuccin - visual highlighting is not easily visible
 silent! colorscheme gruvbox
 if &diff
     colorscheme gruvbox
 endif
+lua <<EOF
+require('leap').set_default_keymaps()
+-- color help from : https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
+vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { ctermbg=111, ctermfg=016 , bold = true})
+vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { ctermbg=046, ctermfg=016})
+EOF
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
