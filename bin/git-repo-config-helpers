@@ -6,12 +6,6 @@ git_repo_user_set_muralisc(){
 	git config --local credential.https://github.com.username muralisc
 }
 
-git_repo_user_set_bonjikka(){
-	git config --local user.name "bonjikka" 
-	git config --local user.email "mails.for.twentytwenty@gmail.com"
-	git config --local credential.https://github.com.username bonjikka
-}
-
 git_repo_credentail_agent_keyring() {
 	git config --local credential.helper /usr/lib/git-core/git-credential-libsecret
 }
@@ -20,15 +14,23 @@ git_repo_credentail_agent_cache() {
 	git config --local credential.helper 'cache --timeout=864000'
 }
 
-git_repo_show_configs() {
+git_repo_list_configs() {
     git config --list --local
 }
 
 git_repo_status() {
+# e.g:
+#    git_repo_status
+#    git_repo_status fetch
+need_fetch=$1
 BLUE=$(tput setaf 4)
 for dir in $(find -not -ipath '*qmk_firmware*' -iname '.git'); do
   gitd=$(dirname $dir);
   pushd $gitd > /dev/null
+    if [[ ! -z $need_fetch ]] ; then
+      pwd
+      git fetch
+    fi
     if git status -sb | grep ahead > /dev/null ; then
       echo "${BLUE} $PWD $(tput sgr0)"
       git status -sb;

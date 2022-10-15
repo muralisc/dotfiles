@@ -229,7 +229,7 @@ sudo btrfs subvolume list /data
 
 # df for brtfs
 btrfs filesystem usage /data
-# one more (what is difference) ?
+# one more usage alias
 btrfs filesystem df /data
 # more
 btrfs device usage /data
@@ -327,10 +327,11 @@ y -S font-manager
 # most basic stuff
 # unrar is very helpful exp in coverting .cbr to .jpg
 yay -S --noconfirm \
-  sed rsync tar gzip unrar gawk \ # use custom rename
+  sed rsync tar gzip unrar gawk \
   gcc gdb gnuplot grep groff openssh unzip
 # For easy file renaming
-y -S --noconfirm perl-rename vimv
+y -S --noconfirm perl-rename vimv nomino # See other renamers in https://github.com/yaa110/nomino/wiki/Benchmark
+
 # Install lang support
 yay -S --noconfirm nodejs go
 # monitors
@@ -454,8 +455,8 @@ Option "TapButton3" "2"
 Option "TapButton2" "3"
 Option "TapButton3" "2"
 
-cargo install bat exa fd-find rip-grep watchexec git-delta
-# icdiff is better than git-delta
+cargo install bat exa fd-find rip-grep watchexec git-delta difftastic
+# difftastic = diff-so-fancy > icdiff > git-delta > git diff
 
 # DISK DATA ANALYSERS
 cargo install dua-cli # du-dust is not reccursive
@@ -556,3 +557,7 @@ https://github.com/trailofbits/algo
 # preview files using fzf (even images in ssh)
 # $ fzf --header 'E to edit' --preview='pistol {}' --bind 'E:execute(vi {})'
 yay -S chafa pistol-git
+yay -S lnav
+
+# email clients
+yay -S neomutt
