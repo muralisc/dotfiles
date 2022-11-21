@@ -16,15 +16,14 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  " preservim/nerdtree: I need to browse files in folder, Using 'go' to see the files
-  "     Alternative: use ]f [f with netrw to move to next file in directory
-  Plug 'preservim/nerdtree'
-  " vim-doge: <leader>d to generate doc for function
-  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-  " fswitch: Switch between .cpp and .h files
+  " ggandor/leap.nvim
+  Plug 'ggandor/leap.nvim'
+  " vim-vinegrar Folder navigation ? C u r cd CD
+  Plug 'tpope/vim-vinegar'
   Plug 'derekwyatt/vim-fswitch'
     let g:ale_completion_enabled = 1
-  Plug 'dense-analysis/ale'                                          " Async Syntax checking (with cpp, rust,shellcheck)
+  " 'dense-analysis/ale' Async Syntax checking (with cpp, rust,shellcheck)
+  Plug 'dense-analysis/ale'
     let g:ale_fix_on_save = 1
     let g:ale_fixers = {
     \    'cpp': ['clang-format'],
@@ -39,14 +38,19 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_insert_leave = 1
   let g:ale_lint_on_enter = 0
-  Plug 'mileszs/ack.vim'                                             " Search files
+  " mileszs/ack.vim - Search files
+  Plug 'mileszs/ack.vim'
   if executable('rg')
         let g:ackprg = 'rg --vimgrep'
   endif
   let g:ack_autoclose = 0
   Plug 'ledger/vim-ledger'
-  Plug 'powerman/vim-plugin-viewdoc'                                 " For viewing help files
-  Plug 'tpope/vim-commentary'                                        " map: gcc
+  " powerman/vim-plugin-viewdoc - For viewing help files
+  Plug 'powerman/vim-plugin-viewdoc'
+  Plug 'nvim-tree/nvim-web-devicons'
+  Plug 'nvim-tree/nvim-tree.lua'
+  " 'tpope/vim-commentary' map: gcc
+  Plug 'tpope/vim-commentary'
   Plug 'skywind3000/asyncrun.vim'
   " Surround :help surround
   "     cs'"  - change ' around text to "
@@ -107,13 +111,11 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   "         :vs term://zsh 
   "         ESC -> <c-\><c-n>
   Plug 'akinsho/toggleterm.nvim'
-  "Plug 'TaDaa/vimade'
-  " Colorschemes
-  Plug 'altercation/vim-colors-solarized'
-    set background=dark
-  " let g:solarized_termtrans=1
-  " let g:solarized_termcolors=256
-  " Some colorschemes tested and conclusion
+  " Colorscheme
+  " Some colorscheme tested and conclusion
+  " solarized                - Good
+  " gruvbox                  - Good
+  " apprentice               - Good
   " gotham                   - bad for diff highlight
   " dracula                  - bad for types
   " nord                     - bad for diff highlight
@@ -121,6 +123,11 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " base16-solarized-dark    - GOOD
   " jellybeans               - bad for diff
   " base16-summerfruit-dark  - GOOD
+  " catppuccin               - visual highlighting is not easily visible
+  Plug 'altercation/vim-colors-solarized'
+    set background=dark
+  " let g:solarized_termtrans=1
+  " let g:solarized_termcolors=256
   Plug 'chriskempson/base16-vim'
   Plug 'morhetz/gruvbox'
   Plug 'romainl/Apprentice'
@@ -129,6 +136,8 @@ endif
 if has("nvim")
 
 lua <<EOF
+require("nvim-tree").setup()
+
 require'lspconfig'.clangd.setup{
   cmd =  { "clangd", "--background-index" }
 }
@@ -137,7 +146,7 @@ require'nvim-treesitter.configs'.setup {
   ignore_install = { "javascript", "verilog" },
   highlight = {
     enable = true,
-    disable = { "java", "verilog" },  -- list of language that will be disabled
+    disable = { "java", "verilog" },
   },
 }
 require("toggleterm").setup{
@@ -163,12 +172,11 @@ function _G.set_terminal_keymaps()
   vim.api.nvim_buf_set_keymap(0, 't', '<A-k>', [[<C-\><C-n><C-W>k]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<A-l>', [[<C-\><C-n><C-W>l]], opts)
 end
-
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 EOF
 endif
-"}}}1 ===========================================================Vundle setup done
+"}}}1 ========================================================Vundle setup done
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
@@ -273,15 +281,19 @@ set nospell spelllang=en_us
 set colorcolumn=80,132                                                          " Github limit
 set diffopt+=vertical                                                           " default split method is to split in a verical split
 set dictionary=/usr/share/dict/cracklib-small
-set tags=tags;~,my-tags;~                                                       " seach for tags|TAGS|my-tags and bubble up till home direcotry
+" seach for tags|my-tags and bubble up till home direcotry
+set tags=tags;~,my-tags;~
 set viewoptions-=options                                                        " to make restore_view work well
-" Adding details for rejected colorschemes here for posterity
-" base16-* solarized gruvbox apprentice
-" catppuccin - visual highlighting is not easily visible
 silent! colorscheme gruvbox
 if &diff
     colorscheme gruvbox
 endif
+lua <<EOF
+require('leap').set_default_keymaps()
+-- color help from : https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
+vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { ctermbg=111, ctermfg=016 , bold = true})
+vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { ctermbg=046, ctermfg=016})
+EOF
 "}}} Basic Settings
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
@@ -401,5 +413,6 @@ let g:tmux_navigator_no_mappings = 0
 vnoremap <leader>db !boxes -d stone -p v1 -a hc -s 80
 " xb - delete box
 vnoremap <leader>xb !boxes -r<CR>
+nnoremap <leader>fn :NvimTreeFindFile<cr>
 " After yanking in visual mode move cursor to the end of  the selection
 vnoremap y ygv<Esc>

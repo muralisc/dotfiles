@@ -38,6 +38,7 @@ ARROWS='%B%F{red}❯%F{green}❯%F{blue}❯%f%b'
 DOLLAR=' %B%F{blue}$%f%b'
 # Add color at end for giving color to user input
 PS1='${VIMODE} %F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} %F{white}%B'
+PS1='${VIMODE} %F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} %B'
 # Reset so that command output is set to default colors
 preexec () { echo -ne "\e[0m" }
 if [[ -n $SSH_CONNECTION ]]; then
