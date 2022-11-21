@@ -28,4 +28,5 @@ for file_path in $(find $SRC_DIR -iname "*jpg" -not -ipath "*converted*"); do
     :
   fi
 done
-echo "Duplicate file cost:" $COST | bc | numfmt --to=iec
+echo "Duplicate file cost:"
+echo $COST | bc | numfmt --to=iec

@@ -385,7 +385,8 @@ y -S syncthing syncthing-gtk
 # remote tools ( use tigervnc/barrier instead of KVM switch for keyboard and mouse sharing )
 yay -S --noconfirm tigervnc sshfs barrier
 # i dont like mouse
-yay -S --noconfirm keynav-git
+# keynav is deprecated, warpd is better
+yay -S --noconfirm warpd-git keynav-git
 # but for gaming mouse is needed, add solar for connecting logitech unifying mouse
 yay -S --noconfirm solaar
 # i like to type better; keylogger ;)
@@ -522,7 +523,9 @@ y -S key-mon
 xournalpp
 xkeysnail
 
-rawtherapee   # Choosing rawtherapee for now, alternative darktable
+art-rawconverter # port of rawtherapee with exifsupport
+rawtherapee # what is better here: good export settings
+darktable # can export CR3 with metadata, but no good export settings.
 rmlint # remove duplicate files
 
 # photomanagement
