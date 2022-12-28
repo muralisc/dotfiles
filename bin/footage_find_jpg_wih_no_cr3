@@ -2,7 +2,7 @@
 # This script is used to find the jpg for which the CR3 has been deleted
 
 # e.g:
-#   bash ~/src/dotfiles/bin/find_jpg_wih_no_cr3 ~/data/footage/2021
+#   bash ~/src/dotfiles/bin/footage_find_jpg_wih_no_cr3 ~/data/footage/2021
 
 SRC_DIR=${1:-~/data/footage/2022}
 echo "Using source : $SRC_DIR"

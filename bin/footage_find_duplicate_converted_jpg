@@ -4,7 +4,7 @@
 # The duplicate jpg files can be deleted if the size they consume is high
 
 # e.g:
-#   bash ~/src/dotfiles/bin/find_duplicate_converted_jpg ~/data/footage/2021
+#   bash ~/src/dotfiles/bin/footage_find_duplicate_converted_jpg ~/data/footage/2021
 
 SRC_DIR=${1:-~/data/footage/2021}
 echo "Using source : $SRC_DIR"
