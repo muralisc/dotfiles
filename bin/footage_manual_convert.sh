@@ -15,7 +15,7 @@ echo find $SOURCE_ROOT -regex "$PATH_REGEX"
 
 mkdir -p $DESTINATION_ROOT
 
-for file_path in $(find $SOURCE_ROOT -regex "$PATH_REGEX"); do
+for file_path in $(find $SOURCE_ROOT -type f -regex "$PATH_REGEX"); do
     echo "----------------------"
     echo "Converting: $file_path"
     FILE_DIRECTORY=$(dirname $file_path)

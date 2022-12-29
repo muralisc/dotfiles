@@ -1,0 +1,3 @@
+#!/bin/bash
+
+find -regex ".*\(jpg\|JPG\|CR3\)" -exec du -ch {} +
