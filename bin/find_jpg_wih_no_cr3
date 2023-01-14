@@ -1,16 +1,14 @@
 #!/bin/bash
-# This script is used to find the jpg which is also converted into jpg 
-# along with cr3 raw files
-# The duplicate jpg files can be deleted if the size they consume is high
+# This script is used to find the jpg for which the CR3 has been deleted
 
 # e.g:
-#   bash ~/src/dotfiles/bin/find_duplicate_converted_jpg ~/data/footage/2021
+#   bash ~/src/dotfiles/bin/find_jpg_wih_no_cr3 ~/data/footage/2021
 
-SRC_DIR=${1:-~/data/footage/2021}
+SRC_DIR=${1:-~/data/footage/2022}
 echo "Using source : $SRC_DIR"
 
 COST="0"
-for file_path in $(find $SRC_DIR -iname "*jpg" -not -ipath "*converted*"); do
+for file_path in $(find $SRC_DIR -iname "*jpg" -ipath "*converted*"); do
   root_path=$(dirname $file_path)
   jpg_filename=$(basename $file_path)
   # check if extension is small case or CAPS
@@ -19,9 +17,9 @@ for file_path in $(find $SRC_DIR -iname "*jpg" -not -ipath "*converted*"); do
   else
     jpg_filename_nosuffix=$(basename $file_path .JPG)
   fi
-  converted_file="converted/${jpg_filename_nosuffix}.jpg"
-  if [[ -f $root_path/$converted_file ]] ; then
-    echo "Converted File found for :" $file_path
+  orig_file="${jpg_filename_nosuffix}.CR3"
+  if [[ ! -f $root_path/../$orig_file ]] ; then
+    echo "Original File not found for :" $file_path
     COST+="+$(du $file_path | awk '{print $1}')"
   else
     # echo "Converted File not found for :" $file_path
@@ -30,3 +28,4 @@ for file_path in $(find $SRC_DIR -iname "*jpg" -not -ipath "*converted*"); do
 done
 echo "Duplicate file cost:"
 echo $COST | bc | numfmt --to=iec
+
