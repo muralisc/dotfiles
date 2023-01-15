@@ -196,7 +196,7 @@ interval = 30
 
 [module/date-la]
 type = custom/script
-exec = TZ=America/LosAngeles date +"LA %H:%M"
+exec = TZ=America/Los_Angeles date +"LA %H:%M"
 interval = 30
 
 [module/date]
