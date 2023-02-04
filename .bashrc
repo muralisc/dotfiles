@@ -71,3 +71,5 @@ fi
 # source local file
 [ ! -f "$HOME/.shrc.local" ] || source "$HOME/.shrc.local"
 source "$HOME/.cargo/env"
+
+source /home/murali/.config/broot/launcher/bash/br

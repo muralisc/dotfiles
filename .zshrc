@@ -92,3 +92,5 @@ source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # source local file
 [ ! -f "$HOME/.shrc.local" ] || source "$HOME/.shrc.local"
+
+source /home/murali/.config/broot/launcher/bash/br

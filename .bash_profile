@@ -9,3 +9,5 @@ source ~/.bashrc
 source ~/bin/check_and_startx
 
 #CHEF.NO.SOURCE
+
+source /home/murali/.config/broot/launcher/bash/br
