@@ -4,6 +4,7 @@ git_repo_user_set_muralisc(){
 	git config --local user.name "muralisc" 
 	git config --local user.email "muralisc@gmail.com"
 	git config --local credential.https://github.com.username muralisc
+	git config --local credential.https://bitbucket.org.username muralisc
 }
 
 git_repo_credentail_agent_keyring() {
