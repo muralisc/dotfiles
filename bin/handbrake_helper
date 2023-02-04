@@ -1,0 +1,5 @@
+preset="Very Fast 1080p30"
+preset="Fast 1080p30";
+mediafilepath="$1"
+mediafilepath_noext=$(sed -E 's/(.+)\.[^.]+/\1/' <<< "$mediafilepath")
+HandBrakeCLI -Z "$preset" -i "$mediafilepath" -o "${mediafilepath_noext}-${preset}"
