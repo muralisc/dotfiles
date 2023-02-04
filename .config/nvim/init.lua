@@ -34,6 +34,7 @@ require("packer").startup(function()
       },
     },
   })
+use { 'christoomey/vim-tmux-navigator' }
 end)
 vim.opt.list = true
 vim.opt.listchars:append("tab:> ")
