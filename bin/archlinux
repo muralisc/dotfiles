@@ -351,6 +351,15 @@ systemctl --user start mpd
 yay -S --noconfirm \
 	ranger-git w3m ffmpeg ffmpegthumbnailer \
 	imagemagick mediainfo ueberzug
+
+cargo install broot
+# DISK DATA ANALYSERS
+cargo install dua-cli # du-dust is not reccursive
+y -S nnn ncdu
+# ncdu as backup
+# nnn -T a  -> same purpose as `dua i`
+# in ranger -> `vdcv` to get size in folder and `os` to sort by size
+
 # MOBILE
 yay -S --noconfirm jmtpfs
 # i love beauty
@@ -458,12 +467,6 @@ Option "TapButton3" "2"
 cargo install bat exa fd-find rip-grep watchexec git-delta difftastic
 # difftastic = diff-so-fancy > icdiff > git-delta > git diff
 
-# DISK DATA ANALYSERS
-cargo install dua-cli # du-dust is not reccursive
-y -S nnn ncdu
-# ncdu as backup
-# nnn -T a  -> same purpose as `dua i`
-# in ranger -> `vdcv` to get size in folder and `os` to sort by size
 
 y -S alacritty xzoom rxvt-unicode-truecolor
 
