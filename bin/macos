@@ -10,8 +10,9 @@ Karabiner && hammerspoon
 # better mouse
 https://github.com/Caldis/Mos
 # Dont use mouse
-vimac
-Xeasymotion - keynav for mac
+vimac && warpd
+# deprecated Xeasymotion - keynav for mac, 
+#   - warpd is better
 # Take breaks
 hovancik/stretchly
 clipper # https://github.com/wincent/clipper (Remote clipboard)
@@ -27,3 +28,4 @@ download nightly v0.8.0-dev-nightly-4-ge9b58a619
 mv nvim-macos/bin/nvim /usr/local/bin
 
 KeyCastr
+OmniDiskSweeper  - For kurukus laptop storage sort
