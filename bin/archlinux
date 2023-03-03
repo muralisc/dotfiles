@@ -567,3 +567,5 @@ yay -S lnav
 
 # email clients
 yay -S neomutt
+
+yay -Ss autokey-gtk

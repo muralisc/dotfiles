@@ -14,4 +14,4 @@ add Control = Control_L Control_R
 ! Left control(37)
 ! set 37 as a special modifier (ISO_Level3_Shift), 
 ! which corresponds to the third entry in the /usr/share/X11/xkb/symbols/us file for the hjkl mappings.
-keycode 37 = ISO_Level3_Shift
+! keycode 37 = ISO_Level3_Shift
