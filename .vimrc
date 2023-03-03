@@ -16,34 +16,14 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  " ggandor/leap.nvim
+  " ggandor/leap.nvim - mapped to s in 'normal' mode
+  " Usecase:
+  "     Jump to a location in visible buffer area - use leap
+  "     Jump to a location in any buffer area - use native vim search
   Plug 'ggandor/leap.nvim'
   " vim-vinegrar Folder navigation ? C u r cd CD
   Plug 'tpope/vim-vinegar'
   Plug 'derekwyatt/vim-fswitch'
-    let g:ale_completion_enabled = 1
-  " 'dense-analysis/ale' Async Syntax checking (with cpp, rust,shellcheck)
-  Plug 'dense-analysis/ale'
-    let g:ale_fix_on_save = 1
-    let g:ale_fixers = {
-    \    'cpp': ['clang-format'],
-    \}
-  let g:ale_cpp_clang_options = '-std=c++17 -Wall'
-  let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++1z'
-  let g:ale_linters = {
-        \'c': ['clang'],
-        \'cpp': ['clang', 'gcc'],
-        \'go': ['golangci-lint', 'gofmt', 'go vet']
-  \}
-  let g:ale_lint_on_text_changed = 'normal'
-  let g:ale_lint_on_insert_leave = 1
-  let g:ale_lint_on_enter = 0
-  " mileszs/ack.vim - Search files
-  Plug 'mileszs/ack.vim'
-  if executable('rg')
-        let g:ackprg = 'rg --vimgrep'
-  endif
-  let g:ack_autoclose = 0
   Plug 'ledger/vim-ledger'
   " powerman/vim-plugin-viewdoc - For viewing help files
   Plug 'powerman/vim-plugin-viewdoc'
@@ -131,16 +111,42 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'chriskempson/base16-vim'
   Plug 'morhetz/gruvbox'
   Plug 'romainl/Apprentice'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'jose-elias-alvarez/null-ls.nvim'
   call plug#end()
 endif
 if has("nvim")
 
 lua <<EOF
-require("nvim-tree").setup()
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
 
 require'lspconfig'.clangd.setup{
   cmd =  { "clangd", "--background-index" }
 }
+require("nvim-tree").setup()
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "c", "cpp", "lua", "rust", "python" },
   ignore_install = { "javascript", "verilog" },
@@ -172,6 +178,7 @@ function _G.set_terminal_keymaps()
   vim.api.nvim_buf_set_keymap(0, 't', '<A-k>', [[<C-\><C-n><C-W>k]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<A-l>', [[<C-\><C-n><C-W>l]], opts)
 end
+
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 EOF
@@ -413,6 +420,7 @@ let g:tmux_navigator_no_mappings = 0
 vnoremap <leader>db !boxes -d stone -p v1 -a hc -s 80
 " xb - delete box
 vnoremap <leader>xb !boxes -r<CR>
+" Using same mapping as spacemacs for opening treemacs
 nnoremap <leader>fn :NvimTreeFindFile<cr>
 " After yanking in visual mode move cursor to the end of  the selection
 vnoremap y ygv<Esc>

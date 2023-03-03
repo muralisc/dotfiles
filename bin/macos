@@ -27,4 +27,5 @@ https://github.com/neovim/neovim/releases
 download nightly v0.8.0-dev-nightly-4-ge9b58a619
 mv nvim-macos/bin/nvim /usr/local/bin
 
+KeyCastr
 OmniDiskSweeper  - For kurukus laptop storage sort
