@@ -14,11 +14,11 @@
 " Set as 'not compatible' with the old-fashion vi mode
 set nocompatible
 
-
 "---------------------------------------------------------------------------
 " vim-plug setup
 "---------------------------------------------------------------------------
 " {{{
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -42,7 +42,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " vim-commentary map: gcc
   Plug 'tpope/vim-commentary'
   Plug 'skywind3000/asyncrun.vim'
-  " Surround :help surround
+  " vim-surround see `:help surround`
   "     cs'"  - change ' around text to "
   "     ysiW) - add ) around word
   Plug 'tpope/vim-surround'
