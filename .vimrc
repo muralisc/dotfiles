@@ -26,7 +26,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
-  " ggandor/leap.nvim - mapped to s in 'normal' mode
+  " leap.nvim - mapped to s in 'normal' mode
   " Usecase:
   "     Jump to a location in visible buffer area - use leap
   "     Jump to a location in any buffer area - use native vim search
@@ -35,11 +35,11 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'tpope/vim-vinegar'
   Plug 'derekwyatt/vim-fswitch'
   Plug 'ledger/vim-ledger'
-  " powerman/vim-plugin-viewdoc - For viewing help files
+  " vim-plugin-viewdoc - For viewing help files
   Plug 'powerman/vim-plugin-viewdoc'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'nvim-tree/nvim-tree.lua'
-  " 'tpope/vim-commentary' map: gcc
+  " vim-commentary map: gcc
   Plug 'tpope/vim-commentary'
   Plug 'skywind3000/asyncrun.vim'
   " Surround :help surround
@@ -69,16 +69,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'chazy/cscope_maps'
   Plug 'itchyny/lightline.vim'
-    let g:lightline = {
-        \ 'colorscheme': 'ayu_dark',
-        \ 'component_function': {
-        \   'filename': 'LightLineFilename'
-        \ },
-        \ }
-    function! LightLineFilename()
-      " Get shrinked current working directory and filename
-      return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
-    endfunction
   Plug 'airblade/vim-rooter'
   let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
   let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
@@ -87,15 +77,15 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   let g:UltiSnipsListSnippets="<c-tab>"
   Plug 'honza/vim-snippets'
   Plug 'muralisc/snippets'
-  " 'bfredl/nvim-miniyank' block paste fix for nvim
+  " nvim-miniyank block paste fix for nvim
   Plug 'bfredl/nvim-miniyank'
-  " whiteinge/diffconflicts - easily address diffconfilicts in nvim :DiffConflicts
+  " diffconflicts - easily address diffconfilicts in nvim :DiffConflicts
   Plug 'whiteinge/diffconflicts'
   " Non-essential
   Plug 'junegunn/rainbow_parentheses.vim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'neovim/nvim-lspconfig'
-  " akinsho/toggleterm.nvim (c-t, esc:c-j)
+  " toggleterm.nvim (c-t, esc:c-j)
   "     Default Alternative 
   "         :sp term://zsh or 
   "         :vs term://zsh 
@@ -180,9 +170,24 @@ silent! colorscheme gruvbox
 if &diff
     colorscheme gruvbox
 endif
+" allow the cursor to go in to 'invalid' places
+set virtualedit=block
+" enable using the mouse if terminal emulator supports it (xterm does)
+set mouse=a
+" Settings for choosing an EOL setting for a file
+set fileformats="unix,dos,mac"
+" When wrapping paragraphs, don't end lines with 1-letter words (looks stupid)
+set formatoptions+=1
+" dont consided zero padded numbers as octal or hex (<C-a> and <C-x> works well !! )
+set nrformats=
+" hide buffers instead of closing them with unwritten changes
+set hidden
+" reveal already opened files instead of opening new buffers
+set switchbuf=useopen
 
 " --- Search settings
 
+" {{{
 " show search matches as you type
 set incsearch
 " search/replace 'globally' (on a line) by default
@@ -191,8 +196,10 @@ set gdefault
 set ignorecase
 " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set smartcase
+" }}}
 
-" --- Vim commands 
+" --- Vim commands
+
 " {{{
 
 " tab completion for files/buffers in vim commands like bash
@@ -213,8 +220,7 @@ set showcmd
 set history=1000
 " }}}
 
-
-" -- Editing - Basic Settings influencing edition behavior
+" --- Editing - Basic Settings influencing edition behavior
 
 " {{{
 set nofixendofline
@@ -277,24 +283,21 @@ let g:netrw_winsize = 15
 set showmode
 " }}}
 
+" --- Undo/'Getting lost things' settings
 
-set virtualedit=block                                                           " allow the cursor to go in to 'invalid' places
-set mouse=a                                                                     " enable using the mouse if terminal emulator supports it (xterm does)
-" Settings for choosing an EOL setting for a file
-set fileformats="unix,dos,mac"
-" When wrapping paragraphs, don't end lines with 1-letter words (looks stupid)
-set formatoptions+=1                                                            
-" dont consided zero padded numbers as octal or hex (<C-a> and <C-x> works well !! )
-set nrformats=
-set hidden                                                                      " hide buffers instead of closing them with unwritten changes
-set switchbuf=useopen                                                           " reveal already opened files instead of opening new buffers
-
-set undolevels=1000                                                             " use many muchos levels of undo
-set nobackup                                                                    " do not keep backup files, it's 70's style
-set noswapfile                                                                  " do not write annoying intermediate swap files,
-set undofile                                                                    " keep an undo file (undo changes after closing)
+" {{{
+" use many muchos levels of undo
+set undolevels=1000
+" do not keep backup files, it's 70's style
+set nobackup
+" do not write annoying intermediate swap files,
+set noswapfile
+" keep an undo file (undo changes after closing)
+set undofile
 set undodir=~/.vim/vimundo
-set directory=~/.vim/.tmp,/tmp                                                  " store swap files in one of these directories (in case swapfile is ever turned on)
+" store swap files in one of these directories (in case swapfile is ever turned on)
+set directory=~/.vim/.tmp,/tmp
+" }}}
 
 "}}} Basic Settings
 
@@ -393,6 +396,7 @@ augroup end
 "---------------------------------------------------------------------------
 " Plugin Specific Settings
 "---------------------------------------------------------------------------
+" {{{
 
 " --- For powerman/vim-plugin-viewdoc
 
@@ -439,6 +443,19 @@ nnoremap <leader>pf :FZF! +s --tac <CR>
 " See: https://develop.spacemacs.org/doc/DOCUMENTATION.html
 nnoremap <leader>fr :History <CR>
 
+" --- For itchyny/lightline.vim
+
+let g:lightline = {
+    \ 'colorscheme': 'ayu_dark',
+    \ 'component_function': {
+    \   'filename': 'LightLineFilename'
+    \ },
+    \ }
+function! LightLineFilename()
+  " Get shrinked current working directory and filename
+  return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
+endfunction
+" }}}
 
 "---------------------------------------------------------------------------
 " LUA settings
