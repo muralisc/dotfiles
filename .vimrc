@@ -153,20 +153,53 @@ syntax on
 set vb t_vb=
 " set 256 colors in vim
 set t_Co=256
+" A little bit more time for macros
+set timeoutlen=1200 
+" Make Esc work faster
+set ttimeoutlen=50  
+" don't wrap lines
+set nowrap
+" use multiple of shiftwidth when indenting with '<' and '>'
+set shiftround
+" ignore case when searching
+set ignorecase
 
+" --- Vim commands 
+" {{{
+
+" tab completion for files/buffers in vim commands like bash
+set wildmenu
+" Complete till the longest match in command
+set wildmode=longest,full                        
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set wildignore+=*/node_modules/*
+" ignore case while filename complete
+set wildignorecase
+" don't beep
+set visualbell
+" don't beep
+set noerrorbells
+" show (partial) command at right bottom; this also shows visual selection info
+set showcmd
+" }}}
+
+
+" -- Editing - Basic Settings influencing edition behavior
+
+" {{{
 set nofixendofline
-set timeoutlen=1200 " A little bit more time for macros
-set ttimeoutlen=50  " Make Esc work faster
-set nowrap                                                                      " don't wrap lines
-
-" Editing {{{
 " show invisible charecters
 set list
 " If 'set list' is enabled, the invisible characters are show using listchars
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
-set tabstop=4                                                                   " a tab is four spaces
-set softtabstop=4                                                               " when hitting <BS>, delete 4 spaces insted of 1
-set expandtab                                                                   " expand tabs by default (overloadable per file type later)
+" a tab is four spaces
+set tabstop=4
+" when hitting <BS>, delete 4 spaces insted of 1
+set softtabstop=4
+" expand tabs by default (overloadable per file type later)
+set expandtab
+" insert tabs on the start of a line according to shiftwidth, not tabstop
+set smarttab
 set shiftwidth=4                                                                " number of spaces to use for autoindenting
 set autoindent                                                                  " always set autoindenting on
 set copyindent                                                                  " copy the previous indentation on autoindenting
@@ -184,10 +217,8 @@ if has('mac')
 endif
 " }}}
 
-set shiftround                                                                  " use multiple of shiftwidth when indenting with '<' and '>'
-set ignorecase                                                                  " ignore case when searching
+" --- UI - Settings influencing UI behaviors 
 
-" UI - Settings influencing UI behaviors 
 " {{{
 " Read a changed file on disk
 set autoread
@@ -215,7 +246,6 @@ set showmode
 " }}}
 
 set smartcase                                                                   " ignore case if search pattern is all lowercase, case-sensitive otherwise
-set smarttab                                                                    " insert tabs on the start of a line according to shiftwidth, not tabstop
 set virtualedit=block                                                           " allow the cursor to go in to 'invalid' places
 set incsearch                                                                   " show search matches as you type
 set gdefault                                                                    " search/replace 'globally' (on a line) by default
@@ -235,16 +265,6 @@ set undodir=~/.vim/vimundo
 set directory=~/.vim/.tmp,/tmp                                                  " store swap files in one of these directories (in case swapfile is ever turned on)
 set viminfo='500,<80                                                            " read/write a .viminfo file, don't store more than 80 lines of registers
 set textwidth=132        " not 80 cause helps in vs mode
-" Ease of Use {{{
-set wildmenu                                                                    " tab completion for files/buffers like bash
-set wildmode=longest,full                                                       " Complete till the longest match in command
-set wildignore=*.swp,*.bak,*.pyc,*.class
-set wildignore+=*/node_modules/*
-set wildignorecase                                                              " ignore case while filename complete
-set visualbell                                                                  " don't beep
-set noerrorbells                                                                " don't beep
-set showcmd                                                                     " show (partial) command at right bottom; this also shows visual selection info
-" }}} Ease of Use "
 set modeline
 " always use a fast terminal
 set ttyfast
