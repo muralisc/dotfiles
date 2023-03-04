@@ -161,8 +161,36 @@ set ttimeoutlen=50
 set nowrap
 " use multiple of shiftwidth when indenting with '<' and '>'
 set shiftround
+set viminfo='500,<80                                                            " read/write a .viminfo file, don't store more than 80 lines of registers
+set textwidth=80
+set modeline
+" always use a fast terminal
+set ttyfast
+set nospell spelllang=en_us
+" Github limit
+set colorcolumn=80,132
+" default split method is to split in a verical split
+set diffopt+=vertical
+set dictionary=/usr/share/dict/cracklib-small
+" seach for tags|my-tags and bubble up till home direcotry
+set tags=tags;~,my-tags;~
+" to make restore_view work well
+set viewoptions-=options
+silent! colorscheme gruvbox
+if &diff
+    colorscheme gruvbox
+endif
+
+" --- Search settings
+
+" show search matches as you type
+set incsearch
+" search/replace 'globally' (on a line) by default
+set gdefault
 " ignore case when searching
 set ignorecase
+" ignore case if search pattern is all lowercase, case-sensitive otherwise
+set smartcase
 
 " --- Vim commands 
 " {{{
@@ -181,6 +209,8 @@ set visualbell
 set noerrorbells
 " show (partial) command at right bottom; this also shows visual selection info
 set showcmd
+" remember more commands and search history
+set history=1000
 " }}}
 
 
@@ -215,6 +245,8 @@ endif
 if has('mac')
   set guifont=FreeMono:h16
 endif
+" Use normal mode paste from "+y (press <F2> to go to 'paste' mode,( prevent auto indenting ))
+" set pastetoggle=<F2>                                                          
 " }}}
 
 " --- UI - Settings influencing UI behaviors 
@@ -245,47 +277,31 @@ let g:netrw_winsize = 15
 set showmode
 " }}}
 
-set smartcase                                                                   " ignore case if search pattern is all lowercase, case-sensitive otherwise
+
 set virtualedit=block                                                           " allow the cursor to go in to 'invalid' places
-set incsearch                                                                   " show search matches as you type
-set gdefault                                                                    " search/replace 'globally' (on a line) by default
-" set pastetoggle=<F2>                                                          " Use normal mode paste from "+y (press <F2> to go to 'paste' mode,( prevent auto indenting ))
 set mouse=a                                                                     " enable using the mouse if terminal emulator supports it (xterm does)
+" Settings for choosing an EOL setting for a file
 set fileformats="unix,dos,mac"
-set formatoptions+=1                                                            " When wrapping paragraphs, don't end lines with 1-letter words (looks stupid)
-set nrformats=                                                                  " dont consided zero padded numbers as octal or hex (<C-a> and <C-x> works well !! )
+" When wrapping paragraphs, don't end lines with 1-letter words (looks stupid)
+set formatoptions+=1                                                            
+" dont consided zero padded numbers as octal or hex (<C-a> and <C-x> works well !! )
+set nrformats=
 set hidden                                                                      " hide buffers instead of closing them with unwritten changes
 set switchbuf=useopen                                                           " reveal already opened files instead of opening new buffers
-set history=1000                                                                " remember more commands and search history
+
 set undolevels=1000                                                             " use many muchos levels of undo
 set nobackup                                                                    " do not keep backup files, it's 70's style
 set noswapfile                                                                  " do not write annoying intermediate swap files,
 set undofile                                                                    " keep an undo file (undo changes after closing)
 set undodir=~/.vim/vimundo
 set directory=~/.vim/.tmp,/tmp                                                  " store swap files in one of these directories (in case swapfile is ever turned on)
-set viminfo='500,<80                                                            " read/write a .viminfo file, don't store more than 80 lines of registers
-set textwidth=132        " not 80 cause helps in vs mode
-set modeline
-" always use a fast terminal
-set ttyfast
-set nospell spelllang=en_us
-" Github limit
-set colorcolumn=80,132
-" default split method is to split in a verical split
-set diffopt+=vertical
-set dictionary=/usr/share/dict/cracklib-small
-" seach for tags|my-tags and bubble up till home direcotry
-set tags=tags;~,my-tags;~
-" to make restore_view work well
-set viewoptions-=options
-silent! colorscheme gruvbox
-if &diff
-    colorscheme gruvbox
-endif
+
 "}}} Basic Settings
 
 " Folding Rules {{{
-set foldenable                                                                  " enable folding
+
+" enable folding
+set foldenable
 set foldcolumn=0                                                                " add a fold column
 set foldmethod=marker                                                           " detect triple-{ style fold markers [marker indent]
 set foldlevel=99                                                                " 0-foldall 99-unfoldall
