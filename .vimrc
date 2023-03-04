@@ -18,7 +18,7 @@ set nocompatible
 "---------------------------------------------------------------------------
 " vim-plug setup
 "---------------------------------------------------------------------------
-
+" {{{
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -125,81 +125,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'jose-elias-alvarez/null-ls.nvim'
   call plug#end()
 endif
-
-"---------------------------------------------------------------------------
-
-if has("nvim")
-lua <<EOF
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-end
-
-require'lspconfig'.clangd.setup{
-  cmd =  { "clangd", "--background-index" }
-}
-require("nvim-tree").setup()
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "cpp", "lua", "rust", "python" },
-  ignore_install = { "javascript", "verilog" },
-  highlight = {
-    enable = true,
-    disable = { "java", "verilog" },
-  },
-}
-require("toggleterm").setup{
-  size = function(term)
-    if term.direction == "horizontal" then
-      return 15
-    elseif term.direction == "vertical" then
-      return vim.o.columns * 0.5
-    end
-  end,
-  open_mapping = [[<c-t>]],
-  shade_terminals = true,
-  shading_factor = 9,
-  persist_size = true,
-  direction = 'vertical',
-  start_in_insert = false,
-}
-function _G.set_terminal_keymaps()
-  local opts = {noremap = true}
-  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-h>', [[<C-\><C-n><C-W>h]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-j>', [[<C-\><C-n><C-W>j]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-k>', [[<C-\><C-n><C-W>k]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-l>', [[<C-\><C-n><C-W>l]], opts)
-end
-
--- if you only want these mappings for toggle term use term://*toggleterm#* instead
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-
-require('leap').set_default_keymaps()
--- color help from : https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
-vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { ctermbg=111, ctermfg=016 , bold = true})
-vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { ctermbg=046, ctermfg=016})
-EOF
-endif
+" }}}
 
 "---------------------------------------------------------------------------
 " GUI settings
@@ -209,21 +135,27 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L
+
 " Basic Settings {{{
 " Enable filetype detection
 filetype on
 " Enable filetype-specific indenting
 filetype indent on
-filetype plugin on                                                              " Enable filetype-specific plugins
+" Enable filetype-specific plugins
+filetype plugin on
 " syntax highlight
 syntax on
-set vb t_vb=                                                                    " prevent screen flasing on multiple esc
-set t_Co=256                                                                    " set 256 colors in vim
+" prevent screen flasing on multiple esc
+set vb t_vb=
+" set 256 colors in vim
+set t_Co=256
 
 " https://shapeshed.com/vim-netrw/
-let g:netrw_preview = 1                                                         " Split Vertical
+" Split Vertical
+let g:netrw_preview = 1
 let g:netrw_winsize = 15
-" set autoread: read a changed file on disk
+" Read a changed file on disk
+" set autoread
 set autoread
 set showmode                                                                    " always show what mode we're currently editing in
 set nofixendofline
@@ -332,8 +264,11 @@ set laststatus=2                                                                
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 
-" Shortcut Mappings {{{
-" resize
+"---------------------------------------------------------------------------
+" Shortcut Mappings
+"---------------------------------------------------------------------------
+" {{{
+" Resize
 nnoremap <Up>    5<c-w>+
 nnoremap <Down>  5<c-w>-
 nnoremap <Right> 5<c-w>>
@@ -359,6 +294,7 @@ let maplocalleader="\<Space>"
 nnoremap <leader>n :nohlsearch<CR>
 " Find in files:
 nnoremap <leader>/ :Rg!
+" Find in files with word under cursor
 nnoremap <leader>* :Rg!<C-R><C-W>
 " FZF is faster than CtrlP for finding files in Directories (pf - after projectile find, using same as spacemacs)
 nnoremap <leader>pf :FZF! +s --tac <CR>
@@ -412,9 +348,10 @@ augroup gitsetup
 augroup end
 "}}} Filetype Specific Settings
 
-" Plugin Specific Settings ====================================================
+"---------------------------------------------------------------------------
+" Plugin Specific Settings
+"---------------------------------------------------------------------------
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
-" Plugin Specific Settings ================================================
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
@@ -445,3 +382,80 @@ vnoremap <leader>xb !boxes -r<CR>
 nnoremap <leader>fn :NvimTreeFindFile<cr>
 " After yanking in visual mode move cursor to the end of  the selection
 vnoremap y ygv<Esc>
+
+"---------------------------------------------------------------------------
+" LUA settings
+"---------------------------------------------------------------------------
+
+if has("nvim")
+lua <<EOF
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
+
+require'lspconfig'.clangd.setup{
+  cmd =  { "clangd", "--background-index" }
+}
+require("nvim-tree").setup()
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "c", "cpp", "lua", "rust", "python" },
+  ignore_install = { "javascript", "verilog" },
+  highlight = {
+    enable = true,
+    disable = { "java", "verilog" },
+  },
+}
+require("toggleterm").setup{
+  size = function(term)
+    if term.direction == "horizontal" then
+      return 15
+    elseif term.direction == "vertical" then
+      return vim.o.columns * 0.5
+    end
+  end,
+  open_mapping = [[<c-t>]],
+  shade_terminals = true,
+  shading_factor = 9,
+  persist_size = true,
+  direction = 'vertical',
+  start_in_insert = false,
+}
+function _G.set_terminal_keymaps()
+  local opts = {noremap = true}
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-h>', [[<C-\><C-n><C-W>h]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-j>', [[<C-\><C-n><C-W>j]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-k>', [[<C-\><C-n><C-W>k]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-l>', [[<C-\><C-n><C-W>l]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+require('leap').set_default_keymaps()
+-- color help from : https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
+vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { ctermbg=111, ctermfg=016 , bold = true})
+vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { ctermbg=046, ctermfg=016})
+EOF
+endif
