@@ -154,14 +154,6 @@ set vb t_vb=
 " set 256 colors in vim
 set t_Co=256
 
-" https://shapeshed.com/vim-netrw/
-" Split Vertical
-let g:netrw_preview = 1
-let g:netrw_winsize = 15
-" Read a changed file on disk
-" set autoread
-set autoread
-set showmode                                                                    " always show what mode we're currently editing in
 set nofixendofline
 set timeoutlen=1200 " A little bit more time for macros
 set ttimeoutlen=50  " Make Esc work faster
@@ -194,7 +186,11 @@ endif
 
 set shiftround                                                                  " use multiple of shiftwidth when indenting with '<' and '>'
 set ignorecase                                                                  " ignore case when searching
-" Visual {{{
+
+" UI - Settings influencing UI behaviors 
+" {{{
+" Read a changed file on disk
+set autoread
 " set show matching parenthesis
 set showmatch
 " always show line numbers
@@ -210,7 +206,14 @@ set cursorline                                                                  
 set cursorcolumn                                                                " have a vertical line marking the cursor column
 set scrolloff=0                                                                 " keep 4 lines off the edges of the screen when scrolling
 set hlsearch                                                                    " highlight search terms
+" https://shapeshed.com/vim-netrw/
+" Split Vertical
+let g:netrw_preview = 1
+let g:netrw_winsize = 15
+" always show what mode we're currently editing in
+set showmode
 " }}}
+
 set smartcase                                                                   " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set smarttab                                                                    " insert tabs on the start of a line according to shiftwidth, not tabstop
 set virtualedit=block                                                           " allow the cursor to go in to 'invalid' places
@@ -243,14 +246,18 @@ set noerrorbells                                                                
 set showcmd                                                                     " show (partial) command at right bottom; this also shows visual selection info
 " }}} Ease of Use "
 set modeline
-set ttyfast                                                                     " always use a fast terminal
+" always use a fast terminal
+set ttyfast
 set nospell spelllang=en_us
-set colorcolumn=80,132                                                          " Github limit
-set diffopt+=vertical                                                           " default split method is to split in a verical split
+" Github limit
+set colorcolumn=80,132
+" default split method is to split in a verical split
+set diffopt+=vertical
 set dictionary=/usr/share/dict/cracklib-small
 " seach for tags|my-tags and bubble up till home direcotry
 set tags=tags;~,my-tags;~
-set viewoptions-=options                                                        " to make restore_view work well
+" to make restore_view work well
+set viewoptions-=options
 silent! colorscheme gruvbox
 if &diff
     colorscheme gruvbox
@@ -282,7 +289,6 @@ nnoremap <Right> 5<c-w>>
 nnoremap <Left>  5<c-w><
 " Dont move your fingers from the home row OR use ctrl-[ instead `
 inoremap jj <Esc>
-
 " Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
