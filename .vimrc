@@ -1,14 +1,24 @@
 " vim: foldlevel=2:
-" Irrelevent sections are given a foldlevel of 3 so that they are folded by default
-" Courtsey :
-" Vincent Driessen <vincent@datafox.nl> http://nvie.com/posts/how-i-boosted-my-vim/
-" Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
-" junegunn: https://github.com/junegunn/dotfiles/blob/master/vimrc
-" https://github.com/yoshuawuyts/dotfiles
-" and Vim User Manual
-" set as 'not compatible' with the old-fashion vi mode
+
+" Courtsey:
+"   Vincent Driessen <vincent@datafox.nl> 
+"       http://nvie.com/posts/how-i-boosted-my-vim/
+"   Tsung-Hsiang (Sean) Chang <vgod@vgod.tw> 
+"       https://github.com/vgod/vimrc/blob/master/vimrc
+"   junegunn: 
+"       https://github.com/junegunn/dotfiles/blob/master/vimrc
+"   https://github.com/yoshuawuyts/dotfiles
+"   And Vim User Manual
+
+
+" Set as 'not compatible' with the old-fashion vi mode
 set nocompatible
-" vim-plug setup {{{1
+
+
+"---------------------------------------------------------------------------
+" vim-plug setup
+"---------------------------------------------------------------------------
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -115,8 +125,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'jose-elias-alvarez/null-ls.nvim'
   call plug#end()
 endif
-if has("nvim")
 
+"---------------------------------------------------------------------------
+
+if has("nvim")
 lua <<EOF
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
@@ -181,9 +193,18 @@ end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+require('leap').set_default_keymaps()
+-- color help from : https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
+vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { ctermbg=111, ctermfg=016 , bold = true})
+vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { ctermbg=046, ctermfg=016})
 EOF
 endif
-"}}}1 ========================================================Vundle setup done
+
+"---------------------------------------------------------------------------
+" GUI settings
+"---------------------------------------------------------------------------
+
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
@@ -295,13 +316,8 @@ silent! colorscheme gruvbox
 if &diff
     colorscheme gruvbox
 endif
-lua <<EOF
-require('leap').set_default_keymaps()
--- color help from : https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
-vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { ctermbg=111, ctermfg=016 , bold = true})
-vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { ctermbg=046, ctermfg=016})
-EOF
 "}}} Basic Settings
+
 " Folding Rules {{{
 set foldenable                                                                  " enable folding
 set foldcolumn=0                                                                " add a fold column
@@ -309,13 +325,14 @@ set foldmethod=marker                                                           
 set foldlevel=99                                                                " 0-foldall 99-unfoldall
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo        " which commands trigger auto-unfold
 " }}} Folding Rules
+
 " Editor Layout {{{
 set lazyredraw                                                                  " don't update the display while executing macros
 set laststatus=2                                                                " always put a status line even if one window
 set cmdheight=1                                                                 " use a status bar that is 2 rows high
 " }}} Editor Layout
 
-" Shortcut Mappings {{{1
+" Shortcut Mappings {{{
 " resize
 nnoremap <Up>    5<c-w>+
 nnoremap <Down>  5<c-w>-
@@ -323,7 +340,7 @@ nnoremap <Right> 5<c-w>>
 nnoremap <Left>  5<c-w><
 " Dont move your fingers from the home row OR use ctrl-[ instead `
 inoremap jj <Esc>
-" normal mappings {{{
+
 " Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
@@ -333,7 +350,7 @@ nnoremap Q <nop>
 nnoremap Y y$
 " instead of scorlling to middle .. scroll almost to top
 nnoremap zz zt5<C-y>
-" }}}  normal mappings
+
 " leader mapings {{{
 " Change the mapleader from \ to
 let mapleader="\<Space>"
@@ -362,13 +379,16 @@ nnoremap <leader>v :vs<CR>
 " Fast saving
 nnoremap <leader>fs :w<cr>
 " }}} leader maping end
+
 " Clipboard madness {{{
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
 " replace currently selected text with default register without yanking it
 vnoremap <leader>P "_dP
 " }}} clipboard madness
-" }}}1 Shortcut Mappings
+ 
+" }}} Shortcut Mappings
+
 " Filetype Specific Settings {{{
 augroup FTOptions
   autocmd!
@@ -391,6 +411,7 @@ augroup gitsetup
                         \ let &l:textwidth = line('.') == 1 ? 50 : ( line('.') == 2 ? 1 : 72)
 augroup end
 "}}} Filetype Specific Settings
+
 " Plugin Specific Settings ====================================================
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
 " Plugin Specific Settings ================================================
