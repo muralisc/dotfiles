@@ -136,7 +136,11 @@ set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L
 
-" Basic Settings {{{
+"---------------------------------------------------------------------------
+" Basic Settings 
+"---------------------------------------------------------------------------
+" {{{
+
 " Enable filetype detection
 filetype on
 " Enable filetype-specific indenting
@@ -162,6 +166,7 @@ set nofixendofline
 set timeoutlen=1200 " A little bit more time for macros
 set ttimeoutlen=50  " Make Esc work faster
 set nowrap                                                                      " don't wrap lines
+
 " Editing {{{
 " show invisible charecters
 set list
@@ -174,6 +179,8 @@ set shiftwidth=4                                                                
 set autoindent                                                                  " always set autoindenting on
 set copyindent                                                                  " copy the previous indentation on autoindenting
 set clipboard=unnamedplus
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
 if has("unix")
   let s:uname = system("uname -s")
   if s:uname == "Darwin\n"
@@ -184,8 +191,8 @@ if has('mac')
   set guifont=FreeMono:h16
 endif
 " }}}
+
 set shiftround                                                                  " use multiple of shiftwidth when indenting with '<' and '>'
-set backspace=indent,eol,start                                                  " allow backspacing over everything in insert mode
 set ignorecase                                                                  " ignore case when searching
 " Visual {{{
 " set show matching parenthesis
@@ -286,44 +293,37 @@ nnoremap Y y$
 " instead of scorlling to middle .. scroll almost to top
 nnoremap zz zt5<C-y>
 
-" leader mapings {{{
+" Leader mapings 
+" {{{
+
 " Change the mapleader from \ to
 let mapleader="\<Space>"
 let maplocalleader="\<Space>"
 " Clears the search register
 nnoremap <leader>n :nohlsearch<CR>
-" Find in files:
-nnoremap <leader>/ :Rg!
-" Find in files with word under cursor
-nnoremap <leader>* :Rg!<C-R><C-W>
-" FZF is faster than CtrlP for finding files in Directories (pf - after projectile find, using same as spacemacs)
-nnoremap <leader>pf :FZF! +s --tac <CR>
-" Delete file
-nnoremap <leader>fD :call delete(expand('%')) <bar> bdelete! <CR>
-" alternate for => :CtrlPMRUFiles <CR>, Using keymaps from spacemacs
-" See: https://develop.spacemacs.org/doc/DOCUMENTATION.html
-nnoremap <leader>fr :History <CR>
 " open another file in same dir as current file, Using keymaps from spacemacs
 nnoremap <leader>ff :e %:h/<C-d>
-" Quit Files with leader + q
+" Quit Files with leader + bd
 nnoremap <leader>bd :bp\|bd #<cr>
-" Close splits but not last window
-nnoremap <leader>wd :close!<cr>
-" Close vim itself
+" Easy spliting
 nnoremap <leader>s :sp<CR>
 nnoremap <leader>v :vs<CR>
 " Fast saving
 nnoremap <leader>fs :w<cr>
-" }}} leader maping end
+" After yanking in visual mode move cursor to the end of  the selection
+vnoremap y ygv<Esc>
+" }}}
 
 " Clipboard madness {{{
+" Fix for: Block paste not working when clipboard=unnamed
+" https://github.com/neovim/neovim/issues/1822
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
 " replace currently selected text with default register without yanking it
 vnoremap <leader>P "_dP
-" }}} clipboard madness
+" }}}
  
-" }}} Shortcut Mappings
+" }}}
 
 " Filetype Specific Settings {{{
 augroup FTOptions
@@ -351,10 +351,15 @@ augroup end
 "---------------------------------------------------------------------------
 " Plugin Specific Settings
 "---------------------------------------------------------------------------
+
+" --- For powerman/vim-plugin-viewdoc
+
 let g:ViewDoc_DEFAULT = 'ViewDoc_help'
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
+
+" --- For akinsho/toggleterm.nvim
 
 if has("nvim")
   hi ActiveTerminal ctermbg=232 ctermfg=251
@@ -368,20 +373,30 @@ if has("nvim")
   endfunction
 end
 
+" --- For christoomey/vim-tmux-navigator
+
 " For compatability with tmux
 " Using Meta-[hjkl] mappings in tmux to move panes
 let g:tmux_navigator_no_mappings = 0
 
-" Select text for which we need boxes drawn
-" https://github.com/ascii-boxes/boxes
-" db - draw box
-vnoremap <leader>db !boxes -d stone -p v1 -a hc -s 80
-" xb - delete box
-vnoremap <leader>xb !boxes -r<CR>
+" --- For nvim-tree/nvim-tree.lua
+
 " Using same mapping as spacemacs for opening treemacs
 nnoremap <leader>fn :NvimTreeFindFile<cr>
-" After yanking in visual mode move cursor to the end of  the selection
-vnoremap y ygv<Esc>
+
+" --- For junegunn/fzf.vim
+
+" Find in files:
+nnoremap <leader>/ :Rg!
+" Find in files with word under cursor
+nnoremap <leader>* :Rg!<C-R><C-W>
+" FZF is faster than CtrlP for finding files in Directories (pf - after projectile find, using same as spacemacs)
+nnoremap <leader>pf :FZF! +s --tac <CR>
+" Quick open recent file
+" Previousl => :CtrlPMRUFiles <CR>, Using keymaps from spacemacs
+" See: https://develop.spacemacs.org/doc/DOCUMENTATION.html
+nnoremap <leader>fr :History <CR>
+
 
 "---------------------------------------------------------------------------
 " LUA settings
