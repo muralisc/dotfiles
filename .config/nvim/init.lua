@@ -54,7 +54,7 @@ vim.keymap.set('n', '<leader>ff', function()
 end, {})
 
 -- Keep your fingers from the home row OR use ctrl-[ instead
-vim.keymap.set('n', 'jj', '<Esc>', {})
+vim.keymap.set('i', 'jj', '<Esc>', {})
 
 vim.keymap.set('n', '<leader>n', ':nohlsearch<CR>', {})
 -- Project Find(pf): Open another file from project (git/hg repository)
