@@ -26,6 +26,17 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
+
+  " The plugins are ordered by their names
+  " Helper:
+  " grep 'Plug ' ~/.vimrc | head -32 | sort -t '/' -k 2
+
+  " asyncrun.vim
+  " Usecase:
+  "     Run a build command
+  "     1. Async in vim
+  "     2. Or in toggleterm
+  "     3. Or in tmux
   Plug 'skywind3000/asyncrun.vim'
   Plug 'chazy/cscope_maps'
   " diffconflicts - easily address diffconfilicts in nvim :DiffConflicts
@@ -41,15 +52,18 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'jose-elias-alvarez/null-ls.nvim'
   Plug 'neovim/nvim-lspconfig'
   " nvim-miniyank block paste fix for nvim
+  " Usecase:
+  "     Fix for: Block paste not working when clipboard=unnamed
+  "     https://github.com/neovim/neovim/issues/1822
   Plug 'bfredl/nvim-miniyank'
   Plug 'nvim-tree/nvim-tree.lua'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'nvim-lua/plenary.nvim'
-  " tabular - Massively useful plugin for easily aligning
+  " tabular - Massively useful plugin for easily aligning text
   Plug 'godlygeek/tabular'
   " toggleterm.nvim (c-t, esc:c-j)
-  "     Default Alternative 
+  "     Default Alternatives
   "         :sp term://zsh or 
   "         :vs term://zsh 
   "         ESC -> <c-\><c-n>
@@ -186,6 +200,8 @@ set gdefault
 set ignorecase
 " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set smartcase
+" highlight search terms
+set hlsearch                                                                    
 " }}}
 
 " --- Vim commands
@@ -269,10 +285,12 @@ set number
 " au FocusGained * :set relativenumber
 set termencoding=utf-8
 set encoding=utf-8
-set cursorline                                                                  " underline the current line, for quick orientation
-set cursorcolumn                                                                " have a vertical line marking the cursor column
-set scrolloff=0                                                                 " keep 4 lines off the edges of the screen when scrolling
-set hlsearch                                                                    " highlight search terms
+" underline the current line, for quick orientation
+set cursorline
+" have a vertical line marking the cursor column
+set cursorcolumn
+" keep 0 lines off the edges of the screen when scrolling
+set scrolloff=0
 " https://shapeshed.com/vim-netrw/
 " Split Vertical
 let g:netrw_preview = 1
@@ -358,8 +376,6 @@ vnoremap y ygv<Esc>
 " }}}
 
 " Clipboard madness {{{
-" Fix for: Block paste not working when clipboard=unnamed
-" https://github.com/neovim/neovim/issues/1822
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
 " replace currently selected text with default register without yanking it
