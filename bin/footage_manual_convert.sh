@@ -33,22 +33,22 @@ for file_path in $(find $SOURCE_ROOT -type f -regex "$PATH_REGEX"); do
     fi
     echo "-> To desitnation: $DEST_FILE_PATH"
     if [[ -z "$DRY_RUN" ]]; then
-        if [[ "$extension" == "HEIC" ]] ; then
-            convert -define jpeg:extent=400Kb $file_path $DEST_FILE_PATH
+      if [[ "$extension" == "HEIC" ]] ; then
+        convert -define jpeg:extent=400Kb $file_path $DEST_FILE_PATH
+      else
+        # rawtherapee-cli -j40 -js1 -o $DEST_FILE_PATH -c $file_path
+        convert -define jpeg:extent=400Kb $file_path $DEST_FILE_PATH
+        exiftool -overwrite_original_in_place -tagsFromFile $file_path $DEST_FILE_PATH
+        if exiftool $DEST_FILE_PATH | grep 'Create Date' ; then
+            :
         else
-            # rawtherapee-cli -j40 -js1 -o $DEST_FILE_PATH -c $file_path
-            convert -define jpeg:extent=400Kb $file_path $DEST_FILE_PATH
-            exiftool -overwrite_original_in_place -tagsFromFile $file_path $DEST_FILE_PATH
-              if exiftool $DEST_FILE_PATH | grep 'Create Date' ; then
-                  :
-              else
-                  echo "Converted File do not have DATE, adding it" $file_path
-                  # Sometimes source file do not have Date info, in that case infer from foldername
-                  DATE_FROM_PATH="$(awk -F'footage' '{print $2}' <<< "$file_path" | cut -d'/' -f 3)"
-                  MAYBE_DATE=$(strptime --input-format "%Y_%m_%d" "$DATE_FROM_PATH" --format "%Y:%m:%d 00:00:00")
-                  exiftool -overwrite_original "-AllDates=$MAYBE_DATE" $DEST_FILE_PATH
-              fi
+            echo "Converted File do not have DATE, adding it" $file_path
+            # Sometimes source file do not have Date info, in that case infer from foldername
+            DATE_FROM_PATH="$(awk -F'footage' '{print $2}' <<< "$file_path" | cut -d'/' -f 3)"
+            MAYBE_DATE=$(strptime --input-format "%Y_%m_%d" "$DATE_FROM_PATH" --format "%Y:%m:%d 00:00:00")
+            exiftool -overwrite_original "-AllDates=$MAYBE_DATE" $DEST_FILE_PATH
         fi
+      fi
     fi
     # leaving the convert command below for future expansions
 done

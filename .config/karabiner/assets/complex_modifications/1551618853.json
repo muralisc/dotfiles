@@ -142,37 +142,6 @@
         },
         {
           "from": {
-            "description": "Left CMD is ctrl in Chrome to encorage use of CapsLock",
-            "key_code": "left_command",
-            "modifiers": {
-              "optional": [
-                "left_command",
-                "left_control",
-                "left_shift",
-                "left_option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "left_control"
-            }
-          ],
-          "conditions": [
-              {
-                  "type": "frontmost_application_if",
-                  "bundle_identifiers": [
-                      "com.google.Chrome"
-                  ],
-                  "file_paths": [
-                      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-                  ]
-              }
-          ],
-          "type": "basic"
-        },
-        {
-          "from": {
             "description": "Caps lock is Ctrl in all apps listed",
             "key_code": "caps_lock",
             "modifiers": {

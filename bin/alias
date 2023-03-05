@@ -17,7 +17,6 @@ alias gsu='git submodule update --init --recursive'
 
 # other aliases
 
-alias exa='exa -la --git'
 alias rsyncopy='rsync --archive --stats --progress --human-readable --compress'
 if [[ $(uname -s) == "Darwin" ]] ; then
   alias ps='ps -eo pid,pcpu,pmem,command -r'
