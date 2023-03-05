@@ -56,22 +56,13 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'godlygeek/tabular'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
   "Plug 'wincent/vim-clipper'
-  let g:ClipperPort=5556
-  let g:fzf_preview_window = ['right:50%', 'ctrl-/']
   Plug 'junegunn/fzf.vim'
-  let g:fzf_preview_window = []
-  " command! -bang -nargs=* Rg
-  "       \ call fzf#vim#grep(
-  "       \   'rg --sortr path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  "       \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  "       \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  "       \   <bang>0)
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'chazy/cscope_maps'
   Plug 'itchyny/lightline.vim'
   Plug 'airblade/vim-rooter'
-  let g:rooter_silent_chdir = 1 " airblade.vim-rooter.settings
-  let g:rooter_change_directory_for_non_project_files = 'current' " airblade.vim-rooter.settings
+  let g:rooter_silent_chdir = 1
+  let g:rooter_change_directory_for_non_project_files = 'current'
   Plug 'SirVer/ultisnips'
   let g:UltiSnipsExpandTrigger="<tab>"
   let g:UltiSnipsListSnippets="<c-tab>"
@@ -91,7 +82,12 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   "         :vs term://zsh 
   "         ESC -> <c-\><c-n>
   Plug 'akinsho/toggleterm.nvim'
-  " Colorscheme
+  Plug 'preservim/vimux'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'jose-elias-alvarez/null-ls.nvim'
+
+  " -- Colorscheme Plugins
+  
   " Some colorscheme tested and conclusion
   " solarized                - Good
   " gruvbox                  - Good
@@ -111,8 +107,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'chriskempson/base16-vim'
   Plug 'morhetz/gruvbox'
   Plug 'romainl/Apprentice'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'jose-elias-alvarez/null-ls.nvim'
   call plug#end()
 endif
 " }}}
@@ -398,40 +392,19 @@ augroup end
 "---------------------------------------------------------------------------
 " {{{
 
-" --- For powerman/vim-plugin-viewdoc
+" --- For derekwyatt/vim-fswitch
 
-let g:ViewDoc_DEFAULT = 'ViewDoc_help'
-if filereadable(glob("~/.vimrc.local"))
-    source ~/.vimrc.local
-endif
-
-" --- For akinsho/toggleterm.nvim
-
-if has("nvim")
-  hi ActiveTerminal ctermbg=232 ctermfg=251
-  augroup WindowManagement
-    autocmd!
-    autocmd TermOpen * call Handle_Win_Enter()
-  augroup END
-  " Change highlight group of terminal window
-  function! Handle_Win_Enter()
-    setlocal winhighlight=Normal:ActiveTerminal
-  endfunction
-end
-
-" --- For christoomey/vim-tmux-navigator
-
-" For compatability with tmux
-" Using Meta-[hjkl] mappings in tmux to move panes
-let g:tmux_navigator_no_mappings = 0
-
-" --- For nvim-tree/nvim-tree.lua
-
-" Using same mapping as spacemacs for opening treemacs
-nnoremap <leader>fn :NvimTreeFindFile<cr>
+noremap <leader>a :FSHere<CR>
 
 " --- For junegunn/fzf.vim
 
+let g:fzf_preview_window = []
+" command! -bang -nargs=* Rg
+"       \ call fzf#vim#grep(
+"       \   'rg --sortr path --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+"       \   <bang>0 ? fzf#vim#with_preview('up:60%')
+"       \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+"       \   <bang>0)
 " Find in files:
 nnoremap <leader>/ :Rg!
 " Find in files with word under cursor
@@ -455,6 +428,44 @@ function! LightLineFilename()
   " Get shrinked current working directory and filename
   return  substitute(getcwd(), '\(/.\)\([^/]*\)' , "\\1", "g") . ' | ' . expand('%')
 endfunction
+
+" --- For nvim-tree/nvim-tree.lua
+
+" Using same mapping as spacemacs for opening treemacs
+nnoremap <leader>fn :NvimTreeFindFile<cr>
+
+" --- For akinsho/toggleterm.nvim
+
+if has("nvim")
+  hi ActiveTerminal ctermbg=232 ctermfg=251
+  augroup WindowManagement
+    autocmd!
+    autocmd TermOpen * call Handle_Win_Enter()
+  augroup END
+  " Change highlight group of terminal window
+  function! Handle_Win_Enter()
+    setlocal winhighlight=Normal:ActiveTerminal
+  endfunction
+end
+
+" --- For wincent/vim-clipper
+
+let g:ClipperPort=5556
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+
+" --- For powerman/vim-plugin-viewdoc
+
+let g:ViewDoc_DEFAULT = 'ViewDoc_help'
+if filereadable(glob("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
+
+" --- For christoomey/vim-tmux-navigator
+
+" For compatability with tmux
+" Using Meta-[hjkl] mappings in tmux to move panes
+let g:tmux_navigator_no_mappings = 0
+
 " }}}
 
 "---------------------------------------------------------------------------
