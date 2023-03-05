@@ -149,10 +149,10 @@ super + backslash
     mpc toggle
 
 # create screenshot
-super + Print
+super + p
     import -window root $HOME/Screeshot_full-`date +%Y-%m-%dT%H-%M-%S`.png && notify-send "Sxhkd" "Screenshot taken"
 
-super + shift + Print
+super + shift + p
     scrot -s $HOME/'Scrot-selection-%Y-%m-%dT%H-%M-%S_$wx$h.png'
 
 # switch monitor to laptop
