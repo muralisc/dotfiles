@@ -26,65 +26,60 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
+  Plug 'skywind3000/asyncrun.vim'
+  Plug 'chazy/cscope_maps'
+  " diffconflicts - easily address diffconfilicts in nvim :DiffConflicts
+  Plug 'whiteinge/diffconflicts'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
+  Plug 'junegunn/fzf.vim'
   " leap.nvim - mapped to s in 'normal' mode
   " Usecase:
   "     Jump to a location in visible buffer area - use leap
   "     Jump to a location in any buffer area - use native vim search
   Plug 'ggandor/leap.nvim'
-  " vim-vinegrar Folder navigation ? C u r cd CD
-  Plug 'tpope/vim-vinegar'
-  Plug 'derekwyatt/vim-fswitch'
-  Plug 'ledger/vim-ledger'
-  " vim-plugin-viewdoc - For viewing help files
-  Plug 'powerman/vim-plugin-viewdoc'
-  Plug 'nvim-tree/nvim-web-devicons'
-  Plug 'nvim-tree/nvim-tree.lua'
-  " vim-commentary map: gcc
-  Plug 'tpope/vim-commentary'
-  Plug 'skywind3000/asyncrun.vim'
-  " vim-surround see `:help surround`
-  "     cs'"  - change ' around text to "
-  "     ysiW) - add ) around word
-  Plug 'tpope/vim-surround'
-  " vim-unimpaired: Awesome bracket maps
-  "     [q ]q :cprevious :cnext
-  "     [n ]n Go to git/hg confict marker
-  "     yow - toggle wrap
-  Plug 'tpope/vim-unimpaired'
-  Plug 'tpope/vim-fugitive'
-  " tabular - Massively useful plugin for easily aligning
-  Plug 'godlygeek/tabular'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
-  "Plug 'wincent/vim-clipper'
-  Plug 'junegunn/fzf.vim'
-  Plug 'christoomey/vim-tmux-navigator'
-  Plug 'chazy/cscope_maps'
   Plug 'itchyny/lightline.vim'
-  Plug 'airblade/vim-rooter'
-  let g:rooter_silent_chdir = 1
-  let g:rooter_change_directory_for_non_project_files = 'current'
-  Plug 'SirVer/ultisnips'
-  let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsListSnippets="<c-tab>"
-  Plug 'honza/vim-snippets'
-  Plug 'muralisc/snippets'
+  Plug 'jose-elias-alvarez/null-ls.nvim'
+  Plug 'neovim/nvim-lspconfig'
   " nvim-miniyank block paste fix for nvim
   Plug 'bfredl/nvim-miniyank'
-  " diffconflicts - easily address diffconfilicts in nvim :DiffConflicts
-  Plug 'whiteinge/diffconflicts'
-  " Non-essential
-  Plug 'junegunn/rainbow_parentheses.vim'
+  Plug 'nvim-tree/nvim-tree.lua'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-tree/nvim-web-devicons'
+  Plug 'nvim-lua/plenary.nvim'
+  " tabular - Massively useful plugin for easily aligning
+  Plug 'godlygeek/tabular'
   " toggleterm.nvim (c-t, esc:c-j)
   "     Default Alternative 
   "         :sp term://zsh or 
   "         :vs term://zsh 
   "         ESC -> <c-\><c-n>
   Plug 'akinsho/toggleterm.nvim'
+  "Plug 'wincent/vim-clipper'
+  " vim-commentary map: gcc
+  Plug 'tpope/vim-commentary'
+  Plug 'derekwyatt/vim-fswitch'
+  Plug 'tpope/vim-fugitive'
+  Plug 'ledger/vim-ledger'
+  " vim-plugin-viewdoc - For viewing help files
+  Plug 'powerman/vim-plugin-viewdoc'
+  Plug 'airblade/vim-rooter'
+  " vim-surround see `:help surround`
+  "     cs'"  - change ' around text to "
+  "     ysiW) - add ) around word
+  Plug 'tpope/vim-surround'
+  Plug 'christoomey/vim-tmux-navigator'
+  " vim-unimpaired: Awesome bracket maps
+  "     [q ]q :cprevious :cnext
+  "     [n ]n Go to git/hg confict marker
+  "     yow - toggle wrap
+  Plug 'tpope/vim-unimpaired'
   Plug 'preservim/vimux'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'jose-elias-alvarez/null-ls.nvim'
+
+  " -- Snippets
+
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
+  Plug 'muralisc/snippets'
 
   " -- Colorscheme Plugins
   
@@ -448,6 +443,11 @@ if has("nvim")
   endfunction
 end
 
+" --- For SirVer/ultisnips
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-tab>"
+
 " --- For wincent/vim-clipper
 
 let g:ClipperPort=5556
@@ -459,6 +459,11 @@ let g:ViewDoc_DEFAULT = 'ViewDoc_help'
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
+
+" --- For airblade/vim-rooter
+
+let g:rooter_silent_chdir = 1
+let g:rooter_change_directory_for_non_project_files = 'current'
 
 " --- For christoomey/vim-tmux-navigator
 
