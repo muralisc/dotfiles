@@ -1,9 +1,10 @@
-vim.opt.number = true
+---------------------------------------------------------------------------
+-- packer setup
+---------------------------------------------------------------------------
 vim.cmd([[packadd packer.nvim]])
 require("packer").startup(function()
   use("wbthomason/packer.nvim")
   use("morhetz/gruvbox")
-  vim.cmd([[colorscheme gruvbox]])
   use("nvim-treesitter/nvim-treesitter")
   require("nvim-treesitter.configs").setup({
     ensure_installed = { "c", "lua", "rust" },
@@ -35,6 +36,7 @@ require("packer").startup(function()
     },
   })
 end)
+vim.opt.number = true
 vim.opt.list = true
 vim.opt.listchars:append("tab:> ")
 vim.opt.shiftwidth = 4
@@ -64,3 +66,8 @@ vim.keymap.set("n", "<leader>fr", builtin.oldfiles, {})
 -- Grep in files
 vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fr", builtin.oldfiles, {})
+
+---------------------------------------------------------------------------
+-- Set Colorscheme
+---------------------------------------------------------------------------
+vim.cmd([[colorscheme gruvbox]])

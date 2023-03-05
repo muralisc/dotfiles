@@ -170,10 +170,6 @@ set dictionary=/usr/share/dict/cracklib-small
 set tags=tags;~,my-tags;~
 " to make restore_view work well
 set viewoptions-=options
-silent! colorscheme gruvbox
-if &diff
-    colorscheme gruvbox
-endif
 " allow the cursor to go in to 'invalid' places
 set virtualedit=block
 " enable using the mouse if terminal emulator supports it (xterm does)
@@ -499,6 +495,15 @@ let g:tmux_navigator_no_mappings = 0
 " }}}
 
 "---------------------------------------------------------------------------
+" Set Colorscheme
+"---------------------------------------------------------------------------
+
+silent! colorscheme gruvbox
+if &diff
+    colorscheme gruvbox
+endif
+
+"---------------------------------------------------------------------------
 " LUA settings
 "---------------------------------------------------------------------------
 
@@ -532,6 +537,19 @@ end
 require'lspconfig'.clangd.setup{
   cmd =  { "clangd", "--background-index" }
 }
+require("lspconfig").lua_ls.setup({
+    settings = {
+        Lua = {
+            telemetry = { enable = false },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { "vim" },
+            },
+        },
+    },
+    on_attach = on_attach,
+})
+
 require("nvim-tree").setup()
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "c", "cpp", "lua", "rust", "python" },
