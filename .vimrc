@@ -140,7 +140,8 @@ set ttimeoutlen=50
 set nowrap
 " use multiple of shiftwidth when indenting with '<' and '>'
 set shiftround
-set viminfo='500,<80                                                            " read/write a .viminfo file, don't store more than 80 lines of registers
+" read/write a .viminfo file, don't store more than 80 lines of registers
+set viminfo='500,<80
 set textwidth=80
 set modeline
 " always use a fast terminal
@@ -225,9 +226,12 @@ set softtabstop=4
 set expandtab
 " insert tabs on the start of a line according to shiftwidth, not tabstop
 set smarttab
-set shiftwidth=4                                                                " number of spaces to use for autoindenting
-set autoindent                                                                  " always set autoindenting on
-set copyindent                                                                  " copy the previous indentation on autoindenting
+" number of spaces to use for autoindenting
+set shiftwidth=4
+" always set autoindenting on
+set autoindent
+" copy the previous indentation on autoindenting
+set copyindent
 set clipboard=unnamedplus
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -240,8 +244,13 @@ endif
 if has('mac')
   set guifont=FreeMono:h16
 endif
-" Use normal mode paste from "+y (press <F2> to go to 'paste' mode,( prevent auto indenting ))
-" set pastetoggle=<F2>                                                          
+" While pasting, if pasting in insert mode using OS/tmux paste command
+" The pasted data will be auto intended giving undesired outcome.
+" Either use
+"   normal mode paste from "+y 
+" Or
+" press <F2> to go to 'paste' mode
+" set pastetoggle=<F2>
 " }}}
 
 " --- UI - Settings influencing UI behaviors 
