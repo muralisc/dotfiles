@@ -5,7 +5,10 @@ alias gb='git branch'
 alias gco='git checkout'
 alias gcp='git cherry-pick'
 alias gd='git difftool --dir-diff'
-alias gdf='git difftool -y --extcmd icdiff'
+function git_diff() {
+    git difftool -y --extcmd 'icdiff -N' $@ | less -R
+}
+alias gdf='git_diff'
 alias gf='git fetch --all'
 alias gl="git log --pretty=tformat:'%C(black)%G? %C(yellow)%h%C(auto)%d %an %C(blue)%ae%Creset %s %Cgreen(%ar, %cr)%Creset' --graph --color "
 alias glds="git log -p --all -G" #git log diff search: search in diffs added and removed
