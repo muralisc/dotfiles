@@ -34,10 +34,17 @@ for file_path in $(find $SOURCE_ROOT -type f -regex "$PATH_REGEX"); do
     echo "-> To desitnation: $DEST_FILE_PATH"
     if [[ -z "$DRY_RUN" ]]; then
       if [[ "$extension" == "HEIC" ]] ; then
-        convert -define jpeg:extent=400Kb $file_path $DEST_FILE_PATH
+        # -define jpeg:extent=300Kb : using this alone caused artifacts in image
+        convert \
+            -resize 1024x768\> \
+            -quality 75 \
+            $file_path $DEST_FILE_PATH
       else
         # rawtherapee-cli -j40 -js1 -o $DEST_FILE_PATH -c $file_path
-        convert -define jpeg:extent=400Kb $file_path $DEST_FILE_PATH
+        convert \
+            -resize 1024x768\> \
+            -quality 75 \
+            $file_path $DEST_FILE_PATH
         exiftool -overwrite_original_in_place -tagsFromFile $file_path $DEST_FILE_PATH
         if exiftool $DEST_FILE_PATH | grep 'Create Date' ; then
             :
