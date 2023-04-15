@@ -12,14 +12,21 @@ require("packer").startup(function(use)
   use("nvim-treesitter/nvim-treesitter")
   use("nvim-tree/nvim-web-devicons")
   use("wbthomason/packer.nvim")
+  -- tabular - Massively useful plugin for easily aligning text
+  use 'godlygeek/tabular'
   use({
     "nvim-telescope/telescope.nvim",
     requires = { { "nvim-lua/plenary.nvim" } },
   })
-  use("wincent/vim-clipper")
-  use("christoomey/vim-tmux-navigator")
+  -- use("wincent/vim-clipper")
   -- Provides :FSHere very useful for cpp files
   use("derekwyatt/vim-fswitch")
+  -- vim-ledger
+  -- Provides :LedgerAlign and :LedgerAlignBuffer
+  -- Better aligned with Tabularize
+  -- :Tabularize /=/l12c1r0
+  use('ledger/vim-ledger')
+  use("christoomey/vim-tmux-navigator")
   use("preservim/vimux")
 end)
 

@@ -1,0 +1,7 @@
+#!/bin/bash
+preset="Very Fast 1080p30"
+preset="HQ 2160p60 4K HEVC Surround"
+preset="Fast 1080p30"
+mediafilepath="$1"
+mediafilepath_noext=$(sed -E 's/(.+)\.[^.]+/\1/' <<< "$mediafilepath")
+HandBrakeCLI -Z "$preset" -i "$mediafilepath" -o "${mediafilepath_noext}-${preset}"

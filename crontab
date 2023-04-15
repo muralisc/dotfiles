@@ -18,6 +18,7 @@
 
 0      9       *   *   *     crontab -l > ~/src/dotfiles/crontab
 10     12      *   *   *     bash ~/src/private/bin/ticker_trigger.sh
+15     12      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail.sh
 0      12      *   *   *     bash ~/src/private/bin/time_since_date_via_pushbullet.sh
 37     18      *   *   *     bash ~/src/dotfiles/bin/sent-memories-to-mail.sh
 00     19      *   *   *     bash ~/shared_folders/minimal/Pensieve/textfiles/ledger/graphs/1plot_ledger_projection.sh 2>&1 > /var/tmp/ledger_cron_output_`date +\%Y_\%m_\%d-\%H\%M\%S`.log

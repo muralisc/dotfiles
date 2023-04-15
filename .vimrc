@@ -73,6 +73,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'tpope/vim-commentary'
   Plug 'derekwyatt/vim-fswitch'
   Plug 'tpope/vim-fugitive'
+  " vim-ledger
+  " Provides :LedgerAlign and :LedgerAlignBuffer
+  " Better aligned with Tabularize
+  " :Tabularize /=/l12c1r0
   Plug 'ledger/vim-ledger'
   " vim-plugin-viewdoc - For viewing help files
   Plug 'powerman/vim-plugin-viewdoc'
