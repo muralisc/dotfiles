@@ -374,8 +374,9 @@ yay -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 # https://alexcabal.com/creating-the-perfect-gpg-keypair
 yay -S --noconfirm gnupg pass # try https://github.com/keepassxreboot/keepassxc
 # i love to learn
-# for pdf backup use firefox,even shows comments
-yay -S --noconfirm anki zathura zathura-pdf-poppler zathura-ps foxitreader
+# install zathura for backup, use firefox for normal usage, it even shows comments
+yay -S --noconfirm zathura zathura-pdf-poppler zathura-ps # pdfunite is part of poppler and is used often by me
+yay -S --noconfirm anki
 # for the creative me
 yay -S --noconfirm inkscape gimp qimgv
 yay -S --noconfirm kdenlive kdebase-runtime
@@ -538,6 +539,7 @@ rmlint # remove duplicate files
 #   photoprism # keeps crashing :(
 # current:
 github.com/photoview/photoview # - for fast access + indexing
+https://github.com/immich-app/immich # - sync images to server
 pigallery2 # for folder acceess, also used by memory script
     # from https://github.com/pluja/Selfhosted-Google-Photos-Alternative)
     # - https://github.com/bpatrik/pigallery2#11-install-and-run-with-docker-recommended
