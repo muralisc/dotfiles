@@ -19,8 +19,8 @@ require("packer").startup(function(use)
   use("nvim-treesitter/nvim-treesitter")
   use("nvim-tree/nvim-web-devicons")
   use("wbthomason/packer.nvim")
-  -- tabular - Massively useful plugin for easily aligning
-  use('godlygeek/tabular')
+  -- tabular - Massively useful plugin for easily aligning text
+  use 'godlygeek/tabular'
   use({
     "nvim-telescope/telescope.nvim",
     requires = { { "nvim-lua/plenary.nvim" } },
@@ -31,13 +31,18 @@ require("packer").startup(function(use)
       requires = {{ 'honza/vim-snippets'}, { 'muralisc/snippets'}}
   })
 
-  use("wincent/vim-clipper")
+  -- use("wincent/vim-clipper")
   -- vim-commentary 
   --    map: gcc
   use('tpope/vim-commentary')
   -- vim-fswitch - Provides :FSHere very useful for cpp files
   use("derekwyatt/vim-fswitch")
   use("preservim/vim-markdown")
+  -- vim-ledger
+  --    Provides :LedgerAlign and :LedgerAlignBuffer
+  --    Better aligned with Tabularize
+  --    :Tabularize /=/l12c1r0
+  use('ledger/vim-ledger')
   -- vim-tmux-navigator
   --    For compatability with tmux
   --    Using Meta-[hjkl] mappings in tmux to move panes
