@@ -3,8 +3,15 @@
 ---------------------------------------------------------------------------
 vim.cmd([[packadd packer.nvim]])
 require("packer").startup(function(use)
+  -- asyncrun
   use("skywind3000/asyncrun.vim")
-  use("morhetz/gruvbox")
+  -- diffconflicts - easily address diffconfilicts in nvim :DiffConflicts
+  use("whiteinge/diffconflicts")
+  -- leap.nvim - mapped to s in 'normal' mode
+  -- Usecase:
+  --     Jump to a location in visible buffer area - use leap
+  --     Jump to a location in any buffer area - use native vim search
+  use('ggandor/leap.nvim')
   use("nvim-lualine/lualine.nvim")
   use("jose-elias-alvarez/null-ls.nvim")
   use("neovim/nvim-lspconfig")
@@ -12,15 +19,35 @@ require("packer").startup(function(use)
   use("nvim-treesitter/nvim-treesitter")
   use("nvim-tree/nvim-web-devicons")
   use("wbthomason/packer.nvim")
+  -- tabular - Massively useful plugin for easily aligning
+  use('godlygeek/tabular')
   use({
     "nvim-telescope/telescope.nvim",
     requires = { { "nvim-lua/plenary.nvim" } },
   })
+  use("freitass/todo.txt-vim")
+  -- ultisnips
+  use({'SirVer/ultisnips',
+      requires = {{ 'honza/vim-snippets'}, { 'muralisc/snippets'}}
+  })
+
   use("wincent/vim-clipper")
-  use("christoomey/vim-tmux-navigator")
-  -- Provides :FSHere very useful for cpp files
+  -- vim-commentary 
+  --    map: gcc
+  use('tpope/vim-commentary')
+  -- vim-fswitch - Provides :FSHere very useful for cpp files
   use("derekwyatt/vim-fswitch")
+  use("preservim/vim-markdown")
+  -- vim-tmux-navigator
+  --    For compatability with tmux
+  --    Using Meta-[hjkl] mappings in tmux to move panes
+  use("christoomey/vim-tmux-navigator")
   use("preservim/vimux")
+
+
+  -- Colorscheme Plugins
+
+  use("morhetz/gruvbox")
 end)
 
 ---------------------------------------------------------------------------
@@ -29,9 +56,12 @@ end)
 
 vim.opt.colorcolumn = "80,132"
 vim.opt.number = true
+-- list: show invisible charecters
 vim.opt.list = true
+-- If 'set list' is enabled, the invisible characters are show using listchars
 vim.opt.listchars:append("tab:> ")
 vim.opt.shiftwidth = 4
+-- Expand tabs by default (overloadable per file type later)
 vim.opt.expandtab = true
 vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
@@ -45,6 +75,7 @@ vim.opt.undofile = true
 
 local builtin = require("telescope.builtin")
 -- Find File(ff): Open another file in same dir as current file,
+-- Using keymaps from spacemacs
 vim.keymap.set("n", "<leader>ff", function()
   local opts = {
     search_dirs = { vim.fn.expand("%:h") },
@@ -55,7 +86,7 @@ end, {})
 
 -- Keep your fingers from the home row OR use ctrl-[ instead
 vim.keymap.set("i", "jj", "<Esc>", {})
-
+-- Clears the search register
 vim.keymap.set("n", "<leader>n", ":nohlsearch<CR>", {})
 -- Project Find(pf): Open another file from project (git/hg repository)
 vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
@@ -82,27 +113,32 @@ vim.opt.foldmethod = "marker"
 -- Plugin Specific Settings
 ---------------------------------------------------------------------------
 
+
 --
 -- For skywind3000/asyncrun.vim
 --
 
+
 -- bb = buck build
 -- nnoremap <leader>bb :AsyncRun -mode=term -pos=toggleterm buck query "owner('$(realpath %)')"<CR>
--- nnoremap <leader>bb :AsyncRun -mode=term -pos=tmux buck query "owner('$(realpath %)')"<CR>
--- nnoremap <Leader>bb :AsyncRun -mode=term -pos=tmux buck build $(buck query "owner('$(realpath %)')" \| head -1) 2> ~/vim_out.log<CR>
+-- nnoremap <leader>bb :AsyncRun -mode=term -pos=tmux buck2 query "owner('$(realpath %)')"<CR>
+-- nnoremap <Leader>bb :AsyncRun -mode=term -pos=tmux buck2 build $(buck query "owner('$(realpath %)')" \| head -1) 2> ~/vim_out.log<CR>
 vim.keymap.set(
   "n",
   "<leader>bb",
-  ":AsyncRun -mode=term -pos=tmux buck build $(buck query \"owner('$(realpath %)')\" | head -1)<CR>",
+  ":AsyncRun -mode=term -pos=tmux buck2 build $(buck query \"owner('$(realpath %)')\" | head -1)<CR>",
   {}
 )
+
 -- le = load error,
 -- Usefull while using AsyncRun with default -mode and -pos
 vim.keymap.set("n", "<leader>le", ":cget ~/vim_out.log | :copen<CR>\"owner('$(realpath %)')\" | head -1)<CR>", {})
 
+
 --
 -- For nvim-lualine/lualine.nvim
 --
+
 
 require("lualine").setup({
   options = {
@@ -110,6 +146,20 @@ require("lualine").setup({
     theme = "ayu_dark",
   },
 })
+
+
+--
+-- For jose-elias-alvarez/null-ls.nvim
+--
+
+local null_ls = require("null-ls")
+null_ls.setup({
+  -- on_attach = on_attach,
+  sources = {
+    null_ls.builtins.formatting.stylua,
+  },
+})
+
 
 --
 -- For neovim/nvim-lspconfig
@@ -120,7 +170,7 @@ vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
-local on_attach = function(client, bufnr)
+local on_attach = function(_client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   -- Mappings.
@@ -152,23 +202,6 @@ require("lspconfig").lua_ls.setup({
 })
 
 --
--- For nvim-telescope/telescope.nvim
---
-
-require("telescope").setup({
-  pickers = {
-    find_files = {
-      hidden = true,
-    },
-    live_grep = {
-      additional_args = function()
-        return { "--hidden" }
-      end,
-    },
-  },
-})
-
---
 -- For nvim-tree/nvim-tree.lua
 --
 
@@ -188,16 +221,28 @@ require("nvim-treesitter.configs").setup({
 })
 
 --
--- For jose-elias-alvarez/null-ls.nvim
+-- For nvim-telescope/telescope.nvim
 --
 
-local null_ls = require("null-ls")
-null_ls.setup({
-  on_attach = on_attach,
-  sources = {
-    null_ls.builtins.formatting.stylua,
+require("telescope").setup({
+  pickers = {
+    find_files = {
+      hidden = true,
+    },
+    live_grep = {
+      additional_args = function()
+        return { "--hidden" }
+      end,
+    },
   },
 })
+
+
+--
+-- For SirVer/ultisnips
+--
+vim.g.UltiSnipsExpandTrigger="<tab>"
+vim.g.UltiSnipsListSnippets="<c-tab>"
 
 --
 -- For wincent/vim-clipper
