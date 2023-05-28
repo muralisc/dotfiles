@@ -1,3 +1,7 @@
+-- Helpers
+--   check a neovim lua var:
+--   :lua print(vim.inspect(vim.opt.shiftwidth))
+
 ---------------------------------------------------------------------------
 -- packer setup
 ---------------------------------------------------------------------------
@@ -11,30 +15,39 @@ require("packer").startup(function(use)
   -- Usecase:
   --     Jump to a location in visible buffer area - use leap
   --     Jump to a location in any buffer area - use native vim search
-  use('ggandor/leap.nvim')
+  use("ggandor/leap.nvim")
   use("nvim-lualine/lualine.nvim")
   use("jose-elias-alvarez/null-ls.nvim")
   use("neovim/nvim-lspconfig")
+  -- nvim-miniyank block paste fix for nvim
+  -- Usecase:
+  --     Fix for: Block paste not working when clipboard=unnamed
+  --     https://github.com/neovim/neovim/issues/1822
+  use("bfredl/nvim-miniyank")
   use("nvim-tree/nvim-tree.lua")
   use("nvim-treesitter/nvim-treesitter")
   use("nvim-tree/nvim-web-devicons")
   use("wbthomason/packer.nvim")
   -- tabular - Massively useful plugin for easily aligning text
-  use 'godlygeek/tabular'
+  use("godlygeek/tabular")
   use({
     "nvim-telescope/telescope.nvim",
     requires = { { "nvim-lua/plenary.nvim" } },
   })
   use("freitass/todo.txt-vim")
+  -- toggleterm.nvim (c-t, esc:c-j)
+  --     Default Alternatives
+  --         :sp term://zsh or
+  --         :vs term://zsh
+  --         ESC -> <c-\><c-n>
+  use("akinsho/toggleterm.nvim")
   -- ultisnips
-  use({'SirVer/ultisnips',
-      requires = {{ 'honza/vim-snippets'}, { 'muralisc/snippets'}}
-  })
+  use({ "SirVer/ultisnips", requires = { { "honza/vim-snippets" }, { "muralisc/snippets" } } })
 
   -- use("wincent/vim-clipper")
-  -- vim-commentary 
+  -- vim-commentary
   --    map: gcc
-  use('tpope/vim-commentary')
+  use("tpope/vim-commentary")
   -- vim-fswitch - Provides :FSHere very useful for cpp files
   use("derekwyatt/vim-fswitch")
   use("preservim/vim-markdown")
@@ -42,13 +55,18 @@ require("packer").startup(function(use)
   --    Provides :LedgerAlign and :LedgerAlignBuffer
   --    Better aligned with Tabularize
   --    :Tabularize /=/l12c1r0
-  use('ledger/vim-ledger')
+  use("ledger/vim-ledger")
   -- vim-tmux-navigator
   --    For compatability with tmux
   --    Using Meta-[hjkl] mappings in tmux to move panes
   use("christoomey/vim-tmux-navigator")
+  -- vim-unimpaired: Awesome bracket maps
+  --     [q ]q :cprevious :cnext
+  --     [n ]n Go to git/hg confict marker
+  --     yow - toggle wrap
+  use("tpope/vim-unimpaired")
+  -- Used by async run to run commands in tmux term
   use("preservim/vimux")
-
 
   -- Colorscheme Plugins
 
@@ -72,6 +90,19 @@ vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
 vim.opt.swapfile = false
 vim.opt.wrap = false
+
+-- Resize
+vim.keymap.set("n", "<Up>", "5<c-w>+", {})
+vim.keymap.set("n", "<Down>", "5<c-w>-", {})
+vim.keymap.set("n", "<Right>", "5<c-w>>", {})
+vim.keymap.set("n", "<Left>", "5<c-w><", {})
+-- Keep your fingers from the home row OR use ctrl-[ instead
+vim.keymap.set("i", "jj", "<Esc>", {})
+-- Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
+-- See http://stevelosh.com/blog/2010/09/coming-home-to-vim
+vim.keymap.set("n", "/", "/\\v", {})
+vim.keymap.set("v", "/", "/\\v", {})
+
 -- Map global leader from \ to Space
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -88,9 +119,9 @@ vim.keymap.set("n", "<leader>ff", function()
   }
   builtin.find_files(opts)
 end, {})
+-- cf: create sibling file
+vim.keymap.set("n", "<leader>cf", ":e %:h/<C-d>", {})
 
--- Keep your fingers from the home row OR use ctrl-[ instead
-vim.keymap.set("i", "jj", "<Esc>", {})
 -- Clears the search register
 vim.keymap.set("n", "<leader>n", ":nohlsearch<CR>", {})
 -- Project Find(pf): Open another file from project (git/hg repository)
@@ -112,17 +143,30 @@ vim.keymap.set("n", "<leader>v", ":vs<CR>", {})
 -- {{{
 vim.opt.foldenable = true
 vim.opt.foldmethod = "marker"
+-- 0-foldall 99-unfoldall
+vim.opt.foldlevel = 99
+-- which commands trigger auto-unfold
+vim.opt.foldopen:append({
+  "block",
+  "hor",
+  "insert",
+  "jump",
+  "mark",
+  "percent",
+  "quickfix",
+  "search",
+  "tag",
+  "undo",
+})
 -- }}}
 
 ---------------------------------------------------------------------------
 -- Plugin Specific Settings
 ---------------------------------------------------------------------------
 
-
 --
 -- For skywind3000/asyncrun.vim
 --
-
 
 -- bb = buck build
 -- nnoremap <leader>bb :AsyncRun -mode=term -pos=toggleterm buck query "owner('$(realpath %)')"<CR>
@@ -134,16 +178,22 @@ vim.keymap.set(
   ":AsyncRun -mode=term -pos=tmux buck2 build $(buck query \"owner('$(realpath %)')\" | head -1)<CR>",
   {}
 )
-
 -- le = load error,
 -- Usefull while using AsyncRun with default -mode and -pos
 vim.keymap.set("n", "<leader>le", ":cget ~/vim_out.log | :copen<CR>\"owner('$(realpath %)')\" | head -1)<CR>", {})
 
+--
+-- For ggandor/leap.nvim
+--
+
+require("leap").set_default_keymaps()
+-- color help from : https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
+vim.api.nvim_set_hl(0, "LeapLabelPrimary", { ctermbg = 111, ctermfg = 016, bold = true })
+vim.api.nvim_set_hl(0, "LeapLabelSecondary", { ctermbg = 046, ctermfg = 016 })
 
 --
 -- For nvim-lualine/lualine.nvim
 --
-
 
 require("lualine").setup({
   options = {
@@ -151,20 +201,6 @@ require("lualine").setup({
     theme = "ayu_dark",
   },
 })
-
-
---
--- For jose-elias-alvarez/null-ls.nvim
---
-
-local null_ls = require("null-ls")
-null_ls.setup({
-  -- on_attach = on_attach,
-  sources = {
-    null_ls.builtins.formatting.stylua,
-  },
-})
-
 
 --
 -- For neovim/nvim-lspconfig
@@ -207,25 +243,6 @@ require("lspconfig").lua_ls.setup({
 })
 
 --
--- For nvim-tree/nvim-tree.lua
---
-
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-require("nvim-tree").setup()
-
---
--- For nvim-treesitter/nvim-treesitter
---
-
-require("nvim-treesitter.configs").setup({
-  ensure_installed = { "c", "cpp", "lua", "markdown", "python", "rust", "vim" },
-  highlight = {
-    enable = true,
-  },
-})
-
---
 -- For nvim-telescope/telescope.nvim
 --
 
@@ -242,12 +259,44 @@ require("telescope").setup({
   },
 })
 
+--
+-- For nvim-tree/nvim-tree.lua
+--
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+require("nvim-tree").setup()
+-- Using same mapping as spacemacs for opening treemacs
+vim.keymap.set("n", "<leader>fn", ":NvimTreeFindFile<cr>", {})
+
+--
+-- For nvim-treesitter/nvim-treesitter
+--
+
+require("nvim-treesitter.configs").setup({
+  ensure_installed = { "c", "cpp", "lua", "markdown", "python", "rust", "vim" },
+  highlight = {
+    enable = true,
+  },
+})
+
+--
+-- For jose-elias-alvarez/null-ls.nvim
+--
+
+local null_ls = require("null-ls")
+null_ls.setup({
+  -- on_attach = on_attach,
+  sources = {
+    null_ls.builtins.formatting.stylua,
+  },
+})
 
 --
 -- For SirVer/ultisnips
 --
-vim.g.UltiSnipsExpandTrigger="<tab>"
-vim.g.UltiSnipsListSnippets="<c-tab>"
+vim.g.UltiSnipsExpandTrigger = "<tab>"
+vim.g.UltiSnipsListSnippets = "<c-tab>"
 
 --
 -- For wincent/vim-clipper
