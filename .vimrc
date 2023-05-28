@@ -80,7 +80,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'ledger/vim-ledger'
   " vim-plugin-viewdoc - For viewing help files
   Plug 'powerman/vim-plugin-viewdoc'
-  Plug 'airblade/vim-rooter'
   " vim-surround see `:help surround`
   "     cs'"  - change ' around text to "
   "     ysiW) - add ) around word
@@ -484,11 +483,6 @@ let g:ViewDoc_DEFAULT = 'ViewDoc_help'
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
-
-" --- For airblade/vim-rooter
-
-let g:rooter_silent_chdir = 1
-let g:rooter_change_directory_for_non_project_files = 'current'
 
 " --- For christoomey/vim-tmux-navigator
 
