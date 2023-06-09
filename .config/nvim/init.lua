@@ -1,3 +1,15 @@
+-- vim: foldlevel=2:
+
+-- Courtsey:
+--   Vincent Driessen <vincent@datafox.nl>
+--       http://nvie.com/posts/how-i-boosted-my-vim/
+--   Tsung-Hsiang (Sean) Chang <vgod@vgod.tw>
+--       https://github.com/vgod/vimrc/blob/master/vimrc
+--   junegunn:
+--       https://github.com/junegunn/dotfiles/blob/master/vimrc
+--   https://github.com/yoshuawuyts/dotfiles
+--   And Vim User Manual
+
 -- Helpers
 --   check a neovim lua var:
 --   :lua print(vim.inspect(vim.opt.shiftwidth))
@@ -7,7 +19,16 @@
 ---------------------------------------------------------------------------
 vim.cmd([[packadd packer.nvim]])
 require("packer").startup(function(use)
+  -- The plugins are ordered by their names
+  -- Helper:
+  -- grep 'use(' ~/.config/nvim/init.lua | sort -t '/' -k 2
+
   -- asyncrun
+  -- Usecase:
+  --     Run a build command
+  --     1. Async in vim
+  --     2. Or in toggleterm
+  --     3. Or in tmux
   use("skywind3000/asyncrun.vim")
   -- diffconflicts - easily address diffconfilicts in nvim :DiffConflicts
   use("whiteinge/diffconflicts")
@@ -56,6 +77,8 @@ require("packer").startup(function(use)
   --    Better aligned with Tabularize
   --    :Tabularize /=/l12c1r0
   use("ledger/vim-ledger")
+  -- vim-plugin-viewdoc - For viewing help files
+  use("powerman/vim-plugin-viewdoc")
   -- vim-tmux-navigator
   --    For compatability with tmux
   --    Using Meta-[hjkl] mappings in tmux to move panes
@@ -70,71 +93,89 @@ require("packer").startup(function(use)
 
   -- Colorscheme Plugins
 
+  -- Some colorscheme tested and conclusion
+  -- solarized                - Good
+  -- gruvbox                  - Good
+  -- apprentice               - Good
+  -- gotham                   - bad for diff highlight
+  -- dracula                  - bad for types
+  -- nord                     - bad for diff highlight
+  -- onedark                  - GOOD
+  -- base16-solarized-dark    - GOOD
+  -- jellybeans               - bad for diff
+  -- base16-summerfruit-dark  - GOOD
+  -- catppuccin               - visual highlighting is not easily visible
   use("morhetz/gruvbox")
+  use("EdenEast/nightfox.nvim") -- not good for diff view
+  use("folke/tokyonight.nvim") -- not good for diff view
+  use("rebelot/kanagawa.nvim") -- not good for diff view
+  use("catppuccin/nvim") -- not good for diff view
+  use("rose-pine/neovim")
 end)
 
 ---------------------------------------------------------------------------
 -- Basic Settings
 ---------------------------------------------------------------------------
 
-vim.opt.colorcolumn = "80,132"
+--
+-- Uncategorised settings
+--
+
+-- always show line numbers
 vim.opt.number = true
+-- Expand tabs to spaces by default (overloadable per file type later)
+vim.opt.expandtab = true
+-- number of spaces to use for autoindenting
+vim.opt.shiftwidth = 4
+vim.opt.swapfile = false
+vim.opt.wrap = false
+-- 132 is Github width :P
+vim.opt.colorcolumn = "80,132"
+
+--
+-- Search settings
+--
+
+-- search/replace 'globally' (on a line) by default
+vim.opt.gdefault = true
+-- -- ignore case when searching
+vim.opt.ignorecase = true
+-- ignore case if search pattern is all lowercase, case-sensitive otherwise
+vim.opt.smartcase = true
+
+--
+--- Vim commands
+--
+
+-- ignore case while filename complete
+vim.opt.wildignorecase = true
+
+--
+--- Editing - Basic Settings influencing edition behavior
+--
+
 -- list: show invisible charecters
 vim.opt.list = true
 -- If 'set list' is enabled, the invisible characters are show using listchars
-vim.opt.listchars:append("tab:> ")
-vim.opt.shiftwidth = 4
--- Expand tabs by default (overloadable per file type later)
-vim.opt.expandtab = true
+vim.opt.listchars:append({tab="> ",trail="·"})
+
+--
+--- UI - Settings influencing UI behaviors
+--
+
+-- set show matching parenthesis
+vim.opt.showmatch = true
+-- underline the current line, for quick orientation
 vim.opt.cursorline = true
+-- have a vertical line marking the cursor column
 vim.opt.cursorcolumn = true
-vim.opt.swapfile = false
-vim.opt.wrap = false
 
--- Resize
-vim.keymap.set("n", "<Up>", "5<c-w>+", {})
-vim.keymap.set("n", "<Down>", "5<c-w>-", {})
-vim.keymap.set("n", "<Right>", "5<c-w>>", {})
-vim.keymap.set("n", "<Left>", "5<c-w><", {})
--- Keep your fingers from the home row OR use ctrl-[ instead
-vim.keymap.set("i", "jj", "<Esc>", {})
--- Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
--- See http://stevelosh.com/blog/2010/09/coming-home-to-vim
-vim.keymap.set("n", "/", "/\\v", {})
-vim.keymap.set("v", "/", "/\\v", {})
+--
+-- Undo/'Getting lost things' settings
+--
 
--- Map global leader from \ to Space
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 -- Persist undo tree across neovim sessions
 vim.opt.undofile = true
-
-local builtin = require("telescope.builtin")
--- Find File(ff): Open another file in same dir as current file,
--- Using keymaps from spacemacs
-vim.keymap.set("n", "<leader>ff", function()
-  local opts = {
-    search_dirs = { vim.fn.expand("%:h") },
-    find_command = { "fd", "--max-depth", "1" },
-  }
-  builtin.find_files(opts)
-end, {})
--- cf: create sibling file
-vim.keymap.set("n", "<leader>cf", ":e %:h/<C-d>", {})
-
--- Clears the search register
-vim.keymap.set("n", "<leader>n", ":nohlsearch<CR>", {})
--- Project Find(pf): Open another file from project (git/hg repository)
-vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
--- Find Recent(fr): Open recently used files
-vim.keymap.set("n", "<leader>fr", builtin.oldfiles, {})
--- Grep in files
-vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
--- derekwyatt/vim-fswitch
-vim.keymap.set("n", "<leader>a", ":FSHere<CR>", {})
--- Easy split
-vim.keymap.set("n", "<leader>s", ":sp<CR>", {})
-vim.keymap.set("n", "<leader>v", ":vs<CR>", {})
 
 --
 -- Folding Rules
@@ -160,6 +201,46 @@ vim.opt.foldopen:append({
 })
 -- }}}
 
+----------------------------------------------------------------------------
+-- Shortcut Mappings
+----------------------------------------------------------------------------
+
+-- Resize
+vim.keymap.set("n", "<Up>", "5<c-w>+", {})
+vim.keymap.set("n", "<Down>", "5<c-w>-", {})
+vim.keymap.set("n", "<Right>", "5<c-w>>", {})
+vim.keymap.set("n", "<Left>", "5<c-w><", {})
+-- Keep your fingers from the home row OR use ctrl-[ instead
+vim.keymap.set("i", "jj", "<Esc>", {})
+-- Thanks to Steve Losh for this liberating tip[perl/python compatible regex]
+-- See http://stevelosh.com/blog/2010/09/coming-home-to-vim
+vim.keymap.set("n", "/", "/\\v", {})
+vim.keymap.set("v", "/", "/\\v", {})
+
+-- Map global leader from \ to Space
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+-- Clears the search register
+vim.keymap.set("n", "<leader>n", ":nohlsearch<CR>", {})
+-- Easy split
+vim.keymap.set("n", "<leader>s", ":sp<CR>", {})
+vim.keymap.set("n", "<leader>v", ":vs<CR>", {})
+
+
+-- Clipboard madness {{{
+vim.keymap.set("n", "p", "<Plug>(miniyank-autoput)", {})
+vim.keymap.set("n", "P", "<Plug>(miniyank-autoput)", {})
+vim.keymap.set("v", "<leader>P", "\"_dp", {})
+-- }}}
+
+vim.cmd [[
+augroup FTOptions
+  autocmd!
+  autocmd Filetype markdown                     setlocal iskeyword+=# textwidth=80
+augroup end
+]]
+
 ---------------------------------------------------------------------------
 -- Plugin Specific Settings
 ---------------------------------------------------------------------------
@@ -178,6 +259,7 @@ vim.keymap.set(
   ":AsyncRun -mode=term -pos=tmux buck2 build $(buck query \"owner('$(realpath %)')\" | head -1)<CR>",
   {}
 )
+
 -- le = load error,
 -- Usefull while using AsyncRun with default -mode and -pos
 vim.keymap.set("n", "<leader>le", ":cget ~/vim_out.log | :copen<CR>\"owner('$(realpath %)')\" | head -1)<CR>", {})
@@ -200,6 +282,19 @@ require("lualine").setup({
     icons_enabled = true,
     theme = "ayu_dark",
   },
+    sections = {
+        lualine_c = {
+    {
+      'filename',
+      file_status = true,      -- Displays file status (readonly status, modified status)
+      newfile_status = false,  -- Display new file status (new file means no write after created)
+      path = 3,                -- 3: Absolute path, with tilde as the home directory
+
+      shorting_target = 40,    -- Shortens path to leave 40 spaces in the window
+                               -- for other components. (terrible name, any suggestions?)
+    }
+  }
+    }
 })
 
 --
@@ -247,6 +342,9 @@ require("lspconfig").lua_ls.setup({
 --
 
 require("telescope").setup({
+  defaults = {
+    path_display = { truncate = 3 },
+  },
   pickers = {
     find_files = {
       hidden = true,
@@ -258,6 +356,25 @@ require("telescope").setup({
     },
   },
 })
+
+local builtin = require("telescope.builtin")
+-- Find File(ff): Open another file in same dir as current file,
+-- Using keymaps from spacemacs
+vim.keymap.set("n", "<leader>ff", function()
+  local opts = {
+    search_dirs = { vim.fn.expand("%:h") },
+    find_command = { "fd", "--max-depth", "1" },
+  }
+  builtin.find_files(opts)
+end, {})
+-- cf(create file): create sibling file
+vim.keymap.set("n", "<leader>cf", ":e %:h/<C-d>", {})
+-- Project Find(pf): Open another file from project (git/hg repository)
+vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
+-- Find Recent(fr): Open recently used files
+vim.keymap.set("n", "<leader>fr", builtin.oldfiles, {})
+-- Grep in files
+vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
 
 --
 -- For nvim-tree/nvim-tree.lua
@@ -293,6 +410,37 @@ null_ls.setup({
 })
 
 --
+-- For akinsho/toggleterm.nvim
+--
+
+require("toggleterm").setup{
+  size = function(term)
+    if term.direction == "horizontal" then
+      return 15
+    elseif term.direction == "vertical" then
+      return vim.o.columns * 0.5
+    end
+  end,
+  open_mapping = [[<c-t>]],
+  shade_terminals = true,
+  shading_factor = 9,
+  persist_size = true,
+  direction = 'vertical',
+  start_in_insert = false,
+}
+function _G.set_terminal_keymaps()
+  local opts = {noremap = true}
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-h>', [[<C-\><C-n><C-W>h]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-j>', [[<C-\><C-n><C-W>j]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-k>', [[<C-\><C-n><C-W>k]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-l>', [[<C-\><C-n><C-W>l]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+--
 -- For SirVer/ultisnips
 --
 vim.g.UltiSnipsExpandTrigger = "<tab>"
@@ -308,10 +456,23 @@ vim.g.ClipperPort = 5556
 -- For christoomey/vim-tmux-navigator
 --
 
+-- For compatability with tmux
+-- Using Meta-[hjkl] mappings in tmux to move panes
 vim.g.tmux_navigator_no_mappings = 0
+
+--
+-- For derekwyatt/vim-fswitch
+--
+
+vim.keymap.set("n", "<leader>a", ":FSHere<CR>", {})
 
 ---------------------------------------------------------------------------
 -- Set Colorscheme
 ---------------------------------------------------------------------------
 
-vim.cmd([[colorscheme gruvbox]])
+if vim.opt.diff:get() then
+ vim.cmd([[colorscheme gruvbox ]])
+else
+ vim.cmd([[colorscheme rose-pine ]])
+end
+

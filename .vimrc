@@ -137,6 +137,10 @@ set guioptions-=L
 "---------------------------------------------------------------------------
 " {{{
 
+"
+" -- Uncategorised settings
+"
+
 " Enable filetype detection
 filetype on
 " Enable filetype-specific indenting
@@ -188,7 +192,9 @@ set hidden
 " reveal already opened files instead of opening new buffers
 set switchbuf=useopen
 
+"
 " --- Search settings
+"
 
 " {{{
 " show search matches as you type
@@ -203,7 +209,9 @@ set smartcase
 set hlsearch                                                                    
 " }}}
 
+"
 " --- Vim commands
+"
 
 " {{{
 
@@ -225,7 +233,9 @@ set showcmd
 set history=1000
 " }}}
 
+"
 " --- Editing - Basic Settings influencing edition behavior
+"
 
 " {{{
 set nofixendofline
@@ -268,7 +278,9 @@ endif
 " set pastetoggle=<F2>
 " }}}
 
+"
 " --- UI - Settings influencing UI behaviors 
+"
 
 " {{{
 " Read a changed file on disk
@@ -298,7 +310,9 @@ let g:netrw_winsize = 15
 set showmode
 " }}}
 
+"
 " --- Undo/'Getting lost things' settings
+"
 
 " {{{
 " use many muchos levels of undo
