@@ -480,6 +480,7 @@ y -S dua # -- command line fize size analyse
 https://github.com/tabulapdf/tabula
 # screen recorder
 y -Syy simplescreenrecorder
+
 # m17n Multilingualization
 # smartmontools
 sudo smartctl -a /dev/sda  # disk tools
@@ -535,7 +536,9 @@ rmlint # remove duplicate files
 # Tried
 #   photonix # ( because it lets me keep the folder structure )
          # browser app is not good, videos are not indexed :(
-#   photoprism # keeps crashing :(
+#   photoprism 
+#   - used to keep crashing :( 
+#   - but now this is better
 # current:
 github.com/photoview/photoview # - for fast access + indexing
 pigallery2 # for folder acceess, also used by memory script
@@ -543,7 +546,6 @@ pigallery2 # for folder acceess, also used by memory script
     # - https://github.com/bpatrik/pigallery2#11-install-and-run-with-docker-recommended
     # - personal repository: 
     # - https://github.com/muralisc/pigallery2-photos
-librephotos # has object tagging (not tried yest)
 
 # git ui -> FredrikNoren/ungit
 sudo npm install -g ungit
@@ -559,6 +561,9 @@ https://github.com/opf/openproject-deploy # trac user management is tricy
     docker-compose -p openproject up -d
 https://github.com/muralisc/personal_metrics.git
 https://github.com/trailofbits/algo
+
+# for key display while editing
+https://github.com/wavexx/screenkey
 
 # preview files using fzf (even images in ssh)
 # $ fzf --header 'E to edit' --preview='pistol {}' --bind 'E:execute(vi {})'
