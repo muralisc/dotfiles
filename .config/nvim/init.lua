@@ -199,6 +199,7 @@ vim.opt.foldopen:append({
   "tag",
   "undo",
 })
+vim.opt.foldtext = ""
 -- }}}
 
 ----------------------------------------------------------------------------
@@ -473,6 +474,7 @@ vim.keymap.set("n", "<leader>a", ":FSHere<CR>", {})
 if vim.opt.diff:get() then
  vim.cmd([[colorscheme gruvbox ]])
 else
- vim.cmd([[colorscheme rose-pine ]])
+ vim.cmd([[colorscheme gruvbox ]])
+ -- vim.cmd([[colorscheme rose-pine ]])
 end
 

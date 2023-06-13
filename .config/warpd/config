@@ -1,3 +1,5 @@
+speed: 100
+buttons: m , .
 hint_oneshot_key: A-M-z
 hint2_oneshot_key: A-M-Z 
 history_activation_key: A-M-c
