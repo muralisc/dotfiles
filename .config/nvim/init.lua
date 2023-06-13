@@ -132,6 +132,8 @@ vim.opt.wrap = false
 -- 132 is Github width :P
 vim.opt.colorcolumn = "80,132"
 
+vim.opt.clipboard= "unnamedplus"
+
 --
 -- Search settings
 --
