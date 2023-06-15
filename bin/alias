@@ -57,5 +57,4 @@ alias fv="findvim"
 # These alias is requried to prevent vim colorscheme from getting messed up inside tmux
 alias vim="TERM=screen-256color vim"
 alias vimdiff="TERM=screen-256color vimdiff"
-alias nvim="nvim -u ~/src/dankrookie/nvim.lua/init.lua"
 alias nvim="nvim -u ~/.config/nvim/init.lua"
