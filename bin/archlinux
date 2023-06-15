@@ -332,9 +332,9 @@ yay -S --noconfirm \
 # For easy file renaming
 y -S --noconfirm perl-rename vimv nomino # See other renamers in https://github.com/yaa110/nomino/wiki/Benchmark
 
-# Install lang support
-yay -S --noconfirm nodejs go
-# monitors
+# Install git history support
+yay -S --noconfirm emacs # for magit only
+# System Metrics monitors
 yay -S --noconfirm htop vnstat
 yay -S dunst
 # for terminal git and git-gui, use magit in emacs instead of anything else
