@@ -30,6 +30,7 @@ mv nvim-macos/bin/nvim /usr/local/bin
 KeyCastr
 OmniDiskSweeper  - For kurukus laptop storage sort
 
-emacs # for magit only
-    brew tap d12frosted/emacs-plus
-    brew install emacs-plus@28 --HEAD
+# For git
+# emacs - not preffered
+Use tig # not lazygit
+obsidian
