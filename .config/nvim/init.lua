@@ -17,6 +17,7 @@
 ---------------------------------------------------------------------------
 -- packer setup
 ---------------------------------------------------------------------------
+-- {{{
 vim.cmd([[packadd packer.nvim]])
 require("packer").startup(function(use)
   -- The plugins are ordered by their names
@@ -108,6 +109,7 @@ require("packer").startup(function(use)
   --    3k | catppuccin/nvim                  :  visual highlighting is not easily visible
   use("morhetz/gruvbox")
 end)
+-- }}}
 
 ---------------------------------------------------------------------------
 -- Basic Settings
@@ -142,7 +144,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 --
---- Vim commands
+-- Vim commands
 --
 
 -- ignore case while filename complete
@@ -158,7 +160,7 @@ vim.opt.list = true
 vim.opt.listchars:append({tab="> ",trail="·"})
 
 --
---- UI - Settings influencing UI behaviors
+-- UI - Settings influencing UI behaviors
 --
 
 -- set show matching parenthesis
@@ -182,7 +184,7 @@ vim.opt.undofile = true
 -- {{{
 vim.opt.foldenable = true
 vim.opt.foldmethod = "marker"
--- 0-foldall 99-unfoldall
+-- Set the default foldlevel, 0-foldall 99-unfoldall
 vim.opt.foldlevel = 99
 -- which commands trigger auto-unfold
 vim.opt.foldopen:append({
@@ -197,6 +199,7 @@ vim.opt.foldopen:append({
   "tag",
   "undo",
 })
+-- I dont like the default fold text, its confusing
 vim.opt.foldtext = ""
 -- }}}
 
