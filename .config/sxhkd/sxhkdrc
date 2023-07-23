@@ -161,4 +161,4 @@ super + {_,shift} + e
 
 #reload xmodmap to map Capslock to Ctrl
 super + {_,shift} + Caps_Lock
-    {xmodmap ~/.Xmodmap &&  notify-send "Caps_Lock remapped to Ctrl" , xdotool key Caps_Lock && notify-send "xdotool key Caps_Lock"}
+    { setxkbmap -option ctrl:nocaps &&  notify-send "Caps_Lock remapped to Ctrl" , xdotool key Caps_Lock && notify-send "xdotool key Caps_Lock"}
