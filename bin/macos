@@ -1,31 +1,51 @@
 #!/bin/bash
-# custom shell out on mac bar
+
+# XBAR - custom shell output on mac bar
 # https://github.com/matryer/xbar
-mos
+# plugin Timezone by Toni Hoffmann
 brew cask install xbar && \
     wget https://gist.githubusercontent.com/muralisc/087c33657d66e4813d6517dc273028e7/raw/6d917ebc447fbd7804eeb3a4e5787d49349af476/countdown_timer_2.1s.py
-    plugin Timezone by Toni Hoffmann
-# custome keymaps
-Karabiner && hammerspoon
-# better mouse
-https://github.com/Caldis/Mos
-# Dont use mouse
-vimac && warpd
-# deprecated Xeasymotion - keynav for mac, 
-#   - warpd is better
-# Take breaks
-hovancik/stretchly
-clipper # https://github.com/wincent/clipper (Remote clipboard)
-hluk/CopyQ
-github.com/h2ero/XEasyMotion # keynav for macos
 
-# devserver mac sync 
+# Reverse mouse roll
+# https://github.com/Caldis/Mos
+mos 
+
+# Custom Keymaps
+Karabiner && hammerspoon
+
+# Dont use mouse
+# Deprecated - github.com/h2ero/XEasyMotion # warpd is better
+vimac && warpd
+
+# Take breaks
+Chrome - posture minder
+
+# Remote clipboard
+clipper # https://github.com/wincent/clipper 
+
+# Copy historyj
+hluk/CopyQ
+
+# Devserver mac sync 
 unison
 
 # Neovim in mac
-https://github.com/neovim/neovim/releases
-download nightly v0.8.0-dev-nightly-4-ge9b58a619
+# https://github.com/neovim/neovim/releases
+# download nightly v0.8.0-dev-nightly-4-ge9b58a619
 mv nvim-macos/bin/nvim /usr/local/bin
 
+# Show pressed keys onScreen - screenkey alternative
 KeyCastr
-OmniDiskSweeper  - For kurukus laptop storage sort
+
+# Mac os storage sort - For kurukuts
+OmniDiskSweeper
+
+# For git
+# emacs - not preffered
+Use tig # not lazygit
+
+# for note taking and journal
+obsidian
+
+# snippets for mac os
+espanso

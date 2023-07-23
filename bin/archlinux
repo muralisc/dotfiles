@@ -334,10 +334,10 @@ y -S --noconfirm perl-rename vimv nomino # See other renamers in https://github.
 
 # Install lang support
 yay -S --noconfirm nodejs go
-# monitors
+# System Metrics monitors
 yay -S --noconfirm htop glances vnstat
 yay -S dunst
-# for terminal git and git-gui, use magit in emacs instead of anything else
+# for terminal git and git-gui, use tig(and not magit), it supports good diffs
 yay -S --noconfirm tk
 # bluetooth wifi
 yay -S --noconfirm bluez iw blueman-git bluez-utils-compat #  bluez-utils

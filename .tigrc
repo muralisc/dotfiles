@@ -1,0 +1,3 @@
+set vertical-split = yes
+bind diff       D       >sh -c "git difftool --no-prompt --extcmd 'icdiff -N' '%(commit)^!' -- '%(file)' | less -R"
+bind stage      D       >sh -c "git difftool --no-prompt --extcmd 'icdiff -N' `expr '%(status)' : 'Staged changes' >/dev/null && echo --cached` -- '%(file)' | less -R"

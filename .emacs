@@ -1,9 +1,11 @@
 ;;; .emacs --- Custom emacs configuration of Murali
-;;; Commentary:
 ;;;
-;;; Code:
+;;; Use only for magit, defatult editor for me is neovim
+;;; Org-agenda is amazing, but for now lets use Todois(android and ios app)
 
 (defvar bootstrap-version)
+
+;;; Install straight(emacs package manager) if it does not exist
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
@@ -16,6 +18,7 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+;;; Install a theme
 (straight-use-package 'doom-themes)
 (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
       doom-themes-enable-italic t) ; if nil, italics is universally disabled
@@ -39,12 +42,6 @@
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
-;;Org Journal
-(straight-use-package 'org-journal)
-(require 'org-journal)
-(setq org-journal-file-type 'yearly)
-(setq org-journal-file-format "%Y_journal.org")
-
 ;;Ledger
 (straight-use-package 'ledger-mode)
 (require 'ledger-mode)
@@ -54,7 +51,7 @@
 (straight-use-package 'flycheck)
 (global-flycheck-mode)
 
-;; LSP
+;; LSP (not a priority as emacs is used only for magit)
 (straight-use-package 'lsp-mode)
 (require 'lsp-mode)
 (setq gc-cons-threshold 100000000)
@@ -75,8 +72,6 @@
 (global-set-key (kbd "C-x C-r") 'counsel-recentf)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-
-(straight-use-package 'htmlize)
 
 ;; Magit
 (straight-use-package 'magit)
@@ -149,9 +144,9 @@
 (setq inhibit-startup-screen t)
 ;; Wrap around
 (set-default 'truncate-lines t)
-;; show cursor position within line
+;; Show cursor position within line
 (column-number-mode 1)
-;; hide toolbar and scroll bar
+;; Hide toolbar and scroll bar
 (if (display-graphic-p)
     (progn
       (tool-bar-mode 0)
