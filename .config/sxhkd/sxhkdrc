@@ -64,7 +64,7 @@ super + {p,b,comma,period}
 
 # focus the next/previous node in the current desktop
 super + {_,shift + }c
-	bspc node -f {next,prev}.local
+	bspc node -f {next,prev}.local &&  notify-send "Use H J K L"
 
 # volume
 super + bracket{left,right}
@@ -161,4 +161,4 @@ super + {_,shift} + e
 
 #reload xmodmap to map Capslock to Ctrl
 super + {_,shift} + Caps_Lock
-    { setxkbmap -option ctrl:nocaps &&  notify-send "Caps_Lock remapped to Ctrl" , xdotool key Caps_Lock && notify-send "xdotool key Caps_Lock"}
+    { xmodmap ~/.Xmodmap &&  notify-send "Caps_Lock remapped to Ctrl" , xdotool key Caps_Lock && notify-send "xdotool key Caps_Lock"}
