@@ -38,6 +38,10 @@ super + y
 super + g
 	bspc node -s biggest
 
+# Balance desktop
+super + b
+  bspc node @focused:/ -B
+
 #
 # state/flags
 #
@@ -54,9 +58,9 @@ super + ctrl + {m,x,y,z}
 # focus/swap
 #
 
-# focus the node in the given direction
+# focus/swap the node in the given direction
 super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
+	bspc node --{focus,swap} {west,south,north,east}
 
 # focus the node for the given path jump
 super + {p,b,comma,period}
