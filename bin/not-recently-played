@@ -37,3 +37,8 @@ find $DEST_FOLDER \
 	-type f \
 	-printf "%AY-%Am-%Ad %AH:%AM:%AS %p\n" > $DEST_FOLDER/access_times.log
 
+
+# sqlite3 /var/tmp/notforkids.db  "create table nfk_acces_dates (id INTEGER PRIMARY KEY,path TEXT,date INT);"
+# sqlite3 /var/tmp/notforkids.db  "insert into nfk_acces_dates (path,date) VALUES('test path',strftime('%s','now'));"
+# sqlite3 /var/tmp/notforkids.db  "select * from nfk_acces_dates"
+
