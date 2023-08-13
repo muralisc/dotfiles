@@ -10,8 +10,6 @@ brew cask install xbar && \
 # https://github.com/Caldis/Mos
 mos 
 
-# Custom Keymaps
-Karabiner && hammerspoon
 
 # Dont use mouse
 # Deprecated - github.com/h2ero/XEasyMotion # warpd is better
@@ -49,3 +47,12 @@ obsidian
 
 # snippets for mac os
 espanso
+
+# Keyboard mangic + window manager
+# https://github.com/koekeishiya/yabai - too cumborsome
+# Use rectangle instead
+rectangle
+# skhd - too cumborsome ( with yabai )
+# Use Karabiner instead
+Karabiner
+# hammerspoon - deprecated

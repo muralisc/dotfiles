@@ -34,6 +34,10 @@ get_zsh_plugins() {
     --create-dirs -o ~/.local/shrink-path.plugin.zsh
   mkdir -p ~/.zsh; 
   git clone https://github.com/zsh-users/zsh-history-substring-search ~/.zsh/zsh-history-substring-search
+
+  # rg completion
+  curl https://raw.githubusercontent.com/BurntSushi/ripgrep/master/complete/_rg \
+    --create-dirs -o ~/.zsh/completion/_rg
 }
 
 symlink_files() {
