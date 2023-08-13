@@ -4,7 +4,7 @@
 # a destination folder with sub folders defined by
 # yyyy-mm-dd/camera-model/file.jpg
 
-# e.g: bash ~/src/dotfiles/bin/footage-copy.sh ~/data/footage/2021/2021_01_murali_mobile ~/data/footage/2021 "DefaultCameraName"
+# e.g: bash ~/src/dotfiles/bin/footage-camera-2-storage-copy.sh ~/data/footage/2021/2021_01_murali_mobile ~/data/footage/2021 "DefaultCameraName"
 
 
 SRC_FOLDER=$1
