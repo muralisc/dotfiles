@@ -63,8 +63,6 @@ require("packer").startup(function(use)
   --         :vs term://zsh
   --         ESC -> <c-\><c-n>
   use("akinsho/toggleterm.nvim")
-  -- ultisnips
-  use({ "SirVer/ultisnips", requires = { { "honza/vim-snippets" }, { "muralisc/snippets" } } })
 
   -- use("wincent/vim-clipper")
   -- vim-commentary
@@ -441,12 +439,6 @@ end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-
---
--- For SirVer/ultisnips
---
-vim.g.UltiSnipsExpandTrigger = "<tab>"
-vim.g.UltiSnipsListSnippets = "<c-tab>"
 
 --
 -- For wincent/vim-clipper

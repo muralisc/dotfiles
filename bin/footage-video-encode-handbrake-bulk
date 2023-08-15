@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# bash footage-video-handbrake_helper ~/data/footage/2021/ ~/data/footage/2021/ '.*04_18.*mp4' dryrun
-# bash ~/src/dotfiles/bin/footage-video-handbrake_helper \
+# Convert super-large files for storage
+# bash footage-video-encode-handbrake-bulk ~/data/footage/2021/ ~/data/footage/2021/ '.*04_18.*mp4' dryrun
+#
+# Convert files for raspberry-pi
+# bash ~/src/dotfiles/bin/footage-video-encode-handbrake-bulk \
 #       ~/data/footage/2022/ \
 #       ~/data/footage_converted/2022/ \
 #       '.*2022_01_01.*mp4'
