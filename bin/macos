@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Deprecated
+#
+#
+
 # XBAR - custom shell output on mac bar
 # https://github.com/matryer/xbar
 # plugin Timezone by Toni Hoffmann
@@ -15,7 +19,7 @@ Karabiner && hammerspoon
 
 # Dont use mouse
 # Deprecated - github.com/h2ero/XEasyMotion # warpd is better
-vimac && warpd
+vimac(now https://www.homerow.app/) && warpd
 
 # Take breaks
 Chrome - posture minder
