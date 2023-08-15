@@ -1,11 +1,16 @@
 #!/bin/bash
 
+# Convert Image to smaller size and resolution for 
+# raspberry-pi
+# or
+# Image viewing tools like immich
+
 # Usage:
 # bash $1 $source_root $dest_root 'find_path_regex'
 # e.g:
-#   bash ~/src/dotfiles/bin/footage_manual_convert.sh ~/data/footage ~/data/footage_converted '.*_09.*CR3' dryrun
-#   bash ~/src/dotfiles/bin/footage_manual_convert.sh ~/data/footage ~/data/footage_converted '.*IMG_043.\.HEIC' dryrun
-#   bash ~/src/dotfiles/bin/footage_manual_convert.sh ~/data/footage ~/data/footage_converted '.*2022/.*_1[01]_.*\(jpg\|JPG\|CR3\|HEIC\|jpeg\)' dryrun
+#   bash ~/src/dotfiles/bin/footage-image_manual_convert.sh ~/data/footage ~/data/footage_converted '.*_09.*CR3' dryrun
+#   bash ~/src/dotfiles/bin/footage-image_manual_convert.sh ~/data/footage ~/data/footage_converted '.*IMG_043.\.HEIC' dryrun
+#   bash ~/src/dotfiles/bin/footage-image_manual_convert.sh ~/data/footage ~/data/footage_converted '.*2022/.*_1[01]_.*\(jpg\|JPG\|CR3\|HEIC\|jpeg\)' dryrun
 
 SOURCE_ROOT="$1"
 DESTINATION_ROOT="$2"
