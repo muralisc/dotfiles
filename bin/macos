@@ -56,3 +56,4 @@ rectangle
 # Use Karabiner instead
 Karabiner
 # hammerspoon - deprecated
+bitbar -> timezone(plugin)
