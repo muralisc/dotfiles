@@ -12,4 +12,5 @@ preset="${3:-HQ 1080p30 Surround}"
 # preset="Fast 1080p30"
 # preset="Very Fast 1080p30"
 
+echo "Executing ========= " HandBrakeCLI -Z "$preset" -i "$INPUT_FILE_PATH" -o "$OUPUT_FILE_PATH"
 HandBrakeCLI -Z "$preset" -i "$INPUT_FILE_PATH" -o "$OUPUT_FILE_PATH"
