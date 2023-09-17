@@ -63,7 +63,10 @@ function cb() {
     bc --mathlib <<< "scale=2; $*"
 }
 # alias it for zsh
-if [[ $SHELL =~ "zsh" ]]; then alias c='noglob c'; fi
+if [[ $SHELL =~ "zsh" ]]; then 
+    alias c='noglob c'; 
+    alias cb='noglob cb'; 
+fi
 
 custom_defined_functions() {
   #TODO

@@ -17,6 +17,7 @@
 ---------------------------------------------------------------------------
 -- packer setup
 ---------------------------------------------------------------------------
+-- {{{
 vim.cmd([[packadd packer.nvim]])
 require("packer").startup(function(use)
   -- The plugins are ordered by their names
@@ -62,8 +63,6 @@ require("packer").startup(function(use)
   --         :vs term://zsh
   --         ESC -> <c-\><c-n>
   use("akinsho/toggleterm.nvim")
-  -- ultisnips
-  use({ "SirVer/ultisnips", requires = { { "honza/vim-snippets" }, { "muralisc/snippets" } } })
 
   -- use("wincent/vim-clipper")
   -- vim-commentary
@@ -94,24 +93,21 @@ require("packer").startup(function(use)
   -- Colorscheme Plugins
 
   -- Some colorscheme tested and conclusion
-  -- solarized                - Good
-  -- gruvbox                  - Good
-  -- apprentice               - Good
-  -- gotham                   - bad for diff highlight
-  -- dracula                  - bad for types
-  -- nord                     - bad for diff highlight
-  -- onedark                  - GOOD
-  -- base16-solarized-dark    - GOOD
-  -- jellybeans               - bad for diff
-  -- base16-summerfruit-dark  - GOOD
-  -- catppuccin               - visual highlighting is not easily visible
+
+  --  6.5k | altercation/vim-colors-solarized :  Good
+  -- 12.2k | morhetz/gruvbox                  :  Good
+  --   847 | romainl/Apprentice               :  Good
+  --  1.2k | whatyouhide/vim-gotham           :  bad for diff highlight
+  --  1.2k | dracula                          :  bad for types
+  --  2.4k | nord                             :  bad for diff highlight
+  --  3.7k | joshdick/onedark.vim             :  GOOD
+  --    66 | base16-solarized-dark            :  GOOD
+  --  1.7k | nanotech/jellybeans.vim          :  bad for diff
+  --    66 | base16-summerfruit-dark          :  GOOD
+  --    3k | catppuccin/nvim                  :  visual highlighting is not easily visible
   use("morhetz/gruvbox")
-  use("EdenEast/nightfox.nvim") -- not good for diff view
-  use("folke/tokyonight.nvim") -- not good for diff view
-  use("rebelot/kanagawa.nvim") -- not good for diff view
-  use("catppuccin/nvim") -- not good for diff view
-  use("rose-pine/neovim")
 end)
+-- }}}
 
 ---------------------------------------------------------------------------
 -- Basic Settings
@@ -146,7 +142,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 --
---- Vim commands
+-- Vim commands
 --
 
 -- ignore case while filename complete
@@ -162,7 +158,7 @@ vim.opt.list = true
 vim.opt.listchars:append({tab="> ",trail="·"})
 
 --
---- UI - Settings influencing UI behaviors
+-- UI - Settings influencing UI behaviors
 --
 
 -- set show matching parenthesis
@@ -186,7 +182,7 @@ vim.opt.undofile = true
 -- {{{
 vim.opt.foldenable = true
 vim.opt.foldmethod = "marker"
--- 0-foldall 99-unfoldall
+-- Set the default foldlevel, 0-foldall 99-unfoldall
 vim.opt.foldlevel = 99
 -- which commands trigger auto-unfold
 vim.opt.foldopen:append({
@@ -201,6 +197,7 @@ vim.opt.foldopen:append({
   "tag",
   "undo",
 })
+-- I dont like the default fold text, its confusing
 vim.opt.foldtext = ""
 -- }}}
 
@@ -443,16 +440,16 @@ end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 --
--- For SirVer/ultisnips
---
-vim.g.UltiSnipsExpandTrigger = "<tab>"
-vim.g.UltiSnipsListSnippets = "<c-tab>"
-
---
 -- For wincent/vim-clipper
 --
 
 vim.g.ClipperPort = 5556
+
+--
+-- For derekwyatt/vim-fswitch
+--
+
+vim.keymap.set("n", "<leader>a", ":FSHere<CR>", {})
 
 --
 -- For christoomey/vim-tmux-navigator
@@ -461,12 +458,6 @@ vim.g.ClipperPort = 5556
 -- For compatability with tmux
 -- Using Meta-[hjkl] mappings in tmux to move panes
 vim.g.tmux_navigator_no_mappings = 0
-
---
--- For derekwyatt/vim-fswitch
---
-
-vim.keymap.set("n", "<leader>a", ":FSHere<CR>", {})
 
 ---------------------------------------------------------------------------
 -- Set Colorscheme

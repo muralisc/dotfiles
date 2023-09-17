@@ -38,6 +38,10 @@ super + y
 super + g
 	bspc node -s biggest
 
+# Balance desktop
+super + b
+  bspc node @focused:/ -B
+
 #
 # state/flags
 #
@@ -54,9 +58,9 @@ super + ctrl + {m,x,y,z}
 # focus/swap
 #
 
-# focus the node in the given direction
+# focus/swap the node in the given direction
 super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
+	bspc node --{focus,swap} {west,south,north,east}
 
 # focus the node for the given path jump
 super + {p,b,comma,period}
@@ -64,7 +68,7 @@ super + {p,b,comma,period}
 
 # focus the next/previous node in the current desktop
 super + {_,shift + }c
-	bspc node -f {next,prev}.local
+	bspc node -f {next,prev}.local &&  notify-send "Use H J K L"
 
 # volume
 super + bracket{left,right}
@@ -161,4 +165,4 @@ super + {_,shift} + e
 
 #reload xmodmap to map Capslock to Ctrl
 super + {_,shift} + Caps_Lock
-    {xmodmap ~/.Xmodmap &&  notify-send "Caps_Lock remapped to Ctrl" , xdotool key Caps_Lock && notify-send "xdotool key Caps_Lock"}
+    { xmodmap ~/.Xmodmap &&  notify-send "Caps_Lock remapped to Ctrl" , xdotool key Caps_Lock && notify-send "xdotool key Caps_Lock"}

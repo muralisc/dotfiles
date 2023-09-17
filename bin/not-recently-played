@@ -1,39 +1,56 @@
 #!/bin/bash
 
+# Trasnform a file to another location using given command
+#
+# If the target location do not have the file
+# Remove in the original location
+
 # Usage:
 # $0 copy - do copy
 # $0      - print the dry run 
 if [[ -z "$1" ]]; then
 echo "Usage:"
-echo "	bash ~/bin/not-recently-played [command|cp|mv|echo|dry] [source-folder] [copy-folder] [last-access-date] [number-of-files]"
-echo "	bash ~/bin/not-recently-played dry ~/data/Media/videos/ ~/shared_folders/transfer_private/vids"
-echo "	bash ~/bin/not-recently-played dry ~/data/Songs/ ~/shared_folders/transfer_private/songs/cron_songs/"
+echo "  bash ~/bin/not-recently-played "
+echo "          [command|cp|mv|echo|dry] "
+echo "          [source-folder] [copy-folder] [last-access-date] [number-of-files]"
+
+echo "  bash ~/bin/not-recently-played dry ~/data/Media/videos/ ~/shared_folders/transfer_private/vids"
+echo "  bash ~/bin/not-recently-played dry ~/data/Songs/ ~/shared_folders/transfer_private/songs/cron_songs/"
 fi
 
 copy_command=${1:-echo}
-SONGS_FOLDERS="${2:-$HOME/data/Songs/Malayalam}"
-SONGS_FOLDER="$(tr ',' ' ' <<< $SONGS_FOLDERS)"
+SOURCE_FOLDERS="${2:-$HOME/data/Songs/Malayalam}"
+SOURCE_FOLDER="$(tr ',' ' ' <<< $SOURCE_FOLDERS)"
 DEST_FOLDER="${3:-$HOME/shared_folders/transfer_private/songs/cron_songs/}"
 LAST_ACCESS_DATE="${4:-2022-03-28}"
 NO_OF_FILES_TO_COPY="${5:-5}"
+REGEX_FILTER="${6:-.*}"
+
 # FIND_EXCLUDE='-not -ipath "*1960*" -ipath "*JPG"'
 FIND_EXCLUDE='-not -ipath "*CR3" -not -ipath "*pp3" -not -ipath "*lrv" -not -ipath "*thm"'
+
 touch ${DEST_FOLDER}/skip_files.txt
 EXCLUDE_FILE_LIST_CMD="grep -vFf ${DEST_FOLDER}/skip_files.txt"
 
-FIND_FILTER_COMMAND="find $SONGS_FOLDER -type f -not -newerat ${LAST_ACCESS_DATE} ${FIND_EXCLUDE} | $EXCLUDE_FILE_LIST_CMD "
+FIND_FILTER_COMMAND="find $SOURCE_FOLDER -type f -regex "$REGEX_FILTER" -not -newerat ${LAST_ACCESS_DATE} ${FIND_EXCLUDE} | $EXCLUDE_FILE_LIST_CMD "
 
 NUMBER_OF_ITEMS_LEFT=$(eval "$FIND_FILTER_COMMAND" | wc -l)
 
 echo "$(date -Is) Running Cleanup script, remaining items: $NUMBER_OF_ITEMS_LEFT"
 mkdir -p $DEST_FOLDER
 python ~/src/dotfiles/bin/not-recently-played-cleanup $DEST_FOLDER
-eval "$FIND_FILTER_COMMAND" |\
-	shuf |\
-	head -${NO_OF_FILES_TO_COPY} |\
-	xargs -I'{}' $copy_command -v '{}' $DEST_FOLDER | tee $DEST_FOLDER/copy_paths.log
 
-find $DEST_FOLDER \
-	-type f \
-	-printf "%AY-%Am-%Ad %AH:%AM:%AS %p\n" > $DEST_FOLDER/access_times.log
+OIFS="$IFS"
+IFS=$'\n'
+for source_file_path in $(eval "$FIND_FILTER_COMMAND" | shuf | head -${NO_OF_FILES_TO_COPY}); do
+    FILE_DIRECTORY=$(dirname $source_file_path)
+    filename=$(basename $source_file_path)
+    dest_file_path="$DEST_FOLDER/$filename"
+    echo "$source_file_path, $dest_file_path" | tee -a $DEST_FOLDER/copy_paths.log
+    "$copy_command" "$source_file_path" "$dest_file_path"
+done
+IFS="$OIFS"
 
+# sqlite3 /var/tmp/notforkids.db  "create table nfk_acces_dates (id INTEGER PRIMARY KEY,path TEXT,date INT);"
+# sqlite3 /var/tmp/notforkids.db  "insert into nfk_acces_dates (path,date) VALUES('test path',strftime('%s','now'));"
+# sqlite3 /var/tmp/notforkids.db  "select * from nfk_acces_dates"

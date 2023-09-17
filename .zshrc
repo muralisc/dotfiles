@@ -1,7 +1,11 @@
+# Enable custom completions for zsh (e.g rg, see github.com/muralisc/dotfiles/install.sh) {{{
+fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit
+compinit
+# }}}
+
 # for bringing up editor on C-x C-e
 autoload -z edit-command-line
-compinit
 # for refreshing vi mode prompt
 function zle-line-init zle-keymap-select {
     VIM_PROMPT="%F{magenta}[% N]"

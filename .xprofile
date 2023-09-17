@@ -10,10 +10,12 @@ pgrep beet || beet mpdstats 2>&1 >> /var/tmp/beet_mpdstats &
 # setxkbmap -option ctrl:nocaps
 
 # Note on why xmodmap is commented:
-# xmodmap ~/.Xmodmap
-# Xmodmap is old way of remaps, xkbmap provides lot of preset remaps
+# Xmodmap is old way of remaps, xkbmap provides lot of preset remaps, however it works well with sxhkdrc
+xmodmap ~/.Xmodmap
 # e.g: https://gist.github.com/jatcwang/ae3b7019f219b8cdc6798329108c9aee
-setxkbmap -option ctrl:nocaps
+# setxkbmap -option ctrl:nocaps
+# But for left mouse map, we still rely on xmodmap
+xmodmap -e "pointer = 3 2 1"
 keynav daemonize
 feh --bg-fill ~/.local/share/wallpaper/wallpaper
 # dont turn off the screen soon, wait 2 hours, change every 60sec
