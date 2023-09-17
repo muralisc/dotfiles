@@ -1,5 +1,5 @@
 while true ; do
-  image_count=$(ls ~/shared_folders/transfer_london_home/footage_copy/photos/*{jpg,JPG} | wc -l)
+  image_count=$(ls ~/shared_folders/raspberry-pi/photoframe/photos/*{jpg,JPG} | wc -l)
   default_delay=5
   keypress_interval_sec=25
   currenttime=$(date +%H:%M)
@@ -18,7 +18,7 @@ while true ; do
 		    --auto-rotate \
 		    -F \
 		    --scale-down \
-		    ~/shared_folders/transfer_london_home/footage_copy/photos/*{jpg,JPG} &
+		    ~/shared_folders/raspberry-pi/photoframe/photos/*{jpg,JPG} &
 	  fi
 	  echo "$(date): Sleeping for $keypress_interval_sec sec..."
 	  sleep $keypress_interval_sec
