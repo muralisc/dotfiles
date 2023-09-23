@@ -230,7 +230,6 @@ vim.keymap.set("n", "<leader>v", ":vs<CR>", {})
 
 -- Clipboard madness {{{
 vim.keymap.set("n", "p", "<Plug>(miniyank-autoput)", {})
-vim.keymap.set("n", "P", "<Plug>(miniyank-autoput)", {})
 vim.keymap.set("v", "<leader>P", "\"_dp", {})
 -- }}}
 
