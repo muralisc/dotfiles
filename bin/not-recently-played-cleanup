@@ -4,7 +4,8 @@ import sys
 from rich import print as rprint
 
 def process_line(copy_path_parts):
-    cleaned_path = copy_path_parts[2].replace("'","")
+    rprint("[blue] processing line")
+    cleaned_path = copy_path_parts[1].replace("'","")
     cleaned_source_path = copy_path_parts[0].replace("'","")
     if os.path.exists(cleaned_path):
       # if file exists , just delete copy (i.e in the shared_folder)
@@ -24,6 +25,6 @@ if not os.path.exists(copy_log_path):
 file1 = open(copy_log_path, 'r')
 lines = file1.readlines()
 for line in lines:
-    copy_path_parts = line.strip().split(' ')
+    copy_path_parts = line.strip().split(', ')
     process_line(copy_path_parts)
 
