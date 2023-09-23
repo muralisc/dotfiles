@@ -347,13 +347,12 @@ yay -S --noconfirm pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa pu
 # movies tv songs, mp3 tag
 yay -S --noconfirm mpd mpc ncmpcpp mpv exfalso beets puddletag
 systemctl --user start mpd
-# RANGER STUFF
+# Filemanagers - RANGER and nnn
 yay -S --noconfirm \
 	ranger-git w3m ffmpeg ffmpegthumbnailer \
 	imagemagick mediainfo ueberzug
 
-cargo install broot
-# DISK DATA ANALYSERS
+# DISK DATA ANALYSERS - dua, nnn, ncdu(backup)
 cargo install dua-cli # du-dust is not reccursive
 y -S nnn ncdu
 # ncdu as backup
@@ -520,7 +519,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions
 
 # Markdown preview
 npm install -g vmd
-y -S --noconfirm fasd
+y -S --noconfirm autojump # fasd (deprecated)
 electrum
 
 # show keys pressed screen record
@@ -569,7 +568,8 @@ https://github.com/wavexx/screenkey
 
 # preview files using fzf (even images in ssh)
 # $ fzf --header 'E to edit' --preview='pistol {}' --bind 'E:execute(vi {})'
-yay -S chafa pistol-git
+go install github.com/doronbehar/pistol/cmd/pistol@latest
+yay -S chafa # pistol-git
 yay -S lnav
 
 # email clients
