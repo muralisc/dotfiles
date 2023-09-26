@@ -350,7 +350,7 @@ systemctl --user start mpd
 # Filemanagers - RANGER and nnn
 yay -S --noconfirm \
 	ranger-git w3m ffmpeg ffmpegthumbnailer \
-	imagemagick mediainfo ueberzug
+        imagemagick mediainfo ueberzug #(https://github.com/jstkdng/ueberzugpp)
 
 # DISK DATA ANALYSERS - dua, nnn, ncdu(backup)
 cargo install dua-cli # du-dust is not reccursive
