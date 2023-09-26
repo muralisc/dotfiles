@@ -3,19 +3,19 @@
 
 # Functions and setting common to both zshrc and bashrc
 
-# initililize fasd
+# initililize autojump
 
-if command -v fasd > /dev/null ; then
-  # Use -->,<-- to complete in zsh
-  # https://github.com/clvv/fasd#tab-completion
-  eval "$(fasd --init auto)"
-  [[ $(echo $0) =~ "bash" ]] && _fasd_bash_hook_cmd_complete v m j o
-fi
+[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
+
 [[ -f ~/.env.local ]] && source ~/.env.local
 [ -f "$HOME/bin/alias" ] && source "$HOME/bin/alias"
 [ -f "$HOME/bin/functions" ] && source "$HOME/bin/functions"
 [ -f "$HOME/bin/git-repo-config-helpers" ] && source "$HOME/bin/git-repo-config-helpers"
 [ -f "$HOME/bin/private-git-repo-config-helpers" ] && source "$HOME/bin/private-git-repo-config-helpers"
+
+NNN_PLUG_DEFAULT='J:autojump;p:preview-tui;f:fzcd;O:openall'
+NNN_PLUG="$NNN_PLUG_DEFAULT"
+export NNN_PLUG
 
 # LANG is required for applications like tmux to figure out that UTF8 is supported
 export LANG=en_US.UTF-8

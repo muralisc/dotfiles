@@ -14,13 +14,10 @@ DESTINATION_ROOT="$2"
 PATH_REGEX="$3"
 DRY_RUN="$4"
 
+preset="HQ 1080p30 Surround"
+
 echo find $SOURCE_ROOT -regex "$PATH_REGEX"
 mkdir -p $DESTINATION_ROOT
-
-preset="Very Fast 1080p30"
-preset="HQ 2160p60 4K HEVC Surround"
-preset="HQ 1080p30 Surround"
-preset="Fast 1080p30"
 
 for file_path in $(find $SOURCE_ROOT -type f -regex "$PATH_REGEX"); do
     echo "----------------------"
@@ -38,7 +35,7 @@ for file_path in $(find $SOURCE_ROOT -type f -regex "$PATH_REGEX"); do
     fi
     echo "-> To desitnation: $DEST_FILE_PATH"
     if [[ -z "$DRY_RUN" ]]; then
-        HandBrakeCLI -Z "$preset" -i "$file_path" -o "$DEST_FILE_PATH"
+        bash ~/src/dotfiles/bin/footage-video-encode-handbrake-single "$file_path" "$DEST_FILE_PATH" "$preset"
         exiftool -overwrite_original_in_place -tagsFromFile "$file_path" "$DEST_FILE_PATH"
     fi
 done
