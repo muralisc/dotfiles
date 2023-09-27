@@ -13,7 +13,7 @@
 [ -f "$HOME/bin/git-repo-config-helpers" ] && source "$HOME/bin/git-repo-config-helpers"
 [ -f "$HOME/bin/private-git-repo-config-helpers" ] && source "$HOME/bin/private-git-repo-config-helpers"
 
-NNN_PLUG_DEFAULT='J:autojump;p:preview-tui;f:fzcd'
+NNN_PLUG_DEFAULT='J:autojump;p:preview-tui;f:fzcd;O:openall'
 NNN_PLUG="$NNN_PLUG_DEFAULT"
 export NNN_PLUG
 
