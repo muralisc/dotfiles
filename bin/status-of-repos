@@ -9,6 +9,8 @@ for path in $(find $PWD -iname .git $@)
 do
   REPOROOT=${path/%.git/}
   cd "$REPOROOT"
+  echo "$REPOROOT"
+  git fetch --all
   NO_OF_MODFILES=`git status -sb | grep -P "^ *(M|R|D)" | wc -l`
   UNSYNCED_BRANCHES=$(git log --branches --not --remotes --simplify-by-decoration --decorate --oneline | wc -l )
   REMOTE_EXIST=$(git remote)
