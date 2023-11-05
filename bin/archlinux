@@ -519,7 +519,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions
 
 # Markdown preview
 npm install -g vmd
-y -S --noconfirm autojump # fasd (deprecated)
+y -S --noconfirm fasd # autojump (fasd offers word completion!!!)
 electrum
 
 # show keys pressed screen record
