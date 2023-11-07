@@ -1,10 +1,16 @@
 #!/bin/bash
 
+# Deprecated
+#
+#
+
 # XBAR - custom shell output on mac bar
 # https://github.com/matryer/xbar
 # plugin Timezone by Toni Hoffmann
 brew cask install xbar && \
     wget https://gist.githubusercontent.com/muralisc/087c33657d66e4813d6517dc273028e7/raw/6d917ebc447fbd7804eeb3a4e5787d49349af476/countdown_timer_2.1s.py
+
+brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
 
 # Reverse mouse roll
 # https://github.com/Caldis/Mos
@@ -13,7 +19,7 @@ mos
 
 # Dont use mouse
 # Deprecated - github.com/h2ero/XEasyMotion # warpd is better
-vimac && warpd
+vimac(now https://www.homerow.app/) && warpd
 
 # Take breaks
 Chrome - posture minder
@@ -21,8 +27,9 @@ Chrome - posture minder
 # Remote clipboard
 clipper # https://github.com/wincent/clipper 
 
-# Copy historyj
+# Copy history
 hluk/CopyQ
+p0deje/Maccy
 
 # Devserver mac sync 
 unison
@@ -45,15 +52,24 @@ Use tig # not lazygit
 # for note taking and journal
 obsidian
 
-# snippets for mac os
-espanso
 
-# Keyboard mangic + window manager
-# https://github.com/koekeishiya/yabai - too cumborsome
-# Use rectangle instead
+ 
+# Manage windows
 rectangle
-# skhd - too cumborsome ( with yabai )
-# Use Karabiner instead
-Karabiner
-# hammerspoon - deprecated
+# Deprecated - Manage windows
+# --
+# 1. yabai - too cumborsome
+
+# Keyboard[Dont use mouse]
+#
+# Deprecated - Keyboard[Dont use mouse]
+# 1. skhd - too cumborsome ( with yabai )
+# 2. Karabiner - better but not required
+# 3. hammerspoon - deprecated
+# 4. github.com/h2ero/XEasyMotion # warpd is better
+warpd
+vimac(now https://www.homerow.app/) && warpd
+espanso # snippets for mac os
+
+# Timezones
 bitbar -> timezone(plugin)
