@@ -58,13 +58,13 @@ bindkey "^w" backward-kill-word
 bindkey "^X^E" edit-command-line
 # Alt+.
 bindkey -M viins '\e.' insert-last-word
-bindkey '^P' history-substring-search-up #up-history
-bindkey '^N' history-substring-search-down #down-history
+bindkey '^P' history-substring-search-up #Ctrl-p-up-history
+bindkey '^N' history-substring-search-down #Ctrl-n-down-history
 bindkey -M vicmd 'k' history-substring-search-up #up-history
 bindkey -M vicmd 'j' history-substring-search-down #down-history
 # up and down arrows
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+bindkey '^[[A' history-substring-search-up #up-history
+bindkey '^[[B' history-substring-search-down #down-history
 
 
 # history
