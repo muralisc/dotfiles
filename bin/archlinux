@@ -465,7 +465,8 @@ Option "TapButton3" "2"
 Option "TapButton2" "3"
 Option "TapButton3" "2"
 
-cargo install bat exa fd-find rip-grep watchexec git-delta difftastic
+cargo install \
+    bat exa fd-find rip-grep watchexec git-delta difftastic
 # difftastic = diff-so-fancy > icdiff > git-delta > git diff
 
 

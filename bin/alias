@@ -40,7 +40,7 @@ alias lf='ls -F1 --color'
 alias ll='ls -Fla --color'
 alias la='ls -F1a --color'
 alias grep="grep --color"
-alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'         # no git file tree  --more fileterd
+alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'  # no git file tree  --more fileterd
 alias j='fasd_cd -d'
 alias n='nnn -a -A'
 alias nmpc='ncmpcpp -S visualizer'
@@ -55,9 +55,6 @@ alias led_expenseList='ledger reg \^Expenses \^Equity:Adjust'
 alias led_cashflow='ledger -MAn reg \^Income \^Expenses \^Equity:Adjust'
 alias led_ensureZero='ledger b  -H -X INR --real --price-db pricedb.txt'
 
-alias org='emacs --funcall org-agenda-list'
-alias Org='/Applications/Emacs.app/Contents/MacOS/Emacs --funcall org-agenda-list &'
-alias fv="findvim"
 # These alias is requried to prevent vim colorscheme from getting messed up inside tmux
 alias vim="TERM=screen-256color vim"
 alias vimdiff="TERM=screen-256color vimdiff"
