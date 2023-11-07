@@ -156,6 +156,8 @@ vim.opt.wildignorecase = true
 vim.opt.list = true
 -- If 'set list' is enabled, the invisible characters are show using listchars
 vim.opt.listchars:append({tab="> ",trail="·"})
+-- Expand files containing spaces ( 32 ascii for space )
+-- vim.opt.isfname:append({"32", "(", ")"})
 
 --
 -- UI - Settings influencing UI behaviors
@@ -443,7 +445,7 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 -- For wincent/vim-clipper
 --
 
-vim.g.ClipperPort = 5556
+vim.g.ClipperPort = 8377
 
 --
 -- For derekwyatt/vim-fswitch
