@@ -576,3 +576,5 @@ yay -S lnav
 yay -S neomutt
 
 yay -Ss autokey-gtk
+
+yay -Ss obsidian noto-fonts-emoji-blob

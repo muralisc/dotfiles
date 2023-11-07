@@ -3,10 +3,14 @@
 
 # Functions and setting common to both zshrc and bashrc
 
-# initililize autojump
+# initililize fasd
 
-[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
-
+if command -v fasd > /dev/null ; then
+  # Use -->,<-- to complete in zsh
+  # https://github.com/clvv/fasd#tab-completion
+  eval "$(fasd --init auto)"
+  [[ $(echo $0) =~ "bash" ]] && _fasd_bash_hook_cmd_complete v m j o
+fi
 [[ -f ~/.env.local ]] && source ~/.env.local
 [ -f "$HOME/bin/alias" ] && source "$HOME/bin/alias"
 [ -f "$HOME/bin/functions" ] && source "$HOME/bin/functions"
