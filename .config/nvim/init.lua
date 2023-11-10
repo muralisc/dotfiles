@@ -128,7 +128,7 @@ vim.opt.wrap = false
 -- 132 is Github width :P
 vim.opt.colorcolumn = "80,132"
 
-vim.opt.clipboard= "unnamedplus"
+vim.opt.clipboard = "unnamedplus"
 
 --
 -- Search settings
@@ -155,7 +155,7 @@ vim.opt.wildignorecase = true
 -- list: show invisible charecters
 vim.opt.list = true
 -- If 'set list' is enabled, the invisible characters are show using listchars
-vim.opt.listchars:append({tab="> ",trail="·"})
+vim.opt.listchars:append({ tab = "> ", trail = "·" })
 -- Expand files containing spaces ( 32 ascii for space )
 -- vim.opt.isfname:append({"32", "(", ")"})
 
@@ -229,18 +229,17 @@ vim.keymap.set("n", "<leader>n", ":nohlsearch<CR>", {})
 vim.keymap.set("n", "<leader>s", ":sp<CR>", {})
 vim.keymap.set("n", "<leader>v", ":vs<CR>", {})
 
-
 -- Clipboard madness {{{
 vim.keymap.set("n", "p", "<Plug>(miniyank-autoput)", {})
-vim.keymap.set("v", "<leader>P", "\"_dp", {})
+vim.keymap.set("v", "<leader>P", '"_dp', {})
 -- }}}
 
-vim.cmd [[
+vim.cmd([[
 augroup FTOptions
   autocmd!
   autocmd Filetype markdown                     setlocal iskeyword+=# textwidth=80
 augroup end
-]]
+]])
 
 ---------------------------------------------------------------------------
 -- Plugin Specific Settings
@@ -283,19 +282,19 @@ require("lualine").setup({
     icons_enabled = true,
     theme = "ayu_dark",
   },
-    sections = {
-        lualine_c = {
-    {
-      'filename',
-      file_status = true,      -- Displays file status (readonly status, modified status)
-      newfile_status = false,  -- Display new file status (new file means no write after created)
-      path = 3,                -- 3: Absolute path, with tilde as the home directory
+  sections = {
+    lualine_c = {
+      {
+        "filename",
+        file_status = true,     -- Displays file status (readonly status, modified status)
+        newfile_status = false, -- Display new file status (new file means no write after created)
+        path = 3,               -- 3: Absolute path, with tilde as the home directory
 
-      shorting_target = 40,    -- Shortens path to leave 40 spaces in the window
-                               -- for other components. (terrible name, any suggestions?)
-    }
-  }
-    }
+        shorting_target = 40,   -- Shortens path to leave 40 spaces in the window
+                                -- for other components. (terrible name, any suggestions?)
+      },
+    },
+  },
 })
 
 --
@@ -414,7 +413,7 @@ null_ls.setup({
 -- For akinsho/toggleterm.nvim
 --
 
-require("toggleterm").setup{
+require("toggleterm").setup({
   size = function(term)
     if term.direction == "horizontal" then
       return 15
@@ -426,20 +425,20 @@ require("toggleterm").setup{
   shade_terminals = true,
   shading_factor = 9,
   persist_size = true,
-  direction = 'vertical',
+  direction = "vertical",
   start_in_insert = false,
-}
+})
 function _G.set_terminal_keymaps()
-  local opts = {noremap = true}
-  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-h>', [[<C-\><C-n><C-W>h]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-j>', [[<C-\><C-n><C-W>j]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-k>', [[<C-\><C-n><C-W>k]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-l>', [[<C-\><C-n><C-W>l]], opts)
+  local opts = { noremap = true }
+  vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], opts)
+  vim.api.nvim_buf_set_keymap(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], opts)
+  vim.api.nvim_buf_set_keymap(0, "t", "<A-k>", [[<C-\><C-n><C-W>k]], opts)
+  vim.api.nvim_buf_set_keymap(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], opts)
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 --
 -- For wincent/vim-clipper
@@ -466,9 +465,8 @@ vim.g.tmux_navigator_no_mappings = 0
 ---------------------------------------------------------------------------
 
 if vim.opt.diff:get() then
- vim.cmd([[colorscheme gruvbox ]])
+  vim.cmd([[colorscheme gruvbox ]])
 else
- vim.cmd([[colorscheme gruvbox ]])
- -- vim.cmd([[colorscheme rose-pine ]])
+  vim.cmd([[colorscheme gruvbox ]])
+  -- vim.cmd([[colorscheme rose-pine ]])
 end
-
