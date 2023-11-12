@@ -332,3 +332,8 @@ start_clipboard_server() {
     echo "$(date) :-> $(pbpaste)"
   done
 }
+
+topt() {
+    # To Pacific Time
+    TZ=America/Los_Angeles date -d 'TZ="Europe/London" '$1' '
+}

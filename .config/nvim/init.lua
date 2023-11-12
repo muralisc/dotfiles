@@ -50,13 +50,13 @@ require("packer").startup(function(use)
   use("nvim-treesitter/nvim-treesitter")
   use("nvim-tree/nvim-web-devicons")
   use("wbthomason/packer.nvim")
+  use("simrat39/symbols-outline.nvim")
   -- tabular - Massively useful plugin for easily aligning text
   use("godlygeek/tabular")
   use({
     "nvim-telescope/telescope.nvim",
     requires = { { "nvim-lua/plenary.nvim" } },
   })
-  use("freitass/todo.txt-vim")
   -- toggleterm.nvim (c-t, esc:c-j)
   --     Default Alternatives
   --         :sp term://zsh or
@@ -269,6 +269,7 @@ vim.keymap.set("n", "<leader>le", ":cget ~/vim_out.log | :copen<CR>\"owner('$(re
 --
 
 require("leap").set_default_keymaps()
+-- use 's' or 'S' to trigger
 -- color help from : https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
 vim.api.nvim_set_hl(0, "LeapLabelPrimary", { ctermbg = 111, ctermfg = 016, bold = true })
 vim.api.nvim_set_hl(0, "LeapLabelSecondary", { ctermbg = 046, ctermfg = 016 })
@@ -286,12 +287,12 @@ require("lualine").setup({
     lualine_c = {
       {
         "filename",
-        file_status = true,     -- Displays file status (readonly status, modified status)
+        file_status = true, -- Displays file status (readonly status, modified status)
         newfile_status = false, -- Display new file status (new file means no write after created)
-        path = 3,               -- 3: Absolute path, with tilde as the home directory
+        path = 3, -- 3: Absolute path, with tilde as the home directory
 
-        shorting_target = 40,   -- Shortens path to leave 40 spaces in the window
-                                -- for other components. (terrible name, any suggestions?)
+        shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+        -- for other components. (terrible name, any suggestions?)
       },
     },
   },
@@ -338,12 +339,19 @@ require("lspconfig").lua_ls.setup({
 })
 
 --
+-- For simrat39/symbols-outline.nvim
+--
+
+require("symbols-outline").setup()
+-- use by :SymbolsOutline
+
+--
 -- For nvim-telescope/telescope.nvim
 --
 
 require("telescope").setup({
   defaults = {
-    path_display = { truncate = 3 },
+    path_display = { shorten = { len = 2, exclude = { 1, -2, -1 } } },
   },
   pickers = {
     find_files = {
@@ -403,7 +411,7 @@ require("nvim-treesitter.configs").setup({
 
 local null_ls = require("null-ls")
 null_ls.setup({
-  -- on_attach = on_attach,
+  on_attach = on_attach,
   sources = {
     null_ls.builtins.formatting.stylua,
   },
@@ -460,6 +468,11 @@ vim.keymap.set("n", "<leader>a", ":FSHere<CR>", {})
 -- Using Meta-[hjkl] mappings in tmux to move panes
 vim.g.tmux_navigator_no_mappings = 0
 
+local ok, work = pcall(require, "init_work")
+if ok then
+  work.setup({ on_attach = on_attach })
+end
+
 ---------------------------------------------------------------------------
 -- Set Colorscheme
 ---------------------------------------------------------------------------
@@ -470,3 +483,6 @@ else
   vim.cmd([[colorscheme gruvbox ]])
   -- vim.cmd([[colorscheme rose-pine ]])
 end
+
+-- try indent backline
+-- split to work lua
