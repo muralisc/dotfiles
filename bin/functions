@@ -23,8 +23,11 @@ note_search() {
     -ri \
     "$1" \
     ~/src/dotfiles \
+    ~/src/obsidian-vault1/ \
+    ~/src/private/ \
     ~/shared_folders/minimal/Pensieve/textfiles/cheatsheets \
     ~/shared_folders/minimal/Pensieve/textfiles/journal \
+    ~/shared_folders/transfer_work/minimal-subspace \
     --exclude-dir=images \
     --exclude-dir=.git \
     --exclude-dir=images
