@@ -2,9 +2,10 @@
 # This script is used to find the raw photos which are not converted
 
 # e.g:
-#   bash ~/src/dotfiles/bin/footage_find_non_converted ~/data/footage ~/data/footage_converted '.*_09.*CR3'
-#   bash ~/src/dotfiles/bin/footage_find_non_converted ~/data/footage ~/data/footage_converted '.*IMG_043.\.HEIC'
-#   bash ~/src/dotfiles/bin/footage_find_non_converted ~/data/footage ~/data/footage_converted '.*2022/.*_1[01]_.*\(jpg\|JPG\|CR3\)'
+#   bash ~/src/dotfiles/bin/footage-image_find_non_converted ~/data/footage ~/data/footage_converted '.*_09.*CR3'
+#   bash ~/src/dotfiles/bin/footage-image_find_non_converted ~/data/footage ~/data/footage_converted '.*IMG_043.\.HEIC'
+#   bash ~/src/dotfiles/bin/footage-image_find_non_converted ~/data/footage ~/data/footage_converted '.*2022/.*_1[01]_.*\(jpg\|JPG\|CR3\)'
+#   bash ~/src/dotfiles/bin/footage-image_find_non_converted ~/data/footage ~/data/footage_converted '.*2023/2023_01.*\(jpg\|CR3\|JPG\|HEIC\)'
 
 SOURCE_ROOT="$1"
 DESTINATION_ROOT="$2"
