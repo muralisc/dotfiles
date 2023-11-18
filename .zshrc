@@ -38,11 +38,19 @@ fi
 at_italics=%{$'\e[3m'%}
 at_italicsoff=%{$'\e[23m'%}
 at_normal=%{$'\e[0m'%}
+
 ARROWS='%B%F{red}❯%F{green}❯%F{blue}❯%f%b'
 DOLLAR=' %B%F{blue}$%f%b'
+PST_TIMEZONE="$(TZ=America/Los_Angeles date +%H:%M\ %Z)"
+IND_TIMEZONE="$(TZ=Asia/Kolkata date +%H:%M\ %Z)"
+LDN_TIMEZONE="$(TZ=Europe/London date +%H:%M\ %Z)"
+LCL_TIMEZONE="%D{%H:%M %Z}"
+# OTR_TIMEZONE="[${LDN_TIMEZONE}]"
+OTR_TIMEZONE=""
+TIMEZONES="%F{yellow}${OTR_TIMEZONE}%F{magenta} ${LCL_TIMEZONE} "
 # Add color at end for giving color to user input
-PS1='${VIMODE} %F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} %F{white}%B'
-PS1='${VIMODE} %F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} %B'
+PS1='${TIMEZONES}${VIMODE} %F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} %F{white}%B'
+
 # Reset so that command output is set to default colors
 preexec () { echo -ne "\e[0m" }
 if [[ -n $SSH_CONNECTION ]]; then
