@@ -4,11 +4,14 @@
 #
 #
 
-# XBAR - custom shell output on mac bar
-# https://github.com/matryer/xbar
-# plugin Timezone by Toni Hoffmann
-brew cask install xbar && \
-    wget https://gist.githubusercontent.com/muralisc/087c33657d66e4813d6517dc273028e7/raw/6d917ebc447fbd7804eeb3a4e5787d49349af476/countdown_timer_2.1s.py
+# XBAR - custom shell output on mac bar 
+#       - replace with tmux
+#       - Retaining below for future
+#
+#    https://github.com/matryer/xbar
+#    plugin "Timezone" by Toni Hoffmann
+#    brew cask install xbar && \
+#        wget https://gist.githubusercontent.com/muralisc/087c33657d66e4813d6517dc273028e7/raw/6d917ebc447fbd7804eeb3a4e5787d49349af476/countdown_timer_2.1s.py
 
 brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
 
@@ -16,10 +19,6 @@ brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-geto
 # https://github.com/Caldis/Mos
 mos 
 
-
-# Dont use mouse
-# Deprecated - github.com/h2ero/XEasyMotion # warpd is better
-vimac(now https://www.homerow.app/) && warpd
 
 # Take breaks
 Chrome - posture minder
@@ -30,9 +29,6 @@ clipper # https://github.com/wincent/clipper
 # Copy history
 hluk/CopyQ
 p0deje/Maccy
-
-# Devserver mac sync 
-unison
 
 # Neovim in mac
 # https://github.com/neovim/neovim/releases
@@ -53,14 +49,13 @@ Use tig # not lazygit
 obsidian
 
 
- 
 # Manage windows
 rectangle
 # Deprecated - Manage windows
 # --
 # 1. yabai - too cumborsome
 
-# Keyboard[Dont use mouse]
+# [Dont use mouse] - Keyboard helpers
 #
 # Deprecated - Keyboard[Dont use mouse]
 # 1. skhd - too cumborsome ( with yabai )
@@ -70,6 +65,3 @@ rectangle
 warpd
 vimac(now https://www.homerow.app/) && warpd
 espanso # snippets for mac os
-
-# Timezones
-bitbar -> timezone(plugin)
