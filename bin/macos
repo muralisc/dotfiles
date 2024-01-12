@@ -67,9 +67,14 @@ rectangle
 # 2. Karabiner - better but not required
 # 3. hammerspoon - deprecated
 # 4. github.com/h2ero/XEasyMotion # warpd is better
-warpd
+warpd (https://github.com/rvaiya/warpd)
 vimac(now https://www.homerow.app/) && warpd
 espanso # snippets for mac os
 
 # Timezones
 bitbar -> timezone(plugin)
+
+syncthing
+localsend
+
+brew install icdiff
