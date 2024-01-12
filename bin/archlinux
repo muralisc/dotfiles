@@ -579,3 +579,7 @@ yay -S neomutt
 yay -Ss autokey-gtk
 
 yay -Ss obsidian noto-fonts-emoji-blob
+
+yay -S libreoffice-fresh
+
+https://github.com/sigoden/dufs

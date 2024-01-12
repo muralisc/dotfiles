@@ -6,6 +6,10 @@
 super + Return
 	kitty
 
+# run or raise
+super + @space
+    rofi -show combi -combi-modes "window,run" -modes combi
+
 # program launcher
 super + @space
 	dmenu_run -fn 'Ubuntu Mono-19'

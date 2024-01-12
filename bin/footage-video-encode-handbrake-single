@@ -3,6 +3,7 @@
 # Wrapper to Handbrake cli to make it compatible with cp and mv
 
 
+echo "~/src/dotfiles/bin/footage-video-encode-handbrake-single /home/murali/data/footage/2022/2022_06_25/null-NoModelName/VID_20220625_201920.mp4 /home/murali/shared_folders/raspberry-pi/photoframe/videos/VID_20220625_201920.m4v"
 
 
 INPUT_FILE_PATH=$1

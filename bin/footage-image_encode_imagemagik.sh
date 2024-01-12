@@ -55,7 +55,7 @@ for file_path in $(find $SOURCE_ROOT -type f -regex "$PATH_REGEX"); do
             -quality 75 \
             $file_path $DEST_FILE_PATH
 
-        echo "Copying tags from parent file to converted file ... "
+        echo "Copying tags from parent file to converted file as 'convert' do not copy tags by default ... "
         exiftool -overwrite_original_in_place -tagsFromFile $file_path $DEST_FILE_PATH
         echo "Checking if new file has create date tag ... "
         if exiftool $DEST_FILE_PATH | grep 'Create Date' ; then
