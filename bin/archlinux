@@ -383,8 +383,8 @@ yay -S --noconfirm kdenlive kdebase-runtime
 # CHECKOUT OLIVE video editor
 # i love more beauty ; graphics stuff
 yay -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
-# when friends who use windows comes over
-yay -S --noconfirm ntfs-3g
+# when friends who use windows comes over, exfat for (linux macos)usb with files > 4GB
+yay -S --noconfirm ntfs-3g exfat-utils
 # internet tools
 yay -S --noconfirm dropbox youtube-dl
 # torrent tools
@@ -446,6 +446,7 @@ mv $REPONAME .password-store
 
 # A filemanager
 yay -S --noconfirm pcmanfm thunar #didnt like pcmanfm
+yay -S --noconfirm tumbler # thunar thumbnail service
 
 
 # use xdg_menu for archmenu.lua for awesoem wm
@@ -520,7 +521,13 @@ git clone https://github.com/zsh-users/zsh-autosuggestions
 
 # Markdown preview
 npm install -g vmd
-y -S --noconfirm fasd # autojump (fasd offers word completion!!!)
+y -S --noconfirm fasd # alternatives: (fasd offers word completion!!!)
+# <tool>(stars) 
+# whjvenyl/fasd
+# wting/autojump(15.8k), 
+# ajeetdsouza/zoxide(13.3k)
+# rupa/z(15.9k)
+
 electrum
 
 # show keys pressed screen record

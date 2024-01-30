@@ -11,7 +11,7 @@ super + @space
     rofi -show combi -combi-modes "window,run" -modes combi
 
 # program launcher
-super + @space
+super + R
 	dmenu_run -fn 'Ubuntu Mono-19'
 
 # make sxhkd reload its configuration files:
