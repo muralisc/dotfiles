@@ -50,7 +50,6 @@ OTR_TIMEZONE=""
 TIMEZONES="%F{yellow}${OTR_TIMEZONE}%F{magenta} ${LCL_TIMEZONE} "
 # Add color at end for giving color to user input
 PS1='${TIMEZONES}${VIMODE} %F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} %F{white}%B'
-
 # Reset so that command output is set to default colors
 preexec () { echo -ne "\e[0m" }
 if [[ -n $SSH_CONNECTION ]]; then

@@ -9,6 +9,8 @@
 #       ~/data/footage_converted/2022/ \
 #       '.*2022_01_01.*mp4'
 
+echo "bash ~/src/dotfiles/bin/footage-video-encode-handbrake-bulk ~/data/footage/2021/ ~/shared_folders/transfer_london_home/footage_copy/videos/ '.*2021_01_27.*mp4'"
+
 SOURCE_ROOT="$1"
 DESTINATION_ROOT="$2"
 PATH_REGEX="$3"

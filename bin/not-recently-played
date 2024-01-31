@@ -14,8 +14,10 @@ echo "  bash ~/bin/not-recently-played "
 echo "          [command|cp|mv|echo|dry] "
 echo "          [source-folder] [copy-folder] [last-access-date] [number-of-files]"
 
-echo "  bash ~/bin/not-recently-played dry ~/data/Media/videos/ ~/shared_folders/transfer_private/vids"
-echo "  bash ~/bin/not-recently-played dry ~/data/Songs/ ~/shared_folders/transfer_private/songs/cron_songs/"
+echo "  bash ~/src/dotfiles/bin/not-recently-played dry ~/data/Media/videos/ ~/shared_folders/transfer_private/vids"
+echo "  bash ~/src/dotfiles/bin/not-recently-played dry ~/data/Songs/ ~/shared_folders/transfer_private/songs/cron_songs/"
+echo "  bash ~/src/dotfiles/bin/not-recently-played cp ~/data/footage/2021 ~/shared_folders/transfer_london_home/footage_copy/videos 2022-04-01 5"
+echo "  bash ~/src/dotfiles/bin/not-recently-played cp ~/data/footage/2020 ~/shared_folders/raspberry-pi/photoframe/photos 2022-07-01 10"
 fi
 
 copy_command=${1:-echo}
