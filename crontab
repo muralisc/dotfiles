@@ -18,8 +18,6 @@
 #10     12      *   *   *     bash ~/src/private/bin/ticker_trigger.sh
 
 0      9       *   *   *     crontab -l > ~/src/dotfiles/crontab
-0      12      *   *   *     bash ~/src/private/bin/time_since_date_via_pushbullet.sh
-37     18      *   *   *     bash ~/src/dotfiles/bin/sent-memories-to-mail.sh
 
 00     19      *   *   *     bash ~/shared_folders/minimal/Pensieve/textfiles/ledger/graphs/1plot_ledger_projection.sh 2>&1 > /var/tmp/ledger_cron_output_`date +\%Y_\%m_\%d-\%H\%M\%S`.log
 10     19      *   *   *     bash ~/shared_folders/minimal/Pensieve/textfiles/ledger/graphs/2plot_ledger_monthly_income_expense.sh
@@ -31,5 +29,4 @@
 10     20      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail-custom.sh
 20     20      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail-partial-expense.sh
 
-00     20      *   *   */2   bash ~/shared_folders/minimal/Pensieve/textfiles/ledger/graphs/copy_ledger_files_to_public_html.sh
 59     23      *   *   *     logrotate ~/shared_folders/thanal_murali_share/logrotate.conf --state ~/shared_folders/thanal_murali_share/logrotate.state

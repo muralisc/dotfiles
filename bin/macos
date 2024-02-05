@@ -64,7 +64,7 @@ rectangle
 # 4. github.com/h2ero/XEasyMotion # warpd is better
 warpd (https://github.com/rvaiya/warpd)
 vimac(now https://www.homerow.app/) && warpd
-espanso # snippets for mac os
+muralisc/dotfies/bin/simple-alfred # subsititue for alfred and clones
 # Timezones
 bitbar -> timezone(plugin)
 
