@@ -36,4 +36,7 @@ do
     # git diff --stat
   fi
 done
+
+echo -e "\n\n --- \n\n"
+
 echo -e "$STATS" | column -s "$SEP" -t
