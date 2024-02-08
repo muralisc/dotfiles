@@ -23,7 +23,7 @@ alias gsu='git submodule update --init --recursive'
 
 # other aliases
 
-alias rsyncopy='rsync --archive --stats --progress --human-readable --compress'
+alias j='fasd_cd -d'
 if [[ $(uname -s) == "Darwin" ]] ; then
   alias ps='ps -eo pid,pcpu,pmem,command -r'
   alias o='open'
@@ -41,11 +41,11 @@ alias ll='ls -Fla --color'
 alias la='ls -F1a --color'
 alias grep="grep --color"
 alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'  # no git file tree  --more fileterd
-alias j='fasd_cd -d'
 alias n='nnn -a -A'
 alias nmpc='ncmpcpp -S visualizer'
 alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
 alias r='ranger'
+alias rsyncopy='rsync --archive --stats --progress --human-readable --compress'
 alias ync='yay --noconfirm'
 alias y='yay'
 alias sor="status-of-repos"

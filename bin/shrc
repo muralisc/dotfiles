@@ -3,7 +3,7 @@
 
 # Functions and setting common to both zshrc and bashrc
 
-# initililize fasd
+# initililize an autojumper tool (fasd/zoxide/autojump/z)
 
 if command -v fasd > /dev/null ; then
   # Use -->,<-- to complete in zsh
@@ -11,6 +11,8 @@ if command -v fasd > /dev/null ; then
   eval "$(fasd --init auto)"
   [[ $(echo $0) =~ "bash" ]] && _fasd_bash_hook_cmd_complete v m j o
 fi
+
+
 [[ -f ~/.env.local ]] && source ~/.env.local
 [ -f "$HOME/bin/alias" ] && source "$HOME/bin/alias"
 [ -f "$HOME/bin/functions" ] && source "$HOME/bin/functions"

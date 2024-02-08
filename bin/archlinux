@@ -527,6 +527,7 @@ y -S --noconfirm fasd # alternatives (see below): (fasd offers word completion!!
 # wting/autojump(15.8k), 
 # ajeetdsouza/zoxide(13.3k)
 # rupa/z(15.9k)
+# marlonrichert/zsh-autocomplete(4.5k)
 
 electrum
 
