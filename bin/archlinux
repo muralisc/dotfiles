@@ -337,7 +337,7 @@ yay -S --noconfirm nodejs go
 # System Metrics monitors
 yay -S --noconfirm htop glances vnstat
 yay -S dunst
-# for terminal git and git-gui, use tig(and not magit), it supports good diffs
+# for terminal git and git-gui, use tig(and not magit), it supports good diffs, also Gittyup and gitfiend
 yay -S --noconfirm tk
 # bluetooth wifi
 yay -S --noconfirm bluez iw blueman-git bluez-utils-compat #  bluez-utils
@@ -527,6 +527,7 @@ y -S --noconfirm fasd # alternatives (see below): (fasd offers word completion!!
 # wting/autojump(15.8k), 
 # ajeetdsouza/zoxide(13.3k)
 # rupa/z(15.9k)
+# marlonrichert/zsh-autocomplete(4.5k)
 
 electrum
 

@@ -71,4 +71,4 @@ bitbar -> timezone(plugin)
 syncthing
 localsend
 
-brew install icdiff
+brew install icdiff # also Gittyup and gitfiend
