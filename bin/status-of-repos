@@ -4,39 +4,15 @@
 FIND_PARAMS="$@"
 
 #check if git repos are changed/behind
-STATS=""        # just for printing nicely
 for path in $(find $PWD -iname .git $@)
 do
   REPOROOT=${path/%.git/}
-  cd "$REPOROOT"
-  echo "$REPOROOT"
-  git fetch --all
-  NO_OF_MODFILES=`git status -sb | grep -P "^ *(M|R|D)" | wc -l`
-  UNSYNCED_BRANCHES=$(git log --branches --not --remotes --simplify-by-decoration --decorate --oneline | wc -l )
-  REMOTE_EXIST=$(git remote)
-  BRANCH=$(git branch | grep "\*" | cut -f2 -d' ')
-  # Evaluates to true if
-  # If modified files are there
-  # or A remote exist and unsynced branches are there
-  SEP=","
-  if [ $NO_OF_MODFILES -gt 0 ] || { [ $UNSYNCED_BRANCHES -gt 0 ] && [ ! -z "$REMOTE_EXIST" ]; } ; then
-    STATS+="\n"
-    STATS+="${SEP}$REPOROOT"
-    if [ $NO_OF_MODFILES -gt 0 ]; then
-      STATS+="${SEP}\x1b[38;2;255;208;000m Mod:$NO_OF_MODFILES \x1b[0m"
-    else
-      STATS+="${SEP}\x1b[38;2;150;150;150m Mod:$NO_OF_MODFILES \x1b[0m"
+  pushd "$REPOROOT" > /dev/null
+    GIT_STATUS=$(git -c color.ui=always status -sb)
+    if grep behind <<< "$GIT_STATUS" > /dev/null ; then
+        echo "$REPOROOT"
+        echo "$GIT_STATUS"
     fi
-    if [ $UNSYNCED_BRANCHES -gt 0 ] ; then
-      STATS+="${SEP}\x1b[38;2;000;133;255m unsynced:$UNSYNCED_BRANCHES \x1b[0m"
-    else
-      STATS+="${SEP}\x1b[38;2;150;150;150m unsynced:$UNSYNCED_BRANCHES \x1b[0m"
-    fi
-    STATS+="${SEP}$BRANCH "
-    # git diff --stat
-  fi
+  popd > /dev/null
+  # git diff --stat
 done
-
-echo -e "\n\n --- \n\n"
-
-echo -e "$STATS" | column -s "$SEP" -t
