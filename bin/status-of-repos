@@ -8,10 +8,11 @@ for path in $(find $PWD -iname .git $@)
 do
   REPOROOT=${path/%.git/}
   pushd "$REPOROOT" > /dev/null
-    GIT_STATUS=$(git -c color.ui=always status -sb)
-    if grep behind <<< "$GIT_STATUS" > /dev/null ; then
+    GIT_STATUS_COLOR=$(git -c color.ui=always status -sb)
+    GIT_STATUS=$(git status -sb)
+    if grep "behind" <<< "$GIT_STATUS" > /dev/null || grep "[MA] " <<< "$GIT_STATUS" > /dev/null ; then
         echo "$REPOROOT"
-        echo "$GIT_STATUS"
+        echo "$GIT_STATUS_COLOR"
     fi
   popd > /dev/null
   # git diff --stat
