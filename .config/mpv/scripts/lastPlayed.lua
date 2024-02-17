@@ -26,7 +26,7 @@ mp.register_event("file-loaded", function()
 
   command = "sqlite3 "
     .. dbfile
-    .. " 'CREATE TABLE IF NOT EXISTS generic ( path varchar(550), timestamp_val varchar(150), percentage varchar(150))'"
+    .. " 'CREATE TABLE IF NOT EXISTS generic ( path varchar(550), timestamp_val varchar(150), play_duration varchar(150), total_duration varchar(150))'"
   local handle = io.popen(command)
   local result = handle:read("*a")
   handle:close()
@@ -77,11 +77,12 @@ mp.register_event("end-file", function()
     )
     print(("percent played %s\n"):format(play_duration * 100 / total_duration))
     -- path , last played time, percent_played
-    local query = ("sqlite3 %s \"INSERT INTO generic VALUES('%s', '%d', '%s')\""):format(
+    local query = ("sqlite3 %s \"INSERT INTO generic VALUES('%s', '%d', '%s', '%s')\""):format(
       dbfile,
       filePath,
       os.time(os.date("!*t")),
-      play_duration * 100 / total_duration
+      play_duration,
+      total_duration
     )
     print(query)
     local handle = io.popen(query)
