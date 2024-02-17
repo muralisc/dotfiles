@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Used for diplaying menu via rofi + polybar in archlinux
+# See .config/polybar/config
+
 chosen=$(echo -e "urxvt\nfirefox\n\
 kitty\n\
 thunar\n\
