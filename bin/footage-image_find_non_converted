@@ -11,6 +11,7 @@ SOURCE_ROOT="$1"
 DESTINATION_ROOT="$2"
 PATH_REGEX="$3"
 
+IFS=$'\n'
 for file_path in $(find $SOURCE_ROOT -type f -regex "$PATH_REGEX"); do
     FILE_DIRECTORY=$(dirname $file_path)
     filename=$(basename $file_path)
