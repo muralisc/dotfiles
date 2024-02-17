@@ -3,7 +3,10 @@
 # Wrapper to Handbrake cli to make it compatible with cp and mv
 
 
-echo "~/src/dotfiles/bin/footage-video-encode-handbrake-single /home/murali/data/footage/2022/2022_06_25/null-NoModelName/VID_20220625_201920.mp4 /home/murali/shared_folders/raspberry-pi/photoframe/videos/VID_20220625_201920.m4v"
+echo "Usage:
+    ~/src/dotfiles/bin/footage-video-encode-handbrake-single
+    /home/murali/data/footage/2022/2022_06_25/null-NoModelName/VID_20220625_201920.mp4 
+    /home/murali/shared_folders/raspberry-pi/photoframe/videos/VID_20220625_201920.m4v"
 
 
 INPUT_FILE_PATH=$1
@@ -13,5 +16,12 @@ preset="${3:-HQ 1080p30 Surround}"
 # preset="Fast 1080p30"
 # preset="Very Fast 1080p30"
 
-echo "Executing ========= " HandBrakeCLI -Z "$preset" -i "$INPUT_FILE_PATH" -o "$OUPUT_FILE_PATH"
-HandBrakeCLI -Z "$preset" -i "$INPUT_FILE_PATH" -o "$OUPUT_FILE_PATH"
+if [[ -z $OUPUT_FILE_PATH ]]; then
+    FILE_DIRECTORY=$(dirname "$INPUT_FILE_PATH")
+    filename=$(basename "$INPUT_FILE_PATH")
+    filename_without_ext="${filename%.*}"
+    OUPUT_FILE_PATH="${FILE_DIRECTORY}/${filename_without_ext}-${preset}.m4v"
+fi
+
+echo "Executing ========= " HandBrakeCLI -Z "$preset" -i "$INPUT_FILE_PATH" -o "${OUPUT_FILE_PATH}"
+HandBrakeCLI -Z "$preset" -i "$INPUT_FILE_PATH" -o "${OUPUT_FILE_PATH}"
