@@ -39,7 +39,6 @@ for custom_path in        \
     $HOME/.cargo/bin      \
     $GOPATH/bin           \
     $HOME/bin             \
-    $HOME/src/private/bin \
     ; do
   [[ ":$PATH:" != *":$custom_path:"* ]] && export PATH="$custom_path:${PATH}"
 done
