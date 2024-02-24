@@ -22,15 +22,16 @@ note_search() {
   grep \
     -ri \
     "$1" \
-    ~/src/dotfiles \
-    ~/src/obsidian-vault1/ \
-    ~/src/private/ \
-    ~/shared_folders/minimal/Pensieve/textfiles/cheatsheets \
-    ~/shared_folders/minimal/Pensieve/textfiles/journal \
-    ~/shared_folders/transfer_work/minimal-subspace \
-    --exclude-dir=images \
+    ~/src \
+    ~/shared_folders \
+    --binary-files=without-match \
     --exclude-dir=.git \
-    --exclude-dir=images
+    --exclude-dir=node_modules \
+    --exclude-dir=venv \
+    --exclude-dir=.obsidian \
+    --exclude="*.backup" \
+    --exclude="*pdf" \
+    --exclude="*svg"
 }
 
 mp() {
