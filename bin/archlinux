@@ -343,7 +343,11 @@ yay -S --noconfirm tk
 yay -S --noconfirm bluez iw blueman-git bluez-utils-compat #  bluez-utils
 # use --experimental in bluetooth service
 # just get the audio working !!!
-yay -S --noconfirm pavucontrol pacmixer pulsemixer pulseaudio pulseaudio-alsa pulseaudio-bluetooth
+yay -Syy --noconfirm pavucontrol
+yay -Syy --noconfirm pulseaudio 
+yay -Syy --noconfirm pulseaudio-alsa
+yay -Syy --noconfirm pa-applet-git # for onscreen vol control
+yay -Syy --noconfirm alsa-utils  # for alsamixer
 # movies tv songs, mp3 tag
 yay -S --noconfirm mpd mpc ncmpcpp mpv exfalso beets puddletag
 systemctl --user start mpd
