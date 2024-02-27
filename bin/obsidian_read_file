@@ -1,0 +1,1 @@
+datediff -i "%Y-%m-%dT%H:%M" $(cat /tmp/obsidian.state) $(date +"%Y-%m-%dT%H:%M") -f "%H:%M"
