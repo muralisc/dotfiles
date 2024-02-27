@@ -19,9 +19,10 @@ sanitize_file_name() {
 }
 
 note_search() {
+
   grep \
     -ri \
-    "$1" \
+    "$@" \
     ~/src \
     ~/shared_folders \
     --binary-files=without-match \
