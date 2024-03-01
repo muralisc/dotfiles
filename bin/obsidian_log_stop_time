@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+
+from datetime import datetime, timedelta
+import json
+from pathlib import Path
+import sys
+
+TIMEFORMAT = "%Y-%m-%dT%H:%M"
+INTERVAL_PATH = Path("/tmp/obsidian-intervals.json")
+
+
+def read_intervals():
+    intervals = {}
+    if INTERVAL_PATH.is_file():
+        with open(INTERVAL_PATH, "r") as reader2:
+            intervals = json.load(reader2)
+    return intervals
+
+
+def read_and_update_intervals(t1, t2):
+    intervals = read_intervals()
+    intervals[t1.strftime(TIMEFORMAT)] = t2.strftime(TIMEFORMAT)
+    with open(INTERVAL_PATH, "w") as writer:
+        json.dump(intervals, writer)
+    return intervals
+
+
+def stringify_timedelta(time_delta_val):
+    tot_seconds = time_delta_val.total_seconds()
+    hours, rem = divmod(tot_seconds, 60 * 60)
+    mins, sec = divmod(rem, 60)
+    hours = int(hours)
+    mins = int(mins)
+    sec = int(sec)
+    return f"{hours}h{mins}m"
+
+
+def get_interval_time_delta(intervals):
+    net_delta = timedelta(hours=0)
+    for k, v in intervals.items():
+        t1 = datetime.strptime(k, TIMEFORMAT)
+        t2 = datetime.strptime(v, TIMEFORMAT)
+        net_delta += t2 - t1
+    return net_delta
+
+
+def obsidian_start():
+    intervals = read_intervals()
+    net_delta = get_interval_time_delta(intervals)
+    timedelta_net_str = stringify_timedelta(net_delta)
+    print(f"{timedelta_net_str}")
+
+
+def obsidian_stop():
+    with open("/tmp/obsidian.state", "r") as reader:
+        line = reader.readline().strip()
+        t1 = datetime.strptime(line, TIMEFORMAT)
+        t2 = datetime.now()
+        # read intervals, update intervals
+        intervals = read_and_update_intervals(t1, t2)
+        net_delta = get_interval_time_delta(intervals)
+
+        last_timedelta = t2 - t1
+        last_timedelta_str = stringify_timedelta(last_timedelta)
+        timedelta_net_str = stringify_timedelta(net_delta)
+        print(f"{last_timedelta_str}, {timedelta_net_str}")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "read-intervals":
+            obsidian_start()
+    else:
+        obsidian_stop()

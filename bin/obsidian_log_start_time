@@ -1,0 +1,4 @@
+#!/bin/bash
+date +"%Y-%m-%dT%H:%M" > /tmp/obsidian.state
+
+python3 ~/src/dotfiles/bin/obsidian_log_stop_time read-intervals
