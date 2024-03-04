@@ -21,7 +21,7 @@ def read_and_update_intervals(t1, t2):
     intervals = read_intervals()
     intervals[t1.strftime(TIMEFORMAT)] = t2.strftime(TIMEFORMAT)
     with open(INTERVAL_PATH, "w") as writer:
-        json.dump(intervals, writer)
+        json.dump(intervals, writer, indent=4)
     return intervals
 
 
