@@ -6,13 +6,13 @@ from pathlib import Path
 import sys
 
 TIMEFORMAT = "%Y-%m-%dT%H:%M"
-INTERVAL_PATH = Path("/tmp/obsidian-intervals.json")
-
+INTERVAL_PATH = Path("~/src/obsidian-work-vault/obsidian-intervals.md")
+START_TIME_PATH= Path("~/src/obsidian-work-vault/obsidian_start_time.md")
 
 def read_intervals():
     intervals = {}
     if INTERVAL_PATH.is_file():
-        with open(INTERVAL_PATH, "r") as reader2:
+        with open(INTERVAL_PATH.expanduser(), "r") as reader2:
             intervals = json.load(reader2)
     return intervals
 
@@ -20,7 +20,7 @@ def read_intervals():
 def read_and_update_intervals(t1, t2):
     intervals = read_intervals()
     intervals[t1.strftime(TIMEFORMAT)] = t2.strftime(TIMEFORMAT)
-    with open(INTERVAL_PATH, "w") as writer:
+    with open(INTERVAL_PATH.expanduser(), "w") as writer:
         json.dump(intervals, writer, indent=4)
     return intervals
 
@@ -52,7 +52,7 @@ def obsidian_start():
 
 
 def obsidian_stop():
-    with open("/tmp/obsidian.state", "r") as reader:
+    with open(START_TIME_PATH.expanduser(), "r") as reader:
         line = reader.readline().strip()
         t1 = datetime.strptime(line, TIMEFORMAT)
         t2 = datetime.now()
