@@ -33,6 +33,7 @@ require("packer").startup(function(use)
   use("skywind3000/asyncrun.vim")
   -- diffconflicts - easily address diffconfilicts in nvim :DiffConflicts
   use("whiteinge/diffconflicts")
+  use('will133/vim-dirdiff')
   -- leap.nvim - mapped to s in 'normal' mode
   -- Usecase:
   --     Jump to a location in visible buffer area - use leap
