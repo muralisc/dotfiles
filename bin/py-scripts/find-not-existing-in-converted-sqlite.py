@@ -1,5 +1,3 @@
-# find-oldest-files.py -s [source-dir] -d sqlitedb -n count
-
 # files
 # AbsPath, index_timestamp, copycount
 
@@ -9,6 +7,7 @@
 from peewee import *
 from datetime import datetime
 from pathlib import Path
+import click
 
 database_proxy = DatabaseProxy()
 
@@ -25,13 +24,20 @@ class Events(BaseModel):
     timestamp = DateTimeField()
     abs_path = CharField()
 
+@click.group()
+@click.pass_context
+def main(ctx):
+    pass
 
-def main():
-    database = SqliteDatabase('files.sqlite')
+@main.command()
+@click.pass_context
+@click.option('--sqlite', required=True, help='Path to sqlite db')
+@click.option('--source-dir', required=True, help='Path to directory to add to index')
+def index(ctx, sqlite, source_dir):
+    database = SqliteDatabase(sqlite)
     database_proxy.initialize(database)
     database.create_tables([Files])
 
-    source_dir = "~/data/footage_converted/2023"
     with database.atomic():
         for path in Path(source_dir).expanduser().rglob("*"):
             if path.is_file():
@@ -44,4 +50,13 @@ def main():
         # for file in Files.select():
         #     print(f"db row: {file.abs_path}, {file.index_timestamp}")
 
-main()
+@main.command()
+@click.pass_context
+@click.option('--sqlite', required=True, help='Path to sqlite db')
+@click.option('--prefix', required=True, help='Prefix of filepath to remove from index path')
+@click.option('--dest-dir', required=True, help='Desitination folder containing file source')
+def find_deleted(ctx, sqlite):
+    pass
+
+if __name__ == '__main__':
+    main()
