@@ -19,26 +19,29 @@ class BaseModel(Model):
 class Files(BaseModel):
     abs_path = CharField(unique=True)
     index_timestamp = DateTimeField()
-    copy_count = IntegerField()
+
+class Events(BaseModel):
+    event_type = CharField()
+    timestamp = DateTimeField()
+    abs_path = CharField()
 
 
 def main():
-    database = SqliteDatabase('files.db')
+    database = SqliteDatabase('files.sqlite')
     database_proxy.initialize(database)
     database.create_tables([Files])
 
-    source_dir = "~/data/footage_converted/2023/2023_01_01"
+    source_dir = "~/data/footage_converted/2023"
     with database.atomic():
         for path in Path(source_dir).expanduser().rglob("*"):
             if path.is_file():
                 try:
-                    Files.create(abs_path=str(path), index_timestamp=datetime.now(), copy_count=1)
+                    Files.create(abs_path=str(path), index_timestamp=datetime.now())
                 except:
                     pass
     with database:
-        for file in Files.select():
-            print(file.abs_path)
-    # import shutil
-    # shutil.copy(src, dst)
+        print("Number of rows:", Files.select().count())
+        # for file in Files.select():
+        #     print(f"db row: {file.abs_path}, {file.index_timestamp}")
 
 main()
