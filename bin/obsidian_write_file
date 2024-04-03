@@ -1,1 +1,0 @@
-date +"%Y-%m-%dT%H:%M" > /tmp/obsidian.state

@@ -1,5 +1,7 @@
+# warpd --list-options | awk '{print $1" "$(NF-1)" "$NF}'
+
 speed: 100
 buttons: m , .
-hint_oneshot_key: A-M-z
+hint_oneshot_key: A-M-z   # default A-M-l clashes with obsidian:linter
 hint2_oneshot_key: A-M-Z 
 history_activation_key: A-M-c

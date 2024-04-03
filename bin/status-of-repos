@@ -10,7 +10,7 @@ do
   pushd "$REPOROOT" > /dev/null
     GIT_STATUS_COLOR=$(git -c color.ui=always status -sb)
     GIT_STATUS=$(git status -sb)
-    if grep "behind|ahead" <<< "$GIT_STATUS" > /dev/null || grep "[MA] " <<< "$GIT_STATUS" > /dev/null ; then
+    if grep -E "behind|ahead" <<< "$GIT_STATUS" > /dev/null || grep "[MA] " <<< "$GIT_STATUS" > /dev/null ; then
         echo "$REPOROOT"
         echo "$GIT_STATUS_COLOR"
     fi
