@@ -1,0 +1,14 @@
+#!/bin/bash
+
+sudo nmap -sn 192.168.1.1/24 | \
+    awk '
+      $0~"Nmap" {
+        # if the current
+        print output;
+        output=$0
+      }
+      $0!~"Nmap" {
+        output=output" "$0" "}
+      END {
+        print output
+      }'

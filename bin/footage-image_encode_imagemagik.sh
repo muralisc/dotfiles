@@ -8,8 +8,14 @@
 # Usage:
 # bash $1 $source_root $dest_root 'find_path_regex'
 # e.g:
-#   bash ~/src/dotfiles/bin/footage-image_encode_imagemagik.sh ~/data/footage ~/data/footage_converted '.*_09.*CR3' dryrun
-#   bash ~/src/dotfiles/bin/footage-image_encode_imagemagik.sh ~/data/footage ~/data/footage_converted '.*IMG_043.\.HEIC' dryrun
+#   bash ~/src/dotfiles/bin/footage-image_encode_imagemagik.sh \
+#       ~/data/footage \
+#       ~/data/footage_converted \
+#       '.*_09.*CR3' dryrun
+#   bash ~/src/dotfiles/bin/footage-image_encode_imagemagik.sh \
+#       ~/data/footage \
+#       ~/data/footage_converted \
+#       '.*IMG_043.\.HEIC' dryrun
 #   bash ~/src/dotfiles/bin/footage-image_encode_imagemagik.sh \
 #       ~/data/footage \
 #       ~/data/footage_converted \
@@ -37,6 +43,7 @@ for file_path in $(find $SOURCE_ROOT -type f -regex "$PATH_REGEX"); do
     mkdir -p "$DEST_FILE_DIRECTORY"
     DEST_FILE_PATH="${DEST_FILE_DIRECTORY}/${filename_without_ext}.jpg"
     if [[ -f $DEST_FILE_PATH ]] ; then
+        echo "$(tput setaf 2)  ==> File already in destination. Skipping $(tput sgr0)"
         continue
     fi
     echo "-> To desitnation: $DEST_FILE_PATH"
