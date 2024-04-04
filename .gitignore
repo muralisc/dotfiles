@@ -7,4 +7,5 @@ watch_later
 .config/mpv/scripts/delete_file.lua
 *.desktop
 env
+venv
 *sqlite

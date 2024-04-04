@@ -1,8 +1,4 @@
-# files
-# AbsPath, index_timestamp, copycount
-
-# copy_events
-# AbsPath_key , copy_timestamp
+#!/usr/bin/env python3
 
 from peewee import *
 from datetime import datetime
@@ -55,8 +51,14 @@ def index(ctx, sqlite, source_dir):
 @click.option('--sqlite', required=True, help='Path to sqlite db')
 @click.option('--prefix', required=True, help='Prefix of filepath to remove from index path')
 @click.option('--dest-dir', required=True, help='Desitination folder containing file source')
-def find_deleted(ctx, sqlite):
-    pass
+def find_deleted(ctx, sqlite, prefix, dest_dir):
+    database = SqliteDatabase(sqlite)
+    with database:
+        for copy_filepath in Files.select():
+            source_path = copy_filepath.replace(prefix,dest_dir)
+            print(f"copy_filepath: {copy_filepath}, source_path: {source_path}"
+            if Path(copy_filepath).exist() is False and Path(source_path).exist() is True:
+                print(f"To be delted: {source_path}")
 
 if __name__ == '__main__':
     main()
