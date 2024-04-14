@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# TODO distinguish from footage-image_find_non_converted other than sqlite !!
+
 from peewee import *
 from datetime import datetime
 from pathlib import Path
@@ -59,7 +61,7 @@ def index(ctx, sqlite, source_dir):
     "--prefix", required=True, help="Prefix of filepath to remove from index path"
 )
 @click.option(
-    "--dest-dir", required=True, help="Desitination folder containing file source"
+    "--dest-dir", required=True, help="Destination folder containing file source"
 )
 def find_deleted(ctx, sqlite, prefix, dest_dir):
     database = SqliteDatabase(sqlite)
