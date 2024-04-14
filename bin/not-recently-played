@@ -1,13 +1,16 @@
 #!/bin/bash
 
-# Trasnform a file to another location using given command
+# find and copy 'not recently played'
+#   - 'not recently played' is based on file accesstime
+#   Drawbacks:
+#   - other file activity may affect this
+#   - for eg if you run rclone / rsync on whole folder then cut off date 
+#     need to be reset
 #
-# If the target location do not have the file
-# Remove in the original location
+# Cleanup:
+#   - During each run, cleanup target location, 
+#   - If the target location do not have the file Remove in the source location
 
-# Usage:
-# $0 copy - do copy
-# $0      - print the dry run 
 if [[ -z "$1" ]]; then
 echo "Usage:"
 echo "  bash ~/bin/not-recently-played "
