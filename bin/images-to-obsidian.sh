@@ -7,7 +7,7 @@ for file in $(\ls ~/shared_folders/transfer_work/obsidian-images/); do
     fi
 echo "
 $loop_count \`$file\`
-![$file|120](https://link.storjshare.io/raw/jwdxhmbzavaj7zgfgkzmdy7uutia/obsidian.images/$file)
+![$file|120](obsidian-images/$file)
 " >> ~/src/obsidian-vault2/All-Images-${FILE_INDEX}.md
 loop_count=$((loop_count+1))
 done
