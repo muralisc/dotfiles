@@ -42,6 +42,9 @@ def output_reader(proc: subprocess.Popen) -> None:
         print("{}".format(b.decode("utf-8")), end="")
 
 
+# preset = "HQ 720p30 Surround"
+# preset = "HQ 1080p30 Surround"
+preset = "HQ 2160p60 4K HEVC Surround"
 INPUT_FILE_PATH = sys.argv[1]
 OUPUT_FILE_PATH: Optional[PosixPath] = None
 
@@ -52,7 +55,6 @@ if OUPUT_FILE_PATH is None:
     p = Path(os.path.realpath(INPUT_FILE_PATH))
     dir_path = p.parent
     ext = p.suffix
-    preset = "HQ 720p30 Surround"
     OUPUT_FILE_PATH = dir_path.joinpath(f"{p.stem}-{preset}.m4v")
 
 OUPUT_FILE_PATH_INFO = rename_suffix(OUPUT_FILE_PATH, "info")
@@ -61,7 +63,6 @@ if check_encoded_using_handbrake(str(INPUT_FILE_PATH)):
     print("The file is already encoded using HandBrakeCLI")
     exit()
 
-preset = "HQ 720p30 Surround"
 command = [
     "HandBrakeCLI",
     "-Z",
