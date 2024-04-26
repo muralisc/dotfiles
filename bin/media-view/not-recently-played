@@ -49,7 +49,7 @@ NUMBER_OF_ITEMS_LEFT=$(eval "$FIND_FILTER_COMMAND" | wc -l)
 
 echo "$(date -Is) Running Cleanup script, remaining items: $NUMBER_OF_ITEMS_LEFT"
 mkdir -p $DEST_FOLDER
-python ~/src/dotfiles/bin/not-recently-played-cleanup $DEST_FOLDER
+python ~/src/dotfiles/bin/media-view/not-recently-played-cleanup $DEST_FOLDER
 
 rand_min=${NO_OF_FILES_TO_COPY}
 rand_max=$(eval "$FIND_FILTER_COMMAND" | wc -l)
