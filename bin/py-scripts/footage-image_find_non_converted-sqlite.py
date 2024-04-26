@@ -2,28 +2,28 @@
 
 # TODO distinguish from footage-image_find_non_converted other than sqlite !!
 
-from peewee import *
+import peewee
 from datetime import datetime
 from pathlib import Path
 import click
 
-database_proxy = DatabaseProxy()
+database_proxy = peewee.DatabaseProxy()
 
 
-class BaseModel(Model):
+class BaseModel(peewee.Model):
     class Meta:
         database = database_proxy
 
 
 class Files(BaseModel):
-    abs_path = CharField(unique=True)
-    index_timestamp = DateTimeField()
+    abs_path = peewee.CharField(unique=True)
+    index_timestamp = peewee.DateTimeField()
 
 
 class Events(BaseModel):
-    event_type = CharField()
-    timestamp = DateTimeField()
-    abs_path = CharField()
+    event_type = peewee.CharField()
+    timestamp = peewee.DateTimeField()
+    abs_path = peewee.CharField()
 
 
 @click.group()
@@ -37,7 +37,7 @@ def main(ctx):
 @click.option("--sqlite", required=True, help="Path to sqlite db")
 @click.option("--source-dir", required=True, help="Path to directory to add to index")
 def index(ctx, sqlite, source_dir):
-    database = SqliteDatabase(sqlite)
+    database = peewee.SqliteDatabase(sqlite)
     database_proxy.initialize(database)
     database.create_tables([Files])
 
@@ -64,7 +64,7 @@ def index(ctx, sqlite, source_dir):
     "--dest-dir", required=True, help="Destination folder containing file source"
 )
 def find_deleted(ctx, sqlite, prefix, dest_dir):
-    database = SqliteDatabase(sqlite)
+    database = peewee.SqliteDatabase(sqlite)
     database_proxy.initialize(database)
     with database:
         for copy_file_row in Files.select():
