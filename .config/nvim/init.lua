@@ -31,7 +31,8 @@ require("packer").startup(function(use)
   --     2. Or in toggleterm
   --     3. Or in tmux
   use("skywind3000/asyncrun.vim")
-  -- diffconflicts - easily address diffconfilicts in nvim :DiffConflicts
+  -- diffconflicts 
+  --    easily address diffconfilicts in nvim :DiffConflicts
   use("whiteinge/diffconflicts")
   use('will133/vim-dirdiff')
   -- leap.nvim - mapped to s in 'normal' mode
@@ -40,7 +41,15 @@ require("packer").startup(function(use)
   --     Jump to a location in any buffer area - use native vim search
   use("ggandor/leap.nvim")
   use("nvim-lualine/lualine.nvim")
+
+  -- null-ls.nvim
+  --    Help non lps sources to hook into Neovim LSP client
+  --    Needed for linter used at workplace
   use("jose-elias-alvarez/null-ls.nvim")
+
+  -- nvim-lspconfig - is a collection of 
+  --    community-contributed configurations for 
+  --    the built-in language server client in Nvim core.
   use("neovim/nvim-lspconfig")
   -- nvim-miniyank block paste fix for nvim
   -- Usecase:
@@ -50,6 +59,7 @@ require("packer").startup(function(use)
   use("nvim-tree/nvim-tree.lua")
   use("nvim-treesitter/nvim-treesitter")
   use("nvim-tree/nvim-web-devicons")
+  use("stevearc/oil.nvim")
   use("wbthomason/packer.nvim")
   use("simrat39/symbols-outline.nvim")
   -- tabular - Massively useful plugin for easily aligning text
@@ -65,7 +75,11 @@ require("packer").startup(function(use)
   --         ESC -> <c-\><c-n>
   use("akinsho/toggleterm.nvim")
 
-  -- use("wincent/vim-clipper")
+  -- trouble.nvim
+  --    Used for displaying lsp diagnostics
+  use("folke/trouble.nvim")
+
+  use("wincent/vim-clipper")
   -- vim-commentary
   --    map: gcc
   use("tpope/vim-commentary")
@@ -340,6 +354,11 @@ require("lspconfig").lua_ls.setup({
 })
 
 --
+-- stevearc/oil.nvim
+--
+require("oil").setup()
+
+--
 -- For simrat39/symbols-outline.nvim
 --
 
@@ -448,6 +467,13 @@ end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+
+--
+-- For folke/trouble.nvim
+--
+require("trouble").setup({})
+
+vim.api.nvim_set_keymap("n", "<leader>xx", ":Trouble diagnostics<cr>", {silent = true, noremap = true})
 
 --
 -- For wincent/vim-clipper
