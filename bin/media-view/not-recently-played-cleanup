@@ -24,7 +24,7 @@ def process_line(copy_path_parts):
       source_file_path = Path(cleaned_source_path)
       source_file_folder = source_file_path.parent
       log_path = source_file_folder.joinpath(DELETE_LOG_FILE)
-      rprint("Writing logs to: {}".format(log_path))
+      print("Writing logs to: {}".format(log_path))
       with open(log_path, "a") as f:
           f.write(f"{cleaned_source_path}\n")
       os.remove(cleaned_source_path)

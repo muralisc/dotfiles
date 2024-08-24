@@ -351,7 +351,7 @@ yay -Syy --noconfirm alsa-utils  # for alsamixer
 # movies tv songs, mp3 tag
 yay -S --noconfirm mpd mpc ncmpcpp mpv exfalso beets puddletag
 systemctl --user start mpd
-# Filemanagers - RANGER and nnn
+# Filemanagers - RANGER and nnn , neovim(oil.nvim)
 yay -S --noconfirm \
 	ranger-git w3m ffmpeg ffmpegthumbnailer \
         imagemagick mediainfo ueberzug #(https://github.com/jstkdng/ueberzugpp)
