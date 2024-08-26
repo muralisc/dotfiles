@@ -56,9 +56,9 @@ require("packer").startup(function(use)
   --     Fix for: Block paste not working when clipboard=unnamed
   --     https://github.com/neovim/neovim/issues/1822
   use("bfredl/nvim-miniyank")
-  use("nvim-tree/nvim-tree.lua")
   use("nvim-treesitter/nvim-treesitter")
-  use("nvim-tree/nvim-web-devicons")
+  -- oil.nvim
+  --    Prefering oil.nvim instead of nvim-tree
   use("stevearc/oil.nvim")
   use("wbthomason/packer.nvim")
   use("simrat39/symbols-outline.nvim")
@@ -403,16 +403,6 @@ vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fr", builtin.oldfiles, {})
 -- Grep in files
 vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
-
---
--- For nvim-tree/nvim-tree.lua
---
-
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-require("nvim-tree").setup()
--- Using same mapping as spacemacs for opening treemacs
-vim.keymap.set("n", "<leader>fn", ":NvimTreeFindFile<cr>", {})
 
 --
 -- For nvim-treesitter/nvim-treesitter
