@@ -41,6 +41,7 @@ require("packer").startup(function(use)
   --     Jump to a location in any buffer area - use native vim search
   use("ggandor/leap.nvim")
   use("nvim-lualine/lualine.nvim")
+  use("nvim-tree/nvim-web-devicons")
 
   -- null-ls.nvim
   --    Help non lps sources to hook into Neovim LSP client
