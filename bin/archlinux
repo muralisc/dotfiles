@@ -379,6 +379,7 @@ yay -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 yay -S --noconfirm gnupg pass # try https://github.com/keepassxreboot/keepassxc
 # i love to learn
 # install zathura for backup, use firefox for normal usage, it even shows comments
+# https://github.com/Stirling-Tools/Stirling-PDF
 yay -S --noconfirm zathura zathura-pdf-poppler zathura-ps # pdfunite is part of poppler and is used often by me
 yay -S --noconfirm anki
 # for the creative me
