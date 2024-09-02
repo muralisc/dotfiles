@@ -596,3 +596,18 @@ yay -Ss obsidian noto-fonts-emoji-blob
 yay -S libreoffice-fresh
 
 https://github.com/sigoden/dufs
+
+# song player - self hosted : https://github.com/basings/selfhosted-music-overview
+# https://github.com/ampache/ampache
+# ampache
+# - best search
+https://github.com/airsonic-advanced/airsonic-advanced
+# airsonic 
+# - Advanced serach avaialable, but no serch for playcount
+https://github.com/sentriz/gonic 
+# Gonic
+# - only server 
+# - no web ui
+https://github.com/navidrome/navidrome
+# Navidrome
+# - rudimentary search !!
