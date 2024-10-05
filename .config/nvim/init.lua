@@ -21,27 +21,46 @@
 vim.cmd([[packadd packer.nvim]])
 require("packer").startup(function(use)
   -- The plugins are ordered by their names
-  -- Helper:
+  -- Helper for ordering :
   -- grep 'use(' ~/.config/nvim/init.lua | sort -t '/' -k 2
 
-  -- asyncrun
+  -- skywind3000/asyncrun.vim
   -- Usecase:
   --     Run a build command
   --     1. Async in vim
   --     2. Or in toggleterm
   --     3. Or in tmux
   use("skywind3000/asyncrun.vim")
-  -- diffconflicts 
+
+  -- sindrets/diffview.nvim
+  -- Usecase:
+  --    See sidebyside diffs for hg and git
+  --    :DiffviewOpen
+  use("sindrets/diffview.nvim")
+
+  -- whiteinge/diffconflicts 
+  -- Usecase:
   --    easily address diffconfilicts in nvim :DiffConflicts
   use("whiteinge/diffconflicts")
+
+  -- will133/vim-dirdiff
+  -- Usecase:
+  --    Easily diff two folders in nvim
+  --    :Dirdiff ~/src/folder1 ~/src/folder2
   use('will133/vim-dirdiff')
+
   -- leap.nvim - mapped to s in 'normal' mode
   -- Usecase:
   --     Jump to a location in visible buffer area - use leap
   --     Jump to a location in any buffer area - use native vim search
   use("ggandor/leap.nvim")
+
   use("nvim-lualine/lualine.nvim")
-  use("nvim-tree/nvim-web-devicons")
+
+  -- echasnovski/mini.nvim
+  -- Usecase:
+  --    Mainly for mini.surround
+  use("echasnovski/mini.nvim")
 
   -- null-ls.nvim
   --    Help non lps sources to hook into Neovim LSP client
@@ -52,12 +71,14 @@ require("packer").startup(function(use)
   --    community-contributed configurations for 
   --    the built-in language server client in Nvim core.
   use("neovim/nvim-lspconfig")
+
   -- nvim-miniyank block paste fix for nvim
   -- Usecase:
   --     Fix for: Block paste not working when clipboard=unnamed
   --     https://github.com/neovim/neovim/issues/1822
   use("bfredl/nvim-miniyank")
   use("nvim-treesitter/nvim-treesitter")
+
   -- oil.nvim
   --    Prefering oil.nvim instead of nvim-tree
   use("stevearc/oil.nvim")
@@ -92,8 +113,10 @@ require("packer").startup(function(use)
   --    Better aligned with Tabularize
   --    :Tabularize /=/l12c1r0
   use("ledger/vim-ledger")
-  -- vim-plugin-viewdoc - For viewing help files
-  use("powerman/vim-plugin-viewdoc")
+
+  -- Deprecated: vim-plugin-viewdoc - replace with :tab h <string>
+  -- use("powerman/vim-plugin-viewdoc")
+
   -- vim-tmux-navigator
   --    For compatability with tmux
   --    Using Meta-[hjkl] mappings in tmux to move panes
@@ -200,6 +223,7 @@ vim.opt.undofile = true
 -- {{{
 vim.opt.foldenable = true
 vim.opt.foldmethod = "marker"
+vim.opt.foldmarker = "{,}"
 -- Set the default foldlevel, 0-foldall 99-unfoldall
 vim.opt.foldlevel = 99
 -- which commands trigger auto-unfold
@@ -281,6 +305,11 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>le", ":cget ~/vim_out.log | :copen<CR>\"owner('$(realpath %)')\" | head -1)<CR>", {})
 
 --
+-- sindrets/diffview.nvim
+--
+require("diffview").setup()
+
+--
 -- For ggandor/leap.nvim
 --
 
@@ -313,6 +342,11 @@ require("lualine").setup({
     },
   },
 })
+
+--
+-- For mini.surround
+--
+require("mini.surround").setup()
 
 --
 -- For neovim/nvim-lspconfig
