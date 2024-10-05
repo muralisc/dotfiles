@@ -30,6 +30,7 @@ require("packer").startup(function(use)
   --     1. Async in vim
   --     2. Or in toggleterm
   --     3. Or in tmux
+  --     custom shortcut added
   use("skywind3000/asyncrun.vim")
 
   -- sindrets/diffview.nvim
@@ -41,6 +42,7 @@ require("packer").startup(function(use)
   -- whiteinge/diffconflicts 
   -- Usecase:
   --    easily address diffconfilicts in nvim :DiffConflicts
+  --    :Diffconflicts
   use("whiteinge/diffconflicts")
 
   -- will133/vim-dirdiff
@@ -60,6 +62,8 @@ require("packer").startup(function(use)
   -- echasnovski/mini.nvim
   -- Usecase:
   --    Mainly for mini.surround
+  --    `saiw)` - add (`sa`) for inner word (`iw`) parenthesis (`)`).
+  --    `sr)"` - replace (`sr`) surrounding parenthesis (`)`) with "
   use("echasnovski/mini.nvim")
 
   -- null-ls.nvim
@@ -86,6 +90,7 @@ require("packer").startup(function(use)
   use("simrat39/symbols-outline.nvim")
   -- tabular - Massively useful plugin for easily aligning text
   use("godlygeek/tabular")
+
   use({
     "nvim-telescope/telescope.nvim",
     requires = { { "nvim-lua/plenary.nvim" } },
@@ -122,7 +127,7 @@ require("packer").startup(function(use)
   --    Using Meta-[hjkl] mappings in tmux to move panes
   use("christoomey/vim-tmux-navigator")
   -- vim-unimpaired: Awesome bracket maps
-  --     [q ]q :cprevious :cnext
+  --     [q ]q :cprevious :cnext - quickfix, use along with <leader>le
   --     [n ]n Go to git/hg confict marker
   --     yow - toggle wrap
   use("tpope/vim-unimpaired")
@@ -223,7 +228,7 @@ vim.opt.undofile = true
 -- {{{
 vim.opt.foldenable = true
 vim.opt.foldmethod = "marker"
-vim.opt.foldmarker = "{,}"
+vim.opt.foldmarker = "{{{,}}}"
 -- Set the default foldlevel, 0-foldall 99-unfoldall
 vim.opt.foldlevel = 99
 -- which commands trigger auto-unfold
@@ -275,9 +280,10 @@ vim.keymap.set("v", "<leader>P", '"_dp', {})
 -- }}}
 
 vim.cmd([[
-augroup FTOptions
+augroup FileTypeOptions
   autocmd!
-  autocmd Filetype markdown                     setlocal iskeyword+=# textwidth=80
+  autocmd Filetype markdown    setlocal iskeyword+=# textwidth=80
+  autocmd Filetype cpp         setlocal foldmethod=marker foldmarker={,}
 augroup end
 ]])
 
@@ -296,6 +302,12 @@ augroup end
 vim.keymap.set(
   "n",
   "<leader>bb",
+  ":AsyncRun -mode=term -pos=tmux buck2 build $(buck query \"owner('$(realpath %)')\" | head -1) 2> >(tee -a ~/vim_out.log >&2)<CR>",
+  {}
+)
+vim.keymap.set(
+  "n",
+  "<leader>bo",
   ":AsyncRun -mode=term -pos=tmux buck2 build $(buck query \"owner('$(realpath %)')\" | head -1)<CR>",
   {}
 )
@@ -351,6 +363,10 @@ require("mini.surround").setup()
 --
 -- For neovim/nvim-lspconfig
 --
+
+vim.diagnostic.config {     
+    float = { border = "rounded" }, 
+}
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
