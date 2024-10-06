@@ -42,9 +42,12 @@ def output_reader(proc: subprocess.Popen) -> None:
         print("{}".format(b.decode("utf-8")), end="")
 
 
+
+# Use HandBrake -z for all preset list
+
 # preset = "HQ 720p30 Surround"
-# preset = "HQ 1080p30 Surround"
-preset = "HQ 2160p60 4K HEVC Surround"
+preset = "HQ 1080p30 Surround"
+# preset = "HQ 2160p60 4K HEVC Surround"
 INPUT_FILE_PATH = sys.argv[1]
 OUPUT_FILE_PATH: Optional[PosixPath] = None
 
