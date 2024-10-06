@@ -441,8 +441,9 @@ curl https://sh.rustup.rs -sSf | sh
 gpg --decrypt file.gpg > file.tar
 # Bad session key error is due to wrong password
 tar xf $filename_tar
-gpg --import subkey.gpg
-gpg --list-keys
+
+gpg --import # see theLinuxCommand line for details
+gpg --list-keys # see theLinuxCommand line for details
 gpg --edit-key $key_id # then trust and quit
 
 # for pass

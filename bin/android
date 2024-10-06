@@ -1,2 +1,16 @@
 
 https://github.com/iSoron/uhabits - habbit app
+
+# alternative for pass !
+Termux !
+pkg install openssh git pass
+passwd # set new password
+whoami # find user name
+
+# from other machine ssh -p 8022 $username@ip_addr
+pkg install gnupg
+termux-setup-storage
+
+# update pinentry to use terminal
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
