@@ -85,6 +85,8 @@ require("packer").startup(function(use)
 
   -- oil.nvim
   --    Prefering oil.nvim instead of nvim-tree
+  --    Edit filesystem like a buffer ! 
+  --    Use %s mods to rename files en-mass
   use("stevearc/oil.nvim")
   use("wbthomason/packer.nvim")
   use("simrat39/symbols-outline.nvim")
@@ -128,7 +130,7 @@ require("packer").startup(function(use)
   use("christoomey/vim-tmux-navigator")
   -- vim-unimpaired: Awesome bracket maps
   --     [q ]q :cprevious :cnext - quickfix, use along with <leader>le
-  --     [n ]n Go to git/hg confict marker
+  --     [n ]n Go to git/hg confict marker in diff / conflict
   --     yow - toggle wrap
   use("tpope/vim-unimpaired")
   -- Used by async run to run commands in tmux term
@@ -302,7 +304,7 @@ augroup end
 vim.keymap.set(
   "n",
   "<leader>bb",
-  ":AsyncRun -mode=term -pos=tmux buck2 build $(buck query \"owner('$(realpath %)')\" | head -1) 2> >(tee -a ~/vim_out.log >&2)<CR>",
+  ":AsyncRun -mode=term -pos=tmux buck2 build $(buck query \"owner('$(realpath %)')\" | head -1) 2> >(tee ~/vim_out.log >&2)<CR>",
   {}
 )
 vim.keymap.set(

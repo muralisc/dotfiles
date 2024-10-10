@@ -69,6 +69,8 @@ def obsidian_stop():
 def obsidian_reset():
     with open(INTERVAL_PATH.expanduser(), "w") as writer:
         json.dump({}, writer, indent=4)
+    print("reset")
+
 
 if __name__ == "__main__":
     if "arg1" in os.environ:
