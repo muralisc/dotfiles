@@ -351,13 +351,14 @@ yay -Syy --noconfirm alsa-utils  # for alsamixer
 # movies tv songs, mp3 tag
 yay -S --noconfirm mpd mpc ncmpcpp mpv exfalso beets puddletag
 systemctl --user start mpd
-# Filemanagers - RANGER and nnn
+# Filemanagers - RANGER and nnn , neovim(oil.nvim)
 yay -S --noconfirm \
 	ranger-git w3m ffmpeg ffmpegthumbnailer \
         imagemagick mediainfo ueberzug #(https://github.com/jstkdng/ueberzugpp)
 
-# DISK DATA ANALYSERS - dua, nnn, ncdu(backup)
-cargo install dua-cli # du-dust is not reccursive
+# DISK DATA ANALYSERS - nnn, ncdu(backup)
+# du-dust is not reccursive
+# dua-cli do not have spwan shell at current dir
 y -S nnn ncdu
 # ncdu as backup
 # nnn -T a  -> same purpose as `dua i`
@@ -378,6 +379,7 @@ yay -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 yay -S --noconfirm gnupg pass # try https://github.com/keepassxreboot/keepassxc
 # i love to learn
 # install zathura for backup, use firefox for normal usage, it even shows comments
+# https://github.com/Stirling-Tools/Stirling-PDF
 yay -S --noconfirm zathura zathura-pdf-poppler zathura-ps # pdfunite is part of poppler and is used often by me
 yay -S --noconfirm anki
 # for the creative me
@@ -439,8 +441,9 @@ curl https://sh.rustup.rs -sSf | sh
 gpg --decrypt file.gpg > file.tar
 # Bad session key error is due to wrong password
 tar xf $filename_tar
-gpg --import subkey.gpg
-gpg --list-keys
+
+gpg --import # see theLinuxCommand line for details
+gpg --list-keys # see theLinuxCommand line for details
 gpg --edit-key $key_id # then trust and quit
 
 # for pass
@@ -595,3 +598,18 @@ yay -Ss obsidian noto-fonts-emoji-blob
 yay -S libreoffice-fresh
 
 https://github.com/sigoden/dufs
+
+# song player - self hosted : https://github.com/basings/selfhosted-music-overview
+# https://github.com/ampache/ampache
+# ampache
+# - best search
+https://github.com/airsonic-advanced/airsonic-advanced
+# airsonic 
+# - Advanced serach avaialable, but no serch for playcount
+https://github.com/sentriz/gonic 
+# Gonic
+# - only server 
+# - no web ui
+https://github.com/navidrome/navidrome
+# Navidrome
+# - rudimentary search !!

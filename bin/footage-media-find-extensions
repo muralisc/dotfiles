@@ -1,1 +1,0 @@
-find -type f -regex './20.*' | awk -F. '{print $NF}' | sort | uniq -c

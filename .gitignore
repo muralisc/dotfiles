@@ -6,3 +6,6 @@ watch_later
 .config/ranger/bookmarks
 .config/mpv/scripts/delete_file.lua
 *.desktop
+env
+venv
+*sqlite

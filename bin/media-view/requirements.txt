@@ -1,0 +1,2 @@
+humanize==4.10.0
+PyExifTool==0.5.6

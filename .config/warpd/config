@@ -1,5 +1,8 @@
+# warpd --list-options | awk '{print $1" "$(NF-1)" "$NF}'
+
 speed: 100
 buttons: m , .
-hint_oneshot_key: A-M-z
-hint2_oneshot_key: A-M-Z 
-history_activation_key: A-M-c
+hint_oneshot_key: A-M-z   # default A-M-l, modified as it clashes with obsidian:linter
+hint2_oneshot_key: A-M-Z  # default A-M-L, modified to be consistent with hint_oneshot_key remap above
+history_activation_key: A-M-c # default A-M-h, modified as it clashes with bspwm increase window width
+grid_activation_key: A-M-d # default A-M-g, conflicts with obsidian backup

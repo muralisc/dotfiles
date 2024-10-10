@@ -1,13 +1,16 @@
 #!/bin/bash
 
-# Trasnform a file to another location using given command
+# find and copy 'not recently played'
+#   - 'not recently played' is based on file accesstime
+#   Drawbacks:
+#   - other file activity may affect this
+#   - for eg if you run rclone / rsync on whole folder then cut off date 
+#     need to be reset
 #
-# If the target location do not have the file
-# Remove in the original location
+# Cleanup:
+#   - During each run, cleanup target location, 
+#   - If the target location do not have the file Remove in the source location
 
-# Usage:
-# $0 copy - do copy
-# $0      - print the dry run 
 if [[ -z "$1" ]]; then
 echo "Usage:"
 echo "  bash ~/bin/not-recently-played "
@@ -19,6 +22,12 @@ echo "  bash ~/src/dotfiles/bin/not-recently-played dry ~/data/Songs/ ~/shared_f
 echo "  bash ~/src/dotfiles/bin/not-recently-played cp ~/data/footage/2021 ~/shared_folders/transfer_london_home/footage_copy/videos 2022-04-01 5"
 echo "  bash ~/src/dotfiles/bin/not-recently-played cp ~/data/footage/2020 ~/shared_folders/raspberry-pi/photoframe/photos 2022-07-01 10"
 fi
+
+function get_random_min_max(){
+    min=$1
+    max=$2
+    echo $(($RANDOM%($max-$min+1)+$min))
+}
 
 copy_command=${1:-echo}
 SOURCE_FOLDERS="${2:-$HOME/data/Songs/Malayalam}"
@@ -40,12 +49,17 @@ NUMBER_OF_ITEMS_LEFT=$(eval "$FIND_FILTER_COMMAND" | wc -l)
 
 echo "$(date -Is) Running Cleanup script, remaining items: $NUMBER_OF_ITEMS_LEFT"
 mkdir -p $DEST_FOLDER
-python ~/src/dotfiles/bin/not-recently-played-cleanup $DEST_FOLDER
+python ~/src/dotfiles/bin/media-view/not-recently-played-cleanup $DEST_FOLDER
+
+rand_min=${NO_OF_FILES_TO_COPY}
+rand_max=$(eval "$FIND_FILTER_COMMAND" | wc -l)
+rand_line_no=$(get_random_min_max $rand_min $rand_max)
+echo "Found Random line_no $rand_line_no, min: $rand_min, max: $rand_max"
 
 > $DEST_FOLDER/copy_paths.log
 OIFS="$IFS"
 IFS=$'\n'
-for source_file_path in $(eval "$FIND_FILTER_COMMAND" | shuf | head -${NO_OF_FILES_TO_COPY}); do
+for source_file_path in $(eval "$FIND_FILTER_COMMAND" | head -n $rand_line_no | tail -n ${NO_OF_FILES_TO_COPY}); do
     FILE_DIRECTORY=$(dirname $source_file_path)
     filename=$(basename $source_file_path)
     dest_file_path="$DEST_FOLDER/$filename"

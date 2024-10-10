@@ -25,8 +25,12 @@ expand-aliases() {
     CURSOR=$#BUFFER
 }
 
+# Ctrl-x + space: expand aliases '^x '
+# Another potential choice - Alt-Ctrl-e: expand aliases '\e^E'
+# Another potential choice - Alt-t: expand aliases '\et'
+# Another potential choice - Ctrl-e: expand aliases '^E'
 zle -N expand-aliases
-bindkey '\e^E' expand-aliases
+bindkey '^E' expand-aliases
 
 # allow comments
 setopt interactivecomments
@@ -41,15 +45,18 @@ at_normal=%{$'\e[0m'%}
 
 ARROWS='%B%F{red}❯%F{green}❯%F{blue}❯%f%b'
 DOLLAR=' %B%F{blue}$%f%b'
-PST_TIMEZONE="$(TZ=America/Los_Angeles date +%H:%M\ %Z)"
-IND_TIMEZONE="$(TZ=Asia/Kolkata date +%H:%M\ %Z)"
-LDN_TIMEZONE="$(TZ=Europe/London date +%H:%M\ %Z)"
-LCL_TIMEZONE="%D{%H:%M %Z}"
-# OTR_TIMEZONE="[${LDN_TIMEZONE}]"
-OTR_TIMEZONE=""
-TIMEZONES="%F{yellow}${OTR_TIMEZONE}%F{magenta} ${LCL_TIMEZONE} "
+get_timezones() {
+    PST_TIMEZONE="$(TZ=America/Los_Angeles date +%H:%M\ %Z)"
+    IND_TIMEZONE="$(TZ=Asia/Kolkata date +%H:%M\ %Z)"
+    LDN_TIMEZONE="$(TZ=Europe/London date +%H:%M\ %Z)"
+    # OTR_TIMEZONE="[${LDN_TIMEZONE}]"
+    OTR_TIMEZONE=""
+    LOCAL_TIMEZONE="%D{%H:%M %Z}"
+    TIMEZONES="%F{yellow}${OTR_TIMEZONE}%F{magenta} ${LOCAL_TIMEZONE} "
+    echo "$TIMEZONES"
+}
 # Add color at end for giving color to user input
-PS1='${TIMEZONES}${VIMODE} %F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} %F{white}%B'
+PS1='$(get_timezones)${VIMODE} %F{green}%B$(shrink_path -f)%b%f${PANE_NAME}${DOLLAR} %F{white}%B'
 # Reset so that command output is set to default colors
 preexec () { echo -ne "\e[0m" }
 if [[ -n $SSH_CONNECTION ]]; then
@@ -96,7 +103,8 @@ source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 [ -f "$HOME/.completions.zsh" ] && source "$HOME/.completions.zsh"
 
-# load aliases
+
+# load aliases, functions, custom binaries
 [ -f "$HOME/bin/shrc" ] && source "$HOME/bin/shrc"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

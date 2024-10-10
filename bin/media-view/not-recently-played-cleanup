@@ -2,11 +2,16 @@
 import os
 import sys
 from rich import print as rprint
+from pathlib import Path
+
+DELETE_LOG_FILE="not-recently-played-cleanup-delete-log.log"
 
 def process_line(copy_path_parts):
     rprint("[blue] processing line")
     cleaned_path = copy_path_parts[1].replace("'","")
     cleaned_source_path = copy_path_parts[0].replace("'","")
+
+
     if os.path.exists(cleaned_path):
       # if file exists , just delete copy (i.e in the shared_folder)
       rprint("[blue] Removing local {}".format( cleaned_path))
@@ -15,6 +20,13 @@ def process_line(copy_path_parts):
       # if file do not exist, delete the source as well
       rprint("[bold red] WILL REMOVE SOURCE [yellow] {}".format(cleaned_source_path))
       input("Press Enter to continue...")
+      # Add to delete log file in the same folder !
+      source_file_path = Path(cleaned_source_path)
+      source_file_folder = source_file_path.parent
+      log_path = source_file_folder.joinpath(DELETE_LOG_FILE)
+      print("Writing logs to: {}".format(log_path))
+      with open(log_path, "a") as f:
+          f.write(f"{cleaned_source_path}\n")
       os.remove(cleaned_source_path)
 
 
