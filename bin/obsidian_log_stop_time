@@ -12,7 +12,7 @@ START_TIME_PATH= Path("~/src/obsidian-work-vault/obsidian_start_time.md")
 
 def read_intervals():
     intervals = {}
-    if INTERVAL_PATH.is_file():
+    if INTERVAL_PATH.expanduser().is_file():
         with open(INTERVAL_PATH.expanduser(), "r") as reader2:
             intervals = json.load(reader2)
     return intervals
