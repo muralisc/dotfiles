@@ -112,9 +112,12 @@ require("packer").startup(function(use)
   -- vim-commentary
   --    map: gcc
   use("tpope/vim-commentary")
-  -- vim-fswitch - Provides :FSHere very useful for cpp files
-  use("derekwyatt/vim-fswitch")
-  use("preservim/vim-markdown")
+
+  -----------------------
+  -- DEPRECATED: vim-fswitch - Provides :FSHere very useful for cpp files
+  -- use("derekwyatt/vim-fswitch") Deprecated, use gd from lsp
+ -----------------------
+
   -- vim-ledger
   --    Provides :LedgerAlign and :LedgerAlignBuffer
   --    Better aligned with Tabularize
@@ -133,7 +136,9 @@ require("packer").startup(function(use)
   --     [n ]n Go to git/hg confict marker in diff / conflict
   --     yow - toggle wrap
   use("tpope/vim-unimpaired")
-  -- Used by async run to run commands in tmux term
+  -- vimux
+  -- Usecase:
+  --    Used by skywind3000/asyncrun.vim to run commands in tmux term
   use("preservim/vimux")
 
   -- Colorscheme Plugins
@@ -389,6 +394,7 @@ local on_attach = function(_client, bufnr)
   vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
   vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+  vim.keymap.set("n", "<leader>a", ":ClangdSwitchSourceHeader<CR>", {})
   vim.keymap.set("n", "<space>f", function()
     vim.lsp.buf.format({ async = true })
   end, bufopts)
@@ -524,11 +530,6 @@ vim.api.nvim_set_keymap("n", "<leader>xx", ":Trouble diagnostics<cr>", {silent =
 
 vim.g.ClipperPort = 8377
 
---
--- For derekwyatt/vim-fswitch
---
-
-vim.keymap.set("n", "<leader>a", ":FSHere<CR>", {})
 
 --
 -- For christoomey/vim-tmux-navigator
@@ -556,3 +557,18 @@ end
 
 -- try indent backline
 -- split to work lua
+
+
+
+vim.api.nvim_set_keymap("n", "<leader>-", ":r !~/src/dotfiles/bin/obsidian_log_stop_time stop<CR>", {silent = false, noremap = true})
+vim.api.nvim_set_keymap("i", "<leader>-", "<ESC>:r !~/src/dotfiles/bin/obsidian_log_stop_time stop<CR>o", {silent = false, noremap = true})
+
+vim.api.nvim_set_keymap("n", "<leader>=", ":r !~/src/dotfiles/bin/obsidian_log_start_time<CR>", {silent = false, noremap = true})
+vim.api.nvim_set_keymap("i", "<leader>=", "<ESC>:r !~/src/dotfiles/bin/obsidian_log_start_time<CR>o", {silent = false, noremap = true})
+
+vim.api.nvim_set_keymap("n", "<leader>0", ":r !~/src/dotfiles/bin/obsidian_log_stop_time reset<CR>", {silent = false, noremap = true})
+vim.api.nvim_set_keymap("i", "<leader>0", "<ESC>:r !~/src/dotfiles/bin/obsidian_log_stop_time reset<CR>o", {silent = false, noremap = true})
+
+
+
+
