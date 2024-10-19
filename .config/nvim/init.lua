@@ -1,4 +1,4 @@
--- vim: foldlevel=2:
+-- vim: foldlevel=8:
 
 -- Courtsey:
 --   Vincent Driessen <vincent@datafox.nl>
@@ -12,7 +12,9 @@
 
 -- Helpers
 --   check a neovim lua var:
---   :lua print(vim.inspect(vim.opt.shiftwidth))
+--     :lua print(vim.inspect(vim.opt.shiftwidth))
+--   Format
+--      stylua --indent-type Spaces --indent-width 2
 
 ---------------------------------------------------------------------------
 -- packer setup
@@ -31,7 +33,28 @@ require("packer").startup(function(use)
   --     2. Or in toggleterm
   --     3. Or in tmux
   --     custom shortcut added
-  use("skywind3000/asyncrun.vim")
+  use({
+    "skywind3000/asyncrun.vim",
+    config = function()
+      -- bb = buck build
+      vim.keymap.set(
+        "n",
+        "<leader>bb",
+        ":AsyncRun -mode=term -pos=tmux buck2 build $(buck query \"owner('$(realpath %)')\" | head -1) 2> >(tee ~/vim_out.log >&2)<CR>",
+        {}
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>bo",
+        ":AsyncRun -mode=term -pos=tmux buck2 build $(buck query \"owner('$(realpath %)')\" | head -1)<CR>",
+        {}
+      )
+
+      -- le = load error,
+      -- Usefull while using AsyncRun with default -mode and -pos
+      vim.keymap.set("n", "<leader>le", ":cget ~/vim_out.log | :copen<CR>\"owner('$(realpath %)')\" | head -1)<CR>", {})
+    end,
+  })
 
   -- sindrets/diffview.nvim
   -- Usecase:
@@ -39,7 +62,7 @@ require("packer").startup(function(use)
   --    :DiffviewOpen
   use("sindrets/diffview.nvim")
 
-  -- whiteinge/diffconflicts 
+  -- whiteinge/diffconflicts
   -- Usecase:
   --    easily address diffconfilicts in nvim :DiffConflicts
   --    :Diffconflicts
@@ -49,15 +72,38 @@ require("packer").startup(function(use)
   -- Usecase:
   --    Easily diff two folders in nvim
   --    :Dirdiff ~/src/folder1 ~/src/folder2
-  use('will133/vim-dirdiff')
+  use("will133/vim-dirdiff")
 
-  -- leap.nvim - mapped to s in 'normal' mode
-  -- Usecase:
-  --     Jump to a location in visible buffer area - use leap
-  --     Jump to a location in any buffer area - use native vim search
-  use("ggandor/leap.nvim")
+  -- ggandor/leap.nvim - Deprecated use / and search ! simple
 
-  use("nvim-lualine/lualine.nvim")
+  use({
+    "nvim-lualine/lualine.nvim",
+    config = function()
+      --
+      -- For nvim-lualine/lualine.nvim
+      --
+
+      require("lualine").setup({
+        options = {
+          icons_enabled = true,
+          theme = "ayu_dark",
+        },
+        sections = {
+          lualine_c = {
+            {
+              "filename",
+              file_status = true, -- Displays file status (readonly status, modified status)
+              newfile_status = false, -- Display new file status (new file means no write after created)
+              path = 3, -- 3: Absolute path, with tilde as the home directory
+
+              shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+              -- for other components. (terrible name, any suggestions?)
+            },
+          },
+        },
+      })
+    end,
+  })
 
   -- echasnovski/mini.nvim
   -- Usecase:
@@ -71,8 +117,8 @@ require("packer").startup(function(use)
   --    Needed for linter used at workplace
   use("jose-elias-alvarez/null-ls.nvim")
 
-  -- nvim-lspconfig - is a collection of 
-  --    community-contributed configurations for 
+  -- nvim-lspconfig - is a collection of
+  --    community-contributed configurations for
   --    the built-in language server client in Nvim core.
   use("neovim/nvim-lspconfig")
 
@@ -85,7 +131,7 @@ require("packer").startup(function(use)
 
   -- oil.nvim
   --    Prefering oil.nvim instead of nvim-tree
-  --    Edit filesystem like a buffer ! 
+  --    Edit filesystem like a buffer !
   --    Use %s mods to rename files en-mass
   use("stevearc/oil.nvim")
   use("wbthomason/packer.nvim")
@@ -108,7 +154,16 @@ require("packer").startup(function(use)
   --    Used for displaying lsp diagnostics
   use("folke/trouble.nvim")
 
-  use("wincent/vim-clipper")
+  use({
+    "wincent/vim-clipper",
+    config = function()
+      --
+      -- For wincent/vim-clipper
+      --
+
+      vim.g.ClipperPort = 8377
+    end,
+  })
   -- vim-commentary
   --    map: gcc
   use("tpope/vim-commentary")
@@ -116,7 +171,7 @@ require("packer").startup(function(use)
   -----------------------
   -- DEPRECATED: vim-fswitch - Provides :FSHere very useful for cpp files
   -- use("derekwyatt/vim-fswitch") Deprecated, use gd from lsp
- -----------------------
+  -----------------------
 
   -- vim-ledger
   --    Provides :LedgerAlign and :LedgerAlignBuffer
@@ -156,7 +211,21 @@ require("packer").startup(function(use)
   --  1.7k | nanotech/jellybeans.vim          :  bad for diff
   --    66 | base16-summerfruit-dark          :  GOOD
   --    3k | catppuccin/nvim                  :  visual highlighting is not easily visible
-  use("morhetz/gruvbox")
+  use({
+    "morhetz/gruvbox",
+    config = function()
+      -------------------------------------------------------------------------
+      -- Set Colorscheme
+      -------------------------------------------------------------------------
+
+      if vim.opt.diff:get() then
+        vim.cmd([[colorscheme gruvbox ]])
+      else
+        vim.cmd([[colorscheme gruvbox ]])
+        -- vim.cmd([[colorscheme rose-pine ]])
+      end
+    end,
+  })
 end)
 -- }}}
 
@@ -234,8 +303,10 @@ vim.opt.undofile = true
 
 -- {{{
 vim.opt.foldenable = true
-vim.opt.foldmethod = "marker"
-vim.opt.foldmarker = "{{{,}}}"
+-- vim.opt.foldmethod = "marker"
+-- vim.opt.foldmarker = "{{{,}}}"
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- Set the default foldlevel, 0-foldall 99-unfoldall
 vim.opt.foldlevel = 99
 -- which commands trigger auto-unfold
@@ -299,68 +370,9 @@ augroup end
 ---------------------------------------------------------------------------
 
 --
--- For skywind3000/asyncrun.vim
---
-
--- bb = buck build
--- nnoremap <leader>bb :AsyncRun -mode=term -pos=toggleterm buck query "owner('$(realpath %)')"<CR>
--- nnoremap <leader>bb :AsyncRun -mode=term -pos=tmux buck2 query "owner('$(realpath %)')"<CR>
--- nnoremap <Leader>bb :AsyncRun -mode=term -pos=tmux buck2 build $(buck query "owner('$(realpath %)')" \| head -1) 2> ~/vim_out.log<CR>
-vim.keymap.set(
-  "n",
-  "<leader>bb",
-  ":AsyncRun -mode=term -pos=tmux buck2 build $(buck query \"owner('$(realpath %)')\" | head -1) 2> >(tee ~/vim_out.log >&2)<CR>",
-  {}
-)
-vim.keymap.set(
-  "n",
-  "<leader>bo",
-  ":AsyncRun -mode=term -pos=tmux buck2 build $(buck query \"owner('$(realpath %)')\" | head -1)<CR>",
-  {}
-)
-
--- le = load error,
--- Usefull while using AsyncRun with default -mode and -pos
-vim.keymap.set("n", "<leader>le", ":cget ~/vim_out.log | :copen<CR>\"owner('$(realpath %)')\" | head -1)<CR>", {})
-
---
 -- sindrets/diffview.nvim
 --
 require("diffview").setup()
-
---
--- For ggandor/leap.nvim
---
-
-require("leap").set_default_keymaps()
--- use 's' or 'S' to trigger
--- color help from : https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
-vim.api.nvim_set_hl(0, "LeapLabelPrimary", { ctermbg = 111, ctermfg = 016, bold = true })
-vim.api.nvim_set_hl(0, "LeapLabelSecondary", { ctermbg = 046, ctermfg = 016 })
-
---
--- For nvim-lualine/lualine.nvim
---
-
-require("lualine").setup({
-  options = {
-    icons_enabled = true,
-    theme = "ayu_dark",
-  },
-  sections = {
-    lualine_c = {
-      {
-        "filename",
-        file_status = true, -- Displays file status (readonly status, modified status)
-        newfile_status = false, -- Display new file status (new file means no write after created)
-        path = 3, -- 3: Absolute path, with tilde as the home directory
-
-        shorting_target = 40, -- Shortens path to leave 40 spaces in the window
-        -- for other components. (terrible name, any suggestions?)
-      },
-    },
-  },
-})
 
 --
 -- For mini.surround
@@ -371,9 +383,9 @@ require("mini.surround").setup()
 -- For neovim/nvim-lspconfig
 --
 
-vim.diagnostic.config {     
-    float = { border = "rounded" }, 
-}
+vim.diagnostic.config({
+  float = { border = "rounded" },
+})
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
@@ -522,14 +534,7 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 --
 require("trouble").setup({})
 
-vim.api.nvim_set_keymap("n", "<leader>xx", ":Trouble diagnostics<cr>", {silent = true, noremap = true})
-
---
--- For wincent/vim-clipper
---
-
-vim.g.ClipperPort = 8377
-
+vim.api.nvim_set_keymap("n", "<leader>xx", ":Trouble diagnostics<cr>", { silent = true, noremap = true })
 
 --
 -- For christoomey/vim-tmux-navigator
@@ -544,31 +549,24 @@ if ok then
   work.setup({ on_attach = on_attach })
 end
 
----------------------------------------------------------------------------
--- Set Colorscheme
----------------------------------------------------------------------------
-
-if vim.opt.diff:get() then
-  vim.cmd([[colorscheme gruvbox ]])
-else
-  vim.cmd([[colorscheme gruvbox ]])
-  -- vim.cmd([[colorscheme rose-pine ]])
-end
-
 -- try indent backline
 -- split to work lua
 
-
-
-vim.api.nvim_set_keymap("n", "<leader>-", ":r !~/src/dotfiles/bin/obsidian_log_stop_time stop<CR>", {silent = false, noremap = true})
-vim.api.nvim_set_keymap("i", "<leader>-", "<ESC>:r !~/src/dotfiles/bin/obsidian_log_stop_time stop<CR>o", {silent = false, noremap = true})
-
-vim.api.nvim_set_keymap("n", "<leader>=", ":r !~/src/dotfiles/bin/obsidian_log_start_time<CR>", {silent = false, noremap = true})
-vim.api.nvim_set_keymap("i", "<leader>=", "<ESC>:r !~/src/dotfiles/bin/obsidian_log_start_time<CR>o", {silent = false, noremap = true})
-
-vim.api.nvim_set_keymap("n", "<leader>0", ":r !~/src/dotfiles/bin/obsidian_log_stop_time reset<CR>", {silent = false, noremap = true})
-vim.api.nvim_set_keymap("i", "<leader>0", "<ESC>:r !~/src/dotfiles/bin/obsidian_log_stop_time reset<CR>o", {silent = false, noremap = true})
-
-
-
-
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>-",
+  ":r !~/src/dotfiles/bin/obsidian_log_stop_time stop<CR>",
+  { silent = false, noremap = true }
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>=",
+  ":r !~/src/dotfiles/bin/obsidian_log_start_time<CR>",
+  { silent = false, noremap = true }
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>0",
+  ":r !~/src/dotfiles/bin/obsidian_log_stop_time reset<CR>",
+  { silent = false, noremap = true }
+)
