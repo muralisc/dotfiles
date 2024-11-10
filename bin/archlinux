@@ -597,7 +597,8 @@ yay -Ss obsidian noto-fonts-emoji-blob
 
 yay -S libreoffice-fresh
 
-https://github.com/sigoden/dufs
+# file browsers
+https://github.com/sigoden/dufs - # useondemand docker
 
 # song player - self hosted : https://github.com/basings/selfhosted-music-overview
 # https://github.com/ampache/ampache

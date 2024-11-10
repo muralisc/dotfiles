@@ -106,7 +106,7 @@ require("packer").startup(function(use)
   --    Used for displaying lsp diagnostics
   use("folke/trouble.nvim")
 
-  use("wincent/vim-clipper")
+  -- use("wincent/vim-clipper")
   -- vim-commentary
   --    map: gcc
   use("tpope/vim-commentary")
