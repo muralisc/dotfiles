@@ -460,7 +460,7 @@ vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
 --
 
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "c", "cpp", "lua", "markdown", "python", "rust", "vim" },
+  ensure_installed = { "c", "cpp", "lua", "markdown", "python", "rust", "vim", "bash" },
   highlight = {
     enable = true,
   },

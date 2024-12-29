@@ -15,7 +15,7 @@
 # timelapse screenshots
 #*     *       *   *   *     DISPLAY=:0 ~/bin/timelapse.sh
 #0     9       *   *   *     crontab -l | gzip > ~/shared_folders/transfer/'crontab-'$(date +"\%Y\%m\%d-\%H\%M\%S")'.gz'
-#10     12      *   *   *     bash ~/src/private/bin/ticker_trigger.sh
+#10    12      *   *   *     bash ~/src/private/bin/ticker_trigger.sh
 
 0      9       *   *   *     crontab -l > ~/src/dotfiles/crontab
 
@@ -27,6 +27,7 @@
 
 00     20      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail.sh
 10     20      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail-custom.sh
-20     20      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail-partial-expense.sh
+
+00     10      *   *   *     bash ~/src/dotfiles/bin/get-public-ip
 
 59     23      *   *   *     logrotate ~/shared_folders/thanal_murali_share/logrotate.conf --state ~/shared_folders/thanal_murali_share/logrotate.state
