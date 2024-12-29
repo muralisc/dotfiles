@@ -49,7 +49,8 @@ def obsidian_start():
     intervals = read_intervals()
     net_delta = get_interval_time_delta(intervals)
     timedelta_net_str = stringify_timedelta(net_delta)
-    print(f"{timedelta_net_str}")
+    time_now_str = datetime.now().strftime("%Y-%m-%d %a %H:%M")
+    print(f"{time_now_str} (start, {timedelta_net_str})")
 
 
 def obsidian_stop():
@@ -64,11 +65,15 @@ def obsidian_stop():
     last_timedelta = t2 - t1
     last_timedelta_str = stringify_timedelta(last_timedelta)
     timedelta_net_str = stringify_timedelta(net_delta)
-    print(f"{last_timedelta_str}, {timedelta_net_str}")
+    time_now_str = datetime.now().strftime("%Y-%m-%d %a %H:%M")
+    print(f"{time_now_str} ({last_timedelta_str}, {timedelta_net_str})")
 
 def obsidian_reset():
     with open(INTERVAL_PATH.expanduser(), "w") as writer:
         json.dump({}, writer, indent=4)
+    time_now_str = datetime.now().strftime("%Y-%m-%d %a %H:%M")
+    print(f"{time_now_str} (reset)")
+
 
 if __name__ == "__main__":
     if "arg1" in os.environ:

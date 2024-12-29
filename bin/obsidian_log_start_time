@@ -1,4 +1,4 @@
 #!/bin/bash
-date +"%Y-%m-%dT%H:%M" > ~/src/obsidian-work-vault/obsidian_start_time.md
+date +"%Y-%m-%dT%H:%M" > ${1:-~/src/obsidian-work-vault/obsidian_start_time.md}
 
 python3 ~/src/dotfiles/bin/obsidian_log_stop_time read-intervals
