@@ -19,7 +19,7 @@
 #   bash ~/src/dotfiles/bin/footage-image_encode_imagemagik.sh \
 #       ~/data/footage \
 #       ~/data/footage_converted \
-#       '.*2022/.*_1[01]_.*\(jpg\|JPG\|CR3\|HEIC\|jpeg\)' dryrun
+#       '.*2022/.*_1[01]_.*\(jpg\|JPG\|CR3\|HEIC\|heic\|PNG\|jpeg\)' dryrun
 
 SOURCE_ROOT="$1"
 DESTINATION_ROOT="$2"

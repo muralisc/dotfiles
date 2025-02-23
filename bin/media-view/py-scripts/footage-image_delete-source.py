@@ -105,12 +105,16 @@ def find_delted_no_hint(ctx, converted_dir):
                 ".m4v",
                 ".mkv",
                 ".MP4",
+                ".kdenlive",
+                ".webm",
+                ".log",
                 ".arp",
                 ".xmp",
                 ".pp3",
                 ".ARW",
                 ".XML",
-                "2018",
+                "marriage/",
+                "2000",
             ]
             if any(x in source_filepath for x in extensions_to_exclude):
                 continue
