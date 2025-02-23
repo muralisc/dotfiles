@@ -72,3 +72,5 @@ syncthing
 localsend
 
 brew install icdiff # also Gittyup and gitfiend
+
+SSHFS - use samba share !! 
