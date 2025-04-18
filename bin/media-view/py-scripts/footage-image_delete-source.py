@@ -11,12 +11,13 @@
 # Check source files whic are deleted
 # python \
 #   footage-image_delete-source.py \
-#   --sqlite ~/shared_folders/transfer_london_home/footage.sqlite
-#   --source-dir ~/data/footage find_delted_no_hint --dest-dir ~/data/footage_converted
+#   --sqlite ~/shared_folders/transfer_london_home/footage.sqlite \
+#   --source-dir ~/data/footage find-delted-no-hint --converted-dir ~/data/footage_converted
 
 import peewee
 from datetime import datetime
 from pathlib import Path
+from rich import print as rprint
 import os
 import click
 
@@ -54,6 +55,9 @@ def cli(ctx, sqlite, source_dir):
 @cli.command()
 @click.pass_context
 def index(ctx):
+    """
+    Decide if we need this ?
+    """
     sqlite = ctx.obj["SQLITE"]
     source_dir = ctx.obj["SOURCE_DIR"]
     database = peewee.SqliteDatabase(sqlite)
@@ -118,39 +122,14 @@ def find_delted_no_hint(ctx, converted_dir):
             ]
             if any(x in source_filepath for x in extensions_to_exclude):
                 continue
+            if source_dir not in source_filepath:
+                continue
             if (
                 Path(copy_path_jpg).exists() is False
                 and Path(source_filepath).exists() is True
             ):
+                rprint(f"INFO [blue] source {source_filepath} exist...[red] while {copy_path_jpg} do not.")
                 print(f"{source_filepath}")
-
-
-@cli.command()
-@click.pass_context
-@click.option(
-    "--converted-dir", required=True, help="Destination folder containing file source"
-)
-def find_delted_with_hint(ctx, dest_dir):
-    """
-    Find files delted in destination which exist in source
-    Can make use of deleted hint file not-recently-played-cleanup-delete-log.log
-    """
-    sqlite = ctx.obj["SQLITE"]
-    source_dir = ctx.obj["SOURCE_DIR"]
-
-    HINT_FILE = "not-recently-played-cleanup-delete-log.log"
-
-    database = peewee.SqliteDatabase(sqlite)
-    database_proxy.initialize(database)
-    with database:
-        for copy_file_row in Files.select():
-            copy_filepath = str(copy_file_row.abs_path)
-            source_path = copy_filepath.replace(source_dir, dest_dir)
-            if (
-                Path(copy_filepath).exists() is False
-                and Path(source_path).exists() is True
-            ):
-                print(f"{source_path}")
 
 
 if __name__ == "__main__":
