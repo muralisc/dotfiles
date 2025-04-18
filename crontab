@@ -24,6 +24,7 @@
 15     19      *   *   *     bash ~/src/ledger-graphs/graphs/3plot_ledger_monthly_expense_accounts.sh
 20     19      *   *   *     bash ~/src/ledger-graphs/graphs/4plot_ledger_custom.sh
 25     19      *   *   *     bash ~/src/ledger-graphs/graphs/5plot_month_over_month_yearly_expense.sh
+# 30     19      *   *   *     bash ~/src/dotfiles/bin/media-view/not-recently-played cp ~/data/footage_converted/2021 ~/shared_folders/raspberry-pi/photoframe/photos 2024-07-01 10
 27     02      *   *   *     bash ~/src/markdown-cal-heatmap/take-screenshot.sh
 
 00     20      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail.sh
@@ -33,3 +34,4 @@
 00     10      *   *   *     bash ~/src/dotfiles/bin/get-public-ip
 
 59     23      *   *   *     logrotate ~/shared_folders/thanal_murali_share/logrotate.conf --state ~/shared_folders/thanal_murali_share/logrotate.state
+
