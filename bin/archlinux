@@ -35,7 +35,7 @@ sgdisk -t 2:8300
 sgdisk -o /dev/sda
 sgdisk -n 0:0:+512M /dev/sda  # /boot partition
 sgdisk -n 0:0:+16G  /dev/sda  # SWAP partition : 2*RAM (not needed if you have enough ram)
-sgdisk -n 0:0:+100G /dev/sda  # / partition (50GB looks very fine here)
+sgdisk -n 0:0:+100G /dev/sda  # / (root) partition (50GB looks very fine here)
 sgdisk -n 0:0:0     /dev/sda  # /home partition remaining space (make sure atleast 50GB)
 sgdisk -L
 sgdisk -t 1:ef00 /dev/sda
@@ -96,6 +96,8 @@ sudo sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
 sudo sed 's/^#MAKEFLAGS.*/MAKEFLAGS="-j'$(nproc)'"/' -i /etc/makepkg.conf
 # also PKGEXT='.pkg.tar' to not compress
 pacstrap /mnt base base-devel linux linux-firmware
+# if required : 
+#    pacman -S archlinux-keyring && pacman -Syy
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 
@@ -166,8 +168,11 @@ mkinitcpio -p linux
 
 exit # exit chroot
 umount -R /mnt
+
+# AT THIS POINT REBOOT and login to the new os on hard disk
+
 # change default boot to HARD DISK
-# systemctl reboot # REBOOT/Vagrant setup start ===========================
+# systemctl reboot
 echo "nameserver 192.168.0.1" >> /etc/resolv.conf
 sed 's/^#TotalD/TotalD/' -i /etc/pacman.conf
 
@@ -178,12 +183,8 @@ nmcli device wifi connect $SSID_or_BSSID password $PASSWORD
 
 pacman -Syu
 pacman -S sudo
-if [[ $(dmidecode -s bios-version) =~ VirtualBox ]] ; then
-pacman -S virtualbox-guest-utils xf86-video-vmware
-cat <<EOF > ~/.xinitrc.local
-VBoxClient-all
-EOF
-fi
+
+# 
 bash -c 'echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf'
 # echo "rivendell" > /etc/hostname
 hostnamectl set-hostname (rivnedell-laptop) (mirkwood-london) (thanal-home) (bonjikka-nuc)
@@ -209,6 +210,7 @@ sudo sh -c 'echo Defaults env_keep += \"http_proxy https_proxy ftp_proxy\" >> /e
 
 # BTRFS
 # -----
+pacman -S btrfs-progs arch-install-scripts
 # Use raid1 for both data and metadata
 mkfs.btrfs -m raid1 -d raid1 /dev/sdb /dev/sdc
 mount -t btrfs -o subvol=/ /dev/sdb /data
@@ -220,8 +222,8 @@ sudo btrfs filesystem show #no arg required
 btrfs subvolume create /data/murali
 
 # mout subvolume or snapshot
-mount -t btrfs -o subvol=murali /dev/sdb /home/murali/data
-chown murali:murali -R /home/murali/data
+mount -t btrfs -o subvol=murali /dev/sdb /home/murali/data00
+chown murali:murali -R /home/murali/data00
 genfstab -U / > /tmp/genfstab.tmp
 
 sudo btrfs subvolume list /data
@@ -251,37 +253,37 @@ sudo pacman --noconfirm -S \
   alsa-utils xorg-server xorg-xinit xorg-apps mesa awesome \
   xf86-video-vesa xterm kitty rxvt-unicode xsel xclip xf86-input-synaptics xf86-video-intel \
   xf86-input-libinput
-sudo modprobe -a vboxguest vboxsf vboxvideo # or
-cat <<EOF > /usr/lib/modules-load.d/virtualbox.conf
-vboxguest
-vboxsf
-vboxvideo
-EOF
-sudo systemctl enable vboxservice.service
+
 lspci | grep VGA # to see the graphics driver
 pacman -Ss xf86-video | less # and install the direver of g-card
 # startx should work now
 
 # setup yay
-mkdir yay_install && cd yay_install
+mkdir ~/yay_install && cd ~/yay_install
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz
 tar zxvf yay.tar.gz
 cd yay && makepkg
-sudo pacman -U yay*.pkg.tar.xz --noconfirm
-mkdir ~/repositories && cd ~/repositories
+sudo pacman -U yay*.pkg.tar.zst --noconfirm
+mkdir ~/data00/src && cd ~/data00/src
 
 # Option 1 : get all your confing in one shot
 git clone 'https://github.com/muralisc/dotfiles'
 ./dotfiles/install.sh
 # Option 2: test awesomewm
 sudo pacman -S awesome
-echo "exec awesome" > .xinitrc
+echo "exec awesome" > ~/.xinitrc
 startx
+
+yay -S bspwm sxhkd
+
 # Option 3:
 install -Dm755 /usr/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/bspwmrc
 install -Dm644 /usr/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc
-echo "exec bspwm" > .xinitrc
+echo "exec bspwm 1> ~/.bspwm.out 2> ~/.bspwm.err" > ~/.xinitrc
+# LINK .xprofile from muralisc/dotfiles
 startx
+
+# Check  ~/.bspwm.out  ~/.bspwm.err for issues
 
 # Change virtual terminal
 chvt
@@ -291,7 +293,7 @@ yay -S sddm
 systemctl enable sddm.service
 
 # setup AWESOME WM
-yay -S vicious light-git urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
+yay -S vicious light-git rxvt-unicode urxvt-perls urxvt-resize-font-git urxvt-vtwheel --noconfirm
 # i love conveniance: alt-tab, lock , menu
 pushd /tmp
   git clone https://github.com/Boruch-Baum/morc_menu/
@@ -317,20 +319,22 @@ yay -S --noconfirm ttf-ubuntu-font-family
 yay -S --noconfirm ttf-dejavu
 # Another font of choice
 # Fira Mono from firefox
-y -S ttf-fira-mono ttf-crimson-pro ttf-fira-code
+yay -S ttf-fira-mono ttf-crimson-pro ttf-fira-code
 # Lot of fonts patched with some icons(4GB), or clone github and just install "FiraCode Nerd Font"
-y -S nerd-fonts-fira-code nerd-fonts-fira-mono
+yay -S nerd-fonts-fira-code nerd-fonts-fira-mono
 # Some good icons in here:
-y -S ttf-font-awesome
+yay -S ttf-font-awesome
 # To See font charmap
-y -S font-manager
+yay -S font-manager
 # most basic stuff
 # unrar is very helpful exp in coverting .cbr to .jpg
 yay -S --noconfirm \
   sed rsync tar gzip unrar gawk \
   gcc gdb gnuplot grep groff openssh unzip
+systemctl enable sshd.service
+
 # For easy file renaming
-y -S --noconfirm perl-rename vimv nomino # See other renamers in https://github.com/yaa110/nomino/wiki/Benchmark
+yay -S --noconfirm perl-rename vimv nomino # See other renamers in https://github.com/yaa110/nomino/wiki/Benchmark
 
 # Install lang support
 yay -S --noconfirm nodejs go
@@ -343,11 +347,9 @@ yay -S --noconfirm tk
 yay -S --noconfirm bluez iw blueman-git bluez-utils-compat #  bluez-utils
 # use --experimental in bluetooth service
 # just get the audio working !!!
-yay -Syy --noconfirm pavucontrol
-yay -Syy --noconfirm pulseaudio 
-yay -Syy --noconfirm pulseaudio-alsa
-yay -Syy --noconfirm pa-applet-git # for onscreen vol control
-yay -Syy --noconfirm alsa-utils  # for alsamixer
+yay -S --noconfirm pavucontrol pulseaudio pulseaudio-alsa
+yay -S --noconfirm pa-applet-git # for onscreen vol control
+yay -S --noconfirm alsa-utils  # for alsamixer
 # movies tv songs, mp3 tag
 yay -S --noconfirm mpd mpc ncmpcpp mpv exfalso beets puddletag
 systemctl --user start mpd
@@ -376,14 +378,13 @@ yay -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 # https://2buntu.com/articles/1503/pgp-and-ssh-keys-generate-export-backup-and-restore
 # http://www.integralist.co.uk/posts/security-basics.html
 # https://alexcabal.com/creating-the-perfect-gpg-keypair
-yay -S --noconfirm gnupg pass # try https://github.com/keepassxreboot/keepassxc
+yay -S --noconfirm gnupg pass
 # i love to learn
 # install zathura for backup, use firefox for normal usage, it even shows comments
-# https://github.com/Stirling-Tools/Stirling-PDF
 yay -S --noconfirm zathura zathura-pdf-poppler zathura-ps # pdfunite is part of poppler and is used often by me
 yay -S --noconfirm anki
 # for the creative me
-yay -S --noconfirm inkscape gimp qimgv
+yay -S --noconfirm inkscape gimp
 yay -S --noconfirm kdenlive kdebase-runtime
 # for icons use oxygen theme in kdenlive menu > settings > icon theme
 # CHECKOUT OLIVE video editor
@@ -391,14 +392,12 @@ yay -S --noconfirm kdenlive kdebase-runtime
 yay -S --noconfirm bumblebee nvidia lib32-mesa-libgl lib32-nvidia-utils bbswitch
 # when friends who use windows comes over, exfat for (linux macos)usb with files > 4GB
 yay -S --noconfirm ntfs-3g exfat-utils
-# internet tools
-yay -S --noconfirm dropbox youtube-dl
-# torrent tools
-docker run -d -p 3000:3000 -v /path/to/my/downloads:/downloads jpillora/cloud-torrent
 # enable syncthing
-y -S syncthing syncthing-gtk
+yay -S --noconfirm syncthing syncthing-gtk
 # remote tools ( use tigervnc/barrier instead of KVM switch for keyboard and mouse sharing )
-yay -S --noconfirm tigervnc sshfs barrier
+yay -S --noconfirm tigervnc
+# use smb instead of sshfs
+yay -S --noconfirm samba
 # i dont like mouse
 # keynav is deprecated, warpd is better
 yay -S --noconfirm warpd-git keynav-git
@@ -442,7 +441,6 @@ gpg --decrypt file.gpg > file.tar
 # Bad session key error is due to wrong password
 tar xf $filename_tar
 
-gpg --import # see theLinuxCommand line for details
 gpg --list-keys # see theLinuxCommand line for details
 gpg --edit-key $key_id # then trust and quit
 
@@ -452,7 +450,7 @@ git clone https://bitbucket.org/muralisc/$REPONAME
 mv $REPONAME .password-store
 
 # A filemanager
-yay -S --noconfirm pcmanfm thunar #didnt like pcmanfm
+yay -S --noconfirm thunar #didnt like pcmanfm
 yay -S --noconfirm tumbler # thunar thumbnail service
 
 
@@ -474,11 +472,11 @@ Option "TapButton2" "3"
 Option "TapButton3" "2"
 
 cargo install \
-    bat exa fd-find rip-grep watchexec git-delta difftastic
+    fd-find rip-grep git-delta difftastic
 # difftastic = diff-so-fancy > icdiff > git-delta > git diff
 
 
-y -S alacritty xzoom rxvt-unicode-truecolor
+y -S xzoom rxvt-unicode-truecolor
 
 y -S lib32-nvidia-utils nvidia lib32-nvidia-libgl steam
 
@@ -516,7 +514,7 @@ https://raw.githubusercontent.com/zenyd/mpv-scripts/master/delete_file.lua
 git clone https://github.com/so-fancy/diff-so-fancy ~/src/diff-so-fancy
 
 # view images , manipulate image metadata
-y -S sxhkd sxiv feh qimgv exiftool
+y -S sxiv feh qimgv exiftool
 y -S onboard # on screen keyboard
 go install -tags portal,x11 github.com/unrud/remote-touchpad@latest
 # generic colorizer
@@ -568,7 +566,7 @@ pigallery2 # for folder acceess, also used by memory script
 sudo npm install -g ungit
 
 # get system configuration
-y -S inxi
+yay -S inxi
 # store system secrets
 yay -S libsecret seahorse
 yay -S radeon-profile
