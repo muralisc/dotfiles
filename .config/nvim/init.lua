@@ -112,10 +112,10 @@ require("packer").startup(function(use)
   --    `sr)"` - replace (`sr`) surrounding parenthesis (`)`) with "
   use("echasnovski/mini.nvim")
 
-  -- null-ls.nvim
+  -- none-ls.nvim
   --    Help non lps sources to hook into Neovim LSP client
   --    Needed for linter used at workplace
-  use("jose-elias-alvarez/null-ls.nvim")
+  use("nvimtools/none-ls.nvim")
 
   -- nvim-lspconfig - is a collection of
   --    community-contributed configurations for
@@ -164,6 +164,7 @@ require("packer").startup(function(use)
       vim.g.ClipperPort = 8377
     end,
   })
+
   -- vim-commentary
   --    map: gcc
   use("tpope/vim-commentary")
@@ -211,21 +212,7 @@ require("packer").startup(function(use)
   --  1.7k | nanotech/jellybeans.vim          :  bad for diff
   --    66 | base16-summerfruit-dark          :  GOOD
   --    3k | catppuccin/nvim                  :  visual highlighting is not easily visible
-  use({
-    "morhetz/gruvbox",
-    config = function()
-      -------------------------------------------------------------------------
-      -- Set Colorscheme
-      -------------------------------------------------------------------------
-
-      if vim.opt.diff:get() then
-        vim.cmd([[colorscheme gruvbox ]])
-      else
-        vim.cmd([[colorscheme gruvbox ]])
-        -- vim.cmd([[colorscheme rose-pine ]])
-      end
-    end,
-  })
+  use("morhetz/gruvbox")
 end)
 -- }}}
 
@@ -548,6 +535,21 @@ local ok, work = pcall(require, "init_work")
 if ok then
   work.setup({ on_attach = on_attach })
 end
+
+--
+-- For morhetz/gruvbox
+--
+-------------------------------------------------------------------------
+-- Set Colorscheme
+-------------------------------------------------------------------------
+
+if vim.opt.diff:get() then
+    vim.cmd([[colorscheme gruvbox ]])
+else
+    vim.cmd([[colorscheme gruvbox ]])
+    -- vim.cmd([[colorscheme rose-pine ]])
+end
+
 
 -- try indent backline
 -- split to work lua

@@ -17,10 +17,11 @@ echo "  bash ~/bin/not-recently-played "
 echo "          [command|cp|mv|echo|dry] "
 echo "          [source-folder] [copy-folder] [last-access-date] [number-of-files]"
 
-echo "  bash ~/src/dotfiles/bin/not-recently-played dry ~/data/Media/videos/ ~/shared_folders/transfer_private/vids"
-echo "  bash ~/src/dotfiles/bin/not-recently-played dry ~/data/Songs/ ~/shared_folders/transfer_private/songs/cron_songs/"
-echo "  bash ~/src/dotfiles/bin/not-recently-played cp ~/data/footage/2021 ~/shared_folders/transfer_london_home/footage_copy/videos 2022-04-01 5"
-echo "  bash ~/src/dotfiles/bin/not-recently-played cp ~/data/footage/2020 ~/shared_folders/raspberry-pi/photoframe/photos 2022-07-01 10"
+echo "  bash ~/src/dotfiles/bin/media-view/not-recently-played dry ~/data/Media/videos/ ~/shared_folders/transfer_private/vids"
+echo "  bash ~/src/dotfiles/bin/media-view/not-recently-played dry ~/data/Songs/ ~/shared_folders/transfer_private/songs/cron_songs/"
+echo "  bash ~/src/dotfiles/bin/media-view/not-recently-played cp ~/data/footage/2021 ~/shared_folders/transfer_london_home/footage_copy/videos 2022-04-01 5"
+echo "  bash ~/src/dotfiles/bin/media-view/not-recently-played cp ~/data/footage/2020 ~/shared_folders/raspberry-pi/photoframe/photos 2022-07-01 10"
+echo "  bash ~/src/dotfiles/bin/media-view/not-recently-played cp ~/data/footage/2020 ~/shared_folders/raspberry-pi/photoframe/photos 2024-07-01 10"
 fi
 
 function get_random_min_max(){
@@ -34,7 +35,7 @@ SOURCE_FOLDERS="${2:-$HOME/data/Songs/Malayalam}"
 SOURCE_FOLDER="$(tr ',' ' ' <<< $SOURCE_FOLDERS)"
 DEST_FOLDER="${3:-$HOME/shared_folders/transfer_private/songs/cron_songs/}"
 LAST_ACCESS_DATE="${4:-2022-03-28}"
-NO_OF_FILES_TO_COPY="${5:-5}"
+NO_OF_FILES_TO_COPY="${5:-20}"
 REGEX_FILTER="${6:-.*}"
 
 # FIND_EXCLUDE='-not -ipath "*1960*" -ipath "*JPG"'
