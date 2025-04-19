@@ -280,8 +280,11 @@ yay -S bspwm sxhkd
 install -Dm755 /usr/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/bspwmrc
 install -Dm644 /usr/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc
 echo "exec bspwm 1> ~/.bspwm.out 2> ~/.bspwm.err" > ~/.xinitrc
-# LINK .xprofile from muralisc/dotfiles
 startx
+
+# once barebones is working,
+# LINK .xprofile from muralisc/dotfiles
+# LINK .xinitrc from muralisc/dotfiles
 
 # Check  ~/.bspwm.out  ~/.bspwm.err for issues
 
