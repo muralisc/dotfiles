@@ -22,7 +22,7 @@ session=$1
 echo session: $session
 case $session in
   awesome) exec awesome ;;
-  *) exec bspwm ;;
+  *) exec bspwm 1> ~/.bspwm.out 2> ~/.bspwm.err ;;
 esac
 # exec bspwm
 

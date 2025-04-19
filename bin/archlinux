@@ -1,6 +1,8 @@
 #!/bin/bash
 # Commands to get an arch linux up and running.
-# For Virtual box : ENABLE EFI BOOT IN VIRTUAL BOX SETTINGS.
+
+## Backup
+# Take backup from settings in stash docker
 
 # setup install env
 loadkeys us
