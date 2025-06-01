@@ -20,7 +20,7 @@
 0      9       *   *   *     crontab -l > ~/src/dotfiles/crontab
 
 00     19      *   *   *     bash ~/src/ledger-graphs/graphs/1plot_ledger_projection.sh 2>&1 > /var/tmp/ledger_cron_output_`date +\%Y_\%m_\%d-\%H\%M\%S`.log
-10     19      *   *   *     bash ~/src/ledger-graphs/graphs/2plot_ledger_monthly_income_expense.sh
+10     19      *   *   *     bash ~/src/private/bin/ledger_crontab.sh
 15     19      *   *   *     bash ~/src/ledger-graphs/graphs/3plot_ledger_monthly_expense_accounts.sh
 20     19      *   *   *     bash ~/src/ledger-graphs/graphs/4plot_ledger_custom.sh
 25     19      *   *   *     bash ~/src/ledger-graphs/graphs/5plot_month_over_month_yearly_expense.sh
