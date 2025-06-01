@@ -274,6 +274,8 @@ sudo pacman -S awesome
 echo "exec awesome" > ~/.xinitrc
 startx
 
+# check journalctl if errors
+
 yay -S bspwm sxhkd
 
 # Option 3:
@@ -324,7 +326,7 @@ yay -S --noconfirm ttf-dejavu
 # Fira Mono from firefox
 yay -S ttf-fira-mono ttf-crimson-pro ttf-fira-code
 # Lot of fonts patched with some icons(4GB), or clone github and just install "FiraCode Nerd Font"
-yay -S nerd-fonts-fira-code nerd-fonts-fira-mono
+y -S ttf-firacode-nerd nerd-fonts-fira-mono
 # Some good icons in here:
 yay -S ttf-font-awesome
 # To See font charmap
@@ -399,8 +401,12 @@ yay -S --noconfirm ntfs-3g exfat-utils
 yay -S --noconfirm syncthing syncthing-gtk
 # remote tools ( use tigervnc/barrier instead of KVM switch for keyboard and mouse sharing )
 yay -S --noconfirm tigervnc
+
 # use smb instead of sshfs
 yay -S --noconfirm samba
+systemctl enable smb.service
+systemctl start smb.service
+
 # i dont like mouse
 # keynav is deprecated, warpd is better
 yay -S --noconfirm warpd-git keynav-git

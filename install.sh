@@ -9,10 +9,12 @@ clone_if_required() {
 }
 
 vim_setup() {
-  if [[ ! -a ~/.vim/autoload/plug.vim ]] ;
+
+
+  if [[ ! -a ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]] ;
   then
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+	 ~/.local/share/nvim/site/pack/packer/start/packer.nvim
     mkdir -p ~/.vim/vimundo
   fi
   vim +PlugInstall +qall!   #vim -c PlugInstall -c qall!

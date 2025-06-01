@@ -163,6 +163,7 @@ require("packer").startup(function(use)
 
       vim.g.ClipperPort = 8377
     end,
+    cond = function() return vim.loop.os_uname().sysname == "Dawin" end,
   })
 
   -- vim-commentary

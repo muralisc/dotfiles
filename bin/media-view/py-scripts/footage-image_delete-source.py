@@ -31,13 +31,9 @@ class BaseModel(peewee.Model):
 
 class Files(BaseModel):
     abs_path = peewee.CharField(unique=True)
-    index_timestamp = peewee.DateTimeField()
-
-
-class Events(BaseModel):
-    event_type = peewee.CharField()
-    timestamp = peewee.DateTimeField()
-    abs_path = peewee.CharField()
+    added_timestamp = peewee.DateTimeField()
+    lastViewed_timestamp = peewee.DateTimeField()
+    # status = peewee.IntField() 1) VIEWING 2) VIEWED 3) NOT_VIEWED 4) DELETED
 
 
 @click.group()
@@ -70,7 +66,7 @@ def index(ctx):
         for path in Path(source_dir).expanduser().rglob("*"):
             if path.is_file():
                 try:
-                    Files.create(abs_path=str(path), index_timestamp=datetime.now())
+                    Files.create(abs_path=str(path), added_timestamp=datetime.now())
                     new_files_created += 1
                 except:
                     existing_files += 1
@@ -80,7 +76,7 @@ def index(ctx):
     with database:
         print("Number of rows in sqlite :", Files.select().count())
         # for file in Files.select():
-        #     print(f"db row: {file.abs_path}, {file.index_timestamp}")
+        #     print(f"db row: {file.abs_path}, {file.added_timestamp}")
 
 
 @cli.command()
@@ -89,6 +85,11 @@ def index(ctx):
     "--converted-dir", required=True, help="Destination folder containing file source"
 )
 def find_delted_no_hint(ctx, converted_dir):
+    """
+    This is the old way of doing things
+    In the new approach, never delete converted items, instead just keep track in a db 
+    and use it to directly delete the source !!
+    """
     sqlite = ctx.obj["SQLITE"]
     source_dir = ctx.obj["SOURCE_DIR"]
 

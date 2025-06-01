@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "[$(date -Iseconds)] Starting to execute xprofile" >> ~/.xprofile.log
 urxvtd -q -o -f &
 export EDITOR=vim
 picom --config ~/.config/picom/picom.conf -b
