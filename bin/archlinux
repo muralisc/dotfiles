@@ -386,6 +386,8 @@ yay -S --noconfirm xorg-xprop xorg-xev xorg-xwininfo
 # http://www.integralist.co.uk/posts/security-basics.html
 # https://alexcabal.com/creating-the-perfect-gpg-keypair
 yay -S --noconfirm gnupg pass
+# extenstion for firefox
+yay -S --noconfirm browserpass browserpass-firefox
 # i love to learn
 # install zathura for backup, use firefox for normal usage, it even shows comments
 yay -S --noconfirm zathura zathura-pdf-poppler zathura-ps # pdfunite is part of poppler and is used often by me

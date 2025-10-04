@@ -50,9 +50,13 @@ for file_path in $(find $SOURCE_ROOT -type f -regex "$PATH_REGEX"); do
     if [[ -z "$DRY_RUN" ]]; then
       if [[ "$extension" == "HEIC" ]] ; then
         # -define jpeg:extent=300Kb : using this alone caused artifacts in image
+
+        # XGA = 1024 x 768
+        # HD 720p = 1280 x 720
+        # Full HD = 1920 x 1080
         magick \
             "$file_path" \
-            -resize 1024x768\> \
+            -resize 1920x1080\> \
             -quality 75 \
             "$DEST_FILE_PATH"
         echo "No exiftool copy done for iphone as files are tagged already"
@@ -60,7 +64,7 @@ for file_path in $(find $SOURCE_ROOT -type f -regex "$PATH_REGEX"); do
         # rawtherapee-cli -j40 -js1 -o $DEST_FILE_PATH -c $file_path
         magick \
             "$file_path" \
-            -resize 1024x768\> \
+            -resize 1920x1080\> \
             -quality 75 \
             "$DEST_FILE_PATH"
         echo "Copying tags from parent file to converted file as 'convert' do not copy tags by default ... "
