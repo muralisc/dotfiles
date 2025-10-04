@@ -8,11 +8,18 @@
 #   --sqlite ~/shared_folders/transfer_london_home/footage.sqlite
 #   --source-dir ~/data/footage index
 
-# Check source files whic are deleted
+# Check source files which are deleted
 # python \
 #   footage-image_delete-source.py \
 #   --sqlite ~/shared_folders/transfer_london_home/footage.sqlite \
-#   --source-dir ~/data/footage find-delted-no-hint --converted-dir ~/data/footage_converted
+#   --source-dir ~/data/footage find-delted-in-converted-folder-with-no-hint --converted-dir ~/data/footage_converted
+
+# When some source files are deleted and we want to delete the converted files
+# python \
+# footage-image_delete-source.py \
+# --source-dir ~/data00/footage/2019 \
+# find-delted-in-source-folder \
+# --converted-dir ~/data00/footage_converted/2019
 
 import peewee
 from datetime import datetime
@@ -37,24 +44,22 @@ class Files(BaseModel):
 
 
 @click.group()
-@click.option("--sqlite", required=True, help="Path to sqlite db")
 @click.option("--source-dir", required=True, help="Path to directory to add to index")
 @click.pass_context
-def cli(ctx, sqlite, source_dir):
+def cli(ctx, source_dir):
     # ensure that ctx.obj exists and is a dict (in case `cli()` is called
     # by means other than the `if` block below)
     ctx.ensure_object(dict)
-    ctx.obj["SQLITE"] = sqlite
     ctx.obj["SOURCE_DIR"] = source_dir
 
 
 @cli.command()
 @click.pass_context
-def index(ctx):
+@click.option("--sqlite", required=True, help="Path to sqlite db")
+def index(ctx, sqlite):
     """
     Decide if we need this ?
     """
-    sqlite = ctx.obj["SQLITE"]
     source_dir = ctx.obj["SOURCE_DIR"]
     database = peewee.SqliteDatabase(sqlite)
     database_proxy.initialize(database)
@@ -84,13 +89,43 @@ def index(ctx):
 @click.option(
     "--converted-dir", required=True, help="Destination folder containing file source"
 )
-def find_delted_no_hint(ctx, converted_dir):
+def find_delted_in_source_folder(ctx, converted_dir):
+    source_dir = ctx.obj["SOURCE_DIR"]
+    for path in Path(converted_dir).expanduser().rglob("*"):
+        if path.is_file():
+            converted_filepath=str(path)
+            source_filepath = converted_filepath.replace(converted_dir, source_dir)
+            source_dirname = os.path.dirname(source_filepath)
+            source_basename = os.path.basename(source_filepath)
+            source_basename_no_extension = os.path.splitext(source_basename)[0]
+            source_filepath_with_ext_list = list(Path(source_dirname).expanduser().glob(source_basename_no_extension + "*"))
+            if len(source_filepath_with_ext_list) > 1:
+                pass
+                # print(f"ERROR : More than one file matched for path: {path}" )
+                # print(f"{source_filepath_with_ext_list}" )
+            elif len(source_filepath_with_ext_list) == 0:
+                print("FOUND file in converted but not in source, converted_filepath:")
+                print(f"{converted_filepath}" )
+            else:
+                pass
+                # print(f"dirname: {source_dirname}")
+                # print(f"bname: {source_basename}")
+                # print(f"c: {converted_filepath}")
+                # print(source_filepath_with_ext_list)
+                # print(source_filepath_with_ext_list[0])
+
+@cli.command()
+@click.pass_context
+@click.option("--sqlite", required=True, help="Path to sqlite db")
+@click.option(
+    "--converted-dir", required=True, help="Destination folder containing file source"
+)
+def find_delted_in_converted_folder_with_no_hint(ctx, sqlite, converted_dir):
     """
     This is the old way of doing things
     In the new approach, never delete converted items, instead just keep track in a db 
     and use it to directly delete the source !!
     """
-    sqlite = ctx.obj["SQLITE"]
     source_dir = ctx.obj["SOURCE_DIR"]
 
     database = peewee.SqliteDatabase(sqlite)
