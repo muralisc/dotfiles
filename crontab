@@ -20,12 +20,14 @@
 0      9       *   *   *     crontab -l > ~/src/dotfiles/crontab
 
 10     19      *   *   *     bash ~/src/private/bin/ledger_crontab.sh
-20     19      *   *   *     bash ~/src/ledger-graphs/graphs/4plot_ledger_custom.sh
-25     19      *   *   *     bash ~/src/ledger-graphs/graphs/5plot_month_over_month_yearly_expense.sh
+20     19      *   *   *     bash ~/src/ledger-graphs/v1/4plot_ledger_custom.sh
+25     19      *   *   *     bash ~/src/ledger-graphs/v1/5plot_month_over_month_yearly_expense.sh
 27     02      *   *   *     bash ~/src/markdown-cal-heatmap/take-screenshot.sh
 
 00     20      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail.sh
+00     20      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail-virtual.sh
 10     20      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail-custom.sh
+20     20      *   *   *     python ~/src/private/bin/sent-timetill-mail.py
 29     02      *   *   *     bash ~/src/private/bin/sent-cal-heatmap-mail.sh
 
 00     10      *   *   *     bash ~/src/dotfiles/bin/get-public-ip

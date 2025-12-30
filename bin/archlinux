@@ -633,3 +633,6 @@ nethogs
 bandwhich
 # web interface for system health
 docker run -d --restart="always" -p 61208-61209:61208-61209 -e TZ="${TZ}" -e GLANCES_OPT="-w" -v /var/run/docker.sock:/var/run/docker.sock:ro -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro --pid host nicolargo/glances:latest-full
+
+# Alternative for cursor AI
+void-bin

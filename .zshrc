@@ -111,3 +111,9 @@ source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # source local file
 [ ! -f "$HOME/.shrc.local" ] || source "$HOME/.shrc.local"
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/murali/.dart-cli-completion/zsh-config.zsh ]] && . /home/murali/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
