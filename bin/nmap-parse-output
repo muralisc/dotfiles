@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo nmap -sn 192.168.1.1/24 | \
+sudo nmap -sn 192.168.8.1/24 | \
     awk '
       $0~"Nmap" {
         # if the current

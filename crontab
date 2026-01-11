@@ -20,8 +20,8 @@
 0      9       *   *   *     crontab -l > ~/src/dotfiles/crontab
 
 10     19      *   *   *     bash ~/src/private/bin/ledger_crontab.sh
-20     19      *   *   *     bash ~/src/ledger-graphs/v1/4plot_ledger_custom.sh
-25     19      *   *   *     bash ~/src/ledger-graphs/v1/5plot_month_over_month_yearly_expense.sh
+20     19      *   *   *     bash ~/src/claude/ledger-graphs/4plot_ledger_month_so_far.sh
+25     19      *   *   *     bash ~/src/ledger-graphs/v1/5plot_rolling_12_months.sh
 27     02      *   *   *     bash ~/src/markdown-cal-heatmap/take-screenshot.sh
 
 00     20      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail.sh
