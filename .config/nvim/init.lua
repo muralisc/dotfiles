@@ -112,6 +112,15 @@ require("packer").startup(function(use)
   --    `sr)"` - replace (`sr`) surrounding parenthesis (`)`) with "
   use("echasnovski/mini.nvim")
 
+  use({
+      "NeogitOrg/neogit",
+      requires = { 
+          "nvim-lua/plenary.nvim",
+          "sindrets/diffview.nvim",
+          "nvim-telescope/telescope.nvim"
+      }
+  })
+
   -- none-ls.nvim
   --    Help non lps sources to hook into Neovim LSP client
   --    Needed for linter used at workplace
@@ -368,6 +377,11 @@ require("diffview").setup()
 require("mini.surround").setup()
 
 --
+--
+--
+require('neogit').setup()
+
+--
 -- For neovim/nvim-lspconfig
 --
 
@@ -415,7 +429,11 @@ require("lspconfig").lua_ls.setup({
 --
 -- stevearc/oil.nvim
 --
-require("oil").setup()
+require("oil").setup({
+    view_options = {
+        show_hidden = true,
+    }
+})
 
 --
 -- For simrat39/symbols-outline.nvim

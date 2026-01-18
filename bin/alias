@@ -44,7 +44,6 @@ alias ft='find . -ipath "*.git" -prune -o -print| sed -e "s/[^-][^\/]*\//  |/g"'
 alias n='nnn -a -A'
 alias nmpc='ncmpcpp -S visualizer'
 alias pro='sudo pacman -Rns $(pacman -Qtdq)'  # pac remove orphans
-alias r='ranger'
 alias rsyncopy='rsync --archive --stats --progress --human-readable --compress'
 alias ync='yay --noconfirm'
 alias sor="status-of-repos"

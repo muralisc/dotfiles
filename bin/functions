@@ -342,3 +342,12 @@ topt() {
     # To Pacific Time
     TZ=America/Los_Angeles date -d 'TZ="Europe/London" '$1' '
 }
+
+# For yazi
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
