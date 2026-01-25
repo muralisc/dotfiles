@@ -4,12 +4,12 @@
 FIND_PARAMS="$@"
 
 #check if git repos are changed/behind
-for path in $(find -L $PWD -iname .git $@)
+for path in $(find -L $PWD -iname .git $@ 2> /dev/null)
 do
   REPOROOT=${path/%.git/}
   pushd "$REPOROOT" > /dev/null
-    GIT_STATUS_COLOR=$(git -c color.ui=always status -sb)
-    GIT_STATUS=$(git status -sb)
+    GIT_STATUS_COLOR=$(git -c color.ui=always status -sb 2> /dev/null)
+    GIT_STATUS=$(git status -sb 2> /dev/null)
     if grep -E "behind|ahead" <<< "$GIT_STATUS" > /dev/null || grep "[MA] " <<< "$GIT_STATUS" > /dev/null ; then
         echo "$REPOROOT"
         echo "$GIT_STATUS_COLOR"
