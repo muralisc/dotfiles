@@ -222,7 +222,9 @@ require("packer").startup(function(use)
   --  1.7k | nanotech/jellybeans.vim          :  bad for diff
   --    66 | base16-summerfruit-dark          :  GOOD
   --    3k | catppuccin/nvim                  :  visual highlighting is not easily visible
+  --    7k | folke/tokyonight.nvim            :  testing
   use("morhetz/gruvbox")
+  use("folke/tokyonight.nvim")
 end)
 -- }}}
 
@@ -274,7 +276,11 @@ vim.opt.list = true
 -- If 'set list' is enabled, the invisible characters are show using listchars
 vim.opt.listchars:append({ tab = "> ", trail = "·" })
 -- Expand files containing spaces ( 32 ascii for space )
--- vim.opt.isfname:append({"32", "(", ")"})
+--   vim.opt.isfname:append({"32", "(", ")"})
+-- Change fillchars
+vim.opt.fillchars = {
+    diff = '/'
+}
 
 --
 -- UI - Settings influencing UI behaviors
@@ -370,6 +376,7 @@ augroup end
 -- sindrets/diffview.nvim
 --
 require("diffview").setup()
+vim.api.nvim_set_keymap("n", "<leader>dc", ":DiffviewClose<cr>", { silent = true, noremap = true })
 
 --
 -- For mini.surround
@@ -563,7 +570,7 @@ end
 -------------------------------------------------------------------------
 
 if vim.opt.diff:get() then
-    vim.cmd([[colorscheme gruvbox ]])
+    vim.cmd([[colorscheme tokyonight-night ]])
 else
     vim.cmd([[colorscheme gruvbox ]])
     -- vim.cmd([[colorscheme rose-pine ]])
