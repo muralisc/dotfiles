@@ -4,7 +4,7 @@
 FIND_PARAMS="$@"
 
 #check if git repos are changed/behind
-for path in $(find $PWD -iname .git $@)
+for path in $(find -L $PWD -iname .git $@)
 do
   REPOROOT=${path/%.git/}
   pushd "$REPOROOT" > /dev/null
