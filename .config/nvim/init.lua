@@ -360,6 +360,8 @@ vim.keymap.set("n", "p", "<Plug>(miniyank-autoput)", {})
 vim.keymap.set("v", "<leader>P", '"_dp', {})
 -- }}}
 
+vim.keymap.set('n', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>', { desc = 'Change CWD to current file' })
+
 vim.cmd([[
 augroup FileTypeOptions
   autocmd!
