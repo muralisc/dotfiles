@@ -318,7 +318,14 @@ sudo systemctl reboot
 sudo sed -i 's/#HandleLidSwitch=.*/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
 
 # Browser
-yay -S --noconfirm yajl firefox
+# Using chromium for passkeys
+yay -S --noconfirm yajl chromium 
+# Firefox nays
+# firefox do not support easy opening of profiles !!
+# Not easy to search tabs, can be solved with vimium though
+
+# Chrome
+# Chrome do not support bookmark sync ! - fixed with browser-bookmark.md in obsidian ?
 
 # Good font is very important
 yay -S --noconfirm ttf-ubuntu-font-family
@@ -567,7 +574,6 @@ rmlint # remove duplicate files
 #   - used to keep crashing :( 
 #   - but now this is better
 # current:
-github.com/photoview/photoview # - for fast access + indexing
 https://github.com/immich-app/immich # - sync images to server
 pigallery2 # for folder acceess, also used by memory script
     # from https://github.com/pluja/Selfhosted-Google-Photos-Alternative)
