@@ -249,7 +249,7 @@ btrfs device remove <drive> <mount>
 sudo pacman --noconfirm -S \
   fakeroot git jshon wget make pkg-config \
   autoconf automake patch expac zsh tmux   \
-  python gvim gnu-free-fonts binutils
+  python gvim neovim gnu-free-fonts binutils
 # INSTALL BASIC XSERVER WITH AWESOME
 sudo pacman --noconfirm -S \
   alsa-utils xorg-server xorg-xinit xorg-apps mesa awesome \
@@ -371,6 +371,9 @@ systemctl --user start mpd
 yay -S --noconfirm \
 	ranger-git w3m ffmpeg ffmpegthumbnailer \
         imagemagick mediainfo ueberzug #(https://github.com/jstkdng/ueberzugpp)
+
+yay -S --noconfirm \
+        visual-studio-code-bin # for Claude.ai integration
 
 # DISK DATA ANALYSERS - nnn, ncdu(backup)
 # du-dust is not reccursive
