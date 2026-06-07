@@ -309,7 +309,7 @@ vim.opt.foldenable = true
 -- vim.opt.foldmethod = "marker"
 -- vim.opt.foldmarker = "{{{,}}}"
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- Set the default foldlevel, 0-foldall 99-unfoldall
 vim.opt.foldlevel = 99
 -- which commands trigger auto-unfold
@@ -495,12 +495,10 @@ vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
 -- For nvim-treesitter/nvim-treesitter
 --
 
-require("nvim-treesitter.configs").setup({
-  ensure_installed = { "c", "cpp", "lua", "markdown", "python", "rust", "vim", "bash" },
-  highlight = {
-    enable = true,
-  },
-})
+-- nvim-treesitter v2: only manages parser installation.
+-- Highlighting and folding are handled natively by nvim 0.11+.
+-- To install/update parsers: :TSInstall bash c cpp lua markdown python rust vim
+require("nvim-treesitter").setup()
 
 --
 -- For jose-elias-alvarez/null-ls.nvim
