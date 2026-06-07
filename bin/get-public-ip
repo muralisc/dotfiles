@@ -1,4 +1,8 @@
+#!/bin/bash
+
 filename=${1:-london_home}
 publicIp=$(curl icanhazip.com)
 dateUptoHour=$(date -Ih)
-echo "$dateUptoHour $publicIp" > ~/shared_folders/transfer_london_home/cronlog/${filename}-${dateUptoHour}.txt
+FOLDER="$HOME/shared_folders/ldn_desktop_share/cronlog"
+mkdir -p $FOLDER
+echo "$dateUptoHour $publicIp" > "$FOLDER/${filename}-${dateUptoHour}.txt"
