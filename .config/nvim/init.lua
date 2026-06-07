@@ -422,7 +422,7 @@ local on_attach = function(_client, bufnr)
     vim.lsp.buf.format({ async = true })
   end, bufopts)
 end
-require("lspconfig").lua_ls.setup({
+vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
       telemetry = { enable = false },
@@ -434,6 +434,7 @@ require("lspconfig").lua_ls.setup({
   },
   on_attach = on_attach,
 })
+vim.lsp.enable('lua_ls')
 
 --
 -- stevearc/oil.nvim
