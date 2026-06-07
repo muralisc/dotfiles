@@ -373,7 +373,7 @@ yay -S --noconfirm \
         imagemagick mediainfo ueberzug #(https://github.com/jstkdng/ueberzugpp)
 
 yay -S --noconfirm \
-        visual-studio-code-bin # for Claude.ai integration
+        code # visual studio code for Claude.ai integration
 
 # DISK DATA ANALYSERS - nnn, ncdu(backup)
 # du-dust is not reccursive
