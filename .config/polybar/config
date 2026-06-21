@@ -122,7 +122,7 @@ label-unmounted-foreground = ${colors.foreground-unfocused}
 type = custom/text
 ;content-underline = ${colors.favoritesAccent}
 ;using action formatting tag to define clickable areas
-content = "%{A1:onboard&:} %{A} %{A1:kitty&:}%{A}  %{A1:thunar&:}%{A}  %{A1:firefox&:}%{A} %{A1:~/bin/app-menu&:}   %{A}"
+content = "%{A1:onboard&:} %{A} %{A1:kitty&:}%{A}  %{A1:thunar&:}%{A}  %{A1:google-chrome-stable&:}%{A} %{A1:~/bin/app-menu&:}   %{A}"
 
 
 [module/bspwm]
