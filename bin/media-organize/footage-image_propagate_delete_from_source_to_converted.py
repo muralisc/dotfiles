@@ -2,11 +2,12 @@
 
 # When some source files are deleted and we want to delete the converted files
 
-# python \
-# footage-image_propagate_delete_from_source_to_converted.py \
-# --source-dir ~/data00/footage/2019 \
-# find-deleted-in-source-folder \
-# --converted-dir ~/data00/footage_converted/2019
+# python footage-image_propagate_delete_from_source_to_converted.py \
+#       --source-dir ~/data00/footage/ \
+#       find-deleted-in-source-folder \
+#       --converted-dir ~/data00/footage_converted/ > deleted.log
+
+
 
 from datetime import datetime
 from pathlib import Path
