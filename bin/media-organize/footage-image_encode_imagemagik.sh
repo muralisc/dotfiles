@@ -16,10 +16,12 @@
 #       ~/data/footage \
 #       ~/data/footage_converted \
 #       '.*IMG_043.\.HEIC' dryrun
-#   bash ~/src/dotfiles/bin/footage-image_encode_imagemagik.sh \
-#       ~/data/footage \
-#       ~/data/footage_converted \
-#       '.*2022/.*_1[01]_.*\(jpg\|JPG\|CR3\|HEIC\|heic\|PNG\|jpeg\)' dryrun
+#
+#   bash ~/src/dotfiles/bin/media-organize/footage-image_encode_imagemagik.sh \
+#       ~/data00/footage \
+#       ~/data00/footage_converted \
+#       '.*\(jpg\|JPG\|CR3\|HEIC\|heic\|PNG\|jpeg\)' dryrun
+
 
 SOURCE_ROOT="$1"
 DESTINATION_ROOT="$2"

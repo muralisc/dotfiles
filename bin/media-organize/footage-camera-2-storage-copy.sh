@@ -6,7 +6,9 @@
 
 # Source may be from a camera, mobile phone, whatsapp, signal
 
-# e.g: bash ~/src/dotfiles/bin/footage-camera-2-storage-copy.sh ~/data/footage/2021/2021_01_murali_mobile ~/data/footage/2021 "DefaultCameraName"
+# e.g: bash ~/src/dotfiles/bin/media-organize/footage-camera-2-storage-copy.sh \
+#       ~/data/footage/2021/2021_01_murali_mobile 
+#       ~/data/footage/2021 [dryrun|mv|cp] "DefaultCameraName"
 
 
 SRC_FOLDER=$1
@@ -43,7 +45,7 @@ for file_name in $(find $SRC_FOLDER -type f); do
   if ! grep $CAMERA_MAKE <<< $CAMERA_MODEL_NAME > /dev/null ; then
     CAMERA_MODEL_NAME=${CAMERA_MAKE}-${CAMERA_MODEL_NAME}
   fi
-  FOLDER_DATE=$(strptime --input-format "%Y:%m:%d %H:%M:%S%Z" "$CREATE_DATE" --format "%Y_%m_%d")
+  FOLDER_DATE=$(strptime --input-format "%Y:%m:%d %H:%M:%S%Z" "$CREATE_DATE" --format "%Y/%Y_%m_%d")
   # if strptime is not successfull, break
   STRPTIME_RETURN=$?
   if [[ $STRPTIME_RETURN -ne 0 ]]; then
@@ -51,7 +53,7 @@ for file_name in $(find $SRC_FOLDER -type f); do
     echo strptime return : $STRPTIME_RETURN
     echo "Trying with FileModifyDate"
 
-    FOLDER_DATE=$(strptime --input-format "%Y:%m:%d %H:%M:%S%Z" "$FILE_MODIFY_DATE" --format "%Y_%m_%d")
+    FOLDER_DATE=$(strptime --input-format "%Y:%m:%d %H:%M:%S%Z" "$FILE_MODIFY_DATE" --format "%Y/%Y_%m_%d")
     STRPTIME_RETURN=$?
     if [[ $STRPTIME_RETURN -ne 0 ]]; then
       echo "$(tput setaf 1)Processing $file_name failed as FILE_MODIFY_DATE (val: $FILE_MODIFY_DATE) is not correct format$(tput sgr0)"
