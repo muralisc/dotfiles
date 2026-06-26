@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# this script is used to move footage from camera to 
+# this script is used to move footage from a folder with source dump to 
 # a destination folder with sub folders defined by
 # yyyy-mm-dd/camera-model/file.jpg
+
+# Source may be from a camera, mobile phone, whatsapp, signal
 
 # e.g: bash ~/src/dotfiles/bin/footage-camera-2-storage-copy.sh ~/data/footage/2021/2021_01_murali_mobile ~/data/footage/2021 "DefaultCameraName"
 
@@ -34,6 +36,8 @@ for file_name in $(find $SRC_FOLDER -type f); do
   CAMERA_MAKE=$(jq -r '.[0].Make' <<< "$EXIF_INFO" | tr ' ' '_')
   CAMERA_MODEL_NAME=$(jq -r '.[0].Model' <<< "$EXIF_INFO" | tr ' ' '_')
   if [[ $CAMERA_MODEL_NAME = "null" ]]; then
+      # TODO identify the type
+      # e.g whatsapp or signal
     CAMERA_MODEL_NAME=$DEFAULT_CAMERA_MAKE
   fi
   if ! grep $CAMERA_MAKE <<< $CAMERA_MODEL_NAME > /dev/null ; then
