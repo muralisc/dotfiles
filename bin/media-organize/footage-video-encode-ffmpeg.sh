@@ -12,7 +12,7 @@
 #      -preset medium ${DEST_DIR}/${filename%.*}_encoded.mp4
 
 
-echo "Use Handbrake instead ? : $PWD/handbrake_helper"
+echo "Use Handbrake instead ? : $PWD/footage-video-encode-handbrake-single.sh"
 kill -INT $$
 
 DEST_DIR=${1:-$PWD}
