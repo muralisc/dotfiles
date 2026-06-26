@@ -1,20 +1,15 @@
 #!/usr/bin/env python3
 
-# TODO distinguish from footage-image_find_non_converted other than sqlite !!
-
-# Index :
-
 # When some source files are deleted and we want to delete the converted files
 
 # python \
-# footage-image_delete-source.py \
+# footage-image_propagate_delete_from_source_to_converted.py \
 # --source-dir ~/data00/footage/2019 \
-# find-delted-in-source-folder \
+# find-deleted-in-source-folder \
 # --converted-dir ~/data00/footage_converted/2019
 
 from datetime import datetime
 from pathlib import Path
-from rich import print as rprint
 import os
 import click
 
@@ -34,7 +29,7 @@ def cli(ctx, source_dir):
 @click.option(
     "--converted-dir", required=True, help="Destination folder containing file source"
 )
-def find_delted_in_source_folder(ctx, converted_dir):
+def find_deleted_in_source_folder(ctx, converted_dir):
     source_dir = ctx.obj["SOURCE_DIR"]
     for path in Path(converted_dir).expanduser().rglob("*"):
         if path.is_file():
