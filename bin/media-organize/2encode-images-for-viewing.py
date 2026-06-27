@@ -112,7 +112,15 @@ def convert_one(
         # magick drops metadata — copy it back from the source.
         # -m ignores minor errors (e.g. Pixel's incomplete extended XMP) that
         # would otherwise make exiftool refuse to write the file.
-        _run(["exiftool", "-m", "-overwrite_original_in_place", "-tagsFromFile", str(f), str(dst)])
+        # magick bakes the EXIF orientation into the pixels and writes
+        # Orientation=1, so we must NOT copy the source's Orientation tag back
+        # (that would tell viewers to rotate the already-correct pixels again).
+        _run([
+            "exiftool", "-m", "-overwrite_original_in_place",
+            "-tagsFromFile", str(f),
+            "-Orientation=Horizontal (normal)",
+            str(dst),
+        ])
 
         # Source lacked a date: infer one from the folder path if possible
         if not has_date:
