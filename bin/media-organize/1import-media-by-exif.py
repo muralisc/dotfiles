@@ -8,20 +8,22 @@ Usage:
     1import-media-by-exif.py --src ~/dump --dst ~/footage --op cp -n --default-camera WhatsApp
 """
 
-import re
 import shutil
-from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
 import click
-import exiftool
-from rich.console import Console
-from rich.progress import BarColumn, MofNCompleteColumn, Progress, TextColumn, TimeElapsedColumn
-from rich.table import Table
 
-console = Console()
+from media_common import (
+    Stats,
+    console,
+    date_from_filename,
+    make_progress,
+    parse_exif_date,
+    print_summary,
+    read_metadata,
+)
 
 # EXIF keys tried in priority order; covers photos, HEIC, and video containers
 DATE_KEYS = [
@@ -32,37 +34,6 @@ DATE_KEYS = [
     "QuickTime:TrackCreateDate",
     "File:FileModifyDate",
 ]
-
-EXIF_DATE_FMTS = ["%Y:%m:%d %H:%M:%S%z", "%Y:%m:%d %H:%M:%S"]
-
-# WhatsApp: IMG-20210615-WA0001.jpg  Signal: signal-2021-06-15-14-30-22.jpg  Screenshots: Screenshot_20210615-143022.png
-FILENAME_DATE_RE = re.compile(r'(\d{4})[_\-](\d{2})[_\-](\d{2})')
-
-
-@dataclass
-class Stats:
-    ok: list[Path] = field(default_factory=list)
-    skipped: list[Path] = field(default_factory=list)
-    failed: list[tuple[Path, str]] = field(default_factory=list)
-
-
-def parse_exif_date(value: str) -> Optional[datetime]:
-    for fmt in EXIF_DATE_FMTS:
-        try:
-            return datetime.strptime(value, fmt)
-        except (ValueError, TypeError):
-            pass
-    return None
-
-
-def date_from_filename(name: str) -> Optional[datetime]:
-    m = FILENAME_DATE_RE.search(name)
-    if m:
-        try:
-            return datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)))
-        except ValueError:
-            pass
-    return None
 
 
 def resolve_date(meta: dict, filename: str) -> Optional[datetime]:
@@ -96,33 +67,12 @@ def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str) -> St
         console.print("[yellow]No files found.[/yellow]")
         return Stats()
 
-    console.print(f"Reading EXIF for [bold]{len(files)}[/bold] files…")
-    chunk_size = 200
-    metadata: list[dict] = []
-    with exiftool.ExifToolHelper() as et:
-        with Progress(
-            TextColumn("[progress.description]{task.description}"),
-            BarColumn(),
-            MofNCompleteColumn(),
-            TimeElapsedColumn(),
-            console=console,
-        ) as exif_progress:
-            task = exif_progress.add_task("Reading EXIF", total=len(files))
-            for i in range(0, len(files), chunk_size):
-                chunk = files[i : i + chunk_size]
-                metadata.extend(et.get_metadata([str(f) for f in chunk]))
-                exif_progress.update(task, advance=len(chunk))
+    metadata = read_metadata(files)
 
     stats = Stats()
     used_dsts: set[str] = set()
 
-    progress = Progress(
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(),
-        MofNCompleteColumn(),
-        TimeElapsedColumn(),
-        console=console,
-    )
+    progress = make_progress()
 
     with progress:
         task = progress.add_task("Processing", total=len(files))
@@ -174,18 +124,7 @@ def main(src, dst, op, dry_run, default_camera):
     if dry_run:
         console.print("[dim]Dry run — no files will be moved or copied.[/dim]")
     stats = run(Path(src), Path(dst), op, dry_run, default_camera)
-
-    table = Table(show_header=False, box=None, padding=(0, 2))
-    table.add_row(f"[green]{len(stats.ok)}[/green]", f"{'would ' if dry_run else ''}{op}d")
-    table.add_row(f"[yellow]{len(stats.skipped)}[/yellow]", "skipped (already exist)")
-    table.add_row(f"[red]{len(stats.failed)}[/red]", "failed")
-    console.print("\n[bold]Summary[/bold]")
-    console.print(table)
-
-    if stats.failed:
-        console.print("\n[bold red]Failed files:[/bold red]")
-        for path, reason in stats.failed:
-            console.print(f"  {path}  [dim]({reason})[/dim]")
+    print_summary(stats, f"{'would ' if dry_run else ''}{op}d")
 
 
 if __name__ == "__main__":
