@@ -20,3 +20,16 @@ Practical usage examples.
     -d ~/data00/footage_converted/ \
     --regex '2023' -nvv
 ```
+
+## Verbose semantics (`-v` / `-vv` / `-vvv`)
+
+All three scripts share the same verbosity behaviour. Summary counts are always
+shown regardless of verbosity.
+
+| Level     | `1import`             | `2encode`             | `3prune`                   |
+| --------- | --------------------- | --------------------- | -------------------------- |
+| (default) | filenames, no SKIP    | filenames, no SKIP    | filenames, no KEEP         |
+| `-v`      | src-relative paths    | src-relative paths    | converted-relative paths   |
+| `-vv`     | + per-file SKIP lines | + per-file SKIP lines | + per-file KEEP lines      |
+| `-vvv`    | full absolute paths   | full absolute paths   | full absolute paths        |
+

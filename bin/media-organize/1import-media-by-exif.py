@@ -67,9 +67,15 @@ def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str, verbo
         console.print("[yellow]No files found.[/yellow]")
         return Stats()
 
-    # -v and up: show the source path relative to src instead of just the filename
+    # -v: path relative to src; -vvv: full absolute path; else just the filename
     def show(f: Path) -> str:
+        if verbose >= 3:
+            return str(f)
         return str(f.relative_to(src)) if verbose >= 1 else f.name
+
+    # Destination is shown relative to dst, or full absolute path at -vvv
+    def show_dst(p: Path) -> str:
+        return str(p) if verbose >= 3 else str(p.relative_to(dst))
 
     metadata = read_metadata(files)
 
@@ -96,7 +102,7 @@ def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str, verbo
             # Idempotency: already placed here by a previous run
             if initial.exists() and str(initial) not in used_dsts:
                 if verbose >= 2:  # skip logs are noisy; only at -vv
-                    console.print(f"[dim]SKIP[/dim]  {show(file_path)} → {initial.relative_to(dst)}")
+                    console.print(f"[dim]SKIP[/dim]  {show(file_path)} → {show_dst(initial)}")
                 stats.skipped.append(file_path)
                 used_dsts.add(str(initial))
                 continue
@@ -105,7 +111,7 @@ def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str, verbo
             used_dsts.add(str(dst_file))
 
             label = f"[dim]{op.upper()}[/dim]" if dry_run else f"[green]{op.upper()}[/green]"
-            console.print(f"{label:<6}  {show(file_path)} → {dst_file.relative_to(dst)}")
+            console.print(f"{label:<6}  {show(file_path)} → {show_dst(dst_file)}")
 
             if not dry_run:
                 dst_file.parent.mkdir(parents=True, exist_ok=True)
@@ -125,7 +131,7 @@ def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str, verbo
 @click.option("--op", required=True, type=click.Choice(["cp", "mv"]), help="Operation to perform")
 @click.option("-n", "--dry-run", is_flag=True, default=False, help="Preview without making any changes")
 @click.option("--default-camera", default="NoModelName", show_default=True, help="Fallback name when EXIF model is absent")
-@click.option("-v", "--verbose", count=True, help="-v: log source paths relative to src; -vv: also log skipped (already-placed) files")
+@click.option("-v", "--verbose", count=True, help="-v: paths relative to src; -vv: also log skipped (already-placed) files; -vvv: full absolute paths")
 def main(src, dst, op, dry_run, default_camera, verbose):
     if dry_run:
         console.print("[dim]Dry run — no files will be moved or copied.[/dim]")

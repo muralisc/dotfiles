@@ -54,8 +54,10 @@ def run(src: Path, converted: Path, delete: bool, yes: bool, verbose: int) -> St
     stats = Stats()
     stats.skipped = list(kept)  # sources still present
 
-    # -v and up: show paths relative to the converted root instead of just filenames
+    # -v: path relative to converted root; -vvv: full absolute path; else filename
     def show(f: Path) -> str:
+        if verbose >= 3:
+            return str(f)
         return str(f.relative_to(converted)) if verbose >= 1 else f.name
 
     if verbose >= 2:  # kept logs are noisy; only at -vv
@@ -102,7 +104,7 @@ def run(src: Path, converted: Path, delete: bool, yes: bool, verbose: int) -> St
 @click.option("-c", "--converted", required=True, type=click.Path(exists=True, file_okay=False), help="Converted root folder to prune")
 @click.option("--delete", is_flag=True, default=False, help="Actually delete orphans (default: preview only)")
 @click.option("-y", "--yes", is_flag=True, default=False, help="Skip the confirmation prompt when deleting")
-@click.option("-v", "--verbose", count=True, help="-v: log paths relative to the converted root; -vv: also log kept (source-present) files")
+@click.option("-v", "--verbose", count=True, help="-v: paths relative to the converted root; -vv: also log kept (source-present) files; -vvv: full absolute paths")
 def main(src, converted, delete, yes, verbose):
     if not delete:
         console.print("[dim]Preview — no files will be deleted (pass --delete to remove).[/dim]")
