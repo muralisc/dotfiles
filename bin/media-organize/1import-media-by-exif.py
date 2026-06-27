@@ -4,8 +4,8 @@ Organise a media dump into YYYY/YYYY_MM_DD/<Camera>/<file> using EXIF dates.
 Works with photos (JPEG, HEIC, CR3, …) and video (MP4, MOV, …).
 
 Usage:
-    footage-camera-2-storage-copy.py --src ~/dump --dst ~/footage --op cp
-    footage-camera-2-storage-copy.py --src ~/dump --dst ~/footage --op dryrun --default-camera WhatsApp
+    1import-media-by-exif.py --src ~/dump --dst ~/footage --op cp
+    1import-media-by-exif.py --src ~/dump --dst ~/footage --op cp -n --default-camera WhatsApp
 """
 
 import re
