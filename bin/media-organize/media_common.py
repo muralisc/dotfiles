@@ -85,11 +85,11 @@ def read_metadata(files: list[Path], chunk_size: int = 200, description: str = "
     return metadata
 
 
-def print_summary(stats: Stats, ok_label: str) -> None:
+def print_summary(stats: Stats, ok_label: str, skipped_label: str = "skipped (already exist)") -> None:
     """Render the standard borderless summary table plus a failed-files list."""
     table = Table(show_header=False, box=None, padding=(0, 2))
     table.add_row(f"[green]{len(stats.ok)}[/green]", ok_label)
-    table.add_row(f"[yellow]{len(stats.skipped)}[/yellow]", "skipped (already exist)")
+    table.add_row(f"[yellow]{len(stats.skipped)}[/yellow]", skipped_label)
     table.add_row(f"[red]{len(stats.failed)}[/red]", "failed")
     console.print("\n[bold]Summary[/bold]")
     console.print(table)
