@@ -96,9 +96,22 @@ def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str) -> St
         console.print("[yellow]No files found.[/yellow]")
         return Stats()
 
-    console.print(f"Reading EXIF for [bold]{len(files)}[/bold] files (batch)…")
+    console.print(f"Reading EXIF for [bold]{len(files)}[/bold] files…")
+    chunk_size = 200
+    metadata: list[dict] = []
     with exiftool.ExifToolHelper() as et:
-        metadata = et.get_metadata([str(f) for f in files])
+        with Progress(
+            TextColumn("[progress.description]{task.description}"),
+            BarColumn(),
+            MofNCompleteColumn(),
+            TimeElapsedColumn(),
+            console=console,
+        ) as exif_progress:
+            task = exif_progress.add_task("Reading EXIF", total=len(files))
+            for i in range(0, len(files), chunk_size):
+                chunk = files[i : i + chunk_size]
+                metadata.extend(et.get_metadata([str(f) for f in chunk]))
+                exif_progress.update(task, advance=len(chunk))
 
     stats = Stats()
     used_dsts: set[str] = set()
@@ -155,7 +168,7 @@ def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str) -> St
 @click.option("--src", required=True, type=click.Path(exists=True, file_okay=False), help="Source dump folder")
 @click.option("--dst", required=True, type=click.Path(file_okay=False), help="Destination root folder")
 @click.option("--op", required=True, type=click.Choice(["cp", "mv"]), help="Operation to perform")
-@click.option("--dry-run", is_flag=True, default=False, help="Preview without making any changes")
+@click.option("-n", "--dry-run", is_flag=True, default=False, help="Preview without making any changes")
 @click.option("--default-camera", default="NoModelName", show_default=True, help="Fallback name when EXIF model is absent")
 def main(src, dst, op, dry_run, default_camera):
     if dry_run:
