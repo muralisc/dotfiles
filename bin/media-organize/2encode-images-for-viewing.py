@@ -149,9 +149,9 @@ def run(
         console.print("[yellow]No matching files found.[/yellow]")
         return Stats()
 
-    # Show the source path relative to src when verbose, otherwise just the filename
+    # -v and up: show the source path relative to src instead of just the filename
     def show(f: Path) -> str:
-        return str(f.relative_to(src)) if verbose else f.name
+        return str(f.relative_to(src)) if verbose >= 1 else f.name
 
     stats = Stats()
 
@@ -161,7 +161,8 @@ def run(
     for f in files:
         target = dest_for(src, dst, f)
         if target.exists():
-            console.print(f"[dim]SKIP[/dim]  {show(f)} → {target.relative_to(dst)}")
+            if verbose >= 2:  # skip logs are noisy; only at -vv
+                console.print(f"[dim]SKIP[/dim]  {show(f)} → {target.relative_to(dst)}")
             stats.skipped.append(f)
             continue
         if target in claimed:
@@ -224,7 +225,7 @@ def run(
 @click.option("--quality", type=int, default=75, show_default=True, help="JPEG quality")
 @click.option("-j", "--jobs", type=int, default=os.cpu_count(), show_default=True, help="Parallel conversions")
 @click.option("--converter", type=click.Choice(["magick", "rawtherapee"]), default="magick", show_default=True, help="RAW conversion backend")
-@click.option("-v", "--verbose", is_flag=True, default=False, help="Log full source file paths instead of just filenames")
+@click.option("-v", "--verbose", count=True, help="-v: log source paths relative to src; -vv: also log skipped (already-converted) files")
 def main(src, dst, dry_run, exts, regex, geometry, quality, jobs, converter, verbose):
     if dry_run:
         console.print("[dim]Dry run — no files will be converted.[/dim]")
