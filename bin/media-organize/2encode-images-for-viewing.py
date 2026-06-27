@@ -142,11 +142,16 @@ def run(
     quality: int,
     jobs: int,
     converter: str,
+    verbose: bool,
 ) -> Stats:
     files = discover_files(src, exts, regex)
     if not files:
         console.print("[yellow]No matching files found.[/yellow]")
         return Stats()
+
+    # Show the source path relative to src when verbose, otherwise just the filename
+    def show(f: Path) -> str:
+        return str(f.relative_to(src)) if verbose else f.name
 
     stats = Stats()
 
@@ -156,11 +161,11 @@ def run(
     for f in files:
         target = dest_for(src, dst, f)
         if target.exists():
-            console.print(f"[dim]SKIP[/dim]  {f.name} → {target.relative_to(dst)}")
+            console.print(f"[dim]SKIP[/dim]  {show(f)} → {target.relative_to(dst)}")
             stats.skipped.append(f)
             continue
         if target in claimed:
-            console.print(f"[red]FAIL[/red]  {f.name} — dest name collision with {claimed[target].name}")
+            console.print(f"[red]FAIL[/red]  {show(f)} — dest name collision with {claimed[target].name}")
             stats.failed.append((f, f"dest name collision with {claimed[target].name}"))
             continue
         claimed[target] = f
@@ -179,7 +184,7 @@ def run(
             note = ""
             if not has_date[f] and date_from_path(f) is not None:
                 note = " [dim](date-from-path)[/dim]"
-            console.print(f"[dim]ENCODE[/dim]  {f.name} → {target.relative_to(dst)}{note}")
+            console.print(f"[dim]ENCODE[/dim]  {show(f)} → {target.relative_to(dst)}{note}")
             stats.ok.append(f)
         print_summary(stats, "would encode")
         return stats
@@ -199,10 +204,10 @@ def run(
                 try:
                     src_f, dst_f, used = fut.result()
                     note = " [dim](date-from-path)[/dim]" if used else ""
-                    console.print(f"[green]ENCODE[/green]  {src_f.name} → {dst_f.relative_to(dst)}{note}")
+                    console.print(f"[green]ENCODE[/green]  {show(src_f)} → {dst_f.relative_to(dst)}{note}")
                     stats.ok.append(src_f)
                 except Exception as e:
-                    console.print(f"[red]FAIL[/red]  {f.name} — {e}")
+                    console.print(f"[red]FAIL[/red]  {show(f)} — {e}")
                     stats.failed.append((f, str(e)))
 
     print_summary(stats, "would encode" if dry_run else "encoded")
@@ -219,11 +224,12 @@ def run(
 @click.option("--quality", type=int, default=75, show_default=True, help="JPEG quality")
 @click.option("-j", "--jobs", type=int, default=os.cpu_count(), show_default=True, help="Parallel conversions")
 @click.option("--converter", type=click.Choice(["magick", "rawtherapee"]), default="magick", show_default=True, help="RAW conversion backend")
-def main(src, dst, dry_run, exts, regex, geometry, quality, jobs, converter):
+@click.option("-v", "--verbose", is_flag=True, default=False, help="Log full source file paths instead of just filenames")
+def main(src, dst, dry_run, exts, regex, geometry, quality, jobs, converter, verbose):
     if dry_run:
         console.print("[dim]Dry run — no files will be converted.[/dim]")
     pattern = re.compile(regex) if regex else None
-    run(Path(src), Path(dst), dry_run, exts, pattern, geometry, quality, jobs, converter)
+    run(Path(src), Path(dst), dry_run, exts, pattern, geometry, quality, jobs, converter, verbose)
 
 
 if __name__ == "__main__":
