@@ -13,12 +13,14 @@ Practical usage examples.
 
 ## Script 2 — `2encode-images-for-viewing.py`
 
-```bash
+```
 ~/src/dotfiles/bin/media-organize/venv/bin/python3 \
     ~/src/dotfiles/bin/media-organize/2encode-images-for-viewing.py \
     -s ~/data00/footage/ \
-    -d ~/data00/footage_converted/ \
-    --regex '2023' -nvv
+    -d ~/data00/footage_converted/  \
+    -vvvn \
+    --regex '2023' \
+    --ignore 'murali_kuru_marriage'
 ```
 
 ## Verbose semantics (`-v` / `-vv` / `-vvv`)
