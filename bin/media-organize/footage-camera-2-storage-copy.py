@@ -95,7 +95,7 @@ def unique_path(path: Path, used: set[str]) -> Path:
     return candidate
 
 
-def run(src: Path, dst: Path, op: str, default_camera: str) -> Stats:
+def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str) -> Stats:
     files = sorted(f for f in src.rglob("*") if f.is_file())
     if not files:
         console.print("[yellow]No files found.[/yellow]")
@@ -141,9 +141,10 @@ def run(src: Path, dst: Path, op: str, default_camera: str) -> Stats:
             dst_file = unique_path(initial, used_dsts)
             used_dsts.add(str(dst_file))
 
-            console.print(f"[green]{op.upper():<6}[/green]  {file_path.name} → {dst_file.relative_to(dst)}")
+            label = f"[dim]{op.upper()}[/dim]" if dry_run else f"[green]{op.upper()}[/green]"
+            console.print(f"{label:<6}  {file_path.name} → {dst_file.relative_to(dst)}")
 
-            if op != "dryrun":
+            if not dry_run:
                 dst_file.parent.mkdir(parents=True, exist_ok=True)
                 if op == "cp":
                     shutil.copy2(file_path, dst_file)
@@ -158,13 +159,16 @@ def run(src: Path, dst: Path, op: str, default_camera: str) -> Stats:
 @click.command()
 @click.option("--src", required=True, type=click.Path(exists=True, file_okay=False), help="Source dump folder")
 @click.option("--dst", required=True, type=click.Path(file_okay=False), help="Destination root folder")
-@click.option("--op", required=True, type=click.Choice(["dryrun", "cp", "mv"]), help="Operation to perform")
+@click.option("--op", required=True, type=click.Choice(["cp", "mv"]), help="Operation to perform")
+@click.option("--dry-run", is_flag=True, default=False, help="Preview without making any changes")
 @click.option("--default-camera", default="NoModelName", show_default=True, help="Fallback name when EXIF model is absent")
-def main(src, dst, op, default_camera):
-    stats = run(Path(src), Path(dst), op, default_camera)
+def main(src, dst, op, dry_run, default_camera):
+    if dry_run:
+        console.print("[dim]Dry run — no files will be moved or copied.[/dim]")
+    stats = run(Path(src), Path(dst), op, dry_run, default_camera)
 
     table = Table(show_header=False, box=None, padding=(0, 2))
-    table.add_row(f"[green]{len(stats.ok)}[/green]", f"{op}d")
+    table.add_row(f"[green]{len(stats.ok)}[/green]", f"{'would ' if dry_run else ''}{op}d")
     table.add_row(f"[yellow]{len(stats.skipped)}[/yellow]", "skipped (already exist)")
     table.add_row(f"[red]{len(stats.failed)}[/red]", "failed")
     console.print("\n[bold]Summary[/bold]")
