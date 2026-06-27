@@ -82,8 +82,8 @@ bindkey '^[[B' history-substring-search-down #down-history
 
 
 # history
-export HISTSIZE=10000
-export SAVEHIST=10000
+export HISTSIZE=100000
+export SAVEHIST=100000
 export HISTFILE=~/.zsh_history
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
