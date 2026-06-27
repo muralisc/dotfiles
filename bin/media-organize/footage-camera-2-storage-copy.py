@@ -76,13 +76,8 @@ def resolve_date(meta: dict, filename: str) -> Optional[datetime]:
 
 
 def resolve_camera(meta: dict, default: str) -> str:
-    make = (meta.get("EXIF:Make") or "").strip().replace(" ", "_")
     model = (meta.get("EXIF:Model") or "").strip().replace(" ", "_")
-    if not model:
-        return default
-    if make and make not in model:
-        return f"{make}-{model}"
-    return model
+    return model or default
 
 
 def unique_path(path: Path, used: set[str]) -> Path:
