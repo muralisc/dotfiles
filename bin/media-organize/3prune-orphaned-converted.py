@@ -32,27 +32,35 @@ def source_stems(src_dir: Path, cache: dict[Path, set[str]]) -> set[str]:
     return cache[src_dir]
 
 
-def find_orphans(src_root: Path, converted_root: Path) -> tuple[list[Path], int]:
-    """Return (orphaned converted files, total converted files scanned)."""
+def find_orphans(src_root: Path, converted_root: Path) -> tuple[list[Path], list[Path]]:
+    """Return (orphaned converted files, kept converted files whose source exists)."""
     converted = sorted(p for p in converted_root.rglob("*") if p.is_file())
     cache: dict[Path, set[str]] = {}
     orphans: list[Path] = []
+    kept: list[Path] = []
     for f in converted:
         rel = f.relative_to(converted_root)
         if f.stem not in source_stems(src_root / rel.parent, cache):
             orphans.append(f)
-    return orphans, len(converted)
+        else:
+            kept.append(f)
+    return orphans, kept
 
 
-def run(src: Path, converted: Path, delete: bool, yes: bool, verbose: bool) -> Stats:
+def run(src: Path, converted: Path, delete: bool, yes: bool, verbose: int) -> Stats:
     console.print(f"Scanning [bold]{converted}[/bold] against [bold]{src}[/bold]…")
-    orphans, total = find_orphans(src, converted)
+    orphans, kept = find_orphans(src, converted)
 
     stats = Stats()
-    stats.skipped = ["kept"] * (total - len(orphans))  # count only; sources still present
+    stats.skipped = list(kept)  # sources still present
 
+    # -v and up: show paths relative to the converted root instead of just filenames
     def show(f: Path) -> str:
-        return str(f.relative_to(converted)) if verbose else f.name
+        return str(f.relative_to(converted)) if verbose >= 1 else f.name
+
+    if verbose >= 2:  # kept logs are noisy; only at -vv
+        for f in kept:
+            console.print(f"[dim]KEEP[/dim]  {show(f)}")
 
     if not orphans:
         console.print("[green]No orphaned converted files.[/green]")
@@ -94,7 +102,7 @@ def run(src: Path, converted: Path, delete: bool, yes: bool, verbose: bool) -> S
 @click.option("-c", "--converted", required=True, type=click.Path(exists=True, file_okay=False), help="Converted root folder to prune")
 @click.option("--delete", is_flag=True, default=False, help="Actually delete orphans (default: preview only)")
 @click.option("-y", "--yes", is_flag=True, default=False, help="Skip the confirmation prompt when deleting")
-@click.option("-v", "--verbose", is_flag=True, default=False, help="Log paths relative to the converted root instead of just filenames")
+@click.option("-v", "--verbose", count=True, help="-v: log paths relative to the converted root; -vv: also log kept (source-present) files")
 def main(src, converted, delete, yes, verbose):
     if not delete:
         console.print("[dim]Preview — no files will be deleted (pass --delete to remove).[/dim]")

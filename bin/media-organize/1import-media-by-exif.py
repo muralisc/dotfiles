@@ -61,11 +61,15 @@ def unique_path(path: Path, used: set[str]) -> Path:
     return candidate
 
 
-def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str) -> Stats:
+def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str, verbose: int) -> Stats:
     files = sorted(f for f in src.rglob("*") if f.is_file())
     if not files:
         console.print("[yellow]No files found.[/yellow]")
         return Stats()
+
+    # -v and up: show the source path relative to src instead of just the filename
+    def show(f: Path) -> str:
+        return str(f.relative_to(src)) if verbose >= 1 else f.name
 
     metadata = read_metadata(files)
 
@@ -82,7 +86,7 @@ def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str) -> St
 
             dt = resolve_date(meta, file_path.name)
             if dt is None:
-                console.print(f"[red]FAIL[/red]  {file_path.name} — no date found, skipping")
+                console.print(f"[red]FAIL[/red]  {show(file_path)} — no date found, skipping")
                 stats.failed.append((file_path, "no date"))
                 continue
 
@@ -91,7 +95,8 @@ def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str) -> St
 
             # Idempotency: already placed here by a previous run
             if initial.exists() and str(initial) not in used_dsts:
-                console.print(f"[dim]SKIP[/dim]  {file_path.name} → {initial.relative_to(dst)}")
+                if verbose >= 2:  # skip logs are noisy; only at -vv
+                    console.print(f"[dim]SKIP[/dim]  {show(file_path)} → {initial.relative_to(dst)}")
                 stats.skipped.append(file_path)
                 used_dsts.add(str(initial))
                 continue
@@ -100,7 +105,7 @@ def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str) -> St
             used_dsts.add(str(dst_file))
 
             label = f"[dim]{op.upper()}[/dim]" if dry_run else f"[green]{op.upper()}[/green]"
-            console.print(f"{label:<6}  {file_path.name} → {dst_file.relative_to(dst)}")
+            console.print(f"{label:<6}  {show(file_path)} → {dst_file.relative_to(dst)}")
 
             if not dry_run:
                 dst_file.parent.mkdir(parents=True, exist_ok=True)
@@ -120,10 +125,11 @@ def run(src: Path, dst: Path, op: str, dry_run: bool, default_camera: str) -> St
 @click.option("--op", required=True, type=click.Choice(["cp", "mv"]), help="Operation to perform")
 @click.option("-n", "--dry-run", is_flag=True, default=False, help="Preview without making any changes")
 @click.option("--default-camera", default="NoModelName", show_default=True, help="Fallback name when EXIF model is absent")
-def main(src, dst, op, dry_run, default_camera):
+@click.option("-v", "--verbose", count=True, help="-v: log source paths relative to src; -vv: also log skipped (already-placed) files")
+def main(src, dst, op, dry_run, default_camera, verbose):
     if dry_run:
         console.print("[dim]Dry run — no files will be moved or copied.[/dim]")
-    stats = run(Path(src), Path(dst), op, dry_run, default_camera)
+    stats = run(Path(src), Path(dst), op, dry_run, default_camera, verbose)
     print_summary(stats, f"{'would ' if dry_run else ''}{op}d")
 
 
