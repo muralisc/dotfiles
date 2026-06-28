@@ -1,3 +1,0 @@
-PyExifTool>=0.5
-click>=8.0
-rich>=13.0
