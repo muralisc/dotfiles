@@ -312,10 +312,6 @@ print_italics() {
   echo -e "\e[9mstrikethrough\e[0m"
 }
 
-youtubedl_helper() {
-  youtube-dl -x --audio-format mp3 --add-metadata "$1"
-}
-
 test_zsh_prompt() {
   str=${1:-%n}
   random="%F{200}$str"
