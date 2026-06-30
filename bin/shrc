@@ -30,8 +30,8 @@ export EDITOR="nvim"
 export BC_ENV_ARGS=~/.bcrc
 export GOPATH=~/go
 export FZF_DEFAULT_COMMAND='fd --type f'
-# for True Color support
-export TERM=tmux-256color
+# Only set TERM inside tmux — setting it globally breaks SSH into hosts without tmux-256color terminfo
+[[ -n "$TMUX" ]] && export TERM=tmux-256color
 
 # add directories to PATH variable
 for custom_path in        \

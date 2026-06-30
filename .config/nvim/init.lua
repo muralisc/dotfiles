@@ -172,7 +172,7 @@ require("packer").startup(function(use)
 
       vim.g.ClipperPort = 8377
     end,
-    cond = function() return vim.loop.os_uname().sysname == "Dawin" end,
+    cond = function() return vim.uv.os_uname().sysname == "Darwin" end,
   })
 
   -- vim-commentary
@@ -378,7 +378,7 @@ augroup end
 -- sindrets/diffview.nvim
 --
 require("diffview").setup()
-vim.api.nvim_set_keymap("n", "<leader>dc", ":DiffviewClose<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>dc", ":DiffviewClose<cr>", { silent = true, noremap = true })
 
 --
 -- For mini.surround
@@ -405,7 +405,7 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 local on_attach = function(_client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -548,7 +548,7 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 --
 require("trouble").setup({})
 
-vim.api.nvim_set_keymap("n", "<leader>xx", ":Trouble diagnostics<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xx", ":Trouble diagnostics<cr>", { silent = true, noremap = true })
 
 --
 -- For christoomey/vim-tmux-navigator
@@ -581,21 +581,6 @@ end
 -- try indent backline
 -- split to work lua
 
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>-",
-  ":r !~/src/dotfiles/bin/obsidian_log_stop_time stop<CR>",
-  { silent = false, noremap = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>=",
-  ":r !~/src/dotfiles/bin/obsidian_log_start_time<CR>",
-  { silent = false, noremap = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>0",
-  ":r !~/src/dotfiles/bin/obsidian_log_stop_time reset<CR>",
-  { silent = false, noremap = true }
-)
+vim.keymap.set("n", "<leader>-", ":r !~/src/dotfiles/bin/obsidian_log_stop_time stop<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>=", ":r !~/src/dotfiles/bin/obsidian_log_start_time<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>0", ":r !~/src/dotfiles/bin/obsidian_log_stop_time reset<CR>", { noremap = true })
