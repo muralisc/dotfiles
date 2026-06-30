@@ -22,8 +22,13 @@ vim_setup() {
 
 git_setup() {
   git config --global core.whitespace "tab-in-indent"
-  #git config --global credential.helper 'cache --timeout=80000'
-  git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
+  if [[ $(uname -s) == "Darwin" ]]; then
+    git config --global credential.helper osxkeychain
+  elif command -v git-credential-libsecret &> /dev/null; then
+    git config --global credential.helper libsecret
+  elif [[ -f /usr/lib/git-core/git-credential-libsecret ]]; then
+    git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
+  fi
   git config --global diff.tool 'meld'
   git config --global user.useConfigOnly true
   git config --global core.pager 'less -RS'
