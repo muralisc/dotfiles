@@ -1,13 +1,26 @@
 #!/bin/bash
-# Pass Find parameters if required
+# Show git repos under $PWD that are ahead/behind or have staged/added changes.
+#
+# Usage:
+#   status-of-repos                          # scan and report
+#   status-of-repos --fetch                  # git fetch each repo first, then report
+#   status-of-repos -not -ipath '*qmk*'      # extra args are passed to find
 
-FIND_PARAMS="$@"
+NEED_FETCH=
+if [[ "$1" == "--fetch" ]]; then
+  NEED_FETCH=1
+  shift
+fi
 
 #check if git repos are changed/behind
-for path in $(find -L $PWD -iname .git $@ 2> /dev/null)
+for path in $(find -L $PWD -iname .git "$@" 2> /dev/null)
 do
   REPOROOT=${path/%.git/}
   pushd "$REPOROOT" > /dev/null
+    if [[ -n "$NEED_FETCH" ]]; then
+      echo "fetching $REPOROOT"
+      git fetch 2> /dev/null
+    fi
     GIT_STATUS_COLOR=$(git -c color.ui=always status -sb 2> /dev/null)
     GIT_STATUS=$(git status -sb 2> /dev/null)
     if grep -E "behind|ahead" <<< "$GIT_STATUS" > /dev/null || grep "[MA] " <<< "$GIT_STATUS" > /dev/null ; then

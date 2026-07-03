@@ -9,3 +9,5 @@ watch_later
 env
 venv
 *sqlite
+__pycache__/
+*.pyc
