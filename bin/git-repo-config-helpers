@@ -5,6 +5,7 @@ git_repo_user_set_muralisc(){
 	git config --local user.email "muralisc@gmail.com"
 	git config --local credential.https://github.com.username muralisc
 	git config --local credential.https://bitbucket.org.username muralisc
+        git config pull.rebase true
 }
 
 git_repo_credentail_agent_keyring() {
@@ -13,10 +14,6 @@ git_repo_credentail_agent_keyring() {
 
 git_repo_credentail_agent_cache() {
 	git config --local credential.helper 'cache --timeout=864000'
-}
-
-git_repo_list_configs() {
-    git config --list --local
 }
 
 git_repo_status() {
