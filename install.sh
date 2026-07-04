@@ -9,15 +9,10 @@ clone_if_required() {
 }
 
 vim_setup() {
-
-
-  if [[ ! -a ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]] ;
-  then
-    git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-	 ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-    mkdir -p ~/.vim/vimundo
-  fi
-  vim +PlugInstall +qall!   #vim -c PlugInstall -c qall!
+  mkdir -p ~/.vim/vimundo
+  # lazy.nvim bootstraps itself from init.lua; this just triggers that
+  # bootstrap and syncs plugins non-interactively.
+  nvim --headless "+Lazy! sync" +qa
 }
 
 git_setup() {

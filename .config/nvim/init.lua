@@ -17,15 +17,31 @@
 --      stylua --indent-type Spaces --indent-width 2
 
 ---------------------------------------------------------------------------
--- packer setup
+-- lazy.nvim setup
 ---------------------------------------------------------------------------
 -- {{{
-vim.cmd([[packadd packer.nvim]])
-require("packer").startup(function(use)
-  -- The plugins are ordered by their names
-  -- Helper for ordering :
-  -- grep 'use(' ~/.config/nvim/init.lua | sort -t '/' -k 2
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.uv.fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+vim.opt.rtp:prepend(lazypath)
 
+-- The plugins are ordered by their names
+-- Helper for ordering :
+-- grep -oE '"[^"]+/[^"]+"' ~/.config/nvim/init.lua | sort -t '/' -k 2
+
+require("lazy").setup({
   -- skywind3000/asyncrun.vim
   -- Usecase:
   --     Run a build command
@@ -33,7 +49,7 @@ require("packer").startup(function(use)
   --     2. Or in toggleterm
   --     3. Or in tmux
   --     custom shortcut added
-  use({
+  {
     "skywind3000/asyncrun.vim",
     config = function()
       -- bb = buck build
@@ -54,29 +70,29 @@ require("packer").startup(function(use)
       -- Usefull while using AsyncRun with default -mode and -pos
       vim.keymap.set("n", "<leader>le", ":cget ~/vim_out.log | :copen<CR>\"owner('$(realpath %)')\" | head -1)<CR>", {})
     end,
-  })
+  },
 
   -- sindrets/diffview.nvim
   -- Usecase:
   --    See sidebyside diffs for hg and git
   --    :DiffviewOpen
-  use("sindrets/diffview.nvim")
+  "sindrets/diffview.nvim",
 
   -- whiteinge/diffconflicts
   -- Usecase:
   --    easily address diffconfilicts in nvim :DiffConflicts
   --    :Diffconflicts
-  use("whiteinge/diffconflicts")
+  "whiteinge/diffconflicts",
 
   -- will133/vim-dirdiff
   -- Usecase:
   --    Easily diff two folders in nvim
   --    :Dirdiff ~/src/folder1 ~/src/folder2
-  use("will133/vim-dirdiff")
+  "will133/vim-dirdiff",
 
   -- ggandor/leap.nvim - Deprecated use / and search ! simple
 
-  use({
+  {
     "nvim-lualine/lualine.nvim",
     config = function()
       --
@@ -103,67 +119,66 @@ require("packer").startup(function(use)
         },
       })
     end,
-  })
+  },
 
   -- echasnovski/mini.nvim
   -- Usecase:
   --    Mainly for mini.surround
   --    `saiw)` - add (`sa`) for inner word (`iw`) parenthesis (`)`).
   --    `sr)"` - replace (`sr`) surrounding parenthesis (`)`) with "
-  use("echasnovski/mini.nvim")
+  "echasnovski/mini.nvim",
 
-  use({
-      "NeogitOrg/neogit",
-      requires = { 
-          "nvim-lua/plenary.nvim",
-          "sindrets/diffview.nvim",
-          "nvim-telescope/telescope.nvim"
-      }
-  })
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+  },
 
   -- none-ls.nvim
   --    Help non lps sources to hook into Neovim LSP client
   --    Needed for linter used at workplace
-  use("nvimtools/none-ls.nvim")
+  "nvimtools/none-ls.nvim",
 
   -- nvim-lspconfig - is a collection of
   --    community-contributed configurations for
   --    the built-in language server client in Nvim core.
-  use("neovim/nvim-lspconfig")
+  "neovim/nvim-lspconfig",
 
   -- nvim-miniyank block paste fix for nvim
   -- Usecase:
   --     Fix for: Block paste not working when clipboard=unnamed
   --     https://github.com/neovim/neovim/issues/1822
-  use("bfredl/nvim-miniyank")
-  use("nvim-treesitter/nvim-treesitter")
+  "bfredl/nvim-miniyank",
+  "nvim-treesitter/nvim-treesitter",
 
   -- oil.nvim
   --    Prefering oil.nvim instead of nvim-tree
   --    Edit filesystem like a buffer !
   --    Use %s mods to rename files en-mass
-  use("stevearc/oil.nvim")
-  use("wbthomason/packer.nvim")
-  use("simrat39/symbols-outline.nvim")
+  "stevearc/oil.nvim",
+  "simrat39/symbols-outline.nvim",
   -- tabular - Massively useful plugin for easily aligning text
-  use("godlygeek/tabular")
+  "godlygeek/tabular",
 
-  use({
+  {
     "nvim-telescope/telescope.nvim",
-    requires = { { "nvim-lua/plenary.nvim" } },
-  })
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
   -- toggleterm.nvim (c-t, esc:c-j)
   --     Default Alternatives
   --         :sp term://zsh or
   --         :vs term://zsh
   --         ESC -> <c-\><c-n>
-  use("akinsho/toggleterm.nvim")
+  "akinsho/toggleterm.nvim",
 
   -- trouble.nvim
   --    Used for displaying lsp diagnostics
-  use("folke/trouble.nvim")
+  "folke/trouble.nvim",
 
-  use({
+  {
     "wincent/vim-clipper",
     config = function()
       --
@@ -173,39 +188,39 @@ require("packer").startup(function(use)
       vim.g.ClipperPort = 8377
     end,
     cond = function() return vim.uv.os_uname().sysname == "Darwin" end,
-  })
+  },
 
   -- vim-commentary
   --    map: gcc
-  use("tpope/vim-commentary")
+  "tpope/vim-commentary",
 
   -----------------------
   -- DEPRECATED: vim-fswitch - Provides :FSHere very useful for cpp files
-  -- use("derekwyatt/vim-fswitch") Deprecated, use gd from lsp
+  -- "derekwyatt/vim-fswitch" Deprecated, use gd from lsp
   -----------------------
 
   -- vim-ledger
   --    Provides :LedgerAlign and :LedgerAlignBuffer
   --    Better aligned with Tabularize
   --    :Tabularize /=/l12c1r0
-  use("ledger/vim-ledger")
+  "ledger/vim-ledger",
 
   -- Deprecated: vim-plugin-viewdoc - replace with :tab h <string>
-  -- use("powerman/vim-plugin-viewdoc")
+  -- "powerman/vim-plugin-viewdoc"
 
   -- vim-tmux-navigator
   --    For compatability with tmux
   --    Using Meta-[hjkl] mappings in tmux to move panes
-  use("christoomey/vim-tmux-navigator")
+  "christoomey/vim-tmux-navigator",
   -- vim-unimpaired: Awesome bracket maps
   --     [q ]q :cprevious :cnext - quickfix, use along with <leader>le
   --     [n ]n Go to git/hg confict marker in diff / conflict
   --     yow - toggle wrap
-  use("tpope/vim-unimpaired")
+  "tpope/vim-unimpaired",
   -- vimux
   -- Usecase:
   --    Used by skywind3000/asyncrun.vim to run commands in tmux term
-  use("preservim/vimux")
+  "preservim/vimux",
 
   -- Colorscheme Plugins
 
@@ -223,9 +238,9 @@ require("packer").startup(function(use)
   --    66 | base16-summerfruit-dark          :  GOOD
   --    3k | catppuccin/nvim                  :  visual highlighting is not easily visible
   --    7k | folke/tokyonight.nvim            :  testing
-  use("morhetz/gruvbox")
-  use("folke/tokyonight.nvim")
-end)
+  "morhetz/gruvbox",
+  "folke/tokyonight.nvim",
+})
 -- }}}
 
 ---------------------------------------------------------------------------
