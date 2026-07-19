@@ -361,8 +361,13 @@ yay -S --noconfirm tk
 yay -S --noconfirm bluez iw blueman-git bluez-utils-compat #  bluez-utils
 # use --experimental in bluetooth service
 # just get the audio working !!!
-yay -S --noconfirm pavucontrol pulseaudio pulseaudio-alsa
-yay -S --noconfirm pa-applet-git # for onscreen vol control
+# pipewire replaces pulseaudio: pipewire-pulse gives the pulse-compat socket,
+# pipewire-alsa gives ALSA-app compat, pipewire-jack gives jack-app compat,
+# wireplumber is the session manager. Do NOT also install pulseaudio/pulseaudio-alsa -
+# running real pulseaudio alongside pipewire makes them fight over the ALSA device
+# (broke chrome/youtube playback on rivendell-laptop, 2026-07)
+yay -S --noconfirm pavucontrol pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber
+yay -S --noconfirm pa-applet-git # for onscreen vol control ; talks fine to pipewire-pulse's pulse-compat socket
 yay -S --noconfirm alsa-utils  # for alsamixer
 # movies tv songs, mp3 tag
 yay -S --noconfirm mpd mpc ncmpcpp mpv exfalso beets puddletag
