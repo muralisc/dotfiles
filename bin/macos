@@ -50,10 +50,15 @@ obsidian
 
 
 # Manage windows
-rectangle
-# Deprecated - Manage windows
+## yabai + skhd - was marked as too cumborsome, but tried now and looks good
+yabai # - https://github.com/asmvik/yabai
+skhd  # - https://github.com/asmvik/skhd
+# Also try aerospace - https://github.com/nikitabobko/AeroSpace
+# Deprecated services for Manage windows
 # --
-# 1. yabai - too cumborsome
+# rectangle - was not using it as too many shortcuts to remember.
+
+
 
 # [Dont use mouse] - Keyboard helpers
 #
