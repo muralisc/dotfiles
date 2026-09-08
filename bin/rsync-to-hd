@@ -5,7 +5,7 @@ help() {
     echo "Usage:"
     echo "  $0 \$SRC \$DST"
     echo ""
-    echo "  $0 /media/bonjikka/57dddd4c-88ba-40d5-88ce-ff093119b2be/murali/ /media/bonjikka/toshiba1tb/murali/"
+    echo "  $0 ~/data00/footage ~/data01/backup"
     exit 0
   fi
 }

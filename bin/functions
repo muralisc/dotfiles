@@ -280,7 +280,7 @@ fehthumb() {
 
 fehall() {
   feh \
-    --font /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf/28 \
+    --font yudit/20 \
     -r --limit-width 1900 \
     --scale-down \
     --draw-filename \
@@ -337,13 +337,4 @@ start_clipboard_server() {
 topt() {
     # To Pacific Time
     TZ=America/Los_Angeles date -d 'TZ="Europe/London" '$1' '
-}
-
-# For yazi
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	command yazi "$@" --cwd-file="$tmp"
-	IFS= read -r -d '' cwd < "$tmp"
-	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-	rm -f -- "$tmp"
 }
