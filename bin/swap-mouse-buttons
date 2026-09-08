@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Swap left/right mouse buttons on the Logitech M185, if connected.
+# xinput replacement for `xmodmap -e "pointer = 3 2 1"`.
+
+device_id=$(xinput list --id-only "pointer:Logitech M185")
+if [ -n "$device_id" ]; then
+    xinput set-button-map "$device_id" 3 2 1
+fi
