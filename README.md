@@ -75,7 +75,7 @@ exist, or attaches to existing one if one is already created.
 
 ## My current Environment
 * **Operating System**: [Arch Linux](https://wiki.archlinux.org/index.php/The_Arch_Way)
-* **Window Manager**: [awesomewm](https://awesomewm.org/)
+* **Window Manager**: [bspwm](https://github.com/baskerville/bspwm)
 * **Terminal**: [rxvt-unicode] + [tmux]
 * **Text editor**: [vim](https://www.youtube.com/watch?v=_NUO4JEtkDw)
 * **Shell**: [Zsh](https://wiki.archlinux.org/index.php/Zsh)
