@@ -334,3 +334,5 @@ topt() {
     # To Pacific Time
     TZ=America/Los_Angeles date -d 'TZ="Europe/London" '$1' '
 }
+
+[ -f "$HOME/bin/tzdate" ] && source "$HOME/bin/tzdate"

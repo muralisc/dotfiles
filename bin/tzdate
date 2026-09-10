@@ -1,16 +1,71 @@
-tzdate() {
-    timestr=""
-    tztime=""
-    tztime=$(TZ="America/Los_Angeles" date -d "$1" "+ %H:%M PDT");
-    timestr="$tztime"
-    tztime=$(TZ="America/New_York" date -d "$1" "+ %H:%M NYC");
-    timestr="$timestr /$tztime"
-    tztime=$(TZ="Europe/London" date -d "$1" "+ %H:%M LON");
-    timestr="$timestr /$tztime"
-    if [[ $(uname -s) == "Darwin" ]] ; then
-        echo "[$timestr]" | tee /dev/tty | pbcopy
-    else
-        echo "[$timestr]" | tee /dev/tty | xclip -i
-    fi
+#!/bin/bash
+
+# tzdate — show one instant in New York, London and Kolkata.
+#
+#   tzdate                        # now
+#   tzdate '0800 NYC'             # 08:00 New York time
+#   tzdate 'tomorrow 9am LON'
+#   tzdate '2026-12-24 18:00 IST'
+#   tzdate '0800 Asia/Tokyo'      # any IANA name works
+#
+# The LAST word names the zone the INPUT is in; the rest goes to `date -d`.
+# A name selects a PLACE, not a fixed offset, so DST is resolved from the date
+# itself: '0800 BST' and '0800 LON' are the same thing, in either season.
+# That is the point of the wrapper — GNU date resolves an abbreviation against
+# $TZ first and rejects the out-of-season name of the zone it is converting
+# into, so in September `TZ=America/New_York date -d '0800 EST'` is an
+# "invalid date". An unrecognised trailing word is passed through to `date -d`
+# and read in the local zone ('next friday 14:00', '08:00 +05:30').
+#
+# GNU date's own bare abbreviations (fixed offsets, no DST — these only apply
+# to that passthrough case, or to `date -d` used directly). From coreutils 9.3:
+#   -10 HST | -08 PST | -07 MST PDT | -06 CST MDT | -05 EST CDT | -04 AST EDT
+#   +00 UT UTC GMT Z WET | +01 BST CET MET WAT | +02 CEST EET CAT SAST
+#   +03 EEST EAT MSK | +04 MSD | +05:30 IST | +08 SGT | +09 JST KST | +10 GST
+#   +12 NZST | +13 NZDT
+# Traps: GST is Guam +10, not Dubai +04. CST is US Central, not China +08.
+# IST is India, not Irish/Israel/Istanbul. SST is -12, not Samoa -11.
+# Absent from the table entirely: AEST AEDT ACST AWST WST HKT PKT HDT ZULU.
+
+_tzdate_zone() {
+    case "$1" in */*) printf '%s' "$1"; return 0 ;; esac
+    case "$(printf '%s' "$1" | tr '[:lower:]' '[:upper:]')" in
+        NYC|NY|EST|EDT|ET|JFK|EWR|BOS)   printf 'America/New_York' ;;
+        LON|LHR|BST|UK|GB)               printf 'Europe/London' ;;
+        IST|IND|BLR|DEL|BOM|MAA|HYD|CCU) printf 'Asia/Kolkata' ;;
+        UTC|UT|GMT|Z)                    printf 'UTC' ;;
+        *) return 1 ;;
+    esac
 }
 
+tzdate() {
+    local dt input last head zone epoch ny lon kol out
+
+    if date --version >/dev/null 2>&1; then dt=date
+    elif command -v gdate >/dev/null 2>&1; then dt=gdate
+    else echo "tzdate: needs GNU date (brew install coreutils)" >&2; return 1
+    fi
+
+    input="${1:-now}"
+    input="${input%"${input##*[! ]}"}"          # strip trailing blanks
+    last="${input##* }"
+    if zone=$(_tzdate_zone "$last"); then
+        head="${input% *}"
+        [ "$head" = "$input" ] && head=now      # argument was a bare zone
+        epoch=$(TZ="$zone" "$dt" -d "$head" +%s) || return 1
+    else
+        epoch=$("$dt" -d "$input" +%s) || return 1
+    fi
+
+    ny=$(TZ=America/New_York "$dt" -d "@$epoch" '+%H:%M NYC')
+    lon=$(TZ=Europe/London   "$dt" -d "@$epoch" '+%H:%M LON')
+    kol=$(TZ=Asia/Kolkata    "$dt" -d "@$epoch" '+%H:%M IST')
+    out="[ $ny / $lon / $kol]"
+
+    printf '%s\n' "$out"
+    if command -v pbcopy >/dev/null 2>&1; then
+        printf '%s\n' "$out" | pbcopy
+    elif command -v xclip >/dev/null 2>&1; then
+        printf '%s\n' "$out" | xclip -i
+    fi
+}
