@@ -33,6 +33,13 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 # Only set TERM inside tmux — setting it globally breaks SSH into hosts without tmux-256color terminfo
 [[ -n "$TMUX" ]] && export TERM=tmux-256color
 
+# kitty sets TERM=xterm-kitty, but hosts without kitty's terminfo installed
+# (e.g. SSH targets, minimal containers) error on any terminfo lookup
+# (tput, clear, less, …). Fall back to xterm-256color when the entry is missing.
+if [[ "$TERM" == "xterm-kitty" ]] && ! infocmp xterm-kitty > /dev/null 2>&1 ; then
+  export TERM=xterm-256color
+fi
+
 # add directories to PATH variable
 for custom_path in        \
     $HOME/.jenv/bin       \
