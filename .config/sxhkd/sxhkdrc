@@ -55,8 +55,13 @@ super + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # set the node flags
-super + ctrl + {m,x,y,z}
-	bspc node -g {marked,locked,sticky,private}
+super + ctrl + {x,y,z}
+	bspc node -g {locked,sticky,private}
+
+# set the marked flag and notify (marked has no visual border, so notify)
+super + ctrl + m
+	bspc node -g marked; \
+	bspc query -N -n .marked >/dev/null && notify-send "bspwm" "Node marked" || notify-send "bspwm" "Mark cleared"
 
 #
 # focus/swap
