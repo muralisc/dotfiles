@@ -157,11 +157,17 @@ super + backslash
     mpc toggle
 
 # create screenshot
-super + p
-    import -window root $HOME/Screeshot_full-`date +%Y-%m-%dT%H-%M-%S`.png && notify-send "Sxhkd" "Screenshot taken"
+# For qmk its super + fn + p
+super + Print
+    import -window root $HOME/Screeshot_full-`date +%Y-%m-%dT%H-%M-%S`.png && notify-send "Sxhkd" "<span size=\"$((12 * 1024))\">Screenshot taken of Entire screen to $HOME</span>"
 
-super + shift + p
-    scrot -s $HOME/'Scrot-selection-%Y-%m-%dT%H-%M-%S_$wx$h.png'
+# create screenshot for seletcion
+# For qmk its super + fn + shift + p
+# sleep lets the modifier/Print keys be released before scrot grabs the
+# keyboard for selection; otherwise scrot sees the KeyRelease and aborts
+# with "Key was pressed, aborting shot"
+super + shift + Print
+    sleep 0.3 && scrot -s $HOME/'Scrot-selection-%Y-%m-%dT%H-%M-%S_$wx$h.png' && notify-send "Sxhkd" "<span size=\"$((12 * 1024))\">Screenshot selection taken</span>"
 
 # switch monitor to laptop
 super + {_,shift} + e
