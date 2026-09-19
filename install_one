@@ -8,7 +8,15 @@
 #     bash install_one .config/kitty/kitty.conf
 
 
+# --backup=numbered is a GNU ln extension; BSD ln (macOS) lacks --backup
+# entirely, so use gln (GNU coreutils, `brew install coreutils`) on macOS.
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  LN=gln
+else
+  LN=ln
+fi
+
 file=$1
 homepath="${HOME}/$( sed "s#$PWD##" <<< $file )"
 mkdir -p $(dirname $homepath)
-ln -vs --backup=numbered $PWD/$file $homepath
+$LN -vs --backup=numbered $PWD/$file $homepath
