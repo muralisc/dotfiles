@@ -1,0 +1,163 @@
+#!/bin/bash
+
+# Print the current bspwm window layout as a tree: monitors -> desktops -> splits -> windows.
+# Usage:
+#   bspwm-tree                  # ASCII tree to stdout
+#   bspwm-tree --dot            # Graphviz DOT source to stdout
+#   bspwm-tree --dot -o FILE    # Graphviz DOT source written to FILE
+#   bspwm-tree --png [-o FILE]  # render to an image (format inferred from FILE's extension, default png)
+#   bspwm-tree --view           # render to a temp image and open it with feh
+
+command -v bspc >/dev/null || { echo "bspwm-tree: bspc not found (is bspwm running?)" >&2; exit 1; }
+command -v jq >/dev/null || { echo "bspwm-tree: jq not found" >&2; exit 1; }
+
+mode="tree"
+output=""
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --dot) mode="dot" ;;
+    --png) mode="render" ;;
+    --view) mode="view" ;;
+    -o|--output) output="$2"; shift ;;
+    -h|--help)
+      sed -n '2,9p' "$0" | sed 's/^# \?//'
+      exit 0
+      ;;
+    *)
+      echo "bspwm-tree: unknown option '$1'" >&2
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+tree_filter='
+  def prefix($pad; $last):
+    $pad + (if $last then "└── " else "├── " end);
+
+  def childpad($pad; $last):
+    $pad + (if $last then "    " else "│   " end);
+
+  def node_line:
+    if .client then
+      "\(.client.className) [\(.client.state)]" + (if .client.urgent then " (urgent)" else "" end)
+    else
+      "\(.splitType) split (ratio \(.splitRatio | tostring))"
+    end;
+
+  def walk($pad; $last; $focusedId):
+    node_line as $label
+    | prefix($pad; $last) + $label + (if .id == $focusedId then " *" else "" end), (
+        childpad($pad; $last) as $childpad
+        | if .firstChild or .secondChild then
+            [.firstChild, .secondChild] | map(select(. != null)) as $children
+            | ($children | length) as $n
+            | range(0; $n) as $i
+            | ($children[$i] | walk($childpad; $i == ($n - 1); $focusedId))
+          else empty end
+      );
+
+  .[] as $m
+  | "Monitor: \($m.name)",
+    (
+      $m.desktops[] as $d
+      | "  Desktop: \($d.name)" + (if $d.id == $m.focusedDesktopId then " *" else "" end)
+        + (if $d.root == null then " (empty)" else "" end),
+      (
+        if $d.root != null then
+          ($d.root | walk("    "; true; $d.focusedNodeId))
+        else empty end
+      )
+    )
+'
+
+dot_filter='
+  def esc:
+    tostring | gsub("\""; "\\\"");
+
+  def node_label:
+    if .client then
+      "\(.client.className)\n[\(.client.state)]"
+    else
+      "\(.splitType)\n(ratio \(.splitRatio | tostring))"
+    end;
+
+  def node_attrs($focusedId):
+    (if .client then "shape=box,style=filled,fillcolor=lightyellow" else "shape=ellipse,style=filled,fillcolor=lightgray" end)
+    + (if .id == $focusedId then ",color=red,penwidth=3" else "" end);
+
+  def walk($focusedId):
+    . as $self
+    | "  n\($self.id) [label=\"\(node_label | esc)\"," + node_attrs($focusedId) + "];",
+    (
+      [$self.firstChild, $self.secondChild] | map(select(. != null))[] as $c
+      | "  n\($self.id) -> n\($c.id);",
+        ($c | walk($focusedId))
+    );
+
+  "digraph bspwm {",
+  "  compound=true; fontname=\"sans-serif\"; node [fontname=\"sans-serif\"]; edge [fontname=\"sans-serif\"];",
+  (
+    .[] as $m
+    | "  subgraph cluster_m\($m.id) {",
+      "    label=\"Monitor: \($m.name | esc)\"; style=solid; color=black;",
+      (
+        $m.desktops[] as $d
+        | "    subgraph cluster_d\($d.id) {",
+          "      label=\"\($d.name | esc)\"; style=\(if $d.id == $m.focusedDesktopId then "bold" else "dashed" end); color=\(if $d.id == $m.focusedDesktopId then "blue" else "gray" end);",
+          (
+            if $d.root != null then
+              ($d.root | walk($d.focusedNodeId))
+            else
+              "      n\($d.id)_empty [label=\"(empty)\",shape=plaintext];"
+            end
+          ),
+          "    }"
+      ),
+      "  }"
+  ),
+  "}"
+'
+
+case "$mode" in
+  tree)
+    for m in $(bspc query -M); do bspc query -T -m "$m"; done | jq -s -r "$tree_filter"
+    ;;
+  dot)
+    dot_src=$(for m in $(bspc query -M); do bspc query -T -m "$m"; done | jq -s -r "$dot_filter")
+    if [ -n "$output" ]; then
+      printf '%s\n' "$dot_src" > "$output"
+    else
+      printf '%s\n' "$dot_src"
+    fi
+    ;;
+  render|view)
+    command -v dot >/dev/null || { echo "bspwm-tree: graphviz 'dot' not found, install with: sudo pacman -S graphviz" >&2; exit 1; }
+
+    if [ "$mode" = "view" ]; then
+      target=$(mktemp --suffix=.png)
+      fmt="png"
+    else
+      target="${output:-/tmp/bspwm-tree.png}"
+      fmt="${target##*.}"
+      [ "$fmt" = "$target" ] && fmt="png"
+    fi
+
+    for m in $(bspc query -M); do bspc query -T -m "$m"; done \
+      | jq -s -r "$dot_filter" \
+      | dot -T"$fmt" -o "$target"
+
+    if [ "$mode" = "view" ]; then
+      if command -v feh >/dev/null; then
+        feh "$target"
+      elif command -v xdg-open >/dev/null; then
+        xdg-open "$target"
+      else
+        echo "bspwm-tree: rendered to $target (no feh/xdg-open found to view it)" >&2
+      fi
+    else
+      echo "bspwm-tree: rendered to $target" >&2
+    fi
+    ;;
+esac
