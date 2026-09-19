@@ -121,6 +121,16 @@ require("lazy").setup({
     end,
   },
 
+  -- whitestarrain/md-section-number.nvim
+  --    Auto section numbering for markdown headings
+  {
+    "whitestarrain/md-section-number.nvim",
+    ft = "markdown",
+    config = function()
+      require("md_section_number").setup()
+    end,
+  },
+
   -- echasnovski/mini.nvim
   -- Usecase:
   --    Mainly for mini.surround
@@ -240,6 +250,7 @@ require("lazy").setup({
   --    7k | folke/tokyonight.nvim            :  testing
   "morhetz/gruvbox",
   "folke/tokyonight.nvim",
+
 })
 -- }}}
 
