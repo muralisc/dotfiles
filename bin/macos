@@ -1,18 +1,5 @@
 #!/bin/bash
 
-# Deprecated
-#
-#
-
-# XBAR - custom shell output on mac bar 
-#       - replace with tmux
-#       - Retaining below for future
-#
-#    https://github.com/matryer/xbar
-#    plugin "Timezone" by Toni Hoffmann
-#    brew cask install xbar && \
-#        wget https://gist.githubusercontent.com/muralisc/087c33657d66e4813d6517dc273028e7/raw/6d917ebc447fbd7804eeb3a4e5787d49349af476/countdown_timer_2.1s.py
-
 brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep dateutils
 
 # Reverse mouse roll
