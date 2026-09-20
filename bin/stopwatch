@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Simple terminal stopwatch. Press Ctrl-C to stop and print the final time.
+# Usage:
+#   stopwatch          # count up, printing elapsed time each second
+#   stopwatch -l       # also log each lap when you press Enter
+
+lap_mode=false
+[ "$1" = "-l" ] && lap_mode=true
+
+start=$(date +%s)
+lap_start=$start
+
+trap 'echo; printf "Total: %s\n" "$(printf "%02d:%02d:%02d" $((($(date +%s)-start)/3600)) $(((($(date +%s)-start)%3600)/60)) $((($(date +%s)-start)%60)))"; exit 0' INT
+
+fmt() {
+  local secs=$1
+  printf "%02d:%02d:%02d" $((secs/3600)) $(((secs%3600)/60)) $((secs%60))
+}
+
+if [ "$lap_mode" = true ]; then
+  echo "Stopwatch started. Press Enter to lap, Ctrl-C to stop."
+  lap=1
+  while true; do
+    now=$(date +%s)
+    printf "\relapsed: %s" "$(fmt $((now-start)))"
+    read -t 1 -r && {
+      now=$(date +%s)
+      printf "\rLap %d: %s (total %s)\n" "$lap" "$(fmt $((now-lap_start)))" "$(fmt $((now-start)))"
+      lap_start=$now
+      lap=$((lap+1))
+    }
+  done
+else
+  echo "Stopwatch started. Press Ctrl-C to stop."
+  while true; do
+    now=$(date +%s)
+    printf "\relapsed: %s" "$(fmt $((now-start)))"
+    sleep 1
+  done
+fi
