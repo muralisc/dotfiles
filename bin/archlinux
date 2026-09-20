@@ -189,7 +189,7 @@ pacman -S sudo
 # 
 bash -c 'echo "kernel.sysrq=1" >> /etc/sysctl.d/99-sysctl.conf'
 # echo "rivendell" > /etc/hostname
-hostnamectl set-hostname (rivnedell-laptop) (mirkwood-london) (thanal-home) (bonjikka-nuc)
+hostnamectl set-hostname (rivendell-london) (mirkwood-work-laptop) (thanal-home) (bonjikka-nuc)
 # enable wired-network through netctl if necesary
 cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/ethernet
 sed -i 's/eth0/enp0s3/' /etc/netctl/ethernet
