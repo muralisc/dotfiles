@@ -19,10 +19,13 @@ bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
+# follow=on -> switch focus to the destop it opens
 bspc rule -a Gimp state=floating follow=on
 bspc rule -a Chromium desktop='^2'
+bspc rule -a Google-chrome desktop='^2'
+bspc rule -a feh state=floating
 bspc rule -a mpv state=floating
+# On-screen Keyboard
 bspc rule -a Onboard state=floating
-bspc rule -a Kupfer.py focus=on
+# A screencast tool to display your keys
 bspc rule -a Screenkey manage=off
-bspc rule -a Emacs state=tiled
