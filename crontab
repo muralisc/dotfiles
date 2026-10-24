@@ -27,7 +27,7 @@
 10     20      *   *   *     bash ~/src/private/bin/sent-ledger-cli-mail-last-month.sh
 
 # 5. Sent Time till emails
-20     20      *   *   *     python ~/src/private/bin/sent-timetill-mail.py
+20     20      *   *   1,4   python ~/src/private/bin/sent-timetill-mail.py
 
 # 6. Write public ip
 00     10      *   *   *     bash ~/src/dotfiles/bin/get-public-ip
