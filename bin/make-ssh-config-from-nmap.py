@@ -14,6 +14,7 @@ LIST_OF_CONFIGS = [
     {"mac_id": "60:F2:62:C1:26:A9", "pref_hostname": "nuc", "username": "murali"},
     {"mac_id": "DC:A6:32:23:E7:F8", "pref_hostname": "rapspi4_photo", "username": "pi"},
     {"mac_id": "2c:f0:5d:9b:42:66", "pref_hostname": "mirkwood", "username": "murali"},
+    # NOTE (2026-11-23): from now on nassutti => nas01
     {"mac_id": "90:09:D0:2C:CC:72", "pref_hostname": "nassutti1_i1", "username": "murali"},
     {"mac_id": "90:09:D0:2C:CC:73", "pref_hostname": "nassutti1_i2", "username": "murali"},
 ]
