@@ -23,7 +23,6 @@ alias gsu='git submodule update --init --recursive'
 
 # other aliases
 
-alias j='fasd_cd -d'
 if [[ $(uname -s) == "Darwin" ]] ; then
   alias ps='ps -eo pid,pcpu,pmem,command -r'
   alias o='open'

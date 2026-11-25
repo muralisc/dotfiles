@@ -19,7 +19,7 @@ install.sh    # Symlink installer
 ## Shell setup
 
 - **Primary shell**: Zsh with vi mode (`jj` → normal, `^E` expands aliases)
-- **Autojumper**: `fasd` (`j <dir>` to jump). If fasd is absent, zoxide or autojump can substitute.
+- **Autojumper**: `zoxide` (`z <dir>` to jump, `zi` for interactive).
 - **History**: 100k lines, shared across sessions, substring search via `^P`/`^N`
 - **Prompt**: shows PST + IST + local time, vi mode indicator, shrunk path (`~/s/dotfiles` style)
 - **FZF**: default command is `fd --type f`, Solarized Dark color scheme

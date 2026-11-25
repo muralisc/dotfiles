@@ -3,13 +3,14 @@
 
 # Functions and setting common to both zshrc and bashrc
 
-# initililize an autojumper tool (fasd/zoxide/autojump/z)
+# initialize the autojumper tool (zoxide): provides `z` and `zi`
 
-if command -v fasd > /dev/null ; then
-  # Use -->,<-- to complete in zsh
-  # https://github.com/clvv/fasd#tab-completion
-  eval "$(fasd --init auto)"
-  [[ $(echo $0) =~ "bash" ]] && _fasd_bash_hook_cmd_complete v m j o
+if command -v zoxide > /dev/null ; then
+  if [[ -n "$ZSH_VERSION" ]]; then
+    eval "$(zoxide init zsh)"
+  elif [[ -n "$BASH_VERSION" ]]; then
+    eval "$(zoxide init bash)"
+  fi
 fi
 
 
